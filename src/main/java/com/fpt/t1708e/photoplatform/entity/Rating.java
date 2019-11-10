@@ -1,6 +1,7 @@
 package com.fpt.t1708e.photoplatform.entity;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 @Entity
 public class Rating {
@@ -26,6 +27,9 @@ public class Rating {
     private int status;
 
     public Rating() {
+        this.createdAt = Calendar.getInstance().getTimeInMillis();
+        this.updatedAt = Calendar.getInstance().getTimeInMillis();
+        this.status = 1;
     }
 
     public long getId() {

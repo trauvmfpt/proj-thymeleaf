@@ -2,6 +2,7 @@ package com.fpt.t1708e.photoplatform.entity;
 
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Set;
 
 @Entity
@@ -14,21 +15,24 @@ public class Rank {
     @Column(columnDefinition = "text")
     private String description;
     @OneToMany(mappedBy = "rank", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Account> accountSet;
+    private Set<UserInfo> userInfoSet;
     private int status;
     private long createdAt;
     private long updatedAt;
     private long deletedAt;
 
     public Rank() {
+        this.createdAt = Calendar.getInstance().getTimeInMillis();
+        this.updatedAt = Calendar.getInstance().getTimeInMillis();
+        this.status = 1;
     }
 
-    public Set<Account> getAccountSet() {
-        return accountSet;
+    public Set<UserInfo> getUserInfoSet() {
+        return userInfoSet;
     }
 
-    public void setAccountSet(Set<Account> accountSet) {
-        this.accountSet = accountSet;
+    public void setUserInfoSet(Set<UserInfo> userInfoSet) {
+        this.userInfoSet = userInfoSet;
     }
 
     public long getId() {

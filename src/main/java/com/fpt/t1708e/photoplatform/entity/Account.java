@@ -1,6 +1,7 @@
 package com.fpt.t1708e.photoplatform.entity;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Set;
 
 @Entity
@@ -29,23 +30,15 @@ public class Account {
     private Set<Comment> commentSet;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Comment> commentSet1;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "rankId")
-    private Rank rank;
     private long createdAt;
     private long updatedAt;
     private long deletedAt;
     private int status;
 
     public Account() {
-    }
-
-    public Rank getRank() {
-        return rank;
-    }
-
-    public void setRank(Rank rank) {
-        this.rank = rank;
+        this.createdAt = Calendar.getInstance().getTimeInMillis();
+        this.updatedAt = Calendar.getInstance().getTimeInMillis();
+        this.status = 1;
     }
 
     public long getId() {

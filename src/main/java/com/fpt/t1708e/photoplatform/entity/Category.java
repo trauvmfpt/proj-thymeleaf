@@ -1,6 +1,7 @@
 package com.fpt.t1708e.photoplatform.entity;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,9 @@ public class Category {
     private int status;
 
     public Category() {
+        this.createdAt = Calendar.getInstance().getTimeInMillis();
+        this.updatedAt = Calendar.getInstance().getTimeInMillis();
+        this.status = 1;
     }
 
     public long getId() {

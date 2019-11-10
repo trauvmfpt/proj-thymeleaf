@@ -4,27 +4,25 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Promotion {
+public class OrderProduct {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long id;
+    private String customerPhone;
+    private double totalPrice;
+    private int paymentType;
+    private String customerEmail;
+    @OneToMany(mappedBy = "orderProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<OrderDetail> orderDetailSet;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "accountId")
+    @JoinColumn(name = "account_Id")
     private Account account;
-    private String name;
-    private String description;
-    private float discount;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(name = "promotion_product",
-            joinColumns = @JoinColumn(name = "promotion_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> productSet;
     private long createdAt;
     private long updatedAt;
     private long deletedAt;
     private int status;
 
-    public Promotion() {
+    public OrderProduct() {
     }
 
     public long getId() {
@@ -43,36 +41,44 @@ public class Promotion {
         this.account = account;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerPhone() {
+        return customerPhone;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
     }
 
-    public String getDescription() {
-        return description;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public float getDiscount() {
-        return discount;
+    public int getPaymentType() {
+        return paymentType;
     }
 
-    public void setDiscount(float discount) {
-        this.discount = discount;
+    public void setPaymentType(int paymentType) {
+        this.paymentType = paymentType;
     }
 
-    public Set<Product> getProductSet() {
-        return productSet;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setProductSet(Set<Product> productSet) {
-        this.productSet = productSet;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public Set<OrderDetail> getOrderDetailSet() {
+        return orderDetailSet;
+    }
+
+    public void setOrderDetailSet(Set<OrderDetail> orderDetailSet) {
+        this.orderDetailSet = orderDetailSet;
     }
 
     public long getCreatedAt() {

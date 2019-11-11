@@ -84,7 +84,7 @@ public class HomeController {
 		List<Integer> role = Arrays.asList(1, 2);
 		List<Rank> rankList = rankRepository.findAll();
 		List<Level> levelList = levelRepository.findAll();
-		for (int i = 0; i < 500; i++) {
+		for (int i = 0; i < 100; i++) {
 			Account account = new Account();
 			UserInfo userInfo = new UserInfo();
 			userInfo.setAddress("Khong co");

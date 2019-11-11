@@ -25,6 +25,13 @@ public class Category {
         this.status = 1;
     }
 
+    public Category(String name) {
+        this.createdAt = Calendar.getInstance().getTimeInMillis();
+        this.updatedAt = Calendar.getInstance().getTimeInMillis();
+        this.status = 1;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

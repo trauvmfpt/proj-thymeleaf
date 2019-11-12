@@ -4,9 +4,7 @@ import com.fpt.t1708e.photoplatform.entity.Product;
 import com.fpt.t1708e.photoplatform.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Calendar;
-
 @Service
 public class ProductService {
     @Autowired
@@ -15,7 +13,6 @@ public class ProductService {
     public Product getById(long id) {
         return productRepository.findById(id).orElse(null);
     }
-
     public Product create(Product product) {
         return productRepository.save(product);
     }

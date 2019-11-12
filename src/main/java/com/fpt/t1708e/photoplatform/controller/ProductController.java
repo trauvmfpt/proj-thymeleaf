@@ -1,5 +1,4 @@
 package com.fpt.t1708e.photoplatform.controller;
-
 import com.fpt.t1708e.photoplatform.entity.Account;
 import com.fpt.t1708e.photoplatform.entity.Product;
 import com.fpt.t1708e.photoplatform.service.AccountService;
@@ -13,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.validation.Valid;
 
 @Controller
@@ -97,5 +95,14 @@ public class ProductController {
         productService.update(product);
 //        return "redirect:/product/list";
         return "ok";
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public String detail(Model model, @PathVariable int id){
+        Product product = productService.getById(id);
+        if (product == null){
+            return "/404";
+        }
+        model.addAttribute("product", product);
+        return "product/detail";
     }
 }

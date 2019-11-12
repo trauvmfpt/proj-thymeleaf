@@ -41,6 +41,14 @@ public class Account {
         this.status = 1;
     }
 
+    public Account(String username, String password) {
+        this.createdAt = Calendar.getInstance().getTimeInMillis();
+        this.updatedAt = Calendar.getInstance().getTimeInMillis();
+        this.status = 1;
+        this.username = username;
+        this.password = password;
+    }
+
     public long getId() {
         return id;
     }

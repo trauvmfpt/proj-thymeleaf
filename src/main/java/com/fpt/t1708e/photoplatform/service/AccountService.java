@@ -18,8 +18,15 @@ public class AccountService {
         return accountRepository.save(account);
     }
     public List<Account> findAllAccountByRole(int role) {
-//    	List<Account> accounts = new ArrayList<Account>();
-    	
         return accountRepository.findAllAccountByRole(role).get();
+    }
+
+    public Account findByUserName(String userName){
+        try{
+            return accountRepository.findAccountByUsername(userName);
+        }
+        catch (Exception ex){
+            return null;
+        }
     }
 }

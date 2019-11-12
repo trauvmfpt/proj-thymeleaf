@@ -23,6 +23,7 @@ import com.fpt.t1708e.photoplatform.repository.UserInfoRepository;
 import com.fpt.t1708e.photoplatform.util.ProvinceStringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,6 +58,8 @@ public class HomeController {
 	CommentRepository commentRepository;
 	@Autowired
 	RatingRepository ratingRepository;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")
 	public String index() {
@@ -103,7 +106,7 @@ public class HomeController {
 			System.out.println(username);
 			userInfo.setEmail(username + "@gmail.com");
 			account.setUsername(username);
-			account.setPassword("123456");
+			account.setPassword(passwordEncoder.encode("123456"));
 			account.setRole(role.get(rand.nextInt(role.size())));
 			if(i==0) {
 				account.setRole(3);

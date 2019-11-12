@@ -1,6 +1,12 @@
 package com.fpt.t1708e.photoplatform.controller;
 
+import com.fpt.t1708e.photoplatform.entity.Account;
+import com.fpt.t1708e.photoplatform.entity.Album;
+import com.fpt.t1708e.photoplatform.entity.Category;
 import com.fpt.t1708e.photoplatform.entity.Product;
+import com.fpt.t1708e.photoplatform.service.AccountService;
+import com.fpt.t1708e.photoplatform.service.AlbumService;
+import com.fpt.t1708e.photoplatform.service.CategoryService;
 import com.fpt.t1708e.photoplatform.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +21,27 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping(value = "/product")
 public class ProductController {
+    Account fakeAccount = new Account("ddd", "ccc");
+    Category fakeCategory = new Category("aaa");
+    Album fakeAlbum = new Album("bbb", fakeAccount);
+
     @Autowired
     ProductService productService;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    AlbumService albumService;
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public String create(Model model) {
+        accountService.create(fakeAccount);
+        albumService.create(fakeAlbum);
+        categoryService.create(fakeCategory);
         model.addAttribute("product", new Product());
+        model.addAttribute("categories", categoryService.categories());
+        model.addAttribute("albums", albumService.albumsByAccount(fakeAccount));
         return "product/create";
     }
 
@@ -30,6 +51,7 @@ public class ProductController {
             model.addAttribute("product", product);
             return "product/create";
         }
+        product.setAccount(fakeAccount);
         productService.create(product);
 //        return "redirect:/product/list";
         return "ok";
@@ -37,12 +59,17 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
+        accountService.create(fakeAccount);
+        albumService.create(fakeAlbum);
+        categoryService.create(fakeCategory);
         Product product = productService.getById(id);
         if (product == null) {
 //            return "error/404";
             return "not ok";
         }
         model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.categories());
+        model.addAttribute("albums", albumService.albumsByAccount(fakeAccount));
         return "product/edit";
     }
 

@@ -1,5 +1,7 @@
 package com.fpt.t1708e.photoplatform;
 
+import com.fpt.t1708e.photoplatform.entity.Album;
+import com.fpt.t1708e.photoplatform.entity.Category;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

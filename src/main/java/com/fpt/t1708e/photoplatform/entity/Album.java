@@ -34,6 +34,14 @@ public class Album {
         this.status = 1;
     }
 
+    public Album(String name, Account account) {
+        this.createdAt = Calendar.getInstance().getTimeInMillis();
+        this.updatedAt = Calendar.getInstance().getTimeInMillis();
+        this.status = 1;
+        this.name = name;
+        this.account = account;
+    }
+
     public long getId() {
         return id;
     }

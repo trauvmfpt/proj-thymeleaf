@@ -1,8 +1,6 @@
 package com.fpt.t1708e.photoplatform.controller;
 
 import com.fpt.t1708e.photoplatform.entity.Account;
-import com.fpt.t1708e.photoplatform.entity.Album;
-import com.fpt.t1708e.photoplatform.entity.Category;
 import com.fpt.t1708e.photoplatform.entity.Product;
 import com.fpt.t1708e.photoplatform.service.AccountService;
 import com.fpt.t1708e.photoplatform.service.AlbumService;
@@ -20,10 +18,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/product")
-public class ProductController {
-    Account fakeAccount = new Account("ddd", "ccc");
-    Category fakeCategory = new Category("aaa");
-    Album fakeAlbum = new Album("bbb", fakeAccount);
+public class ProductController {    
 
     @Autowired
     ProductService productService;
@@ -34,11 +29,11 @@ public class ProductController {
     @Autowired
     CategoryService categoryService;
 
+    
+    
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public String create(Model model) {
-        accountService.create(fakeAccount);
-        albumService.create(fakeAlbum);
-        categoryService.create(fakeCategory);
+    	Account fakeAccount = accountService.findAllAccountByRole(2).get(0);         
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.categories());
         model.addAttribute("albums", albumService.albumsByAccount(fakeAccount));
@@ -47,10 +42,14 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
     public String store(Model model, @Valid Product product, BindingResult bindingResult) {
+    	Account fakeAccount = accountService.findAllAccountByRole(2).get(0);
         if (bindingResult.hasErrors()) {
             model.addAttribute("product", product);
             return "product/create";
-        }
+            }
+
+        product.setCategory(categoryService.getCategoryById(product.getCategory().getId()));        
+        product.setAlbum(albumService.albumById(product.getAlbum().getId()));        
         product.setAccount(fakeAccount);
         productService.create(product);
 //        return "redirect:/product/list";
@@ -59,9 +58,7 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        accountService.create(fakeAccount);
-        albumService.create(fakeAlbum);
-        categoryService.create(fakeCategory);
+    	
         Product product = productService.getById(id);
         if (product == null) {
 //            return "error/404";
@@ -69,7 +66,7 @@ public class ProductController {
         }
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.categories());
-        model.addAttribute("albums", albumService.albumsByAccount(fakeAccount));
+        model.addAttribute("albums", albumService.albumsByAccount(product.getAccount()));
         return "product/edit";
     }
 
@@ -88,7 +85,15 @@ public class ProductController {
         product.setArea(updateProduct.getArea());
         product.setDestination(updateProduct.getDestination());
         product.setThumbnail(updateProduct.getThumbnail());
-//        product.setStatus(updateProduct.getStatus());
+        product.setStatus(updateProduct.getStatus());
+        if(product.getAlbum().getId() != updateProduct.getAlbum().getId()) {
+        	product.getAlbum().getProductSet().remove(product);
+        	product.setAlbum(albumService.albumById(updateProduct.getAlbum().getId()));
+        }
+        if(product.getCategory().getId() != updateProduct.getCategory().getId()) {
+        	product.getCategory().getProductSet().remove(product);
+        	product.setCategory(categoryService.getCategoryById(updateProduct.getCategory().getId()));
+        }
         productService.update(product);
 //        return "redirect:/product/list";
         return "ok";

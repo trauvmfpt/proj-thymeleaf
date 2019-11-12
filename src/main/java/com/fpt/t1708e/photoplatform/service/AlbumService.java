@@ -16,7 +16,9 @@ public class AlbumService {
     public List<Album> albumsByAccount(Account account) {
         return albumRepository.findAllByAccount(account);
     }
-
+    public Album albumById(long id) {
+        return albumRepository.findById(id).orElse(null);
+    }
     public Album create(Album album) {
         return albumRepository.save(album);
     }

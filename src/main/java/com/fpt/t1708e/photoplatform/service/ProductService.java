@@ -17,9 +17,6 @@ public class ProductService {
     }
 
     public Product create(Product product) {
-        product.setStatus(1);
-        product.setCreatedAt(Calendar.getInstance().getTimeInMillis());
-        product.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         return productRepository.save(product);
     }
 

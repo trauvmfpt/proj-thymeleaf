@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Rank</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Edit Rank</h1>
+
+    <form th:action="@{'/level/edit/'+ ${level.id}}" th:method="post" th:object="${level}">
+        <div>
+            Name <input type="text" th:field="*{name}">
+            <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+        <div>
+            Price <textarea type="text" th:field="*{price}"></textarea>
+            <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+        </div>
+        <div>
+            Description <input type="text" th:field="*{description}">
+            <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+        </div>
+        <div>
+            Duration in day <input type="text" th:field="*{durationInDay}">
+            <span class="error" th:if="${#fields.hasErrors('durationInDay')}" th:errors="*{durationInDay}"></span>
+        </div>
+        <div>
+            Status <input type="number" th:field="*{status}">
+            <span class="error" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span>
+        </div>
+        <div>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </div>
+    </form>
+</body>
+</html>

@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class LevelService {
     @Autowired
     LevelRepository levelRepository;
 
+    public List<Level> getList(){return levelRepository.getLevelByStatus(1);}
     public Level getById(long id) {
         return levelRepository.findById(id).orElse(null);
     }

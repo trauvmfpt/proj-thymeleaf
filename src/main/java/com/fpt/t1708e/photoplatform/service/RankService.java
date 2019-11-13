@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class RankService {
-
     @Autowired
     RankRepository rankRepository;
 
+    public List<Rank> getList(){return rankRepository.getRankByStatus(1);}
     public Rank getById(long id) {
         return rankRepository.findById(id).orElse(null);
     }

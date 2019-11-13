@@ -18,6 +18,12 @@ public class LevelController {
     @Autowired
     LevelService levelService;
 
+    @RequestMapping(method = RequestMethod.GET, value = "/list")
+    public String list(Model model){
+        model.addAttribute("levels", levelService.getList());
+        return "level/list";
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public String create(Model model) {
         model.addAttribute("level", new Level());
@@ -57,6 +63,7 @@ public class LevelController {
         level.setDescription(updateLevel.getDescription());
         level.setPrice(updateLevel.getPrice());
         level.setDurationInDay((updateLevel.getDurationInDay()));
+        level.setStatus(updateLevel.getStatus());
         levelService.update(level);
         return "redirect:/level/list";
     }
@@ -71,7 +78,7 @@ public class LevelController {
         return "level/detail";
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}")
     public String delete(Model model, @PathVariable int id){
         Level level = levelService.getById(id);
         if (level == null){

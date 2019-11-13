@@ -18,6 +18,12 @@ public class RankController {
     @Autowired
     RankService rankService;
 
+    @RequestMapping(method = RequestMethod.GET, value = "/list")
+    public String list(Model model){
+        model.addAttribute("ranks", rankService.getList());
+        return "rank/list";
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public String create(Model model) {
         model.addAttribute("rank", new Rank());
@@ -70,7 +76,7 @@ public class RankController {
         return "rank/detail";
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}")
     public String delete(Model model, @PathVariable int id){
         Rank rank = rankService.getById(id);
         if (rank == null){

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rank Detail</title>
+    <style>
+        div {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rank Detail</h1>
+<div>
+    <div>
+        Name: <span th:text="${rank.name}"></span>
+    </div>
+    <div>
+        Description: <span th:text="${rank.description}"></span>
+    </div>
+    <div>
+        Discount: <span th:text="${rank.discount}"></span>
+    </div>
+    <div>
+        Status: <span th:text="${rank.status}"></span>
+    </div>
+    <div>
+        <a th:href="@{/level/list}">Back to list</a>
+    </div>
+</div>
+</body>
+</html>

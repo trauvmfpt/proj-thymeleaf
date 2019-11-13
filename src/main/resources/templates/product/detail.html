@@ -33,8 +33,11 @@
     <div>
         Price discount: <span th:text="${product.priceDiscount}"></span>
     </div>
-    <div>
-        Studio: <span th:text="${product.account.username}"></span>
+    <div th:if="${product.studioInfo != null}">
+        Studio: <span th:text="${product.studioInfo.fullName}"></span>
+    </div>
+    <div th:if="${product.photographerInfo != null}">
+        Photographer: <span th:text="${product.photographerInfo.fullName}"></span>
     </div>
     <div>
         Album: <span th:text="${product.album.name}"></span>

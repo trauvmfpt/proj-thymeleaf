@@ -5,110 +5,121 @@ import java.util.Calendar;
 
 @Entity
 public class Rating {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "raterId")
-    private Account raterAccount;
-    private float value;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "albumId")
-    private Album album;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "productId")
-    private Product product;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "accountId")
-    private Account account;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
-    private int status;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "customerInfoId")
+	private CustomerInfo customerInfo;
+	private float value;
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "albumId")
+	private Album album;
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "productId")
+	private Product product;
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "studioInfoId")
+	private StudioInfo studioInfo;
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "photographerInfoId")
+	private PhotographerInfo photographerInfo;
+	private long createdAt;
+	private long updatedAt;
+	private long deletedAt;
+	private int status;
 
-    public Rating() {
-        this.createdAt = Calendar.getInstance().getTimeInMillis();
-        this.updatedAt = Calendar.getInstance().getTimeInMillis();
-        this.status = 1;
-    }
+	public Rating() {
+		this.createdAt = Calendar.getInstance().getTimeInMillis();
+		this.updatedAt = Calendar.getInstance().getTimeInMillis();
+		this.status = 1;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public Account getRaterAccount() {
-        return raterAccount;
-    }
+	public float getValue() {
+		return value;
+	}
 
-    public void setRaterAccount(Account raterAccount) {
-        this.raterAccount = raterAccount;
-    }
+	public void setValue(float value) {
+		this.value = value;
+	}
 
-    public float getValue() {
-        return value;
-    }
+	public Album getAlbum() {
+		return album;
+	}
 
-    public void setValue(float value) {
-        this.value = value;
-    }
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
 
-    public Album getAlbum() {
-        return album;
-    }
+	public Product getProduct() {
+		return product;
+	}
 
-    public void setAlbum(Album album) {
-        this.album = album;
-    }
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 
-    public Product getProduct() {
-        return product;
-    }
+	public CustomerInfo getCustomerInfo() {
+		return customerInfo;
+	}
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+	public void setCustomerInfo(CustomerInfo customerInfo) {
+		this.customerInfo = customerInfo;
+	}
 
-    public Account getAccount() {
-        return account;
-    }
+	public StudioInfo getStudioInfo() {
+		return studioInfo;
+	}
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
+	public void setStudioInfo(StudioInfo studioInfo) {
+		this.studioInfo = studioInfo;
+	}
 
-    public long getCreatedAt() {
-        return createdAt;
-    }
+	public PhotographerInfo getPhotographerInfo() {
+		return photographerInfo;
+	}
 
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
+	public void setPhotographerInfo(PhotographerInfo photographerInfo) {
+		this.photographerInfo = photographerInfo;
+	}
 
-    public long getUpdatedAt() {
-        return updatedAt;
-    }
+	public long getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setUpdatedAt(long updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public void setCreatedAt(long createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public long getDeletedAt() {
-        return deletedAt;
-    }
+	public long getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public void setDeletedAt(long deletedAt) {
-        this.deletedAt = deletedAt;
-    }
+	public void setUpdatedAt(long updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
-    public int getStatus() {
-        return status;
-    }
+	public long getDeletedAt() {
+		return deletedAt;
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public void setDeletedAt(long deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

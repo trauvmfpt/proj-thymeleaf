@@ -6,143 +6,146 @@ import java.util.Set;
 
 @Entity
 public class Album {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long id;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "accountId")
-    private Account account;
-    private String name;
-    private String description;
-    private String thumbnail;
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Product> productSet;
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Rating> ratingSet;
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Comment> commentSet;
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Picture> pictureSet;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
-    private int status;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "studioInfoId")
+	private StudioInfo studioInfo;
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "photographerInfoId")
+	private PhotographerInfo photographerInfo;
+	private String name;
+	private String description;
+	private String thumbnail;
+	@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Product> productSet;
+	@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Rating> ratingSet;
+	@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Comment> commentSet;
+	@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Picture> pictureSet;
+	private long createdAt;
+	private long updatedAt;
+	private long deletedAt;
+	private int status;
 
-    public Album() {
-        this.createdAt = Calendar.getInstance().getTimeInMillis();
-        this.updatedAt = Calendar.getInstance().getTimeInMillis();
-        this.status = 1;
-    }
+	public Album() {
+		this.createdAt = Calendar.getInstance().getTimeInMillis();
+		this.updatedAt = Calendar.getInstance().getTimeInMillis();
+		this.status = 1;
+	}
 
-    public Album(String name, Account account) {
-        this.createdAt = Calendar.getInstance().getTimeInMillis();
-        this.updatedAt = Calendar.getInstance().getTimeInMillis();
-        this.status = 1;
-        this.name = name;
-        this.account = account;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public StudioInfo getStudioInfo() {
+		return studioInfo;
+	}
 
-    public Account getAccount() {
-        return account;
-    }
+	public void setStudioInfo(StudioInfo studioInfo) {
+		this.studioInfo = studioInfo;
+	}
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
+	public PhotographerInfo getPhotographerInfo() {
+		return photographerInfo;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setPhotographerInfo(PhotographerInfo photographerInfo) {
+		this.photographerInfo = photographerInfo;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
+	public String getThumbnail() {
+		return thumbnail;
+	}
 
-    public Set<Product> getProductSet() {
-        return productSet;
-    }
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 
-    public void setProductSet(Set<Product> productSet) {
-        this.productSet = productSet;
-    }
+	public Set<Product> getProductSet() {
+		return productSet;
+	}
 
-    public Set<Rating> getRatingSet() {
-        return ratingSet;
-    }
+	public void setProductSet(Set<Product> productSet) {
+		this.productSet = productSet;
+	}
 
-    public void setRatingSet(Set<Rating> ratingSet) {
-        this.ratingSet = ratingSet;
-    }
+	public Set<Rating> getRatingSet() {
+		return ratingSet;
+	}
 
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
+	public void setRatingSet(Set<Rating> ratingSet) {
+		this.ratingSet = ratingSet;
+	}
 
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
-    }
+	public Set<Comment> getCommentSet() {
+		return commentSet;
+	}
 
-    public Set<Picture> getPictureSet() {
-        return pictureSet;
-    }
+	public void setCommentSet(Set<Comment> commentSet) {
+		this.commentSet = commentSet;
+	}
 
-    public void setPictureSet(Set<Picture> pictureSet) {
-        this.pictureSet = pictureSet;
-    }
+	public Set<Picture> getPictureSet() {
+		return pictureSet;
+	}
 
-    public long getCreatedAt() {
-        return createdAt;
-    }
+	public void setPictureSet(Set<Picture> pictureSet) {
+		this.pictureSet = pictureSet;
+	}
 
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
+	public long getCreatedAt() {
+		return createdAt;
+	}
 
-    public long getUpdatedAt() {
-        return updatedAt;
-    }
+	public void setCreatedAt(long createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public void setUpdatedAt(long updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public long getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public long getDeletedAt() {
-        return deletedAt;
-    }
+	public void setUpdatedAt(long updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
-    public void setDeletedAt(long deletedAt) {
-        this.deletedAt = deletedAt;
-    }
+	public long getDeletedAt() {
+		return deletedAt;
+	}
 
-    public int getStatus() {
-        return status;
-    }
+	public void setDeletedAt(long deletedAt) {
+		this.deletedAt = deletedAt;
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

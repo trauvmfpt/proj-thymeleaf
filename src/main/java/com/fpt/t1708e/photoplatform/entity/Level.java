@@ -6,104 +6,114 @@ import java.util.Set;
 
 @Entity
 public class Level {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long id;
-    private String name;
-    @Column(columnDefinition = "text")
-    private String description;
-    private float price;
-    private long durationInDay;
-    @OneToMany(mappedBy = "level", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UserInfo> userInfoSet;
-    private int status;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	private String name;
+	@Column(columnDefinition = "text")
+	private String description;
+	private float price;
+	private long durationInDay;
+	@OneToMany(mappedBy = "level", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<StudioInfo> studioInfoSet;
+	@OneToMany(mappedBy = "level", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<PhotographerInfo> photographerInfoSet;
+	private int status;
+	private long createdAt;
+	private long updatedAt;
+	private long deletedAt;
 
-    public Level() {
-        this.createdAt = Calendar.getInstance().getTimeInMillis();
-        this.updatedAt = Calendar.getInstance().getTimeInMillis();
-        this.status = 1;
-    }
+	public Level() {
+		this.createdAt = Calendar.getInstance().getTimeInMillis();
+		this.updatedAt = Calendar.getInstance().getTimeInMillis();
+		this.status = 1;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public float getPrice() {
-        return price;
-    }
+	public float getPrice() {
+		return price;
+	}
 
-    public void setPrice(float price) {
-        this.price = price;
-    }
+	public void setPrice(float price) {
+		this.price = price;
+	}
 
-    public long getDurationInDay() {
-        return durationInDay;
-    }
+	public long getDurationInDay() {
+		return durationInDay;
+	}
 
-    public void setDurationInDay(long durationInDay) {
-        this.durationInDay = durationInDay;
-    }
+	public void setDurationInDay(long durationInDay) {
+		this.durationInDay = durationInDay;
+	}
 
-    public Set<UserInfo> getUserInfoSet() {
-        return userInfoSet;
-    }
+	public Set<StudioInfo> getStudioInfoSet() {
+		return studioInfoSet;
+	}
 
-    public void setUserInfoSet(Set<UserInfo> userInfoSet) {
-        this.userInfoSet = userInfoSet;
-    }
+	public void setStudioInfoSet(Set<StudioInfo> studioInfoSet) {
+		this.studioInfoSet = studioInfoSet;
+	}
 
-    public int getStatus() {
-        return status;
-    }
+	public Set<PhotographerInfo> getPhotographerInfoSet() {
+		return photographerInfoSet;
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public void setPhotographerInfoSet(Set<PhotographerInfo> photographerInfoSet) {
+		this.photographerInfoSet = photographerInfoSet;
+	}
 
-    public long getCreatedAt() {
-        return createdAt;
-    }
+	public int getStatus() {
+		return status;
+	}
 
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
-    public long getUpdatedAt() {
-        return updatedAt;
-    }
+	public long getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setUpdatedAt(long updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public void setCreatedAt(long createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public long getDeletedAt() {
-        return deletedAt;
-    }
+	public long getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public void setDeletedAt(long deletedAt) {
-        this.deletedAt = deletedAt;
-    }
+	public void setUpdatedAt(long updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public long getDeletedAt() {
+		return deletedAt;
+	}
+
+	public void setDeletedAt(long deletedAt) {
+		this.deletedAt = deletedAt;
+	}
 }

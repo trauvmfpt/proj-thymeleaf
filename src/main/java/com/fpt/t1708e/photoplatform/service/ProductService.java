@@ -5,6 +5,8 @@ import com.fpt.t1708e.photoplatform.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Calendar;
+import java.util.List;
+
 @Service
 public class ProductService {
     @Autowired
@@ -20,5 +22,9 @@ public class ProductService {
     public Product update(Product product) {
         product.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         return productRepository.save(product);
+    }
+
+    public List<Product> getByCategoryId(long id) {
+        return productRepository.findAllByCategory_Id(id);
     }
 }

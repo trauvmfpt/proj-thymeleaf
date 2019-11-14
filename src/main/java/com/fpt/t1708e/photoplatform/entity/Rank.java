@@ -15,6 +15,7 @@ public class Rank {
 	private String description;
 	@OneToMany(mappedBy = "rank", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<CustomerInfo> customerInfoSet;
+	private long pointRequired;
 	private int status;
 	private long createdAt;
 	private long updatedAt;
@@ -24,6 +25,14 @@ public class Rank {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();
 		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
+	}
+
+	public long getPointRequired() {
+		return pointRequired;
+	}
+
+	public void setPointRequired(long pointRequired) {
+		this.pointRequired = pointRequired;
 	}
 
 	public Set<CustomerInfo> getCustomerInfoSet() {

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${photographerInfo}" th:action="@{/register/photographerInfo}" th:method="post">
+    <input type="hidden" name="accountId" th:value="${accountId}">
+    <label th:text="fullName"></label>
+    <input th:type="text" th:field="${photographerInfo.fullName}" />
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

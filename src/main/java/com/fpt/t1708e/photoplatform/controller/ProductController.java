@@ -141,4 +141,11 @@ public class ProductController {
 		model.addAttribute("product", product);
 		return "product/detail";
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/list")
+    public String list(Model model) {
+        List<Product> getAllProducts = productService.getAllProducts();
+        model.addAttribute("getAllProducts", getAllProducts);
+        return "product/list";
+    }
 }

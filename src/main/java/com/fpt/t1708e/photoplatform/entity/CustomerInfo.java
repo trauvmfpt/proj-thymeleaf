@@ -41,6 +41,7 @@ public class CustomerInfo {
 	private Set<Rating> ratingSet;
 	@OneToMany(mappedBy = "customerInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> commentSet;
+	private long totalPoint;
 	private long createdAt;
 	private long updatedAt;
 	private long deletedAt;
@@ -50,6 +51,14 @@ public class CustomerInfo {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();
 		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
+	}
+
+	public long getTotalPoint() {
+		return totalPoint;
+	}
+
+	public void setTotalPoint(long totalPoint) {
+		this.totalPoint = totalPoint;
 	}
 
 	public long getBirthday() {

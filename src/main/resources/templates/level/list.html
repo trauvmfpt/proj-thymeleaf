@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Level</title>
+    <style>
+        td {
+            width: 150px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>List Level</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Duration in day</th>
+            <th>Detail</th>
+            <th>Edit</th>
+<!--            <th>Delete</th>-->
+        </tr>
+        <tr th:each="level: ${levels}">
+            <td th:text="${level.id}"></td>
+            <td th:text="${level.name}"></td>
+            <td th:text="${level.price}"></td>
+            <td th:text="${level.description}"></td>
+            <td th:text="${level.durationInDay}"></td>
+            <td><a th:href="@{/level/{id}(id = ${level.id})}">Detail</a></td>
+            <td><a th:href="@{/level/edit/{id}(id = ${level.id})}">Edit</a></td>
+        </tr>
+    </table>
+</body>
+</html>

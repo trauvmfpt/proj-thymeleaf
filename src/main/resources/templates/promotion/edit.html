@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Category</title>
+    <title>Edit Promotion</title>
     <style>
         .error {
             color: red;
@@ -11,9 +11,9 @@
 </head>
 <body>
 
-    <h1>Create Category</h1>
+    <h1>Edit Promotion</h1>
 
-    <form th:action="@{/category/create}" th:method="post" th:object="${category}">
+    <form th:action="@{'/promotion/edit' + ${promotion.id}}" th:method="post" th:object="${promotion}">
         <div>
             Name <input type="text" th:field="*{name}">
             <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
@@ -23,8 +23,14 @@
             <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
         </div>
         <div>
-            Thumbnail <input type="text" th:field="*{thumbnail}">
-            <span class="error" th:if="${#fields.hasErrors('thumbnail')}" th:errors="*{thumbnail}"></span>
+            Discount <input type="number" th:field="*{discount}">
+            <span class="error" th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}"></span>
+        </div>
+        <div>
+            Select Products by Category
+            <select name="categoryId">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
         </div>
         <div>
             Status <input type="number" th:field="*{status}">

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Promotion</title>
     <style>
         div {
             margin-top: 10px;
@@ -10,22 +10,22 @@
     </style>
 </head>
 <body>
-    <h1>Category detail</h1>
+    <h1>Promotion detail</h1>
 <div>
     <div>
-        Id: <span th:text="${category.id}"></span>
+        Id: <span th:text="${promotion.id}"></span>
     </div>
     <div>
-        Name: <span th:text="${category.name}"></span>
+        Name: <span th:text="${promotion.name}"></span>
     </div>
     <div>
-        Description: <span th:text="${category.description}"></span>
+        Description: <span th:text="${promotion.description}"></span>
     </div>
     <div>
-        Thumbnail: <img th:src="${category.thumbnail}" style="width: 200px;">
+        Thumbnail: <span th:text="${promotion.discount}">
     </div>
     <div>
-        Products in Category:
+        Products in this Promotion:
         <ul>
             <li th:each="product : ${products}">
                 <a th:href="@{'/product/' + ${product.id}}" th:text="${product.name}"></a>
@@ -34,10 +34,10 @@
         </span>
     </div>
     <div>
-        Status: <span th:text="${category.status}"></span>
+        Status: <span th:text="${promotion.status}"></span>
     </div>
     <div>
-        <a th:href="@{/category/list}">Back to list</a>
+        <a th:href="@{/promotion/list}">Back to list</a>
     </div>
 </div>
 </body>

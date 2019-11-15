@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Calendar;
 import java.util.List;
+
 @Service
 public class ProductService {
     @Autowired
@@ -22,8 +23,12 @@ public class ProductService {
         product.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         return productRepository.save(product);
     }
+
+    public List<Product> getByCategoryId(long id) {
+        return productRepository.findAllByCategory_Id(id);
 	
-	public List<Product> getAllProducts() {
+	  public List<Product> getAllProducts() {
         return productRepository.findAll();
+
     }
 }

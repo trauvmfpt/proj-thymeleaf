@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Category detail</h1>
+<div>
+    <div>
+        Id: <span th:text="${category.id}"></span>
+    </div>
+    <div>
+        Name: <span th:text="${category.name}"></span>
+    </div>
+    <div>
+        Description: <span th:text="${category.description}"></span>
+    </div>
+    <div>
+        Thumbnail: <img th:src="${category.thumbnail}" style="width: 200px;">
+    </div>
+    <div>
+        Products in Category:
+        <ul>
+            <li th:each="product : ${products}">
+                <a th:href="@{'/product/' + ${product.id}}" th:text="${product.name}"></a>
+            </li>
+        </ul>
+        </span>
+    </div>
+    <div>
+        Status: <span th:text="${category.status}"></span>
+    </div>
+    <div>
+        <a th:href="@{/category/list}">Back to list</a>
+    </div>
+</div>
+</body>
+</html>

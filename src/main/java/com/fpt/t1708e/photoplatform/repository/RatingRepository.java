@@ -9,10 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface RatingRepository extends JpaRepository<Rating,Long> {
-    @Query("SELECT c FROM Rating r where r.album.id = :id or r.product.id = :id or r.studioInfo.id = :id or r.photographerInfo.id = :id")
+    @Query("SELECT r FROM Rating r where r.album.id = :id or r.product.id = :id or r.studioInfo.id = :id or r.photographerInfo.id = :id")
     List<Rating> findByPostId(long id);
 
-    @Query("SELECT c FROM Rating r where (r.customerInfo.id = :accountId and r.product.id = :postId)" +
+    @Query("SELECT r FROM Rating r where (r.customerInfo.id = :accountId and r.product.id = :postId)" +
             "or (r.customerInfo.id = :accountId and r.album.id = :postId)" +
             "or (r.customerInfo.id = :accountId and r.photographerInfo.id = :postId) " +
             "or (r.customerInfo.id = :accountId and r.studioInfo.id = :postId)")

@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/promotion")
@@ -63,9 +60,13 @@ public class PromotionController {
 		long longCateId = Long.parseLong(categoryId);
 		Category selectedCategory = categoryService.getCategoryById(longCateId);
 		Set<Product> products = selectedCategory.getProductSet();
-		promotion.setProductSet(products);
+		List<Product> products1 = new ArrayList<>();
+		products1.addAll(products);
+//		promotion.setProductSet(products);
+		promotion.addProduct(products1.get(0)); // Em foreach rồi nhét lại vào hàm addProduct nhé
 //		promotion.setProductSet(null);
-		promotion.setAdminInfo(account.getAdminInfo());
+
+		promotion.setAdminInfo(accountService.findByUserName(account.getUsername()).getAdminInfo());
 		promotionService.create(promotion);
         return "redirect:/promotion/list";
 	}

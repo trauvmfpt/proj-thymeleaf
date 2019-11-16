@@ -63,7 +63,10 @@ public class PromotionController {
 		List<Product> products1 = new ArrayList<>();
 		products1.addAll(products);
 //		promotion.setProductSet(products);
-		promotion.addProduct(products1.get(0)); // Em foreach rồi nhét lại vào hàm addProduct nhé
+		for (Product product:
+				products1) {
+			promotion.addProduct(product);
+		}
 //		promotion.setProductSet(null);
 
 		promotion.setAdminInfo(accountService.findByUserName(account.getUsername()).getAdminInfo());

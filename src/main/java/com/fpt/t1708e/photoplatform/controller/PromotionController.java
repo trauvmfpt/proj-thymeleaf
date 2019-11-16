@@ -98,6 +98,7 @@ public class PromotionController {
 		List<Product> products1 = new ArrayList<>();
 		products1.addAll(products);
 //		promotion.setProductSet(products);
+		promotion.setProductSet(null);
 		for (Product product:
 				products1) {
 			promotion.addProduct(product);

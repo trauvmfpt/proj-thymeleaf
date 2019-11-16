@@ -1,10 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/layout}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
-<h1>Welcome</h1>
+<section layout:fragment="content">
+    <section class="header-video">
+        <div id="hero_video">
+            <div id="sub_content_in">
+                <h1>The most important info<br>on your Mobile during a visit</h1>
+                <p>
+                    Museum Guides / Directions / Tips&amp;info
+                </p>
+
+            </div>
+            <!-- End sub_content -->
+        </div>
+        <img th:src="@{/img/video_fix.png}" alt="" class="header-video--media" data-video-src="video/intro" data-teaser-source="video/intro" data-provider="" data-video-width="1920" data-video-height="960">
+    </section>
+
+    <section class="section-check-availability">
+        <div class="container">
+            <div class="check-availability">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h2>CHECK AVAILABILITY</h2>
+                    </div>
+                    <div class="col-lg-9">
+                        <form id="ajax-form-search-room" action="search_step_2.php" method="post">
+                            <div class="availability-form">
+                                <input type="text" name="arrive" class="awe-calendar from" placeholder="Arrival Date">
+                                <input type="text" name="departure" class="awe-calendar to" placeholder="Departure Date">
+
+                                <select class="awe-select" name="adults">
+                                    <option>Adults</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
+                                <select class="awe-select" name="children">
+                                    <option>Children</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
+                                <div class="vailability-submit">
+                                    <button class="awe-btn awe-btn-13">FIND THE BEST RATE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
 </body>
 </html>

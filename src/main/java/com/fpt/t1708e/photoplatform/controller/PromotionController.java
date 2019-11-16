@@ -80,8 +80,13 @@ public class PromotionController {
 		if (promotion == null) {
             return "error/404";
 		}
+		Set<Product> productSet = promotion.getProductSet();
+		Iterator<Product> iterator = productSet.iterator();
+		Product firstProduct = iterator.next();
+		Category selectedCategory = firstProduct.getCategory();
 		model.addAttribute("promotion", promotion);
 		model.addAttribute("categories", categoryService.categories());
+		model.addAttribute("selectedCategory", selectedCategory.getId());
 		return "promotion/edit";
 	}
 

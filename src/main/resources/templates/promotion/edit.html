@@ -29,7 +29,8 @@
         <div>
             Select Products by Category
             <select name="categoryId">
-                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"
+                th:selected="${category.id==selectedCategory}"></option>
             </select>
         </div>
         <div>

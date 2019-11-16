@@ -95,12 +95,22 @@ public class PromotionController {
 		long longCateId = Long.parseLong(categoryId);
 		Category selectedCategory = categoryService.getCategoryById(longCateId);
 		Set<Product> products = selectedCategory.getProductSet();
+		List<Product> products1 = new ArrayList<>();
+		products1.addAll(products);
+//		promotion.setProductSet(products);
+		for (Product product:
+				products1) {
+			promotion.addProduct(product);
+		}
+//		promotion.setProductSet(null);
 
-		promotion.setAdminInfo(updatePromotion.getAdminInfo());
+		promotion.setAdminInfo(accountService.findByUserName(account.getUsername()).getAdminInfo());
+
+//		promotion.setAdminInfo(updatePromotion.getAdminInfo());
+
 		promotion.setName(updatePromotion.getName());
 		promotion.setDescription(updatePromotion.getDescription());
 		promotion.setDiscount(updatePromotion.getDiscount());
-		promotion.setProductSet(products);
 		promotion.setStatus(updatePromotion.getStatus());
 		promotionService.update(promotion);
         return "redirect:/promotion/list";

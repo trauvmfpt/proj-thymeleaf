@@ -10,9 +10,10 @@
 <body>
 
 <section layout:fragment="content">
-    <link th:href="@{/css/animate.min.css}" rel="stylesheet">
+
     <!-- SPECIFIC CSS -->
     <link th:href="@{/css/ion.rangeSlider.min.css}" rel="stylesheet">
+
     <div id="position" style="margin-top: 60px;">
         <div class="container">
             <ul>
@@ -34,7 +35,6 @@
             <script th:src="@{/js/common_scripts_min.js}"></script>
             <script th:src="@{/assets/validate.js}"></script>
             <script th:src="@{/js/functions.js}"></script>
-            <script th:src="@{/js/video_header.js}"></script>
             <script>
                 'use strict';
                 HeaderVideo.init({
@@ -48,12 +48,27 @@
             <script th:src="@{/js/infobox.js}"></script>
             <script th:src="@{/js/modernizr.js}"></script>
             <!-- Fixed sidebar + Input Range + Carouse + Switch-->
+            <script th:src="@{/js/theia-sticky-sidebar.js}"></script>
             <script th:src="@{/js/theia-sticky-sidebar.min.js}"></script>
             <script>
                 'use strict';
                 jQuery('#sidebar').theiaStickySidebar({
                     additionalMarginTop: 80
                 });
+
+                $("#range").ionRangeSlider({
+                    hide_min_max: true,
+                    keyboard: true,
+                    min: 30,
+                    max: 180,
+                    from: 60,
+                    to: 130,
+                    type: 'double',
+                    step: 1,
+                    prefix: "Min. ",
+                    grid: false
+                });
+
 
                 $('.carousel').owlCarousel({
                     items: 1,
@@ -86,17 +101,7 @@
             <aside class="col-md-3 col-md-push-9" id="sidebar"
                    style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
                 <div class="theiaStickySidebar"
-                     style="padding-top: 0px; padding-bottom: 1px; position: absolute; top: 1099px; width: 263px;">
-                    <div id="filter_tools">
-                        <ul>
-                            <li><a href="florence-must-see-map-listing.html" id="map_icon">Map view</a>
-                            </li>
-                            <li><a href="florence-must-see-grid.html" id="grid_icon">Grid view</a>
-                            </li>
-                            <li><a href="#" id="list_icon">List view</a>
-                            </li>
-                        </ul>
-                    </div>
+                     style="padding-top: 0px; padding-bottom: 1px; position: absolute; top: 0px; width: 263px;">
                     <div id="filters_col">
                         <a data-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">Filters </a>
                         <div class="collapse" id="collapseFilters">
@@ -161,7 +166,7 @@
 
             <div class="col-md-9 col-md-pull-3" >
                 <div class="strip_list wow fadeIn" data-wow-delay="0.1s"
-                     th:each="product : ${getAllProducts}">
+                     th:each="product : ${products}">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="img_wrapper">
@@ -184,9 +189,8 @@
                                 </div>
                                 <!-- End tools i-->
                                 <div class="img_container">
-                                    <a href="florence-must-see-detail.html">
-                                        <img src="img/events_list_1.jpg"
-                                             th:src="${product.thumbnail}" width="800" height="533" class="img-responsive" alt="">
+                                    <a th:href="@{/product/{id}(id = ${product.id})}">
+                                        <img th:src="${product.thumbnail}" width="800" height="533" class="img-responsive" alt="">
                                         <div class="short_info">
 <!--                                            <small ></small>-->
                                             <h3 th:text="${product.destination}"></h3>
@@ -204,7 +208,7 @@
                             <div class="desc">
                                 <h4 th:text="${product.name}"></h4>
                                 <p th:text="${product.description}"></p>
-                                <p><a href="florence-must-see-detail.html" class="button small">Read more</a>
+                                <p><a th:href="@{/product/{id}(id = ${product.id})}" class="button small">Read more</a>
                                 </p>
                             </div>
                         </div>
@@ -219,56 +223,16 @@
     </div>
     <!-- End container -->
 
+
+
     <div class="bg_white">
         <div class="container margin_60_30">
             <h3 class="second_title">View other categories</h3>
-            <div class="carousel box_cat small">
-                <div>
-                    <a href="florence-must-see-grid.html">
+            <div class="carousel box_cat small" >
+                <div th:each="category: ${categories}">
+                    <a th:href="@{/category/{id}(id = ${category.id})}">
                         <i class=" icon_set_1_icon-1"></i>
-                        <h3>Must see</h3>
-                    </a>
-                </div>
-                <div>
-                    <a href="florence-events-grid.html">
-                        <i class="icon_set_1_icon-41"></i>
-                        <h3>Events</h3>
-                    </a>
-                </div>
-                <div>
-                    <a href="florence-transports.html">
-                        <i class="icon_set_1_icon-25"></i>
-                        <h3>Transport</h3>
-                    </a>
-                </div>
-                <div>
-                    <a href="florence-restaurants-grid.html">
-                        <i class="icon_set_1_icon-58"></i>
-                        <h3>Restaurants</h3>
-                    </a>
-                </div>
-                <div>
-                    <a href="florence-hotels-grid.html">
-                        <i class="icon_set_1_icon-6"></i>
-                        <h3>Hotels </h3>
-                    </a>
-                </div>
-                <div>
-                    <a href="florence-bars-grid.html">
-                        <i class="icon_set_1_icon-20"></i>
-                        <h3>Cocktail Bars</h3>
-                    </a>
-                </div>
-                <div>
-                    <a href="florence-shops-grid.html">
-                        <i class="icon_set_1_icon-50"></i>
-                        <h3>Shops</h3>
-                    </a>
-                </div>
-                <div>
-                    <a href="faq.html">
-                        <i class="icon_set_1_icon-54"></i>
-                        <h3>Info&amp;Faqs</h3>
+                        <h3 th:text="${category.name}"></h3>
                     </a>
                 </div>
             </div>
@@ -277,18 +241,57 @@
         <!-- End Container -->
     </div>
     <!-- End bg_white -->
-</section>
-<!-- COMMON SCRIPTS -->
-<script th:src="@{/js/jquery-2.2.4.min.js}"></script>
-<script th:src="@{js/common_scripts_min.js}"></script>
-<script th:src="@{assets/validate.js}"></script>
-<script th:src="@{js/functions.js}"></script>
 
-<!-- SPECIFIC SCRIPTS -->
-<script th:src="@{js/raphael-2.1.4.min.js}"></script>
-<script th:src="@{js/justgage.min.js}"></script>
-<script th:src="@{js/score.js}"></script>
-<script th:src="@{js/ion.rangeSlider.min.js}"></script>
-<script th:src="@{js/switchery.min.js}"></script>
+    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{/js/common_scripts_min.js}"></script>
+    <script th:src="@{/assets/validate.js}"></script>
+    <script th:src="@{/js/functions.js}"></script>
+
+    <!-- SPECIFIC SCRIPTS -->
+    <script th:src="@{/js/raphael-2.1.4.min.js}"></script>
+    <script th:src="@{/js/justgage.min.js}"></script>
+    <script th:src="@{/js/score.js}"></script>
+    <script th:src="@{/js/ion.rangeSlider.js}"></script>
+    <script th:src="@{/js/ion.rangeSlider.min.js}"></script>
+    <script th:src="@{/js/switchery.min.js}"></script>
+
+    <script th:src="@{/js/theia-sticky-sidebar.js}"></script>
+    <script th:src="@{/js/theia-sticky-sidebar.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script>
+        'use strict';
+        jQuery('#sidebar').theiaStickySidebar({
+            additionalMarginTop: 80
+        });
+
+        $('.carousel').owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: false,
+            smartSpeed: 300,
+            responsiveClass: true,
+            responsive: {
+                320: {
+                    items: 2,
+                    margin: 10,
+                },
+                1000: {
+                    items: 6,
+                    margin: 10,
+                    nav: false
+                }
+            }
+        });
+
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function (html) {
+            var switchery = new Switchery(html, {
+                size: 'small'
+            });
+        });
+    </script>
+
+</section>
 </body>
 </html>

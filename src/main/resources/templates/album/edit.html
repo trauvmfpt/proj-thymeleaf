@@ -6,26 +6,26 @@
 </head>
 <body>
 <form th:object="${album}" enctype="multipart/form-data" action="/album/update" method="post">
-    <input type="hidden" th:field="${album.id}" th:value="${album.id}" class="form-control">
+    <input type="hidden" th:field="${album.id}" class="form-control">
     <div class="form-group">
         <label>Name</label>
-        <input type="text" th:field="${album.name}" th:value="${album.name}" class="form-control">
+        <input type="text" th:field="${album.name}" class="form-control">
     </div>
     <div class="form-group">
         <label>Description</label>
-        <input type="text" th:field="${album.description}" th:value="${album.description}" class="form-control">
+        <input type="text" th:field="${album.description}" class="form-control">
     </div>
     <div class="form-group">
         <label>Studio</label>
-        <select th:field="${album.studioInfo}" th:value="${album.getStudioInfo().getId()}" class="form form-control">
-            <option value="" selected disabled>Choose Studio</option>
+        <select th:field="${album.studioInfo}"class="form form-control">
+            <option value="" selected>Choose Studio</option>
             <option th:each="studio : ${studios}" th:value="${studio.id}" th:text="${studio.fullName}"></option>
         </select>
     </div>
     <div class="form-group">
         <label>Photographer</label>
-        <select th:field="${album.photographerInfo}" th:value="${album.getPhotographerInfo().getId()}" class="form form-control">
-            <option value="" selected disabled>Choose Photographer</option>
+        <select th:field="${album.photographerInfo}" class="form form-control">
+            <option value="" selected>Choose Photographer</option>
             <option th:each="photographer : ${photographers}" th:value="${photographer.id}" th:text="${photographer.fullName}"></option>
         </select>
     </div>

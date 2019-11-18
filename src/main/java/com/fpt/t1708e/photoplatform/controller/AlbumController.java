@@ -54,17 +54,15 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
-    public String store(Model model, @Valid Album album, BindingResult bindingResult, HttpServletRequest req, @RequestParam("files") MultipartFile[] multipartFiles) throws IOException, ServletException {
+    public String store(Model model, @Valid Album album, BindingResult bindingResult, HttpServletRequest req, @RequestParam("imgUrls") String[] imgUrls) throws IOException, ServletException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("album", album);
             return "album/create";
         }
         Set<Picture> imageList = new HashSet<>();
 
-        if (multipartFiles != null){
-            for (MultipartFile file: multipartFiles) {
-                ImageUltil imageUltil = new ImageUltil();
-                String imgUrl = imageUltil.SaveAndGetImgUrl(req, file);
+        if (imgUrls != null){
+            for (String imgUrl: imgUrls) {
                 Picture picture = new Picture();
                 picture.setUrl(imgUrl);
                 picture.setStatus(1);

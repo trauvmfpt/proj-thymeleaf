@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${album}" enctype="multipart/form-data" action="/album/create" method="post">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" th:field="${album.name}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <input type="text" th:field="${album.description}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Studio</label>
+        <select th:field="${album.studioInfo}" class="form form-control">
+            <option value="" selected disabled>Choose Studio</option>
+            <option th:each="studio : ${studios}" th:value="${studio.id}" th:text="${studio.fullName}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Photographer</label>
+        <select th:field="${album.photographerInfo}" class="form form-control">
+            <option value="" selected disabled>Choose Photographer</option>
+            <option th:each="photographer : ${photographers}" th:value="${photographer.id}" th:text="${photographer.fullName}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Images</label>
+        <input class="form-control" id="add_images" type="file" multiple="multiple" name="files">
+    </div>
+    <div class="preview_images hidden"></div>
+
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="form_submit_button button trans_200"
+                style="display: block;">create album<span></span><span></span><span></span></button>
+    </div>
+
+</form>
+</body>
+</html>

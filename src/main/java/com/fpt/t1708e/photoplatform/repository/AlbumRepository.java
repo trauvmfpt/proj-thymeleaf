@@ -13,4 +13,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 	List<Album> findAllByStudioInfo(StudioInfo studioInfo);
 
 	List<Album> findAllByPhotographerInfo(PhotographerInfo photographerInfo);
+
+	List<Album> findAllByStatus(int status);
 }

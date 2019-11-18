@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${album}" enctype="multipart/form-data" action="/album/update" method="post">
+    <input type="hidden" th:field="${album.id}" th:value="${album.id}" class="form-control">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" th:field="${album.name}" th:value="${album.name}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <input type="text" th:field="${album.description}" th:value="${album.description}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Studio</label>
+        <select th:field="${album.studioInfo}" th:value="${album.getStudioInfo().getId()}" class="form form-control">
+            <option value="" selected disabled>Choose Studio</option>
+            <option th:each="studio : ${studios}" th:value="${studio.id}" th:text="${studio.fullName}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Photographer</label>
+        <select th:field="${album.photographerInfo}" th:value="${album.getPhotographerInfo().getId()}" class="form form-control">
+            <option value="" selected disabled>Choose Photographer</option>
+            <option th:each="photographer : ${photographers}" th:value="${photographer.id}" th:text="${photographer.fullName}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Images</label>
+        <img th:each="img : ${ album.getPictureSet()}" th:src="${img.getUrl()}" width="200px"/>
+    </div>
+    <div class="preview_images hidden"></div>
+
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="form_submit_button button trans_200"
+                style="display: block;">create album<span></span><span></span><span></span></button>
+    </div>
+
+</form>
+</body>
+</html>

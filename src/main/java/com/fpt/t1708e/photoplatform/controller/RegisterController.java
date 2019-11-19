@@ -40,6 +40,24 @@ public class RegisterController {
     @Autowired
     StudioInfoRepository studioInfoRepository;
 
+    // test view tạo account customer
+    @RequestMapping(method = RequestMethod.GET,value = "/register/customer")
+    public String testRegisterCustomer(){
+        return "register/customerInfo";
+    }
+
+    // test view tạo account photographer
+    @RequestMapping(method = RequestMethod.GET,value = "/register/photographer")
+    public String testRegisterPhotographer(){
+        return "register/photographerInfo";
+    }
+
+    // test view tạo account studio
+    @RequestMapping(method = RequestMethod.GET,value = "/register/studio")
+    public String testRegisterStudio(){
+        return "register/studioInfo";
+    }
+
     // tao account
     @RequestMapping(method = RequestMethod.GET, value = "/register/account")
     public String registerAccount(Model model){

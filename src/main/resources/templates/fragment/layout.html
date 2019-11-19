@@ -9,8 +9,6 @@
           th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}" rel="stylesheet" type="text/css">
     <link href="../../static/css/bootstrap.min.css"
           th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link href="../../static/css/lotus/lib/font-awesome.min.css"
-          th:href="@{/css/lotus/lib/font-awesome.min.css}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../../static/css/style.css"
           th:href="@{/css/style.css}" >
     <link href="../../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet">
@@ -31,18 +29,8 @@
     <script th:src="@{/js/common_scripts_min.js}"></script>
     <script th:src="@{/assets/validate.js}"></script>
     <script th:src="@{/js/functions.js}"></script>
-    <script th:src="@{/js/video_header.js}"></script>
-    <script>
-        'use strict';
-        HeaderVideo.init({
-            container: $('.header-video'),
-            header: $('.header-video--media'),
-            videoTrigger: $("#video-trigger"),
-            autoPlayVideo: true
-        });
-        new CBPFWTabs(document.getElementById('tabs'));
-    </script>
-    <script th:src="@{/js/infobox.js}"></script>
+
+<!--    <script th:src="@{/js/infobox.js}"></script>-->
     <script th:src="@{/js/modernizr.js}"></script>
 </body>
 </html>

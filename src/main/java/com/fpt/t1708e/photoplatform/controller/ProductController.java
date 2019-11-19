@@ -11,16 +11,22 @@ import com.fpt.t1708e.photoplatform.service.ProductService;
 import com.fpt.t1708e.photoplatform.service.StudioInfoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
@@ -143,9 +149,29 @@ public class ProductController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
-    public String list(Model model) {
-        List<Product> getAllProducts = productService.products();
-        model.addAttribute("getAllProducts", getAllProducts);
+    public String list(Model model,
+					   @RequestParam(defaultValue = "1", required = false) Optional<Integer> page,
+					   @RequestParam(defaultValue = "10", required = false) Optional<Integer> limit) {
+//		Page<Product> productPage = productService.productsWithPagination(page, limit);
+		int currentPage = page.orElse(1);
+		int pageSize = limit.orElse(5);
+		Page<Product> productPage = productService
+				.productsWithPagination(PageRequest.of(currentPage - 1, pageSize));
+		model.addAttribute("products", productPage);
+		int totalPages = productPage.getTotalPages();
+		if (totalPages > 0) {
+			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+					.boxed()
+					.collect(Collectors.toList());
+			model.addAttribute("pageNumbers", pageNumbers);
+		}
+
+		List<Product> products = productService.products();
+//        model.addAttribute("products", products);
+        model.addAttribute("categories", categoryService.getList());
+//		List<Product> products = productService.products();
+//		model.addAttribute("products", products);
+//		model.addAttribute("categories", categoryService.getList());
         return "product/list";
     }
 }

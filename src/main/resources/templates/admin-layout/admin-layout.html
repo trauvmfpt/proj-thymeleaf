@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,300"
+          th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}" rel="stylesheet" type="text/css">
+    <link href="../../static/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link href="../../static/css/lotus/lib/font-awesome.min.css"
+          th:href="@{/css/lotus/lib/font-awesome.min.css}" rel="stylesheet" type="text/css">
+
+
+    <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" />
+    <!-- App Icons -->
+    <link rel="shortcut icon" th:href="@{/admin/images/favicon.ico}">
+
+    <!--Morris Chart CSS -->
+    <link rel="stylesheet" th:href="@{/admin/plugins/morris/morris.css}">
+
+<!--    <link href="../../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet">-->
+</head>
+<body>
+    <div class="super_container">
+        <!--admin-header.html  that's here  -->
+        <div th:replace="admin-layout/admin-header :: admin-header"></div>
+
+        <div layout:fragment="admin-content">lol</div>
+        <!--admin-footer.html  that's here  -->
+        <div th:replace="admin-layout/admin-footer :: admin-footer"></div>
+    </div>
+    <script th:src="@{/admin/js/jquery.min.js}"></script>
+    <script th:src="@{/admin/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/admin/js/waves.js}"></script>
+    <script th:src="@{/admin/js/jquery.slimscroll.js}"></script>
+    <script th:src="@{/admin/js/jquery.nicescroll.js}"></script>
+    <script th:src="@{/admin/js/jquery.scrollTo.min.js}"></script>
+    <script th:src="@{/js/modernizr.js}"></script>
+
+    <script th:src="@{/admin/plugins/morris/morris.min.js}"></script>
+    <script th:src="@{/admin/plugins/raphael/raphael-min.js}"></script>
+
+    <script th:src="@{/admin/pages/dashboard.js}"></script>
+    <script th:src="@{/admin/js/app.js}"></script>
+</body>
+</html>

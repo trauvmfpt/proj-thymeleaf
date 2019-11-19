@@ -75,7 +75,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/temp")
 	public String temp(){
-		return "home";
+		return "admin-layout/admin-layout";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")

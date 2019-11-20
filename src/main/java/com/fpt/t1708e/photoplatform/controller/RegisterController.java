@@ -58,6 +58,12 @@ public class RegisterController {
         return "register/studioInfo";
     }
 
+    // test view login account
+    @RequestMapping(method = RequestMethod.GET,value = "/account/login")
+    public String loginAccount(){
+        return "register/login";
+    }
+
     // tao account
     @RequestMapping(method = RequestMethod.GET, value = "/register/account")
     public String registerAccount(Model model){

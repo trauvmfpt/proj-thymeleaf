@@ -76,7 +76,13 @@ public class HomeController {
 	@RequestMapping(value = "/temp")
 	public String temp(){
 		return "fragment/sample";
-		return "admin-layout/admin-layout";
+//		return "admin-layout/admin-layout";
+	}
+
+	@RequestMapping(value = "/detail")
+	public String detail(){
+		return "studio-photographer/detail";
+//		return "admin-layout/admin-layout";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")

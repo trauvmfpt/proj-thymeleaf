@@ -57,6 +57,12 @@ h1, h2, h3, h4, h5, h6 {color:#222;}
 
 label {color:#555; font-weight:500;}
 
+button, input, select, textarea {
+    font-family: inherit !important;
+    font-size: inherit !important;
+	line-height: inherit !important;
+}
+
 .main_title {text-align:center; margin:0 auto 60px; width:70%; }
 .main_title h2, .main_title h3 {font-weight:300; color:#222; font-size:38px; margin:0 0 10px 0; padding:0;}
 .main_title p, .main_title p {font-size:18px; font-weight:300; opacity:1;}
@@ -183,7 +189,6 @@ a.button_login, .button_login{
 	outline:none;
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
-	position:absolute;
 	bottom:25px;
   }
 a.button_login:hover, .button_login:hover{
@@ -2650,7 +2655,7 @@ ul.list_ok li:before {
 .loader { margin-left:5px; position:absolute;}
 .error_message { color:#F33; font-weight:600; margin-bottom:4px;}
 .form-control {
-  color: #333;
+  color: gray;
   height:40px;
   border-radius: 3px;
   box-shadow:none;

@@ -174,4 +174,17 @@ public class ProductController {
 //		model.addAttribute("categories", categoryService.getList());
         return "product/list";
     }
+
+
+//    For admin/studio/photographer
+
+	@RequestMapping(method = RequestMethod.GET, value = "/admin/list")
+	public String adminList(Model model){
+		List<Product> products = productService.products();
+        model.addAttribute("products", products);
+		model.addAttribute("categories", categoryService.getList());
+		return "product/studio/list";
+	}
+
+
 }

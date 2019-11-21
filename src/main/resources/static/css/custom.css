@@ -1,0 +1,8 @@
+@charset "UTF-8";
+/* Your custom styles */
+.fas{
+    font-weight: 900;
+}
+.fas:before{
+    font-weight: 900;
+}

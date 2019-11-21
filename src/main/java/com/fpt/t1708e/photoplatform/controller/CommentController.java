@@ -1,0 +1,100 @@
+package com.fpt.t1708e.photoplatform.controller;
+
+import com.fpt.t1708e.photoplatform.dto.CommentDTO;
+import com.fpt.t1708e.photoplatform.entity.*;
+import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
+import com.fpt.t1708e.photoplatform.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/api/comment")
+public class CommentController {
+    @Autowired
+    CommentRepository commentRepository;
+
+    @Autowired
+    AlbumRepository albumRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    CustomerInfoRepository customerInfoRepository;
+
+    @Autowired
+    PhotographerInfoRepository photographerInfoRepository;
+
+    @Autowired
+    StudioInfoRepository studioInfoRepository;
+
+
+    @PostMapping(value = "/save")
+    public ResponseEntity<Object> save(@RequestBody CommentDTO commentDTO){
+        Comment comment = new Comment();
+        if(commentDTO.getAccountId() != 0){
+            CustomerInfo customerInfo = customerInfoRepository.findById(commentDTO.getAccountId()).orElse(null);
+            if(customerInfo != null){
+                comment.setCustomerInfo(customerInfo);
+            }
+        }
+        if(commentDTO.getAlbumId() != 0){
+            Album album = albumRepository.findById(commentDTO.getAlbumId()).orElse(null);
+            if(album != null){
+                comment.setAlbum(album);
+            }
+        }
+        if(commentDTO.getProductId() != 0){
+            Product product = productRepository.findById(commentDTO.getProductId()).orElse(null);
+            if(product != null){
+                comment.setProduct(product);
+            }
+        }
+        if(commentDTO.getPhotographerId() != 0){
+            PhotographerInfo photographerInfo = photographerInfoRepository.findById(commentDTO.getPhotographerId()).orElse(null);
+            if(photographerInfo != null){
+                comment.setPhotographerInfo(photographerInfo);
+            }
+        }
+        if(commentDTO.getStudioId() != 0){
+            StudioInfo studioInfo = studioInfoRepository.findById(commentDTO.getStudioId()).orElse(null);
+            if(studioInfo != null){
+                comment.setStudioInfo(studioInfo);
+            }
+        }
+        comment.setContent(commentDTO.getContent());
+        if(commentRepository.save(comment) != null){
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.CREATED.value())
+                    .setMessage("Action Success")
+                    .build(),
+                    HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(new RESTResponse.Error()
+                .setStatus(HttpStatus.CREATED.value())
+                .setMessage("Action Success")
+                .build(),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping(value = "/getAllByPostId/{id}")
+    public ResponseEntity<Object> getAllByPostId(@PathVariable long id){
+        List<CommentDTO> commentDTOS = new ArrayList<>();
+        for (Comment comment: commentRepository.findByPostId(id)
+        ) {
+            CommentDTO commentDTO = new CommentDTO(comment);
+            commentDTOS.add(commentDTO);
+        }
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Action success!")
+                .addData(commentDTOS)
+                .build(),
+                HttpStatus.OK);
+    }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Level Detail</title>
+    <style>
+        div {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Level Detail</h1>
+<div>
+    <div>
+        Name: <span th:text="${level.name}"></span>
+    </div>
+    <div>
+        Description: <span th:text="${level.description}"></span>
+    </div>
+    <div>
+        Price: <span th:text="${level.price}"></span>
+    </div>
+    <div>
+        Duration in day: <span th:text="${level.durationInDay}"></span>
+    </div>
+    <div>
+        Status: <span th:text="${level.status}"></span>
+    </div>
+    <div>
+        <a th:href="@{/level/list}">Back to list</a>
+    </div>
+</div>
+</body>
+</html>

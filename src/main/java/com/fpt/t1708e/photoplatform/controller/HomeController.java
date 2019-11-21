@@ -73,6 +73,18 @@ public class HomeController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	@RequestMapping(value = "/temp")
+	public String temp(){
+		return "fragment/sample";
+//		return "admin-layout/admin-layout";
+	}
+
+	@RequestMapping(value = "/detail")
+	public String detail(){
+		return "studio-photographer/detail";
+//		return "admin-layout/admin-layout";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")
 	public String index() {
 		Random rand = new Random();

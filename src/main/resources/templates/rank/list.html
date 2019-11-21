@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Rank</title>
+    <style>
+        td {
+            width: 150px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>List Rank</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Discount</th>
+            <th>Description</th>
+            <th>Detail</th>
+            <th>Edit</th>
+            <!--            <th>Delete</th>-->
+        </tr>
+        <tr th:each="rank: ${ranks}">
+            <td th:text="${rank.id}"><a th:href="@{/rank/{id}(id = ${rank.id})}"></a></td>
+            <td th:text="${rank.name}"></td>
+            <td th:text="${rank.discount}"></td>
+            <td th:text="${rank.description}"></td>
+            <td><a th:href="@{/rank/{id}(id = ${rank.id})}">Detail</a></td>
+            <td><a th:href="@{/rank/edit/{id}(id = ${rank.id})}">Edit</a></td>
+        </tr>
+    </table>
+</body>
+</html>

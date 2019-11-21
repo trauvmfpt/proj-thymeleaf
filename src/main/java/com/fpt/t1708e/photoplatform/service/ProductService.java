@@ -28,7 +28,6 @@ public class ProductService {
         product.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         return productRepository.save(product);
     }
-
     public List<Product> getByCategoryId(long id) {
         return productRepository.findAllByCategory_Id(id);
     }

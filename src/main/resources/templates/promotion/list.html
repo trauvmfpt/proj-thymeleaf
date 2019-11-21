@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>List Promotions</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Discount</th>
+        <th>Detail (shows included products) </th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="promotion: ${promotions}">
+        <td th:text="${promotion.id}"></td>
+        <td th:text="${promotion.name}"></td>
+        <td th:text="${promotion.description}"></td>
+        <td th:text="${promotion.discount}"></td>
+        <td><a th:href="@{'/promotion/' + ${promotion.id}}">Detail</a></td>
+        <td><a th:href="@{'/promotion/edit/' + ${promotion.id}}">Edit</a></td>
+        <td><a th:href="@{'/promotion/delete/' + ${promotion.id}}">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>

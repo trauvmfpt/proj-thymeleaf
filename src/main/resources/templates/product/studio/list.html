@@ -100,8 +100,8 @@
                                                             <td >
                                                                 <img th:src="${product.thumbnail}" style="height: 50px;">
                                                             </td>
-                                                            <td><a th:href="@{/product/{id}(id = ${product.id})}">Detail</a></td>
-                                                            <td><a th:href="@{/product/edit/{id}(id = ${product.id})}">Edit</a></td>
+                                                            <td><a th:href="@{/product/admin/{id}(id = ${product.id})}">Detail</a></td>
+                                                            <td><a th:href="@{/product/admin/edit/{id}(id = ${product.id})}">Edit</a></td>
 
                                                             <td th:text="${product.description}"></td>
                                                             <td th:text="${product.content}"></td>

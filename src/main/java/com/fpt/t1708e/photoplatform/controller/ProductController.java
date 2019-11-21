@@ -66,7 +66,7 @@ public class ProductController {
 		model.addAttribute("product", new Product());
 		model.addAttribute("categories", categoryService.categories());
 		model.addAttribute("albums", albums);
-		return "product/create";
+		return "product/studio/create";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -106,7 +106,7 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("categories", categoryService.categories());
 		
-		return "product/edit";
+		return "product/studio/edit";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
@@ -175,16 +175,13 @@ public class ProductController {
         return "product/list";
     }
 
-
 //    For admin/studio/photographer
 
 	@RequestMapping(method = RequestMethod.GET, value = "/admin/list")
 	public String adminList(Model model){
 		List<Product> products = productService.products();
         model.addAttribute("products", products);
-		model.addAttribute("categories", categoryService.getList());
 		return "product/studio/list";
 	}
-
 
 }

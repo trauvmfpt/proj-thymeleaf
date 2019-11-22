@@ -184,4 +184,14 @@ public class ProductController {
 		return "product/studio/list";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/admin/{id}")
+	public String adminDetail(Model model, @PathVariable int id) {
+		Product product = productService.getById(id);
+		if (product == null) {
+			return "/404";
+		}
+		model.addAttribute("product", product);
+		return "product/studio/detail";
+	}
+
 }

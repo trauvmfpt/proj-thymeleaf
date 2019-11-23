@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 @Controller
@@ -47,16 +50,20 @@ public class PromotionController {
 		account = listAccAdmin.get(rnd.nextInt(listAccAdmin.size()));
 		model.addAttribute("promotion", new Promotion());
 		model.addAttribute("categories", categoryService.categories());
+		model.addAttribute("localDateTime", LocalDateTime.now());
 		return "promotion/create";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
-	public String store(Model model, @Valid Promotion promotion, @RequestParam("categoryId") String categoryId,
-						BindingResult bindingResult) {
+	public String store(Model model, @Valid Promotion promotion, BindingResult bindingResult,
+						@RequestParam("categoryId") String categoryId,
+						@RequestParam("expiredAtString") String expiredAtString) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("promotion", promotion);
 			return "/create";
 		}
+		LocalDateTime date = LocalDateTime.parse(expiredAtString);
+		long expiredAt = date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 		long longCateId = Long.parseLong(categoryId);
 		Category selectedCategory = categoryService.getCategoryById(longCateId);
 		Set<Product> products = selectedCategory.getProductSet();
@@ -70,6 +77,7 @@ public class PromotionController {
 //		promotion.setProductSet(null);
 
 		promotion.setAdminInfo(accountService.findByUserName(account.getUsername()).getAdminInfo());
+		promotion.setExpiredAt(expiredAt);
 		promotionService.create(promotion);
         return "redirect:/promotion/list";
 	}
@@ -87,11 +95,14 @@ public class PromotionController {
 		model.addAttribute("promotion", promotion);
 		model.addAttribute("categories", categoryService.categories());
 		model.addAttribute("selectedCategory", selectedCategory.getId());
+		model.addAttribute("currentExpiredAt", LocalDateTime.ofInstant(Instant.ofEpochMilli(promotion.getExpiredAt()),
+				TimeZone.getDefault().toZoneId()));
 		return "promotion/edit";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
 	public String update(@PathVariable int id, Model model, @RequestParam("categoryId") String categoryId,
+						 @RequestParam("expiredAtString") String expiredAtString,
 						 Promotion updatePromotion) {
 		Promotion promotion = promotionService.getPromotionById(id);
 		if (promotion == null) {
@@ -118,6 +129,9 @@ public class PromotionController {
 		promotion.setDescription(updatePromotion.getDescription());
 		promotion.setDiscount(updatePromotion.getDiscount());
 		promotion.setStatus(updatePromotion.getStatus());
+		LocalDateTime date = LocalDateTime.parse(expiredAtString);
+		long expiredAt = date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+		promotion.setExpiredAt(expiredAt);
 		promotionService.update(promotion);
         return "redirect:/promotion/list";
 	}

@@ -84,7 +84,7 @@ public class AlbumController {
         return "album/studio/list";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
     public String edit(Model model, @PathVariable long id) throws RemoteException {
         List<StudioInfo> studioInfos = studioInfoRepository.findAll();
         List<PhotographerInfo> photographerInfos = photographerInfoRepository.findAll();
@@ -119,8 +119,14 @@ public class AlbumController {
         return "redirect:album/list";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/detail")
-    public String detail(Model model) throws RemoteException {
-        return "album/detail";
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public String detail(@PathVariable long id,Model model) throws RemoteException {
+        Album album = albumRepository.findById(id).orElse(null);
+        if(album != null){
+            model.addAttribute("album", album);
+            model.addAttribute("pictures", album.getPictureSet());
+            return "album/studio/detail";
+        }
+        return "redirect:album/list";
     }
 }

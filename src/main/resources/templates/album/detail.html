@@ -252,6 +252,9 @@
             </div>
             <!-- End container -->
         </div>
+        <div th:each="picture : ${pictures}">
+            <img th:src="${picture.url}" alt="" style="width: 200px;">
+        </div>
     </section>
 </body>
 

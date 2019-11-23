@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin-layout/admin-layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="admin-content">
+    <div class="wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+
+                            <h4 class="mt-0 header-title">Animation Effects</h4>
+                            <p class="text-muted m-b-30 font-14">Just-add-water CSS animations.</p>
+
+                            <table class="table table-borderless">
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>#</th>-->
+<!--                                    <th>First Name</th>-->
+<!--                                    <th>Last Name</th>-->
+<!--                                    <th>Username</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+                                <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td th:text="${product.name}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Studio/Photographer</th>
+                                    <td th:if="${product.studioInfo != null}" th:text="${product.studioInfo.fullName}">Mark</td>
+                                    <td th:if="${product.photographerInfo != null}" th:text="${product.photographerInfo.fullName}">Mark</td>
+                                    <td th:if="${product.photographerInfo == null && product.studioInfo == null}">None</td>
+                                </tr>
+                                <tr>
+                                    <th>Price</th>
+                                    <td th:text="${product.price}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Price discount</th>
+                                    <td th:text="${product.priceDiscount}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Area</th>
+                                    <td th:text="${product.area}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Destination</th>
+                                    <td th:text="${product.destination}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td th:text="${product.description}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Content</th>
+                                    <td th:text="${product.content}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Thumbnail</th>
+                                    <td>
+                                        <img th:src="${product.thumbnail}" style="height: 100px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td><a type="button" class="btn btn-primary waves-effect waves-light"
+                                                th:href="@{/product/admin/edit/{id}(id = ${product.id})}">Edit</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+        </div> <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+</section>
+</body>
+</html>

@@ -90,7 +90,7 @@ public class ProductController {
 		return "ok";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/admin/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
 
 		Product product = productService.getById(id);
@@ -109,7 +109,7 @@ public class ProductController {
 		return "product/studio/edit";
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
+	@RequestMapping(method = RequestMethod.POST, value = "admin/edit/{id}")
 	public String update(@PathVariable int id, Model model, Product updateProduct) {
 		Product product = productService.getById(id);
 		if (product == null) {

@@ -53,11 +53,9 @@
                                         <div class="">
                                             <div class="card m-b-20">
                                                 <div class="card-body">
-
-                                                    <h4 class="mt-0 header-title">Hoverable rows</h4>
+                                                    <h4 class="mt-0 header-title">List product</h4>
                                                     <p class="text-muted m-b-30 font-14">
-                                                        Use <code>.table-striped</code> to add zebra-striping to any table row
-                                                        within the <code>&lt;tbody&gt;</code>.
+                                                        All products from all studio/photographer.
                                                     </p>
 
                                                     <table id="datatable"
@@ -68,7 +66,6 @@
                                                             <th>ID</th>
                                                             <th>Studio/Photographer</th>
                                                             <th>Name</th>
-
 
                                                             <th>Price</th>
                                                             <th>Discount</th>
@@ -92,7 +89,6 @@
                                                             <td th:if="${product.photographerInfo == null && product.studioInfo == null}">None</td>
                                                             <td th:text="${product.name}"></td>
 
-<!--                                                            <td th:text="${product.content}"></td>-->
                                                             <td th:text="${product.price}"></td>
                                                             <td th:text="${product.priceDiscount}"></td>
                                                             <td th:text="${product.area}"></td>
@@ -110,10 +106,9 @@
                                                         </tr>
                                                         </tbody>
                                                     </table>
-
                                                 </div>
                                             </div>
-                                        </div> <!-- end col -->
+                                        </div><!-- end col -->
                                     </div>
                                 </div>
                             </div>

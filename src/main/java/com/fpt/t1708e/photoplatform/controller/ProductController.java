@@ -66,7 +66,7 @@ public class ProductController {
 		model.addAttribute("product", new Product());
 		model.addAttribute("categories", categoryService.categories());
 		model.addAttribute("albums", albums);
-		return "product/create";
+		return "product/studio/create";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -90,7 +90,7 @@ public class ProductController {
 		return "ok";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/admin/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
 
 		Product product = productService.getById(id);
@@ -106,10 +106,10 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("categories", categoryService.categories());
 		
-		return "product/edit";
+		return "product/studio/edit";
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
+	@RequestMapping(method = RequestMethod.POST, value = "admin/edit/{id}")
 	public String update(@PathVariable int id, Model model, Product updateProduct) {
 		Product product = productService.getById(id);
 		if (product == null) {
@@ -174,4 +174,24 @@ public class ProductController {
 //		model.addAttribute("categories", categoryService.getList());
         return "product/list";
     }
+
+//    For admin/studio/photographer
+
+	@RequestMapping(method = RequestMethod.GET, value = "/admin/list")
+	public String adminList(Model model){
+		List<Product> products = productService.products();
+        model.addAttribute("products", products);
+		return "product/studio/list";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/admin/{id}")
+	public String adminDetail(Model model, @PathVariable int id) {
+		Product product = productService.getById(id);
+		if (product == null) {
+			return "/404";
+		}
+		model.addAttribute("product", product);
+		return "product/studio/detail";
+	}
+
 }

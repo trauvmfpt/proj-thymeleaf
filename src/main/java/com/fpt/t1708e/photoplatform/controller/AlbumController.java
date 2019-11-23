@@ -118,4 +118,9 @@ public class AlbumController {
         }
         return "redirect:album/list";
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/detail")
+    public String detail(Model model) throws RemoteException {
+        return "album/detail";
+    }
 }

@@ -1,5 +1,7 @@
 package com.fpt.t1708e.photoplatform.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Set;
@@ -9,16 +11,20 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "studioInfoId")
 	private StudioInfo studioInfo;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "photographerInfoId")
 	private PhotographerInfo photographerInfo;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
 	private Category category;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JsonIgnore
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "albumId")
 	private Album album;
 	private String name;
@@ -31,12 +37,16 @@ public class Product {
 	private String area;
 	private String destination;
 	private String thumbnail;
+	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Rating> ratingSet;
+	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetailSet;
+	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> commentSet;
+	@JsonIgnore
 	@ManyToMany(mappedBy = "productSet", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	private Set<Promotion> promotionSet;

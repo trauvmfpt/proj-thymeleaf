@@ -2,6 +2,7 @@ package com.fpt.t1708e.photoplatform.entity;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -115,5 +116,12 @@ public class OrderProduct {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public void addOrderDetail(OrderDetail orderDetail) {
+		if (this.orderDetailSet == null) {
+			this.orderDetailSet = new HashSet<OrderDetail>();
+		}
+		this.orderDetailSet.add(orderDetail);
 	}
 }

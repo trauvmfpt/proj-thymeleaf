@@ -80,7 +80,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/detail")
 	public String detail(){
-		return "studio-photographer/detail";
+		return "manager/studio/studio-photographer/detail";
+	}
+
+	@RequestMapping(value = "/checkout")
+	public String checkout(){
+		return "customer/checkout";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")

@@ -122,7 +122,7 @@ public class AlbumController {
         if(album != null){
             model.addAttribute("album", album);
             model.addAttribute("pictures", album.getPictureSet());
-            return "album/studio/detail";
+            return "manager/studio/album/detail";
         }
         return "redirect:album/list";
     }

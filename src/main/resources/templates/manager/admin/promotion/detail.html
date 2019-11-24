@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{manager/layout/admin-layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="admin-content">
+    <div class="wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Id</h4>
+                            <p class="card-text" th:text="${promotion.id}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Name</h4>
+                            <p class="card-text" th:text="${promotion.name}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Description</h4>
+                            <p class="card-text" th:text="${promotion.description}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Discount</h4>
+                            <p class="card-text" th:text="'$' + ${promotion.discount}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Status</h4>
+                            <p class="card-text" th:text="${promotion.status}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20 card-body">
+                        <div class="card-body">
+                            <a th:href="@{'/promotion/edit/' + ${promotion.id}}" class="btn btn-warning waves-effect waves-light">Edit</a>
+                            <a th:href="@{'/promotion/delete/' + ${promotion.id}}" class="btn btn-info waves-effect waves-light">Delete</a>
+                            <a th:href="@{/promotion/list}" class="btn btn-danger waves-effect waves-light">Back to list promotions</a>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+
+                <div class="col-lg-6">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 header-title">Product list</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Thumbnail</th>
+                                    <th>Link to Product Detail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="product, iter : ${products}">
+                                    <th scope="row" th:text="${iter.index + 1}"></th>
+                                    <td th:text="${product.name}">Mark</td>
+                                    <td><img th:src="${product.thumbnail}" alt="${product.name}" style="width: 100px;"></td>
+                                    <td><a th:href="@{'/product/' + ${product.id}}" th:text="${product.name}"></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+
+            </div> <!-- end row -->
+
+        </div> <!-- end container -->
+    </div>
+</section>
+</body>
+</html>

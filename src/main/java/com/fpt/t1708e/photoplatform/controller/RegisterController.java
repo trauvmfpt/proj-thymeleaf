@@ -8,7 +8,6 @@ import com.fpt.t1708e.photoplatform.repository.AccountRepository;
 import com.fpt.t1708e.photoplatform.repository.CustomerInfoRepository;
 import com.fpt.t1708e.photoplatform.repository.PhotographerInfoRepository;
 import com.fpt.t1708e.photoplatform.repository.StudioInfoRepository;
-import com.fpt.t1708e.photoplatform.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.rmi.RemoteException;
 
@@ -61,7 +59,7 @@ public class RegisterController {
     // test view login account
     @RequestMapping(method = RequestMethod.GET,value = "/account/login")
     public String loginAccount(){
-        return "register/login";
+        return "login/login";
     }
 
     // tao account

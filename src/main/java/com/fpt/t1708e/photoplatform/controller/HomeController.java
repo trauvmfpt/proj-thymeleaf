@@ -75,16 +75,9 @@ public class HomeController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(){
-		return "home";
+		return "customer/home";
 //		return "admin-layout/admin-layout";
 	}
-
-	@RequestMapping(value = "/dashboard")
-	public String dashboard(){
-//		return "";
-		return "admin-layout/admin-layout";
-	}
-
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")
 	public String seed() {
 		Random rand = new Random();

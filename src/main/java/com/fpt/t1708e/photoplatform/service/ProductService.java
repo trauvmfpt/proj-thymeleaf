@@ -28,7 +28,10 @@ public class ProductService {
         product.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         return productRepository.save(product);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85ac45d8de908d4b3d69ff4233df7f921c6f1148
     public List<Product> products(){return productRepository.findAll();}
 
     public Page<Product> productsWithPagination(Pageable pageable){

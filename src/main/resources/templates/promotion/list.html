@@ -1,30 +1,111 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,300"
+          th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}" rel="stylesheet" type="text/css">
+    <!-- App Icons -->
+    <link rel="shortcut icon" th:href="@{/admin/images/favicon.ico}">
+
+    <!--Morris Chart CSS -->
+    <link rel="stylesheet" th:href="@{/admin/plugins/morris/morris.css}">
+    <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h1>List Promotions</h1>
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Discount</th>
-        <th>Detail (shows included products) </th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    <tr th:each="promotion: ${promotions}">
-        <td th:text="${promotion.id}"></td>
-        <td th:text="${promotion.name}"></td>
-        <td th:text="${promotion.description}"></td>
-        <td th:text="${promotion.discount}"></td>
-        <td><a th:href="@{'/promotion/' + ${promotion.id}}">Detail</a></td>
-        <td><a th:href="@{'/promotion/edit/' + ${promotion.id}}">Edit</a></td>
-        <td><a th:href="@{'/promotion/delete/' + ${promotion.id}}">Delete</a></td>
-    </tr>
-</table>
+<div class="super_container">
+    <!--admin-header.html  that's here  -->
+    <div th:replace="admin-layout/admin-header :: admin-header"></div>
+
+    <section layout:fragment="admin-content">
+        <div class="wrapper">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card m-b-20">
+                            <div class="card-body">
+                                <h2 class="mt-0 header-title">Promotion list</h2>
+                                <p>Click on headers to sort (default: ascending)</p>
+
+                                <table class="table table-hover" id="datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Discount</th>
+                                        <th>Expire At</th>
+                                        <th>Link to Promotion Detail</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="promotion, iter : ${promotions}">
+                                        <th scope="row" th:text="${iter.index + 1}"></th>
+                                        <td th:text="${promotion.id}">top</td>
+                                        <td th:text="${promotion.name}">kek</td>
+                                        <td th:text="${promotion.description}">kek</td>
+                                        <td th:text="'$' + ${promotion.discount}">kek</td>
+                                        <td th:text="${#dates.format(new java.util.Date(promotion.expiredAt))}">kek</td>
+                                        <td><a th:href="@{'/promotion/' + ${promotion.id}}" th:text="${promotion.name}"></a></td>
+                                        <td><a th:href="@{'/promotion/edit/' + ${promotion.id}}" class="btn btn-warning waves-effect waves-light">Edit</a></td>
+                                        <td><a th:href="@{'/promotion/delete/' + ${promotion.id}}" class="btn btn-info waves-effect waves-light">Delete</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+
+                </div> <!-- end row -->
+
+            </div> <!-- end container -->
+        </div>
+    </section>
+    <!--admin-footer.html  that's here  -->
+    <div th:replace="admin-layout/admin-footer :: admin-footer"></div>
+</div>
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/admin/js/modernizr.min.js}"></script>
+<script th:src="@{/admin/js/waves.js}"></script>
+<script th:src="@{/admin/js/jquery.slimscroll.js}"></script>
+<script th:src="@{/admin/js/jquery.nicescroll.js}"></script>
+<script th:src="@{/admin/js/jquery.scrollTo.min.js}"></script>
+
+<script th:src="@{/admin/plugins/morris/morris.min.js}"></script>
+<script th:src="@{/admin/plugins/raphael/raphael-min.js}"></script>
+
+
+<!-- Required datatable js -->
+<script th:src="@{/admin/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/dataTables.bootstrap4.min.js}"></script>
+<!-- Buttons examples -->
+<script th:src="@{/admin/plugins/datatables/dataTables.buttons.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/jszip.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/pdfmake.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/vfs_fonts.js}"></script>
+<script th:src="@{/admin/plugins/datatables/buttons.html5.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/buttons.print.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/buttons.colVis.min.js}"></script>
+<!-- Responsive examples -->
+<script th:src="@{/admin/plugins/datatables/dataTables.responsive.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/responsive.bootstrap4.min.js}"></script>
+<script>
+    $(document).ready(function() {
+        $('#datatable').DataTable();
+
+    } );
+</script>
+
+<script th:src="@{/admin/js/app.js}"></script>
 </body>
 </html>

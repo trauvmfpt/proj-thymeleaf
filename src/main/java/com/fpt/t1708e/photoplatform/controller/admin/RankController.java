@@ -1,4 +1,4 @@
-package com.fpt.t1708e.photoplatform.controller;
+package com.fpt.t1708e.photoplatform.controller.admin;
 
 import com.fpt.t1708e.photoplatform.entity.Rank;
 import com.fpt.t1708e.photoplatform.service.*;
@@ -21,13 +21,13 @@ public class RankController {
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public String list(Model model){
         model.addAttribute("ranks", rankService.getList());
-        return "rank/list";
+        return "manager/admin/rank/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public String create(Model model) {
         model.addAttribute("rank", new Rank());
-        return "rank/create";
+        return "manager/admin/rank/create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -35,7 +35,7 @@ public class RankController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("rank", rank);
-            return "rank/create";
+            return "manager/admin/rank/create";
         }
 
         rankService.create(rank);
@@ -50,7 +50,7 @@ public class RankController {
             return "error/404";
         }
         model.addAttribute("rank", rank);
-        return "rank/edit";
+        return "manager/admin/rank/edit";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
@@ -73,7 +73,7 @@ public class RankController {
             return "/404";
         }
         model.addAttribute("rank", rank);
-        return "rank/detail";
+        return "manager/admin/rank/detail";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}")
@@ -84,6 +84,6 @@ public class RankController {
         }
         rank.setStatus(0);
         rankService.update(rank);
-        return "rank/list";
+        return "manager/admin/rank/list";
     }
 }

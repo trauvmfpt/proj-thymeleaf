@@ -1,4 +1,4 @@
-package com.fpt.t1708e.photoplatform.controller;
+package com.fpt.t1708e.photoplatform.controller.studio;
 
 import com.fpt.t1708e.photoplatform.entity.Account;
 import com.fpt.t1708e.photoplatform.entity.Album;
@@ -66,7 +66,7 @@ public class ProductController {
 		model.addAttribute("product", new Product());
 		model.addAttribute("categories", categoryService.categories());
 		model.addAttribute("albums", albums);
-		return "product/studio/create";
+		return "manager/studio/product/create";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -74,7 +74,7 @@ public class ProductController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("product", product);
-			return "product/create";
+			return "manager/studio/product/create";
 		}
 
 		product.setCategory(categoryService.getCategoryById(product.getCategory().getId()));
@@ -106,7 +106,7 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("categories", categoryService.categories());
 		
-		return "product/studio/edit";
+		return "manager/studio/product/edit";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "admin/edit/{id}")
@@ -145,7 +145,7 @@ public class ProductController {
 			return "/404";
 		}
 		model.addAttribute("product", product);
-		return "product/detail";
+		return "customer/product/detail";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
@@ -172,7 +172,7 @@ public class ProductController {
 //		List<Product> products = productService.products();
 //		model.addAttribute("products", products);
 //		model.addAttribute("categories", categoryService.getList());
-        return "product/list";
+        return "customer/product/list";
     }
 
 //    For admin/studio/photographer
@@ -181,7 +181,7 @@ public class ProductController {
 	public String adminList(Model model){
 		List<Product> products = productService.products();
         model.addAttribute("products", products);
-		return "product/studio/list";
+		return "manager/studio/product/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/admin/{id}")
@@ -191,7 +191,7 @@ public class ProductController {
 			return "/404";
 		}
 		model.addAttribute("product", product);
-		return "product/studio/detail";
+		return "manager/studio/product/detail";
 	}
 
 }

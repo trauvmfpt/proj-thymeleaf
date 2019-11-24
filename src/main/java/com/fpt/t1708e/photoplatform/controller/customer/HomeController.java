@@ -1,4 +1,4 @@
-package com.fpt.t1708e.photoplatform.controller;
+package com.fpt.t1708e.photoplatform.controller.customer;
 
 import com.fpt.t1708e.photoplatform.entity.Account;
 import com.fpt.t1708e.photoplatform.entity.AdminInfo;
@@ -75,7 +75,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/temp")
 	public String temp(){
-		return "admin-layout/admin-layout";
+		return "manager/layout/admin-layout";
 	}
 
 	@RequestMapping(value = "/detail")

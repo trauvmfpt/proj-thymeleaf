@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin-layout/admin-layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="admin-content">
+    <div class="wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-10 offset-lg-2">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <table class="table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td th:text="${album.name}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td th:text="${album.description}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Studio</th>
+                                    <td th:if="${album.studioInfo != null}" th:text="${album.studioInfo.fullName}"></td>
+                                    <td th:unless="${album.studioInfo != null}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Photographer</th>
+                                    <td th:if="${album.photographerInfo != null}" th:text="${album.studioInfo.fullName}"></td>
+                                    <td th:unless="${album.photographerInfo != null}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Images</th>
+                                    <td>
+                                        <div class="wrapper">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="card m-b-20">
+                                                            <div class="card-body">
+                                                                <div id="carouselExampleCaption" class="carousel slide" data-ride="carousel">
+                                                                    <div class="carousel-inner" role="listbox" style="background: black; text-align: center;">
+                                                                        <div th:each="picture,iter : ${pictures}" class="carousel-item" th:classappend="${iter.index} == 0 ? active : ''" >
+                                                                            <img src="https://icdn.dantri.com.vn/thumb_w/640/2019/06/25/db-6-ddc-967-fab-42-bc-8-bf-99-ff-93-a-0-b-6-dae-1561437586300.jpeg" alt="" style="width: 200px;">
+                                                                        </div>
+                                                                    </div>
+                                                                    <a class="carousel-control-prev" href="#carouselExampleCaption" role="button" data-slide="prev">
+                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                        <span class="sr-only">Previous</span>
+                                                                    </a>
+                                                                    <a class="carousel-control-next" href="#carouselExampleCaption" role="button" data-slide="next">
+                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                        <span class="sr-only">Next</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> <!-- end col -->
+                                                </div> <!-- end row -->
+                                
+                                            </div> <!-- end container -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td><a type="button" class="btn btn-primary waves-effect waves-light">Edit</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </div>
+</section>
+</body>
+</html>

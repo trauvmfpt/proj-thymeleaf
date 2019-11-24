@@ -50,7 +50,8 @@ public class AlbumController {
         model.addAttribute("studios", studioInfos);
         model.addAttribute("photographers", photographerInfos);
         model.addAttribute("album", new Album());
-        return "album/create";
+        // return "album/create";
+        return "album/studio/create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -79,10 +80,11 @@ public class AlbumController {
     public String list(Model model) throws RemoteException {
         List<Album> albums = albumRepository.findAllByStatus(1);
         model.addAttribute("albums", albums);
-        return "album/list";
+        // return "album/list";
+        return "album/studio/list";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
     public String edit(Model model, @PathVariable long id) throws RemoteException {
         List<StudioInfo> studioInfos = studioInfoRepository.findAll();
         List<PhotographerInfo> photographerInfos = photographerInfoRepository.findAll();
@@ -91,7 +93,9 @@ public class AlbumController {
         Album album = albumRepository.findById(id).orElse(null);
         if(album != null){
             model.addAttribute("album", album);
-            return "album/edit";
+            model.addAttribute("pictures", album.getPictureSet());
+            // return "album/edit";
+            return "album/studio/edit";
         }
         return "album/list";
     }
@@ -100,7 +104,7 @@ public class AlbumController {
     public String update(Model model, @Valid Album album, BindingResult bindingResult) throws RemoteException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("album", album);
-            return "album/edit";
+            return "album/studio/edit";
         }
         albumRepository.save(album);
         return "redirect:/list";
@@ -112,6 +116,17 @@ public class AlbumController {
         if(album != null){
             album.setStatus(0);
             albumRepository.save(album);
+        }
+        return "redirect:album/list";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public String detail(Model model, @PathVariable long id) throws RemoteException {
+        Album album = albumRepository.findById(id).orElse(null);
+        if(album != null){
+            model.addAttribute("album", album);
+            model.addAttribute("pictures", album.getPictureSet());
+            return "album/studio/detail";
         }
         return "redirect:album/list";
     }

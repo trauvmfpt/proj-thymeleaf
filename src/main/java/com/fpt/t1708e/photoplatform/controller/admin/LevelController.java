@@ -1,4 +1,4 @@
-package com.fpt.t1708e.photoplatform.controller;
+package com.fpt.t1708e.photoplatform.controller.admin;
 
 import com.fpt.t1708e.photoplatform.entity.Level;
 import com.fpt.t1708e.photoplatform.service.LevelService;
@@ -21,13 +21,13 @@ public class LevelController {
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public String list(Model model){
         model.addAttribute("levels", levelService.getList());
-        return "level/list";
+        return "manager/admin/level/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public String create(Model model) {
         model.addAttribute("level", new Level());
-        return "level/create";
+        return "manager/admin/level/create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -35,7 +35,7 @@ public class LevelController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("level", level);
-            return "level/create";
+            return "manager/admin/level/create";
         }
 
         levelService.create(level);
@@ -50,7 +50,7 @@ public class LevelController {
             return "error/404";
         }
         model.addAttribute("level", level);
-        return "level/edit";
+        return "manager/admin/level/edit";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
@@ -75,7 +75,7 @@ public class LevelController {
             return "/404";
         }
         model.addAttribute("level", level);
-        return "level/detail";
+        return "manager/admin/level/detail";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}")
@@ -86,6 +86,6 @@ public class LevelController {
         }
         level.setStatus(0);
         levelService.update(level);
-        return "level/list";
+        return "manager/admin/level/list";
     }
 }

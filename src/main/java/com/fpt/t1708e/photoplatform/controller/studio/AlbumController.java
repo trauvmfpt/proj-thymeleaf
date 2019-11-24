@@ -1,4 +1,4 @@
-package com.fpt.t1708e.photoplatform.controller;
+package com.fpt.t1708e.photoplatform.controller.studio;
 
 import com.fpt.t1708e.photoplatform.entity.Album;
 import com.fpt.t1708e.photoplatform.entity.PhotographerInfo;
@@ -50,14 +50,14 @@ public class AlbumController {
         model.addAttribute("studios", studioInfos);
         model.addAttribute("photographers", photographerInfos);
         model.addAttribute("album", new Album());
-        return "album/create";
+        return "manager/studio/album/create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
     public String store(Model model, @Valid Album album, BindingResult bindingResult, HttpServletRequest req, @RequestParam("imgUrls") String[] imgUrls) throws IOException, ServletException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("album", album);
-            return "album/create";
+            return "manager/studio/album/create";
         }
         Set<Picture> imageList = new HashSet<>();
 
@@ -79,7 +79,7 @@ public class AlbumController {
     public String list(Model model) throws RemoteException {
         List<Album> albums = albumRepository.findAllByStatus(1);
         model.addAttribute("albums", albums);
-        return "album/list";
+        return "manager/studio/album/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
@@ -91,16 +91,16 @@ public class AlbumController {
         Album album = albumRepository.findById(id).orElse(null);
         if(album != null){
             model.addAttribute("album", album);
-            return "album/edit";
+            return "manager/studio/album/edit";
         }
-        return "album/list";
+        return "manager/studio/album/list";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public String update(Model model, @Valid Album album, BindingResult bindingResult) throws RemoteException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("album", album);
-            return "album/edit";
+            return "manager/studio/album/edit";
         }
         albumRepository.save(album);
         return "redirect:/list";

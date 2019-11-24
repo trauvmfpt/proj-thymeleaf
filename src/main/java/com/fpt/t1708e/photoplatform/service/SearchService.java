@@ -1,6 +1,7 @@
 package com.fpt.t1708e.photoplatform.service;
 
 import com.fpt.t1708e.photoplatform.entity.PhotographerInfo;
+import com.fpt.t1708e.photoplatform.entity.StudioInfo;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTSearch;
 import com.fpt.t1708e.photoplatform.repository.PhotographerInfoRepository;
 import com.fpt.t1708e.photoplatform.repository.StudioInfoRepository;
@@ -17,6 +18,7 @@ public class SearchService {
     @Autowired
     StudioInfoRepository studioInfoRepository;
 
+
     public List<RESTSearch> searchTop5(String key){
         List<RESTSearch> restSearchList = new ArrayList<>();
         List<PhotographerInfo> photographerInfos = photographerInfoRepository.getTop5(key);
@@ -28,6 +30,17 @@ public class SearchService {
             restSearch.setType(PhotographerInfo.class.getSimpleName());
             restSearch.setAddress(photographerInfo.getAddress());
             restSearch.setUrl(String.format("/studio/"+ photographerInfo.getId()));
+            restSearchList.add(restSearch);
+        }
+        List<StudioInfo> studioInfoList = studioInfoRepository.getTop5(key);
+        for (StudioInfo studioInfo:studioInfoList
+             ) {
+            RESTSearch restSearch = new RESTSearch();
+            restSearch.setId(String.valueOf(studioInfo.getId()));
+            restSearch.setName(String.valueOf(studioInfo.getFullName()));
+            restSearch.setType(StudioInfo.class.getSimpleName());
+            restSearch.setAddress(studioInfo.getAddress());
+            restSearch.setUrl(String.format("/studio/"+ studioInfo.getId()));
             restSearchList.add(restSearch);
         }
 

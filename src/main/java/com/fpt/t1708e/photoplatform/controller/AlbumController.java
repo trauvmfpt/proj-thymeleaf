@@ -93,6 +93,7 @@ public class AlbumController {
         Album album = albumRepository.findById(id).orElse(null);
         if(album != null){
             model.addAttribute("album", album);
+            model.addAttribute("pictures", album.getPictureSet());
             // return "album/edit";
             return "album/studio/edit";
         }
@@ -120,7 +121,7 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public String detail(@PathVariable long id,Model model) throws RemoteException {
+    public String detail(Model model, @PathVariable long id) throws RemoteException {
         Album album = albumRepository.findById(id).orElse(null);
         if(album != null){
             model.addAttribute("album", album);

@@ -126,4 +126,19 @@ public class AlbumController {
         }
         return "redirect:album/list";
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/error/404")
+    public String error1(Model model) throws RemoteException {
+        return "manager/admin/error/404";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/error/500")
+    public String error2(Model model) throws RemoteException {
+        return "manager/admin/error/500";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/error/other")
+    public String error3(Model model) throws RemoteException {
+        return "manager/admin/error/other";
+    }
 }

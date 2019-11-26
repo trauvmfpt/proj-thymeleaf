@@ -52,8 +52,8 @@ public class SearchService {
              ) {
             RESTSearch restSearch = new RESTSearch();
             restSearch.setId(String.valueOf(studioInfo.getId()));
-            restSearch.setName("Studio");
-            restSearch.setType(StudioInfo.class.getSimpleName());
+            restSearch.setName(studioInfo.getFullName());
+            restSearch.setType("Studio");
             restSearch.setAddress(studioInfo.getAddress());
             restSearch.setUrl(String.format("/studio/"+ studioInfo.getId()));
             restSearchList.add(restSearch);

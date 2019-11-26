@@ -148,12 +148,12 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/error/customer/500")
-    public String errorCustomer1(Model model) throws RemoteException {
+    public String errorCustomer2(Model model) throws RemoteException {
         return "manager/error/500";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/error/customer/other")
-    public String errorCustomer1(Model model) throws RemoteException {
+    public String errorCustomer3(Model model) throws RemoteException {
         return "manager/error/other";
     }
 }

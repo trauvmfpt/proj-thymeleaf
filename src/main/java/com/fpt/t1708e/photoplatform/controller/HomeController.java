@@ -42,7 +42,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping({"/home",""})
 public class HomeController {
 	@Autowired
 	AccountRepository accountRepository;
@@ -73,18 +73,22 @@ public class HomeController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	@RequestMapping(value = "/temp")
-	public String temp(){
-		return "admin-layout/admin-layout";
+	@RequestMapping(method = RequestMethod.GET)
+	public String index(){
+		return "customer/home";
+//		return "admin-layout/admin-layout";
 	}
-
 	@RequestMapping(value = "/detail")
 	public String detail(){
-		return "studio-photographer/detail";
+		return "manager/studio/studio-photographer/detail";
 	}
 
+	@RequestMapping(value = "/checkout")
+	public String checkout(){
+		return "customer/checkout";
+	}
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")
-	public String index() {
+	public String seed() {
 		Random rand = new Random();
 		for (int i = 0; i < 3; i++) {
 			Rank rank = new Rank();

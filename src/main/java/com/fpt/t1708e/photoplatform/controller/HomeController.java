@@ -78,6 +78,15 @@ public class HomeController {
 		return "customer/home";
 //		return "admin-layout/admin-layout";
 	}
+	@RequestMapping(value = "/detail")
+	public String detail(){
+		return "manager/studio/studio-photographer/detail";
+	}
+
+	@RequestMapping(value = "/checkout")
+	public String checkout(){
+		return "customer/checkout";
+	}
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")
 	public String seed() {
 		Random rand = new Random();

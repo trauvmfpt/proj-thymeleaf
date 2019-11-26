@@ -16,4 +16,5 @@ public class StudioInfoService {
 	public List<StudioInfo> getAll() {
 		return studioInfoRepository.findAll();
 	}
+	public StudioInfo getById(long id){return studioInfoRepository.findById(id).orElse(null);}
 }

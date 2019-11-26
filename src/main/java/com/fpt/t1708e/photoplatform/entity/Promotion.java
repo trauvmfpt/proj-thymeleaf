@@ -2,6 +2,7 @@ package com.fpt.t1708e.photoplatform.entity;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,6 +19,7 @@ public class Promotion {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "promotion_product", joinColumns = @JoinColumn(name = "promotion_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private Set<Product> productSet;
+	private long expiredAt;
 	private long createdAt;
 	private long updatedAt;
 	private long deletedAt;
@@ -27,6 +29,14 @@ public class Promotion {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();
 		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
+	}
+
+	public long getExpiredAt() {
+		return expiredAt;
+	}
+
+	public void setExpiredAt(long expiredAt) {
+		this.expiredAt = expiredAt;
 	}
 
 	public long getId() {
@@ -107,5 +117,11 @@ public class Promotion {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	public void addProduct(Product product) {
+		if (this.productSet == null) {
+			this.productSet = new HashSet<>();
+		}
+		this.productSet.add(product);
 	}
 }

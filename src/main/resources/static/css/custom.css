@@ -168,4 +168,9 @@ ul.post-comment li p {
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
     transition: all ease 0.3s;
+.fas{
+    font-weight: 900;
+}
+.fas:before{
+    font-weight: 900;
 }

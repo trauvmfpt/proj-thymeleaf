@@ -75,7 +75,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/temp")
 	public String temp(){
-		return "manager/layout/admin-layout";
+		return "fragment/sample";
 	}
 
 	@RequestMapping(value = "/detail")

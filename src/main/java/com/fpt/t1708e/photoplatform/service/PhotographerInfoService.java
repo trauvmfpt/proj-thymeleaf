@@ -17,4 +17,5 @@ public class PhotographerInfoService {
 	public List<PhotographerInfo> getAll() {
 		return photographerInfoRepository.findAll();
 	}
+	public PhotographerInfo getById(long id){return photographerInfoRepository.findById(id).orElse(null);}
 }

@@ -18,7 +18,7 @@
 
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         rel="stylesheet">
-    <link rel="stylesheet" th:href="@{sweetalert2/dist/sweetalert2.css}">
+    <link rel="stylesheet" th:href="@{/sweetalert2/dist/sweetalert2.css}">
     <style>
         .checkout-content{
             display: none;
@@ -53,7 +53,7 @@
                         <div class="checkout">
 
                             <div class="row">
-                                <form th:method="get" th:object="${orderProduct}">
+                                <form th:object="${orderProduct}" id="formform">
                                     <div class="col-md-6">
                                         <div class="checkout_head">
                                             <h3>BILLING DETAILS</h3>
@@ -110,7 +110,7 @@
                                                     <div class="text">
                                                         <a href="#" th:text="${orderDetail.product.name}"></a>
                                                         <p>
-                                                            <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo : orderDetail.product.studioInfo}"></span>
+                                                            <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo.fullName : orderDetail.product.studioInfo.fullName}"></span>
                                                             <b th:text="${orderDetail.currentPrice}">(price)</b>
                                                         </p>
                                                     </div>
@@ -124,30 +124,41 @@
                                                 <p><span>Order Total:</span> <span class="color-red">(total price)</span></p>
                                             </div>
 
-            <!--                                <div class="checkout_option">-->
-            <!--                                    <ul>-->
-            <!--                                        <li>-->
-            <!--                                            <input type="radio" class="radio payment-methor" name="payment">-->
-            <!--                                            <h6>Direct Bank Transfer</h6>-->
-            <!--                                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>-->
-            <!--                                        </li>-->
-            <!--                                        <li>-->
-            <!--                                            <input type="radio" class="radio payment-methor" name="payment">-->
-            <!--                                            <h6>Cheque Payment</h6>-->
-            <!--                                        </li>-->
-            <!--                                        <li>-->
-            <!--                                            <input type="radio" class="radio payment-methor" name="payment">-->
-            <!--                                            <h6>Credit Card</h6>-->
-            <!--                                            <img src="images/icon-card.jpg" alt="">-->
-            <!--                                        </li>-->
-            <!--                                    </ul>-->
-            <!--                                </div>-->
+                                            <div class="checkout_option checkout-content">
+                                                <ul>
+                                                    <li>
+                                                        <input type="radio" class="radio payment-methor" name="payment">
+                                                        <h6>Direct Bank Transfer</h6>
+                                                        <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" class="radio payment-methor" name="payment">
+                                                        <h6>Cheque Payment</h6>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" class="radio payment-methor" name="payment">
+                                                        <h6>Credit Card</h6>
+                                                    </li>
+                                                </ul>
+                                            </div>
 
                                             <div class="checkout_btn">
-                                                <button type="submit" class="button checkout-content" th:formaction="#{/cart/confirm}" id="confirm">Confirm</button>
-                                                <button type="submit" class="button confirm-content" th:src="@{/product/list}" id="back">Back to product list</button>
-                                                <button type="submit" class="button confirm-content" th:formaction="#{/cart/cancel}" id="cancel">Cancel order</button>
-                                                <button type="submit" class="button confirm-content" th:formaction="#{/cart/checkout}" id="checkout">Check out</button>
+                                                <button type="submit" id="confirm" onclick="confirmSubmit(event)"
+                                                        class="button confirm-content">
+                                                    Confirm
+                                                </button>
+                                                <button type="submit" id="back"
+                                                        class="button checkout-content" th:src="@{/product/list}">
+                                                    Back to product list
+                                                </button>
+                                                <button type="submit" id="cancel" onclick="cancelSubmit(event)"
+                                                        class="button checkout-content">
+                                                    Cancel
+                                                </button>
+                                                <button type="submit" id="checkout" onclick="checkoutSubmit(event)"
+                                                        class="button checkout-content">
+                                                    Check out
+                                                </button>
                                             </div>
                                         </div>
 
@@ -174,6 +185,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.11/js/bootstrap-select.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
     <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
     <script>
         // Give the parameter a variable name
@@ -181,60 +193,64 @@
 
         $(document).ready(function () {
             if (orderProductId == null || orderProductId == '') {
-
-                $('.checkout-content').show();
-            }
-            else {
                 $('.confirm-content').show();
             }
+            else {
+                $('.confirm-content').hide();
+                $('.checkout-content').show();
+            }
         });
-        $("#confirm").on('click', function () {
+
+        function confirmSubmit(e) {
+            e.preventDefault();
             Swal.fire({
                 title: 'Are you sure!',
                 text: 'Do you want to confirm this order?',
                 icon: 'question',
                 confirmButtonText: 'Yes',
                 showCancelButton: true
-            }, function (isConfirm) {
-                if (isConfirm){
-                    return true;
+            }).then(function(result){
+                if (result.value){
+                    $("#formform").attr("action", "/cart/confirm");
+                    $("#formform").attr("method", "post");
+                    $("#formform").submit();
                 } else {
                     return false;
                 }
-            })
-        })
-
-        $("#cancel").on('click', function () {
+            });
+        }
+        function cancelSubmit(e) {
+            e.preventDefault();
             Swal.fire({
                 title: 'Are you sure!',
                 text: 'Do you want to cancel this order?',
                 icon: 'question',
                 confirmButtonText: 'Yes',
                 showCancelButton: true
-            }, function (isConfirm) {
-                if (isConfirm){
-                    return true;
-                } else {
-                    return false;
-                }
-            })
-        })
-
-        $("#checkout").on('click', function () {
+            }).then(function(result){
+                if (result.value){
+                    $("#formform").attr("action", "/cart/cancel");
+                    $("#formform").attr("method", "post");
+                    $("#formform").submit();
+                } else return false;
+            });
+        }
+        function checkoutSubmit(e) {
+            e.preventDefault();
             Swal.fire({
                 title: 'Are you sure!',
                 text: 'Choose the payment method?',
                 icon: 'question',
                 confirmButtonText: 'Yes',
                 showCancelButton: true
-            }, function (isConfirm) {
-                if (isConfirm){
-                    return true;
-                } else {
-                    return false;
-                }
-            })
-        })
+            }).then(function(result){
+                if (result.value){
+                    $("#formform").attr("action", "/cart/checkout");
+                    $("#formform").attr("method", "post");
+                    $("#formform").submit();
+                } else return false;
+            });
+        }
 
         // Parse the URL parameter
         function getParameterByName(name, url) {

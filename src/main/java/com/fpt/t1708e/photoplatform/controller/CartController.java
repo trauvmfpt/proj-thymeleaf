@@ -87,7 +87,7 @@ public class CartController {
                 HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
+    @RequestMapping(value = "/confirm", method = RequestMethod.GET)
     public String confirm(HttpSession session, OrderProduct orderProduct,
                           @RequestParam("accountId") long accountId) {
         if (session.getAttribute("cart") != null) {
@@ -146,7 +146,7 @@ public class CartController {
         return "customer/checkout";
     }
 
-    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
+    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
     public String checkout(HttpSession session, OrderProduct orderProduct,
                            @RequestParam("accountId") long accountId){
 //        do check out here
@@ -154,7 +154,7 @@ public class CartController {
         orderProductService.update(orderProduct);
         return "customer/home";
     }
-    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    @RequestMapping(value = "/cancel", method = RequestMethod.GET)
     public String cancel(HttpSession session, OrderProduct orderProduct,
                            @RequestParam("accountId") long accountId){
         orderProductService.delete(orderProduct);

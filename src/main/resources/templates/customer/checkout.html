@@ -19,6 +19,11 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         rel="stylesheet">
     <link rel="stylesheet" th:href="@{sweetalert2/dist/sweetalert2.css}">
+    <style>
+        .checkout-content{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -48,7 +53,7 @@
                         <div class="checkout">
 
                             <div class="row">
-                                <form th:method="post" th:object="${orderProduct}">
+                                <form th:method="get" th:object="${orderProduct}">
                                     <div class="col-md-6">
                                         <div class="checkout_head">
                                             <h3>BILLING DETAILS</h3>
@@ -105,7 +110,7 @@
                                                     <div class="text">
                                                         <a href="#" th:text="${orderDetail.product.name}"></a>
                                                         <p>
-                                                            <span th:text="${orderDetail.product.getPhotographerInfo() ? orderDetail.product.getPhotographerInfo() : orderDetail.product.getStudioInfo()}"></span>
+                                                            <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo : orderDetail.product.studioInfo}"></span>
                                                             <b th:text="${orderDetail.currentPrice}">(price)</b>
                                                         </p>
                                                     </div>
@@ -139,10 +144,10 @@
             <!--                                </div>-->
 
                                             <div class="checkout_btn">
-                                                <button type="submit" class="button checkout-content" th:formaction="#{/cart/confirm}" th:formmethod="post" id="confirm">Confirm</button>
+                                                <button type="submit" class="button checkout-content" th:formaction="#{/cart/confirm}" id="confirm">Confirm</button>
                                                 <button type="submit" class="button confirm-content" th:src="@{/product/list}" id="back">Back to product list</button>
-                                                <button type="submit" class="button confirm-content" th:formaction="#{/cart/cancel}" th:formmethod="post" id="cancel">Cancel order</button>
-                                                <button type="submit" class="button confirm-content" th:formaction="#{/cart/checkout}" th:formmethod="post" id="checkout">Check out</button>
+                                                <button type="submit" class="button confirm-content" th:formaction="#{/cart/cancel}" id="cancel">Cancel order</button>
+                                                <button type="submit" class="button confirm-content" th:formaction="#{/cart/checkout}" id="checkout">Check out</button>
                                             </div>
                                         </div>
 
@@ -176,6 +181,7 @@
 
         $(document).ready(function () {
             if (orderProductId == null || orderProductId == '') {
+
                 $('.checkout-content').show();
             }
             else {

@@ -8,10 +8,10 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "orderProductId")
     private OrderProduct orderProduct;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne()
     @JoinColumn(name = "productId")
     private Product product;
     private double currentPrice;
@@ -24,6 +24,12 @@ public class OrderDetail {
         this.createdAt = Calendar.getInstance().getTimeInMillis();
         this.updatedAt = Calendar.getInstance().getTimeInMillis();
         this.status = 1;
+    }
+
+    public OrderDetail(Product product, double currentPrice) {
+        this.product = product;
+        this.currentPrice = product.getPriceDiscount();
+
     }
 
     public long getId() {

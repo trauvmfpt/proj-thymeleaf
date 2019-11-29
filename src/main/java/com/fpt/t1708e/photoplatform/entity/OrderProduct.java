@@ -18,7 +18,7 @@ public class OrderProduct {
 	private String customerEmail;
 	@OneToMany(mappedBy = "orderProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetailSet;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "customerInfo")
 	private CustomerInfo customerInfo;
 	private long createdAt;

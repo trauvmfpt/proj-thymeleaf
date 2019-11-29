@@ -48,6 +48,11 @@
     <div>
         Image: <img th:src="${product.thumbnail}" style="width: 200px;">
     </div>
+    <div>
+        <button class="btn-add-cart" th:id="${'add-cart-' + product.id}"> Add product to cart</button>
+    </div>
 </div>
+    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{/js/user/shoppingCart.js}"></script>
 </body>
 </html>

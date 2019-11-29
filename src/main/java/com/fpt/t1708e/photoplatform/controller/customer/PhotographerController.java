@@ -45,7 +45,7 @@ public class PhotographerController {
 	}
 
     @RequestMapping(method = RequestMethod.GET, value = "/studio/{id}")
-    public String detail(Model model, @PathVariable int id) {
+    public String detail1(Model model, @PathVariable int id) {
         PhotographerInfo photographerInfo = photographerInfoService.getById(id);
         if (photographerInfo == null) {
             return "/404";

@@ -44,7 +44,7 @@ public class SearchService {
             restSearch.setName(String.valueOf(photographerInfo.getFullName()));
             restSearch.setType("Photographer");
             restSearch.setAddress(photographerInfo.getAddress());
-            restSearch.setUrl(String.format("/studio/"+ photographerInfo.getId()));
+            restSearch.setUrl(String.format("/photographer/"+ photographerInfo.getId()));
             restSearchList.add(restSearch);
         }
         List<StudioInfo> studioInfoList = studioInfoRepository.getTop5(key);

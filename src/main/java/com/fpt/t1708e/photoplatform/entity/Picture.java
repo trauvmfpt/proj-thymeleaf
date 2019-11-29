@@ -9,7 +9,7 @@ public class Picture {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long id;
     private String url;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "albumId")
     private Album album;
     private int status;

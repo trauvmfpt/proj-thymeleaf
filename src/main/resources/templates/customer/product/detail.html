@@ -1,53 +1,122 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragment/layout}"
+    xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        div {
-            margin-top: 10px;
-        }
-    </style>
+    <title>Home</title>
 </head>
+
 <body>
-    <h1>Product detail</h1>
-<div>
-    <div>
-        Area: <span th:text="${product.area}"></span>
-    </div>
-    <div>
-        Content: <span th:text="${product.content}"></span>
-    </div>
-    <div>
-        Description: <span th:text="${product.description}"></span>
-    </div>
-    <div>
-        Destination: <span th:text="${product.destination}"></span>
-    </div>
-    <div>
-        Name: <span th:text="${product.name}"></span>
-    </div>
-    <div>
-        Price: <span th:text="${product.price}"></span>
-    </div>
-    <div>
-        Price discount: <span th:text="${product.priceDiscount}"></span>
-    </div>
-    <div th:if="${product.studioInfo != null}">
-        Studio: <span th:text="${product.studioInfo.fullName}"></span>
-    </div>
-    <div th:if="${product.photographerInfo != null}">
-        Photographer: <span th:text="${product.photographerInfo.fullName}"></span>
-    </div>
-    <div>
-        Album: <span th:text="${product.album.name}"></span>
-    </div>
-    <div>
-        Category: <span th:text="${product.category.name}"></span>
-    </div>
-    <div>
-        Image: <img th:src="${product.thumbnail}" style="width: 200px;">
-    </div>
-</div>
+    <section layout:fragment="content">
+        <div class="parallax_window_in" data-parallax="scroll" data-image-src="img/sub_header_florence_7.jpg"
+            data-natural-width="1400" data-natural-height="420">
+            <div id="sub_content_in">
+                <div id="sub_content_in_left">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h1 th:text="${product.name}"></h1>
+                                <span>
+                                    <i class="icon_pin"></i>
+                                    <span th:text="${product.area}"></span>
+                                    <span> - </span>
+                                    <span th:text="${product.destination}"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End sub_content_left -->
+        </div>
+
+        <div id="position">
+            <div class="container">
+                <ul>
+                    <li><a href="#">Home</a>
+                    </li>
+                    <li><a href="#">Category</a>
+                    </li>
+                    <li>Product</li>
+                </ul>
+            </div>
+        </div>
+        <!-- End position -->
+
+        <div class="container margin_60">
+            <div class="row">
+                <aside class="col-md-3 col-md-push-9" id="sidebar">
+                    <div class="theiaStickySidebar ">
+                        <ul id="tools_2">
+                            <li><a href="/"><i class="icon_images"></i>View Album</a></li>
+                            <li><a href="/"><i class="icon-plus"></i>Add to cart</a></li>
+                            <li><a href="/"><i class="icon-cart"></i>Checkout</a></li>
+                        </ul>
+                    </div>
+                    <!--End sticky -->
+                </aside>
+                <!--End aside -->
+                <div class="col-md-9 col-md-pull-3">
+                    <div class="box_style_general add_bottom_30">
+                        <div class="description">
+                            <h2>Description</h2>
+                            <p class="lead" th:text="${product.description}"></p>
+                        </div>
+
+                        <div class="content">
+                            <h3>Content</h3>
+                            <p th:text="${product.content}"></p>
+                        </div>
+
+                        <div class="image">
+                            <h3>Image</h3>
+                            <img th:src="${product.thumbnail}" style="max-width: 350px;" />
+                        </div>
+
+                        <div class="price">
+                            <h3>Price</h3>
+                            <h4 th:if="${product.price} == ${product.priceDiscount}" th:text="${product.price}"></h4>
+                            <span th:unless="${product.price} == ${product.priceDiscount}">
+                                <span th:text="${product.price}"
+                                    style="text-decoration: line-through; color: gray;"></span>
+                                <h4 th:text="${product.priceDiscount}"></h4>
+                            </span>
+                        </div>
+
+                        <div class="studio" th:if="${product.getStudioInfo()} != null">
+                            <h3>Studio</h3>
+                            <img th:src="${product.getStudioInfo().getAvatar()}" width="80px" />
+                            <span th:text="${product.getStudioInfo().getFullName()}"></span>
+                        </div>
+
+                        <div class="photographer" th:if="${product.getPhotographerInfo()} != null">
+                            <h3>Photographer</h3>
+                            <img th:src="${product.getPhotographerInfo().getAvatar()}" width="80px" />
+                            <span th:text="${product.getPhotographerInfo().getFullName()}"></span>
+                        </div>
+
+                        <div class="album">
+                            <h3>Album</h3>
+                            <img th:src="${product.getAlbum().getThumbnail()}" width="80px" />
+                            <span th:text="${product.getAlbum().getName()}"></span>
+                        </div>
+
+                        <div class="category">
+                            <h3>Category</h3>
+                            <img th:src="${product.getCategory().getThumbnail()}" width="80px" />
+                            <span th:text="${product.getCategory().getName()}"></span>
+                        </div>
+
+                    </div>
+                    <!-- End box_style_general -->
+                </div>
+                <!-- End col lg-9 -->
+            </div>
+            <!-- End row -->
+        </div>
+        <!-- End container -->
+    </section>
+
 </body>
+
 </html>

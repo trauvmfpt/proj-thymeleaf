@@ -147,7 +147,7 @@ public class ProductController {
 		model.addAttribute("product", product);
 		return "customer/product/detail";
 	}
-	
+ 
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
     public String list(Model model,
 					   @RequestParam(defaultValue = "1", required = false) Optional<Integer> page,

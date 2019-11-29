@@ -21,7 +21,7 @@
     <!--admin-header.html  that's here  -->
     <div th:replace="fragment/header :: header"></div>
 
-    <div layout:fragment="content">
+    <div layout:fragment="content" >
         <section layout:fragment="content">
 
             <!-- Stylesheets -->
@@ -39,17 +39,17 @@
             <!--    <link rel="stylesheet" th:href="@{/studio-photographer/icon-fonts/font-awesome-4.5.0/css/font-awesome.min.css}"/>-->
             <!--    <link rel="stylesheet" th:href="@{/studio-photographer/icon-fonts/essential-regular-fonts/essential-icons.css}"/>-->
 
-            <section class="about" id="about">
+            <section class="about" id="about" style="margin-top: 80px;">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 about-image wow fadeInUp" data-wow-delay="0.4s">
-                            <img th:src="@{/studio-photographer/images/about.jpg}" alt="">
+                            <img th:src="${info.avatar}" alt="@{/studio-photographer/images/about.jpg}">
                         </div>
                         <div class="col-md-6 about-text wow fadeInUp" data-wow-delay="0.8s">
                             <div class="out">
-                                <h2 th:text="${studioInfo.fullName}">(Name / Full name) I am Dynamic and Creative</h2>
+                                <h2 th:text="${info.fullName}">(Name / Full name) I am Dynamic and Creative</h2>
                                 <br/>
-                                <p th:text="${studioInfo.description}">
+                                <p th:text="${info.description}">
                                     (Description)
                                     Impossible considered invitation him men instrument saw celebrated unpleasant. Put rest and must set kind next many near nay. He exquisite continued explained middleton am. Voice hours young woody has she think equal. Estate moment he at on wonder at season little. Six garden result summer set family esteem nay estate.
                                     <br/><br/>
@@ -67,11 +67,16 @@
                     <div class="section-title">
                         <h2>CATEGORY</h2>
                         <div class="portfolio_filter">
-                            <ul>
+                            <ul th:if="${categories==null}">
                                 <li class="select-cat" data-filter="*">All</li>
-                                <li data-filter=".web-design">Web Design</li>
-                                <li data-filter=".aplication">Applications</li>
-                                <li data-filter=".development">Development</li>
+                            </ul>
+                            <ul th:if="${categories}!=null">
+                                <li class="select-cat" data-filter="*">All</li>
+                                <li th:each="category, iterStat : ${categories}" th:if="${iterStat.index} <=5"
+                                    th:text="${category.name}"
+                                    th:with="cat=${category.name}"
+                                    th:attr="data-filter='.'+${#strings.replace(#strings.toLowerCase(cat), ' ', '-')}"
+                                    >Web Design</li>
                             </ul>
                         </div>
                     </div>
@@ -79,30 +84,13 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="isotope_items row">
-                                <!-- Item -->
-                                <a href="https://www.youtube.com/watch?v=M-M3rdL_WLQ" class="popup-youtube single_item link development col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                                <a th:each="product : ${info.productSet}" th:href="@{/product/{id}(id = ${product.id})}"
+                                    class="single_item col-md-4 col-sm-6 wow fadeInUp"
+                                    th:with="cat=${product.category.name}"
+                                    th:classappend="${#strings.replace(#strings.toLowerCase(cat), ' ', '-')}"
+                                    data-wow-delay="0.9s">
                                     <i class="fa fa-play" aria-hidden="true"></i>
-                                    <img th:src="@{/studio-photographer/images/work-1.jpg}" alt="">
-                                </a>
-                                <!-- Item -->
-                                <a href="/images/work-2.jpg" class="single_item link aplication col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
-                                    <img th:src="@{/studio-photographer/images/work-2.jpg}" alt="">
-                                </a>
-                                <!-- Item -->
-                                <a href="/images/work-3.jpg" class="single_item link development col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
-                                    <img th:src="@{/studio-photographer/images/work-3.jpg}" alt="">
-                                </a>
-                                <!-- Item -->
-                                <a href="/images/work-4.jpg" class="single_item link web-design col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.2s">
-                                    <img th:src="@{/studio-photographer/images/work-4.jpg}" alt="">
-                                </a>
-                                <!-- Item -->
-                                <a href="/images/work-5.jpg" class="single_item link aplication col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.5s">
-                                    <img th:src="@{/studio-photographer/images/work-5.jpg}" alt="">
-                                </a>
-                                <!-- Item -->
-                                <a href="/images/work-6.jpg" class="single_item link aplication col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.8s">
-                                    <img th:src="@{/studio-photographer/images/work-6.jpg}" alt="">
+                                    <img th:src="${product.thumbnail}" alt="@{/studio-photographer/images/work-1.jpg}">
                                 </a>
                             </div>
                         </div>
@@ -116,36 +104,27 @@
                     <div class="container">
                         <div class="section-title">
                             <h2>OUR PRODUCT</h2>
-                            <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>
+<!--                            <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>-->
+                            <p>The best in the best</p>
                         </div>
                         <!-- Blogs -->
                         <div class="row">
-                            <a href="single-blog.html" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-content wow fadeInUp" data-wow-delay="0.4s">
+                            <a th:each="product, iterStat : ${info.productSet}" th:if="${iterStat.index} <3"
+                                    th:href="@{/product/{id}(id = ${product.id})}" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-content wow fadeInUp"
+                               data-wow-delay="0.4s">
                                 <div class="blog-image">
-                                    <img th:src="@{/studio-photographer/images/blog-1.png}">
+                                    <img th:src="${product.thumbnail}"
+                                            alt="@{/studio-photographer/images/blog-1.png}">
                                 </div>
-                                <h1>By spite about do of do allow blush</h1>
-                                <p>Quick six blind smart out burst. Perfectly on furniture dejection determine my depending an to. Add short water court fat.  </p>
-                                <span class="blog-info">Larry Stark - 7 September 2016 </span>
-                            </a>
-                            <a href="single-blog.html" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-content wow fadeInUp" data-wow-delay="0.6s">
-                                <div class="blog-image">
-                                    <img th:src="@{/studio-photographer/images/blog-2.png}">
-                                </div>
-                                <h1>Two Before Arrow Not Relied</h1>
-                                <p>Quick six blind smart out burst. Perfectly on furniture dejection determine my depending an to. Add short water court fat.  </p>
-                                <span class="blog-info">Larry Stark - 7 September 2016 </span>
-                            </a>
-                            <a href="single-blog.html" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-content wow fadeInUp" data-wow-delay="0.8s">
-                                <div class="blog-image">
-                                    <img th:src="@{/studio-photographer/images/blog-3.png}">
-                                </div>
-                                <h1>Behind Sooner Dining so Window </h1>
-                                <p>Quick six blind smart out burst. Perfectly on furniture dejection determine my depending an to. Add short water court fat.  </p>
-                                <span class="blog-info">Larry Stark - 7 September 2016 </span>
+                                <h1 th:text="${product.name}">By spite about do of do allow blush</h1>
+                                <p th:text="${product.description}">Quick six blind smart out burst. Perfectly on furniture dejection determine my depending an to. Add short water court fat.  </p>
+                                <span th:with="dat=${product.createdAt}"
+                                      class="blog-info"
+                                      th:text="${info.fullName} + ' - ' +
+                                      ${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(dat)}">Larry Stark - 7 September 2016 </span>
                             </a>
                         </div>
-                        <a href="blog-page.html" class="site-button"> (List) READ MORE</a>
+                        <a th:href="@{/product/list}" class="site-button"> READ MORE</a>
                     </div>
                 </div>
             </section>
@@ -160,34 +139,19 @@
                             <div class="col-md-12">
                                 <div class="section-title">
                                     <h2>COMMENT</h2>
-                                    <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>
+<!--                                    <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>-->
                                 </div>
-                                <ul class="post-comment">
-                                    <li>
-                                        <img th:src="@{/studio-photographer/images/person-1.jpg}" alt="">
+                                <ul th:if="${info.commentSet == null}">
+                                    <li>Currently there're no comments.</li>
+                                </ul>
+                                <ul class="post-comment" th:if="${info.commentSet != null}">
+                                    <li th:each="comment, iterStat : ${info.commentSet}" th:if="${iterStat.index} <5">
+                                        <img th:src="${comment.customerInfo.avatar}" alt="@{/studio-photographer/images/person-1.jpg}">
                                         <div class="comment-info">
-                                            <h3>Mary R. Peterson</h3>
+                                            <h3 th:text="${comment.customerInfo.fullName}">Mary R. Peterson</h3>
                                             <a href="#"> Reply </a>
-                                            <span>Sep 26, 2016 at 14:35</span>
-                                            <p>Kept in sent gave feel will oh it we. Has pleasure procured men laughing shutters nay. Old insipidity motionless continuing law shy partiality. </p>
-                                        </div>
-                                    </li>
-                                    <li class="reply">
-                                        <img th:src="@{/studio-photographer/images/person-2.jpg}" alt="">
-                                        <div class="comment-info">
-                                            <h3>Mary R. Peterson</h3>
-                                            <a href="#"> Reply </a>
-                                            <span>Sep 26, 2016 at 14:35</span>
-                                            <p>Unpleasant astonished an diminution up partiality. Noisy an their of meant. Death means up civil do an offer wound of. Called square an in afraid direct. </p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/studio-photographer/images/person-3.jpg}" alt="">
-                                        <div class="comment-info">
-                                            <h3>Geoffrey B. Ashley</h3>
-                                            <a href="#"> Reply </a>
-                                            <span>Sep 26, 2016 at 14:35</span>
-                                            <p>Agreed joy vanity regret met may ladies oppose who. Mile fail as left as hard eyes. Meet made call in mean four year it to.  </p>
+                                            <span th:text="${comment.updatedAt}">Sep 26, 2016 at 14:35</span>
+                                            <p th:text="${comment.content}">Kept in sent gave feel will oh it we. Has pleasure procured men laughing shutters nay. Old insipidity motionless continuing law shy partiality. </p>
                                         </div>
                                     </li>
                                 </ul>

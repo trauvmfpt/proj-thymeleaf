@@ -50,12 +50,27 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     Random rand = new Random();
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        LOGGER.log(java.util.logging.Level.INFO, String.format("Start seeding..."));
+        boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
+        if (isDebug){
+            LOGGER.log(java.util.logging.Level.INFO, String.format("Start seeding..."));
+            rankRepository.disableForeignKeyCheck();
+            seedRankAndLevel();
+            seedAccount();
+            categorySeed();
+            albumSeeder();
+            pictureSeeder();
+            productSeeder();
+            ratingAndCommentSeeder();
+            rankRepository.enableForeignKeyCheck();
+            LOGGER.log(java.util.logging.Level.INFO, String.format("Success in seeding..."));
+        }
 
-        LOGGER.log(java.util.logging.Level.INFO, String.format("Success in seeding..."));
     }
     private void seedRankAndLevel(){
-
+        rankRepository.deleteAll();
+        rankRepository.resetIncrement();
+        levelRepository.deleteAll();
+        levelRepository.resetIncrement();
         for (int i = 0; i < 3; i++) {
             Rank rank = new Rank();
             rank.setName("Level " + i);
@@ -73,7 +88,14 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         }
     }
     private void seedAccount() {
-        List<String> FirstName = Arrays.asList("Hoang", "Duong", "Phong", "Minh", "Hoa", "Ahh", "Tra", "Thu", "Mai",
+        accountRepository.deleteAll();
+        accountRepository.resetIncrement();
+//        adminInfoRepository.deleteAll();
+        adminInfoRepository.resetIncrement();
+        customerInfoRepository.resetIncrement();
+        photographerInfoRepository.resetIncrement();
+        studioInfoRepository.resetIncrement();
+        List<String> FirstName = Arrays.asList("Hoang", "Duong", "Phong", "Minh", "Hoa", "Anh", "Tra", "Thu", "Mai",
                 "Lan", "Chi", "Luyen");
         List<String> MiddleName = Arrays.asList("Thi", "Van", "Huu", "Duc", "Quynh", "", "Kim", "Anh", "Hong");
         List<String> LastName = Arrays.asList("Nguyen", "Tran", "Pham", "Do", "Le", "Ung", "Vu", "Ly", "Mai", "Ngo",
@@ -81,21 +103,24 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         List<Integer> role = Arrays.asList(1, 2, 3);
         List<Rank> rankList = rankRepository.findAll();
         List<Level> levelList = levelRepository.findAll();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             Account account = new Account();
             account.setRole(role.get(rand.nextInt(role.size())));
 
             account.setPassword(passwordEncoder.encode("123456"));
+            String currentFirstName = FirstName.get(rand.nextInt(FirstName.size()));
+            String currentMiddleName = MiddleName.get(rand.nextInt(MiddleName.size()));
+            String currentLastName = LastName.get(rand.nextInt(LastName.size()));
+            String fullName = currentFirstName + " "
+                    + currentMiddleName + " "
+                    + currentLastName;
+            String username = currentFirstName
+                    + currentLastName + String.valueOf(i + 1);
             if (i == 0) {
                 account.setRole(5);
                 AdminInfo userInfo = new AdminInfo();
                 userInfo.setAvatar("https://www.w3schools.com/w3images/avatar2.png");
-                String fullName = FirstName.get(rand.nextInt(FirstName.size())) + " "
-                        + MiddleName.get(rand.nextInt(MiddleName.size())) + " "
-                        + LastName.get(rand.nextInt(LastName.size()));
                 userInfo.setFullName(fullName);
-                String username = FirstName.get(rand.nextInt(FirstName.size()))
-                        + LastName.get(rand.nextInt(LastName.size())) + String.valueOf(i + 1);
                 System.out.println(username);
                 account.setUsername(username);
                 userInfo.setAccount(account);
@@ -107,17 +132,11 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 CustomerInfo userInfo = new CustomerInfo();
                 userInfo.setAddress("Khong co");
                 userInfo.setAvatar("https://www.w3schools.com/w3images/avatar2.png");
+                userInfo.setFullName(fullName);
                 userInfo.setBirthday(Calendar.getInstance().getTimeInMillis());
                 userInfo.setDescription("Nothing");
                 userInfo.setGender(i % 2);
                 userInfo.setPhone("098902020" + i);
-                String fullName = FirstName.get(rand.nextInt(FirstName.size())) + " "
-                        + MiddleName.get(rand.nextInt(MiddleName.size())) + " "
-                        + LastName.get(rand.nextInt(LastName.size()));
-                userInfo.setFullName(fullName);
-
-                String username = FirstName.get(rand.nextInt(FirstName.size()))
-                        + LastName.get(rand.nextInt(LastName.size())) + String.valueOf(i + 1);
                 System.out.println(username);
                 userInfo.setEmail(username + "@gmail.com");
                 userInfo.setRank(rankList.get(rand.nextInt(rankList.size())));
@@ -132,15 +151,9 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 StudioInfo userInfo = new StudioInfo();
                 userInfo.setAddress("Khong co");
                 userInfo.setAvatar("https://www.w3schools.com/w3images/avatar2.png");
+                userInfo.setFullName(fullName);
                 userInfo.setDescription("Nothing");
                 userInfo.setPhone("098902020" + i);
-                String fullName = FirstName.get(rand.nextInt(FirstName.size())) + " "
-                        + MiddleName.get(rand.nextInt(MiddleName.size())) + " "
-                        + LastName.get(rand.nextInt(LastName.size()));
-                userInfo.setFullName(fullName);
-
-                String username = FirstName.get(rand.nextInt(FirstName.size()))
-                        + LastName.get(rand.nextInt(LastName.size())) + String.valueOf(i + 1);
                 System.out.println(username);
                 userInfo.setEmail(username + "@gmail.com");
                 userInfo.setLevel(level);
@@ -156,17 +169,11 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 PhotographerInfo userInfo = new PhotographerInfo();
                 userInfo.setAddress("Khong co");
                 userInfo.setAvatar("https://www.w3schools.com/w3images/avatar2.png");
+                userInfo.setFullName(fullName);
                 userInfo.setDescription("Nothing");
                 userInfo.setPhone("098902020" + i);
                 userInfo.setBirthday(Calendar.getInstance().getTimeInMillis());
                 userInfo.setGender(i % 2);
-                String fullName = FirstName.get(rand.nextInt(FirstName.size())) + " "
-                        + MiddleName.get(rand.nextInt(MiddleName.size())) + " "
-                        + LastName.get(rand.nextInt(LastName.size()));
-                userInfo.setFullName(fullName);
-
-                String username = FirstName.get(rand.nextInt(FirstName.size()))
-                        + LastName.get(rand.nextInt(LastName.size())) + String.valueOf(i + 1);
                 System.out.println(username);
                 userInfo.setEmail(username + "@gmail.com");
                 userInfo.setLevel(level);
@@ -179,7 +186,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         }
     }
     public void categorySeed() {
-//
+        categoryRepository.deleteAll();
+        categoryRepository.resetIncrement();
         for (int i = 0; i < 10; i++) {
             Category category = new Category();
             category.setName("Category " + i + 1);
@@ -189,6 +197,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         }
     }
     public void albumSeeder() {
+        albumRepository.deleteAll();
+        albumRepository.resetIncrement();
         List<Account> studioAccounts = accountRepository.findAllAccountByRole(2).get();
         List<Account> ptgAccounts = accountRepository.findAllAccountByRole(3).get();
         for (Account account : studioAccounts) {
@@ -211,6 +221,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         }
     }
     public void pictureSeeder() {
+        pictureRepository.deleteAll();
+        pictureRepository.resetIncrement();
         List<Album> albums = albumRepository.findAll();
         for (Album album : albums) {
             for (int i = 0; i < 10; i++) {
@@ -223,6 +235,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         }
     }
     public void productSeeder() {
+        productRepository.deleteAll();
+        productRepository.resetIncrement();
         Random rand = new Random();
         List<Album> albums = albumRepository.findAll();
         List<Category> categories = categoryRepository.findAll();
@@ -251,6 +265,10 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         }
     }
     public void ratingAndCommentSeeder() {
+        ratingRepository.deleteAll();
+        ratingRepository.resetIncrement();
+        commentRepository.deleteAll();
+        commentRepository.resetIncrement();
         Random rand = new Random();
         List<CustomerInfo> customerInfos = customerInfoRepository.findAll();
         //

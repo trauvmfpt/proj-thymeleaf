@@ -49,4 +49,7 @@ public class ProductService {
         return bookPage;
 //        return productRepository.findAll(PageRequest.of(page - 1,limit));
     }
+    public List<Product> getList() {
+        return productRepository.findAll();
+    }
 }

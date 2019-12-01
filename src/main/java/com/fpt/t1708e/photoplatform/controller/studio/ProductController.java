@@ -145,6 +145,7 @@ public class ProductController {
 			return "/404";
 		}
 		model.addAttribute("product", product);
+		model.addAttribute("listProduct", productService.getList());
 		return "customer/product/detail";
 	}
  

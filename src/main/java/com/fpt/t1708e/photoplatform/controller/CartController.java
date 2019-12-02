@@ -4,6 +4,7 @@ import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
 import com.fpt.t1708e.photoplatform.repository.*;
 import com.fpt.t1708e.photoplatform.service.AccountService;
+import com.fpt.t1708e.photoplatform.service.AdminInfoService;
 import com.fpt.t1708e.photoplatform.service.CustomerInfoService;
 import com.fpt.t1708e.photoplatform.service.OrderProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class CartController {
     OrderProductService orderProductService;
     @Autowired
     public JavaMailSender emailSender;
+    @Autowired
+    AdminInfoService adminInfoService;
 
     static Account account = new Account();
 
@@ -95,28 +98,21 @@ public class CartController {
                           @RequestParam("accountId") long accountId) {
         if (session.getAttribute("cart") != null) {
             CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(accountId);
+            List<AdminInfo> adminInfos = adminInfoService.adminInfos();
             if(customerInfo == null){
                 return "error";
             }
             List<OrderDetail> cart = new ArrayList<OrderDetail>();
             cart = (List<OrderDetail>) session.getAttribute("cart");
-            for (OrderDetail orderDetail: cart
+            sendConfirmMessage(customerInfo.getEmail(), "html customer/receipt here");
+            for (AdminInfo adminInfo: adminInfos
                  ) {
-                orderDetail.setOrderProduct(orderProduct);
-                orderProduct.addOrderDetail(orderDetail);
-
-                Product product = orderDetail.getProduct();
-                if (product.getStudioInfo() != null){
-                    sendConfirmMessage(product.getStudioInfo().getEmail(), product.getName());
-
-                } else {
-                    sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
-                }
+                sendConfirmMessage(adminInfo.getEmail(), "html customer/receipt here");
             }
             orderProduct.setCustomerInfo(customerInfo);
             orderProductRepository.save(orderProduct);
             session.removeAttribute("cart");
-            return "redirect:/customer/home";
+            return "redirect:/customer/receipt";
         }
         else {
             return "error";

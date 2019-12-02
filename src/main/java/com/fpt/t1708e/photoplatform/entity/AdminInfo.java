@@ -23,6 +23,7 @@ public class AdminInfo {
 	private Account account;
 	private String fullName;
 	private String avatar;
+	private String email;
 	@OneToMany(mappedBy = "adminInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Promotion> promotionSet;
 	private long createdAt;
@@ -66,6 +67,14 @@ public class AdminInfo {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Set<Promotion> getPromotionSet() {

@@ -1,15 +1,148 @@
 <header th:fragment="header" xmlns:th="http://www.thymeleaf.org" class="sticky" style="background: #222;">
+    <head>
+        <link href="layerslider/css/layerslider.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+        <!--        <script-->
+        <!--                src="https://code.jquery.com/jquery-3.1.1.min.js"-->
+        <!--                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="-->
+        <!--                crossorigin="anonymous"></script>-->
+        <script src="semantic/semantic.js"></script>
+        <style>
+            * { box-sizing: border-box; }
+            body {
+                /*font: 12px Arial;*/
+            }
+            .autocomplete {
+                /*the container must be positioned relative:*/
+                position: relative;
+                display: inline-block;
+            }
+            input {
+                border: 1px solid transparent;
+                background-color: #f1f1f1;
+                padding: 1px !important;
+                font-size: 14px;
+            }
+            input[type=text] {
+                background-color: #f1f1f1;
+                width: 150%;
+            }
+            input[type=submit] {
+                background-color: DodgerBlue;
+                color: #fff;
+            }
+            .autocomplete-items {
+                position: absolute;
+                border: 1px solid #d4d4d4;
+                border-bottom: none;
+                border-top: none;
+                z-index: 99;
+                /*position the autocomplete items to be the same width as the container:*/
+                top: 100%;
+                left: 0;
+                right: 0;
+            }
+            .autocomplete-items div {
+                padding: 1px;
+                cursor: pointer;
+                background-color: #fff;
+                border-bottom: 1px solid #d4d4d4;
+            }
+            .autocomplete-items div:hover {
+                /*when hovering an item:*/
+                background-color: #e9e9e9;
+            }
+            .autocomplete-active {
+                /*when navigating through the items using the arrow keys:*/
+                background-color: DodgerBlue !important;
+                color: #ffffff;
+            }
+        </style>
+    </head>
     <div class="container-fluid">
         <div class="row">
-            <div class="col--md-4 col-sm-3 col-xs-4">
-                <div id="logo_home">
+            <div class="col--md-7 col-sm-8 col-xs-7 ">
+                <div style="float: left" id="logo_home">
                     <h1><a href="/" title="PhotoVN">PhotoVN</a></h1>
                 </div>
+                <div>
+                    <form>
+<!--                        <div id="custom-search-input" >-->
+                            <!--                        <input type="text" class=" search-query" placeholder="Search....">-->
+                            <!--                        <input type="submit" class="btn_search" value="submit">-->
+                            <div class="ui search" >
+                                <div class="ui left icon input" style="margin-left:50px;width: 60% !important;">
+                                    <input style="height: 30px" id="searchKey" class="prompt" type="text" placeholder="Tìm kiếm Địa điểm, Studio, Photographer">
+                                    <i class="search icon"></i>
+                                </div>
+                            </div>
+<!--                        </div>-->
+                    </form>
+                </div>
+                <div style="margin-left: 15em; margin-top: 2px;margin-bottom: 4px">
+                    <a style="margin-right: 10px" href="#">Wedding Photo</a>
+                    <a style="margin-right: 10px" href="#">Ky Yeu photo</a>
+                    <a style="margin-right: 10px" href="#">Family Photo</a>
+                </div>
             </div>
-            <nav class="col--md-8 col-sm-9 col-xs-8">
-                <ul id="primary_nav" style="margin: 5px;">
-                    <li id="login"><a href="/account/login">Login</a></li>
-                    <li id="buy"><a href="/checkout"><i class="icon-cart"></i></a></li>
+            <nav class="col--md-5 col-sm-4 col-xs-5">
+                <ul id="primary_nav">
+<!--                    <li id=""><a href="/">Home</a>-->
+<!--                    </li>-->
+                    <li id="login"><a href="/account/login">Login</a>
+                    </li>
+                    <li id="buy list-inline-item dropdown notification-list show">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <i class="icon-cart"></i>
+                            <span class="badge badge-info badge-pill noti-icon-badge">3</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5>Cart (3)</h5>
+                            </div>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                                <div class="notify-icon" style="width: 40%;">
+                                    <img th:src="@{/img/logo_2.png}" alt="" style="width: 75px;">
+                                    <b style="color: black;">Product 1</b>
+                                </div>
+                                <p class="notify-details" style="color: black;">
+                                    <small class="text-muted">$$$$$$$$$$$$$$$$$</small>
+                                </p>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <div class="notify-icon" style="width: 40%;">
+                                    <img th:src="@{/img/logo_2.png}" alt="" style="width: 75px;">
+                                    <b style="color: black;">Product 2</b>
+                                </div>
+                                <p class="notify-details" style="color: black;">
+                                    <small class="text-muted">$$$$$$$$$$$$$$$$$</small>
+                                </p>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <div class="notify-icon" style="width: 40%;">
+                                    <img th:src="@{/img/logo_2.png}" alt="" style="width: 75px;">
+                                    <b style="color: black;">Product 3</b>
+                                </div>
+                                <p class="notify-details" style="color: black;">
+                                    <small class="text-muted">$$$$$$$$$$$$$$$$$</small>
+                                </p>
+                            </a>
+
+                            <!-- All-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <button class="btn btn-danger">Checkout</button>
+                            </a>
+                        </div>
+                    </li>
                 </ul>
                 <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu
                         mobile</span></a>
@@ -30,4 +163,46 @@
         <!-- End row -->
     </div>
     <!-- End container -->
+    <script>
+        $('.ui.search')
+            .search({
+                type          : 'category',
+                minCharacters : 3,
+                apiSettings   : {
+                    onResponse: function(res) {
+                        var
+                            response = {
+                                results : {}
+                            }
+                        ;
+                        // translate GitHub API response to work with search
+                        $.each(res, function(index, item) {
+                            var
+                                language   = item.type || 'Unknown',
+                                maxResults = 8
+                            ;
+                            if(index >= maxResults) {
+                                return false;
+                            }
+                            // create new language category
+                            if(response.results[language] === undefined) {
+                                response.results[language] = {
+                                    name    : language,
+                                    results : []
+                                };
+                            }
+                            // add result to category
+                            response.results[language].results.push({
+                                title       : item.name,
+                                description : item.address,
+                                url         : item.url
+                            });
+                        });
+                        return response;
+                    },
+                    url: '/api/search?key={query}'
+                }
+            })
+        ;
+    </script>
 </header>

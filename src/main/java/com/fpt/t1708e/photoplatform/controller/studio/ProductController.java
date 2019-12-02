@@ -145,9 +145,10 @@ public class ProductController {
 			return "/404";
 		}
 		model.addAttribute("product", product);
+		model.addAttribute("listProduct", productService.getList());
 		return "customer/product/detail";
 	}
-	
+ 
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
     public String list(Model model,
 					   @RequestParam(defaultValue = "1", required = false) Optional<Integer> page,

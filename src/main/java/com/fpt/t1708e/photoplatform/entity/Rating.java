@@ -8,20 +8,20 @@ public class Rating {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "customerInfoId")
 	private CustomerInfo customerInfo;
 	private float value;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "albumId")
 	private Album album;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "productId")
 	private Product product;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "studioInfoId")
 	private StudioInfo studioInfo;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "photographerInfoId")
 	private PhotographerInfo photographerInfo;
 	private long createdAt;

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirm order</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,300"
+          th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}" rel="stylesheet" type="text/css">
+
+    <!-- App Icons -->
+    <link rel="shortcut icon" th:href="@{/admin/images/favicon.ico}">
+
+    <!-- DataTables -->
+    <link th:href="@{/admin/plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/plugins/datatables/buttons.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link th:href="@{/admin/plugins/datatables/responsive.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+
+    <link th:href="@{/admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/plugins/select2/css/select2.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css}" rel="stylesheet" />
+
+    <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" />
+
+    <style>
+        span.dtr-data {
+            white-space: normal;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+<body>
+<div class="super_container">
+    <!--admin-header.html  that's here  -->
+    <div th:replace="manager/layout/admin-header :: admin-header"></div>
+
+    <div layout:fragment="admin-content">
+        <section layout:fragment="admin-content">
+
+            <div class="wrapper">
+                <div class="container-fluid">
+
+                    <div class="row ">
+                        <div class="col-12" style="float: none;">
+                            <div class="card m-b-20">
+                                <div class="card-body">
+
+                                    <div class="">
+                                        <div class="card m-b-20">
+                                            <div class="card-body">
+                                                <h4 class="mt-0 header-title">Confirm order</h4>
+                                                <p class="text-muted m-b-30 font-14">
+                                                    Products from order
+                                                </p>
+
+                                                <table id="datatable"
+                                                       class="table  dt-responsive nowrap"
+                                                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Order product</th>
+                                                        <th>Price</th>
+                                                        <th>Discount</th>
+                                                        <th>Thumbnail</th>
+                                                        <th>Customer name</th>
+                                                        <th>Customer phone</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">(1)</th>
+                                                        <td>(product name)</td>
+                                                        <td>(price)</td>
+                                                        <td>(price discount)</td>
+                                                        <td>
+                                                            <img src="https://img1.daumcdn.net/thumb/R1500x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FXphen%2FbtqzPmBEAE9%2FtEfLIuevmqKGmvlpNkxViK%2Fimg.jpg"
+                                                                 style="height: 100px;">
+                                                        </td>
+                                                        <td>(customer name)</td>
+                                                        <td>(customer phone)</td>
+                                                        <td>
+                                                            <div class="mr-1">
+                                                                <a href="#">
+                                                                <span class="fa fa-check" style="color: green;"></span>
+                                                                </a>
+                                                            </div>
+                                                            <div><a href="#"><span class="fa fa-close" style="color: red;"></span></a></div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div><!-- end col -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end wrapper -->
+        </section>
+    </div>
+    <div th:replace="manager/layout/admin-footer :: admin-footer"></div>
+</div>
+
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/admin/js/modernizr.min.js}"></script>
+<script th:src="@{/admin/js/waves.js}"></script>
+<script th:src="@{/admin/js/jquery.slimscroll.js}"></script>
+<script th:src="@{/admin/js/jquery.nicescroll.js}"></script>
+<script th:src="@{/admin/js/jquery.scrollTo.min.js}"></script>
+
+<!-- Required datatable js -->
+<script th:src="@{/admin/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/dataTables.bootstrap4.min.js}"></script>
+<!-- Buttons examples -->
+<script th:src="@{/admin/plugins/datatables/dataTables.buttons.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/jszip.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/pdfmake.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/vfs_fonts.js}"></script>
+<script th:src="@{/admin/plugins/datatables/buttons.html5.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/buttons.print.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/buttons.colVis.min.js}"></script>
+<!-- Responsive examples -->
+<script th:src="@{/admin/plugins/datatables/dataTables.responsive.min.js}"></script>
+<script th:src="@{/admin/plugins/datatables/responsive.bootstrap4.min.js}"></script>
+
+<!-- Datatable init js -->
+<script th:src="@{/admin/pages/datatables-list-product.init.js}"></script>
+<script th:src="@{/admin/js/app.js}"></script>
+</body>
+</html>

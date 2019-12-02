@@ -1,9 +1,6 @@
 package com.fpt.t1708e.photoplatform.controller.customer;
 
-import com.fpt.t1708e.photoplatform.entity.Account;
-import com.fpt.t1708e.photoplatform.entity.Album;
-import com.fpt.t1708e.photoplatform.entity.Product;
-import com.fpt.t1708e.photoplatform.entity.StudioInfo;
+import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +14,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/studio")
@@ -40,8 +38,21 @@ public class StudioController {
 		if (studioInfo == null) {
 			return "/404";
 		}
-		model.addAttribute("studioInfo", studioInfo);
-		return "studio/detail";
+		List<Category> categories = new ArrayList<>();
+		Set<Product> productList = studioInfo.getProductSet();
+		for(Product product : productList){
+			if (!categories.contains(product.getCategory())){
+				categories.add(product.getCategory());
+			}
+		}
+		model.addAttribute("info", studioInfo);
+		model.addAttribute("categories", categories);
+		return "manager/studio/studio-photographer/detail";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/confirm")
+	public String checkout() {
+		return "manager/studio/confirmation/confirm";
 	}
 
 }

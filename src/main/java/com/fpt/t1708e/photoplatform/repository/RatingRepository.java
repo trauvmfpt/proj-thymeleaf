@@ -4,8 +4,10 @@ import com.fpt.t1708e.photoplatform.entity.Album;
 import com.fpt.t1708e.photoplatform.entity.Comment;
 import com.fpt.t1708e.photoplatform.entity.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface RatingRepository extends JpaRepository<Rating,Long> {
@@ -17,4 +19,8 @@ public interface RatingRepository extends JpaRepository<Rating,Long> {
             "or (r.customerInfo.id = :accountId and r.photographerInfo.id = :postId) " +
             "or (r.customerInfo.id = :accountId and r.studioInfo.id = :postId)")
     Rating findByUserIdAndPostId(long accountId, long postId);
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = "alter table rating AUTO_INCREMENT = 1")
+    void resetIncrement();
 }

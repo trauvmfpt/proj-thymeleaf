@@ -124,7 +124,9 @@
                                       ${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(dat)}">Larry Stark - 7 September 2016 </span>
                             </a>
                         </div>
-                        <a th:href="@{/product/list}" class="site-button"> READ MORE</a>
+                        <a th:if="${info.account.role==2}" th:href="@{/product/list(studio=${info.account.studioInfo.id})}" class="site-button"> READ MORE</a>
+                        <a th:if="${info.account.role==3}" th:href="@{/product/list(photographer=${info.account.photographerInfo.id})}" class="site-button"> READ MORE</a>
+
                     </div>
                 </div>
             </section>
@@ -149,24 +151,25 @@
                                         <img th:src="${comment.customerInfo.avatar}" alt="@{/studio-photographer/images/person-1.jpg}">
                                         <div class="comment-info">
                                             <h3 th:text="${comment.customerInfo.fullName}">Mary R. Peterson</h3>
-                                            <a href="#"> Reply </a>
-                                            <span th:text="${comment.updatedAt}">Sep 26, 2016 at 14:35</span>
+<!--                                            <a href="#"> Reply </a>-->
+                                            <span th:with="updatedAt=${comment.updatedAt}"
+                                                    th:text="${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(updatedAt)}">Sep 26, 2016 at 14:35</span>
                                             <p th:text="${comment.content}">Kept in sent gave feel will oh it we. Has pleasure procured men laughing shutters nay. Old insipidity motionless continuing law shy partiality. </p>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                             <!-- Write Message -->
-<!--                            <form class="col-md-12 contact-form send-message">-->
-<!--                                <h3 class="subtitle top45 bottom30">Leave a Reply</h3>-->
-<!--                                <div class="row">-->
-<!--                                    &lt;!&ndash;Comment&ndash;&gt;-->
-<!--                                    <div class="col-md-12">-->
-<!--                                        <textarea name="con_message" placeholder="Comment" rows="8"></textarea>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <input id="con_submit" class="site-button" type="submit" value="SEND A MESSAGE">-->
-<!--                            </form>-->
+                            <form class="col-md-12 contact-form send-message">
+                                <h3 class="subtitle top45 bottom30">Leave a Reply</h3>
+                                <div class="row">
+                                    <!--Comment-->
+                                    <div class="col-md-12">
+                                        <textarea name="con_message" placeholder="Comment" rows="8"></textarea>
+                                    </div>
+                                </div>
+                                <input id="con_submit" class="site-button" type="submit" value="SEND A MESSAGE">
+                            </form>
 
                         </div>
                     </div>
@@ -189,6 +192,21 @@
 <script th:src="@{/studio-photographer/js/main.js}"></script>
 <!--    <script th:src="@{/js/infobox.js}"></script>-->
 <script th:src="@{/js/modernizr.js}"></script>
+
+<script>
+    $("#con_submit").on("click", function () {
+        $.ajax({
+            url: '',
+            data: '',
+            success: function () {
+
+            },
+            error: function () {
+
+            }
+        })
+    })
+</script>
 
 </body>
 </html>

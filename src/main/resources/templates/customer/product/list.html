@@ -14,7 +14,29 @@
     <!-- SPECIFIC CSS -->
     <link th:href="@{/css/ion.rangeSlider.min.css}" rel="stylesheet">
 
-    <div id="position" style="margin-top: 60px;">
+    <section class="about" id="about" style="margin-top: 80px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 about-image wow fadeInUp" data-wow-delay="0.4s">
+                    <img th:src="${info.avatar}" alt="@{/studio-photographer/images/about.jpg}">
+                </div>
+                <div class="col-md-6 about-text wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="out">
+                        <h2 th:text="${info.fullName}">(Name / Full name) I am Dynamic and Creative</h2>
+                        <br/>
+                        <p th:text="${info.description}">
+                            (Description)
+                            Impossible considered invitation him men instrument saw celebrated unpleasant. Put rest and must set kind next many near nay. He exquisite continued explained middleton am. Voice hours young woody has she think equal. Estate moment he at on wonder at season little. Six garden result summer set family esteem nay estate.
+                            <br/><br/>
+                            Her extensive perceived may any sincerity extremity. Indeed add rather may pretty see. Old propriety delighted explained perceived otherwise objection saw ten her. Doubt merit sir the right these alone keeps. By sometimes intention smallness he northward.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Container end -->
+    </section>
+
+    <div id="position">
         <div class="container">
             <ul>
                 <li><a href="#">Home</a>
@@ -63,30 +85,16 @@
                                 <div class="ribbon">
                                     <span th:text="${product.priceDiscount}">Popular</span>
                                 </div>
-                                <div class="tools_i">
-                                    <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
-                                        <input type="hidden" name="daddr" value="43.773460, 11.255985">
-                                        <button type="submit" class="tooltip_styled tooltip-effect-4">
-                                            <span class="tooltip-item"></span>
-                                            <span class="tooltip-content">Directions</span>
-                                        </button>
-                                    </form>
-                                    <div class="wishlist">
-                                        <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
-                                            <div class="tooltip-content">Bookmark</div>
-                                        </a>
-                                    </div>
-                                </div>
                                 <!-- End tools i-->
                                 <div class="img_container">
                                     <a th:href="@{/product/{id}(id = ${product.id})}">
                                         <img th:src="${product.thumbnail}" width="800" height="533" class="img-responsive" alt="">
                                         <div class="short_info">
                                             <small th:text="${product.price}"></small>
-                                            <h3 th:text="${product.destination}"></h3>
-                                            <em th:text="${product.area}"></em>
+                                            <h3 th:text="${product.name}"></h3>
+                                            <em th:text="${product.area}+' - '+${product.destination}"></em>
                                             <div class="score_wp">Superb
-                                                <div id="score_1" class="score" data-value="7.5"></div>
+                                                <div th:attr="id='score_'+${product.id}" class="score" th:data-value="${product.ratingSet[0]}"></div>
                                             </div>
                                         </div>
                                     </a>
@@ -106,18 +114,27 @@
                     <!--End row -->
                 </div>
                 <!--End strip -->
+                <div th:if="${products.totalPages > 0}"
+                     th:each="pageNumber : ${pageNumbers}">
+                    <nav>
+                        <ul class="pagination">
+                            <li>
+                                <a th:if="${info.account.role==2}"
+                                   th:href="@{/product/list(studio=${info.id},size=${products.size}, page=${pageNumber})}"
+                                   th:text="${pageNumber}" th:class="${pageNumber == products.number + 1} ? active"></a>
+                                <a th:if="${info.account.role==3}"
+                                        th:href="@{/product/list(photographer=${info.id},size=${products.size}, page=${pageNumber})}"
+                                   th:text="${pageNumber}" th:class="${pageNumber == products.number + 1} ? active"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
             <!-- End col lg 9 -->
         </div>
         <!-- End Row-->
     </div>
     <!-- End container -->
-
-    <div th:if="${products.totalPages > 0}" class="pagination"
-         th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/product/list(size=${products.size}, page=${pageNumber})}"
-           th:text="${pageNumber}" th:class="${pageNumber == products.number + 1} ? active"></a>
-    </div>
 
     <div class="bg_white">
         <div class="container margin_60_30">

@@ -3,6 +3,7 @@ package com.fpt.t1708e.photoplatform.controller.studio;
 import com.fpt.t1708e.photoplatform.entity.Account;
 import com.fpt.t1708e.photoplatform.entity.Album;
 import com.fpt.t1708e.photoplatform.entity.Product;
+import com.fpt.t1708e.photoplatform.repository.StudioInfoRepository;
 import com.fpt.t1708e.photoplatform.service.AccountService;
 import com.fpt.t1708e.photoplatform.service.AlbumService;
 import com.fpt.t1708e.photoplatform.service.CategoryService;
@@ -21,13 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -149,15 +148,27 @@ public class ProductController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
-    public String list(Model model,
+    public String list(Model model, @RequestParam(value = "photographer", required = false) String photographerId,
+					   @RequestParam(value = "studio", required = false) String studioId,
 					   @RequestParam(defaultValue = "1", required = false) Optional<Integer> page,
 					   @RequestParam(defaultValue = "10", required = false) Optional<Integer> limit) {
-//		Page<Product> productPage = productService.productsWithPagination(page, limit);
 		int currentPage = page.orElse(1);
 		int pageSize = limit.orElse(5);
+		if (photographerId == null || photographerId.equals("")){
+			photographerId = String.valueOf(0);
+			model.addAttribute("info", studioInfoService.getById(Long.parseLong(studioId)));
+		}
+		if (studioId == null || studioId.equals("")){
+			studioId = String.valueOf(0);
+			model.addAttribute("info", photographerInfoService.getById(Long.parseLong(photographerId)));
+		}
+
 		Page<Product> productPage = productService
-				.productsWithPagination(PageRequest.of(currentPage - 1, pageSize));
+				.productsWithPagination(Long.parseLong(photographerId), Long.parseLong(studioId),
+						PageRequest.of(currentPage - 1, pageSize));
 		model.addAttribute("products", productPage);
+
+
 		int totalPages = productPage.getTotalPages();
 		if (totalPages > 0) {
 			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -166,12 +177,7 @@ public class ProductController {
 			model.addAttribute("pageNumbers", pageNumbers);
 		}
 
-		List<Product> products = productService.products();
-//        model.addAttribute("products", products);
         model.addAttribute("categories", categoryService.getList());
-//		List<Product> products = productService.products();
-//		model.addAttribute("products", products);
-//		model.addAttribute("categories", categoryService.getList());
         return "customer/product/list";
     }
 

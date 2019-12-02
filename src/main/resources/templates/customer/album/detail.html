@@ -1,261 +1,199 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragment/layout}"
-    xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <title>Album</title>
+
+    <link type="text/css" th:href="@{/less/style.css}" rel="stylesheet">
+
+    <link th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link th:href="@{/css/menu.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/icon_fonts/css/all_icons.min.css}" >
+    <link th:href="@{/css/custom.css}" rel="stylesheet">
+    <link th:href="@{/admin/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Hind:400,300,500,600%7cMontserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" th:href="@{/lotus/css/lib/magnific-popup.css}">
+
+    <!-- MAIN STYLE -->
+    <link rel="stylesheet" type="text/css" th:href="@{/lotus/css/style.css}">
+
 </head>
-
 <body>
-    <section layout:fragment="content">
-        <div class="pattern_dots">
-            <div class="container margin_60_45">
-                <div class="main_title">
-                    <h2><strong>Most Viewed</strong> in TravelGuide</h2>
-                    <p>
-                        Ne his postulant posidonium adversarium. Ius tollit tamquam indoctum ea, cu quo equidem perfecto
-                        adipiscing. Eu mel aliquid delenit. Recteque laboramus ea est, te qui eirmod similique.
-                    </p>
-                    <span><em></em></span>
-                </div>
-                <!-- End main_title -->
+<div class="super_container">
+    <!--admin-header.html  that's here  -->
+    <header th:replace="fragment/header :: header"></header>
 
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon">
-                                <span>Popular</span>
-                            </div>
-                            <div class="tools_i">
-                                <form action="http://maps.google.com/maps" method="get" target="_blank"
-                                    class="directions_list">
-                                    <input type="hidden" name="daddr" value="43.773460, 11.255985">
-                                    <button type="submit" class="tooltip_styled tooltip-effect-4">
-                                        <span class="tooltip-item"></span>
-                                        <span class="tooltip-content">Directions</span>
-                                    </button>
-                                </form>
-                                <div class="wishlist">
-                                    <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
-                                        <div class="tooltip-content">Bookmark</div>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- End tools i-->
-                            <div class="img_container_grid">
-                                <a href="florence-must-see-detail.html">
-                                    <img th:src="@{/static/img/grid_home_1.jpg}" width="800" height="480"
-                                         class="img-responsive" alt="">
-                                    <div class="short_info_grid">
-                                        <small><strong>Duration: 90 min.</strong></small>
-                                        <h3>Duomo Cathedral</h3>
-                                        <em>Historic Buildings</em>
-                                        <p>
-                                            Read more
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
+    <div layout:fragment="content">
+        <div id="page-wrap">
+            <!-- SUB BANNER -->
+            <section class="section-sub-banner bg-9">
+                <div class="awe-overlay"></div>
+                <div class="sub-banner">
+                    <div class="container">
+                        <div class="text text-center">
+                            <h2>Gallery 3</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing</p>
                         </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon">
-                                <span>Popular</span>
-                            </div>
-                            <div class="tools_i">
-                                <form action="http://maps.google.com/maps" method="get" target="_blank"
-                                    class="directions_list">
-                                    <input type="hidden" name="daddr" value="43.773460, 11.255985">
-                                    <button type="submit" class="tooltip_styled tooltip-effect-4">
-                                        <span class="tooltip-item"></span>
-                                        <span class="tooltip-content">Directions</span>
-                                    </button>
-                                </form>
-                                <div class="wishlist">
-                                    <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
-                                        <div class="tooltip-content">Bookmark</div>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- End tools i-->
-                            <div class="img_container_grid">
-                                <a href="florence-must-see-detail.html">
-                                    <img th:src="@{/static/img/grid_home_3.jpg}" width="800" height="468"
-                                         class="img-responsive" alt="">
-                                    <div class="short_info_grid">
-                                        <small><strong>Duration: 60 min.</strong></small>
-                                        <h3>Santa Maria Novella</h3>
-                                        <em>Monuments - Attractions</em>
-                                        <p>
-                                            Read more
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon">
-                                <span>Popular</span>
-                            </div>
-                            <div class="tools_i">
-                                <form action="http://maps.google.com/maps" method="get" target="_blank"
-                                    class="directions_list">
-                                    <input type="hidden" name="daddr" value="43.773460, 11.255985">
-                                    <button type="submit" class="tooltip_styled tooltip-effect-4">
-                                        <span class="tooltip-item"></span>
-                                        <span class="tooltip-content">Directions</span>
-                                    </button>
-                                </form>
-                                <div class="wishlist">
-                                    <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
-                                        <div class="tooltip-content">Bookmark</div>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- End tools i-->
-                            <div class="img_container_grid">
-                                <a href="florence-hotel-detail.html">
-                                    <img th:src="@{/static/img/grid_home_2.jpg}" width="800" height="468"
-                                         class="img-responsive" alt="">
-                                    <div class="short_info_grid">
-                                        <small><strong>From 95$</strong></small>
-                                        <h3>Hotel Mariott</h3>
-                                        <em>Hotels</em>
-                                        <p>
-                                            Read more
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon top">
-                                <span>Top rated</span>
-                            </div>
-                            <div class="tools_i">
-                                <form action="http://maps.google.com/maps" method="get" target="_blank"
-                                    class="directions_list">
-                                    <input type="hidden" name="daddr" value="43.773460, 11.255985">
-                                    <button type="submit" class="tooltip_styled tooltip-effect-4">
-                                        <span class="tooltip-item"></span>
-                                        <span class="tooltip-content">Directions</span>
-                                    </button>
-                                </form>
-                                <div class="wishlist">
-                                    <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
-                                        <div class="tooltip-content">Bookmark</div>
-                                    </a>
+            </section>
+            <!-- END / SUB BANNER -->
+
+            <!-- GALLERY -->
+            <section class="section_page-gallery">
+                <div class="container">
+                    <div class="gallery gallery-3">
+                        <h1 class="element-invisible">Album</h1>
+
+                        <!-- GALLERY CONTENT -->
+                        <div class="gallery-content">
+                            <div class="row">
+                                <div class="gallery-isotope col-4" id="img-wrapper">
+
+                                    <!-- ITEM SIZE -->
+                                    <div class="item-size"></div>
+                                    <!-- END / ITEM SIZE -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope larger">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-1.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-2.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-2.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-2.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope">
+                                        <div class="gallery_item">
+                                            <a href="https://www.youtube.com/watch?v=RnjZ6IhkR40" class="mfp-iframe">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-2.jpg}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-2.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-2.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope larger">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-1.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-2.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                    <!-- ITEM -->
+                                    <div class="item-isotope">
+                                        <div class="gallery_item">
+                                            <a th:href="@{/lotus/images/gallery/popup/img-1.jpg}" class="mfp-image">
+                                                <img th:src="@{/lotus/images/gallery/page-3/img-2.jpg}" alt="">
+                                            </a>
+                                            <h6 class="text">Lorem Ipsum is simply dummy text of the printing</h6>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
                                 </div>
                             </div>
-                            <!-- End tools i-->
-                            <div class="img_container_grid">
-                                <a href="florence-restaurant-detail.html">
-                                    <img th:src="@{/static/img/grid_home_4.jpg}" width="800" height="468"
-                                         class="img-responsive" alt="">
-                                    <div class="short_info_grid">
-                                        <small><strong>From 30$</strong></small>
-                                        <h3>Da Domenico</h3>
-                                        <em>Restaurant</em>
-                                        <p>
-                                            Read more
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
+
                         </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon top">
-                                <span>Top rated</span>
-                            </div>
-                            <div class="tools_i">
-                                <form action="http://maps.google.com/maps" method="get" target="_blank"
-                                    class="directions_list">
-                                    <input type="hidden" name="daddr" value="43.773460, 11.255985">
-                                    <button type="submit" class="tooltip_styled tooltip-effect-4">
-                                        <span class="tooltip-item"></span>
-                                        <span class="tooltip-content">Directions</span>
-                                    </button>
-                                </form>
-                                <div class="wishlist">
-                                    <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
-                                        <div class="tooltip-content">Bookmark</div>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- End tools i-->
-                            <div class="img_container_grid">
-                                <a href="florence-bar-detail.html">
-                                    <img th:src="@{/static/img/grid_home_5.jpg}" width="800" height="468"
-                                         class="img-responsive" alt="">
-                                    <div class="short_info_grid">
-                                        <small><strong>From 20$</strong></small>
-                                        <h3>La Grotta Pub</h3>
-                                        <em>Bar - Pun</em>
-                                        <p>
-                                            Read more
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon top">
-                                <span>Top rated</span>
-                            </div>
-                            <div class="tools_i">
-                                <form action="http://maps.google.com/maps" method="get" target="_blank"
-                                    class="directions_list">
-                                    <input type="hidden" name="daddr" value="43.773460, 11.255985">
-                                    <button type="submit" class="tooltip_styled tooltip-effect-4">
-                                        <span class="tooltip-item"></span>
-                                        <span class="tooltip-content">Directions</span>
-                                    </button>
-                                </form>
-                                <div class="wishlist">
-                                    <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
-                                        <div class="tooltip-content">Bookmark</div>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- End tools i-->
-                            <div class="img_container_grid">
-                                <a href="florence-shop-detail.html">
-                                    <img th:src="@{/static/img/grid_home_6.jpg}" width="800" height="468"
-                                         class="img-responsive" alt="">
-                                    <div class="short_info_grid">
-                                        <h3>Shopping Mall</h3>
-                                        <em>Shop</em>
-                                        <p>
-                                            Read more
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
+                        <!-- GALLERY CONTENT -->
+
                     </div>
                 </div>
-            </div>
-            <!-- End container -->
+            </section>
+            <!-- END / GALLERY -->
         </div>
-        <div th:each="picture : ${pictures}">
-            <img th:src="${picture.url}" alt="" style="width: 200px;">
-        </div>
-    </section>
+
+    </div>
+    <!--admin-footer.html  that's here  -->
+    <div th:replace="fragment/footer :: footer"></div>
+</div>
+<script th:src="@{/js/common_scripts_min.js}"></script>
+<script th:src="@{/assets/validate.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+
+<script type="text/javascript" th:src="@{/lotus/js/lib/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/lotus/js/lib/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/lotus/js/lib/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/lotus/js/lib/jquery.parallax-1.1.3.js}"></script>
+<script type="text/javascript" th:src="@{/lotus/js/lib/jquery.magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/lotus/js/scripts.js}"></script>
+
 </body>
-
 </html>

@@ -59,7 +59,7 @@
                      th:each="product : ${products}">
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="img_wrapper">
+                            <div class="img_wrapper">th
                                 <div class="ribbon">
                                     <span th:text="${product.priceDiscount}">Popular</span>
                                 </div>
@@ -137,7 +137,6 @@
     <!-- End bg_white -->
 
     <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
-    <script th:src="@{/js/common_scripts_min.js}"></script>
     <script th:src="@{/assets/validate.js}"></script>
     <script th:src="@{/js/functions.js}"></script>
 
@@ -153,6 +152,7 @@
     <script th:src="@{/js/theia-sticky-sidebar.min.js}"></script>
     <script th:src="@{/js/owl.carousel.js}"></script>
     <script th:src="@{/js/owl.carousel.min.js}"></script>
+
     <script>
         'use strict';
         jQuery('#sidebar').theiaStickySidebar({

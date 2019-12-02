@@ -22,14 +22,6 @@
 
     <!-- MAIN STYLE -->
     <link rel="stylesheet" type="text/css" th:href="@{/lotus/css/style.css}">
-    <style>
-        /*.item-isotope img{*/
-        /*    max-width: 270px;*/
-        /*}*/
-        /*.item-isotope .larger img{*/
-        /*    max-width: 580px;*/
-        /*}*/
-    </style>
 </head>
 <body>
 <div class="super_container">
@@ -56,7 +48,11 @@
             <section class="section_page-gallery">
                 <div class="container">
                     <div class="gallery gallery-3">
-                        <h1 class="" th:text="'By ' + ${by.fullName}">Album</h1>
+                        <h1 class="">
+                            <span style="font-weight: lighter; font-size: small; font-style: italic;">By </span>
+                            &nbsp;
+                            <span th:text="${by.fullName}" style="font-weight: bolder; text-transform: uppercase;"></span>
+                        </h1>
 
                         <!-- GALLERY CONTENT -->
                         <div class="gallery-content">

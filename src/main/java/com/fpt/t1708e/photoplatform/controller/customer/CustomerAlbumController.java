@@ -23,8 +23,13 @@ public class CustomerAlbumController {
         if(album != null){
             model.addAttribute("album", album);
             model.addAttribute("pictures", album.getPictureSet());
+            if (album.getStudioInfo() != null){
+                model.addAttribute("by", album.getStudioInfo());
+            } else {
+                model.addAttribute("by", album.getPhotographerInfo());
+            }
             return "customer/album/detail";
         }
-        return "redirect:album/list";
+        return "manager/admin/error/404";
     }
 }

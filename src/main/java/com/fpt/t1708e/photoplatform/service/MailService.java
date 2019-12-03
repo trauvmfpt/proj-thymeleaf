@@ -37,7 +37,7 @@ public class MailService {
             context.setVariable("orderProduct", orderProduct);
             context.setVariable("orderDetails", orderDetails);
             context.setVariable("createdAt", createdAt);
-            String html = templateEngine.process("email-template", context);
+            String html = templateEngine.process("customer/email-template", context);
 
             helper.setTo(to);
             helper.setText(html, true);

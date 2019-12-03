@@ -82,7 +82,7 @@
                                         <td th:text="${order.getTotalPrice()}"></td>
                                         <td th:text="${order.getCreatedAt()}"></td>
                                         <td th:text="${order.getStatus()}"></td>
-                                        <td><button>Detail</button></td>
+                                        <td><a th:href="@{'/order/'+${order.id}}" class="btn btn-success">Detail</a></td>
                                     </tr>
                                     </tbody>
                                 </table>

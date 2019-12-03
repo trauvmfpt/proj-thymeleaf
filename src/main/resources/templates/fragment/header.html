@@ -7,7 +7,7 @@
         <!--                src="https://code.jquery.com/jquery-3.1.1.min.js"-->
         <!--                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="-->
         <!--                crossorigin="anonymous"></script>-->
-        <script th:href="@{/semantic/semantic.js}"></script>
+        <script th:src="@{/semantic/semantic.js}"></script>
         <style>
             * { box-sizing: border-box; }
             body {
@@ -164,45 +164,48 @@
     </div>
     <!-- End container -->
     <script>
-        $('.ui.search')
-            .search({
-                type          : 'category',
-                minCharacters : 3,
-                apiSettings   : {
-                    onResponse: function(res) {
-                        var
-                            response = {
-                                results : {}
-                            }
-                        ;
-                        // translate GitHub API response to work with search
-                        $.each(res, function(index, item) {
+        document.addEventListener("DOMContentLoaded", function(event) {
+            $('.ui.search')
+                .search({
+                    type          : 'category',
+                    minCharacters : 3,
+                    apiSettings   : {
+                        onResponse: function(res) {
                             var
-                                language   = item.type || 'Unknown',
-                                maxResults = 8
+                                response = {
+                                    results : {}
+                                }
                             ;
-                            if(index >= maxResults) {
-                                return false;
-                            }
-                            // create new language category
-                            if(response.results[language] === undefined) {
-                                response.results[language] = {
-                                    name    : language,
-                                    results : []
-                                };
-                            }
-                            // add result to category
-                            response.results[language].results.push({
-                                title       : item.name,
-                                description : item.address,
-                                url         : item.url
+                            // translate GitHub API response to work with search
+                            $.each(res, function(index, item) {
+                                var
+                                    language   = item.type || 'Unknown',
+                                    maxResults = 8
+                                ;
+                                if(index >= maxResults) {
+                                    return false;
+                                }
+                                // create new language category
+                                if(response.results[language] === undefined) {
+                                    response.results[language] = {
+                                        name    : language,
+                                        results : []
+                                    };
+                                }
+                                // add result to category
+                                response.results[language].results.push({
+                                    title       : item.name,
+                                    description : item.address,
+                                    url         : item.url
+                                });
                             });
-                        });
-                        return response;
-                    },
-                    url: '/api/search?key={query}'
-                }
-            })
-        ;
+                            return response;
+                        },
+                        url: '/api/search?key={query}'
+                    }
+                })
+            ;
+        });
+
     </script>
 </header>

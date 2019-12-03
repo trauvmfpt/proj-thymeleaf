@@ -18,7 +18,7 @@ public class AdminInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "accountId")
 	private Account account;
 	private String fullName;

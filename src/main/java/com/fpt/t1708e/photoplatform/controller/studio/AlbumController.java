@@ -62,6 +62,7 @@ public class AlbumController {
         Set<Picture> imageList = new HashSet<>();
 
         if (imgUrls != null){
+            album.setThumbnail(imgUrls[0]);
             for (String imgUrl: imgUrls) {
                 Picture picture = new Picture();
                 picture.setUrl(imgUrl);

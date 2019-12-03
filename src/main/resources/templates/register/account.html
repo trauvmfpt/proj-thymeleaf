@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="ie ie9"> <![endif]-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/less/style.css}">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/icon_fonts/css/all_icons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}">
+    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+</head>
+
+<body id="login">
+<!-- Header ================================================== -->
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4">
+                <a th:href="@{index.html}" id="logo">
+                    <!--                    <img th:src="@{/img/apple-touch-icon-57x57-precomposed.png}" width="170" height="30" alt="" data-retina="true">-->
+                </a>
+            </div>
+            <div class="col-xs-8">
+                <a href="index.html" class="btn_home pull-right"><i class="icon_house_alt"></i></a>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- End Header =============================================== -->
+
+<div class="container margin_30">
+    <div class="row">
+        <div class="col-md-12">
+            <p><img src="img/bg_login.png" width="377" height="150" alt="" class="img-responsive"
+                    style="margin:auto;">
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-sm-2"></div>
+        <div class="col-lg-8 col-sm-8">
+            <div class="box_login">
+                <strong><i class="icon_lock-open_alt"></i>
+                    <h3>Create Partner Account</h3>
+                </strong>
+                <form id="accountRegisterForm" th:action="@{/register/partner/account}" th:method="post" th:object="${account}">
+                    <div class="form-group">
+                        <input  id="username" th:name="username" th:field="*{username}" type="text" class=" form-control" placeholder="Username">
+                        <span class="input-icon"><i class="icon_pencil-edit"></i></span>
+                        <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{password}" th:name="password" type="password" id="txtNewPassword" class=" form-control" placeholder="Password">
+                        <span class="input-icon"><i class="icon_lock_alt"></i></span>
+                        <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                    </div>
+                    <div class="form-group">
+                        <input id="txtConfirmPassword" th:name="cfmPassword" type="password" class=" form-control" placeholder="Reconfirm Password">
+                        <span class="input-icon"><i class="icon_lock_alt"></i></span>
+                    </div>
+                    <div id="divCheckPassword"></div>
+                    <div class="form-group">
+                        <select class="form-control" th:name="role" th:field="*{role}">
+                            <option value="0" selected="selected" disabled>---- Select Role ----</option>
+                            <option value="3">Studio</option>
+                            <option value="2">Photographer</option>
+                        </select>
+                        <span class="error" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="button_login" style="margin:auto;">Create an account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-2"></div>
+    </div>
+    <!-- End row -->
+    <div class="row">
+        <div class="col-md-12 text-center">
+            © TravelGuide 2016 - All Rights Reserved
+        </div>
+    </div>
+    <!-- End row -->
+</div>
+<!-- End container -->
+
+<!-- COMMON SCRIPTS -->
+<script th:src="@{/js/common_scripts_min.js}"></script>
+<script th:src="@{/assets/validate.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/modernizr.js}"></script>
+<script th:src="@{/js/user/registerAccount.js}"></script>
+</body>
+
+</html>

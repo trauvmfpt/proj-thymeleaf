@@ -12,19 +12,19 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@JsonIgnore
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "studioInfoId")
 	private StudioInfo studioInfo;
 	@JsonIgnore
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "photographerInfoId")
 	private PhotographerInfo photographerInfo;
 	@JsonIgnore
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
 	private Category category;
 	@JsonIgnore
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "albumId")
 	private Album album;
 	private String name;
@@ -37,6 +37,7 @@ public class Product {
 	private String area;
 	private String destination;
 	private String thumbnail;
+	private double averageRate;
 	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Rating> ratingSet;
@@ -59,6 +60,14 @@ public class Product {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();
 		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
+	}
+
+	public double getAverageRate() {
+		return averageRate;
+	}
+
+	public void setAverageRate(double averageRate) {
+		this.averageRate = averageRate;
 	}
 
 	public long getId() {

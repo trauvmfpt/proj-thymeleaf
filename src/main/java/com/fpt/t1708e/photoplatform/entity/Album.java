@@ -9,10 +9,10 @@ public class Album {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "studioInfoId")
 	private StudioInfo studioInfo;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "photographerInfoId")
 	private PhotographerInfo photographerInfo;
 	private String name;

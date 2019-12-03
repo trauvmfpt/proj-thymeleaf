@@ -11,12 +11,14 @@ public class OrderProduct {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String customerPhone;
+	private String customerName;
+	private String note;
 	private double totalPrice;
 	private int paymentType;
 	private String customerEmail;
 	@OneToMany(mappedBy = "orderProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetailSet;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "customerInfo")
 	private CustomerInfo customerInfo;
 	private long createdAt;
@@ -48,6 +50,22 @@ public class OrderProduct {
 
 	public String getCustomerPhone() {
 		return customerPhone;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	public void setCustomerPhone(String customerPhone) {

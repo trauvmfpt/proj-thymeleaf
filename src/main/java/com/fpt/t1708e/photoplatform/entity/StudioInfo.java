@@ -20,7 +20,7 @@ public class StudioInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "accountId")
 	private Account account;
 	private String fullName;
@@ -30,8 +30,9 @@ public class StudioInfo {
 	@Column(columnDefinition = "text")
 	private String description;
 	private String avatar;
+	private double averageRate;
 	private long levelExpiredAt;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE})
 	@JoinColumn(name = "levelId")
 	private Level level;
 	@OneToMany(mappedBy = "studioInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -53,6 +54,14 @@ public class StudioInfo {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();
 		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
+	}
+
+	public double getAverageRate() {
+		return averageRate;
+	}
+
+	public void setAverageRate(double averageRate) {
+		this.averageRate = averageRate;
 	}
 
 	public long getId() {

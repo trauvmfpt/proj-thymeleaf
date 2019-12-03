@@ -12,7 +12,7 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-12 center-block">
+                    <div class="col-10 center-block" style="margin: auto;">
                         <div class="card m-b-20">
                             <div class="card-body">
                                 <h4 class="mt-0 header-title">Edit product</h4>
@@ -29,8 +29,8 @@
 
                                     <div class="form-group col-6">
                                         <label>Description</label>
-                                        <input type="text" th:field="${album.description}" class="form-control" required
-                                                placeholder="Album Description" />
+                                        <textarea type="text" th:field="${album.description}" class="form-control" rows="5" required
+                                                placeholder="Album Description" ></textarea>
                                         <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                                     </div>
 

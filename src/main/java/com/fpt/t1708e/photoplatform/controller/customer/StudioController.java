@@ -50,9 +50,4 @@ public class StudioController {
 		return "manager/studio/studio-photographer/detail";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/confirm")
-	public String checkout() {
-		return "manager/studio/confirmation/confirm";
-	}
-
 }

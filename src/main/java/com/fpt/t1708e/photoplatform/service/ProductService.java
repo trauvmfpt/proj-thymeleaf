@@ -33,7 +33,7 @@ public class ProductService {
         if (photographerId != 0 && studioId == 0){
             products = productRepository.getProductByPhotographerInfoId(photographerId);
         } else if (studioId != 0 && photographerId == 0) {
-            products = productRepository.getProductByStudioInfoId(studioId, Sort.by(Sort.Direction.DESC));
+            products = productRepository.getProductByStudioInfoId(studioId);
         } else {
             products = productRepository.findAll();
         }

@@ -20,5 +20,5 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query(nativeQuery = true, value = "alter table product AUTO_INCREMENT = 1")
     void resetIncrement();
     List<Product> getProductByPhotographerInfoId(@Param("photographer") long id);
-    List<Product> getProductByStudioInfoId(@Param("studio") long id, Sort sort);
+    List<Product> getProductByStudioInfoId(@Param("studio") long id);
 }

@@ -19,6 +19,11 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Modifying
     @Query(nativeQuery = true, value = "alter table product AUTO_INCREMENT = 1")
     void resetIncrement();
+    @Query(nativeQuery = true,value = "select * FROM product where category_id = :cateId order by price_discount desc limit 1")
+    Product getTop1DiscountByCategory(@Param("cateId") long cateId);
+    @Query(nativeQuery = true,value = "select * FROM product order by average_rate desc limit 10")
+    List<Product> getTop10Rating();
     List<Product> getProductByPhotographerInfoId(@Param("photographer") long id);
     List<Product> getProductByStudioInfoId(@Param("studio") long id);
+
 }

@@ -51,7 +51,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
-        if (isDebug){
+        if (!isDebug){
             LOGGER.log(java.util.logging.Level.INFO, String.format("Start seeding..."));
             rankRepository.disableForeignKeyCheck();
             seedRankAndLevel();
@@ -286,6 +286,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             rating.setStudioInfo(studioInfo);
             rating.setCustomerInfo(rdCus);
             ratingRepository.save(rating);
+            studioInfo.setAverageRate(rating.getValue());
+            studioInfoRepository.save(studioInfo);
         }
         for (PhotographerInfo photographerInfo : photographerInfos) {
             CustomerInfo rdCus = customerInfos.get(rand.nextInt(customerInfos.size()));
@@ -299,6 +301,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             rating.setPhotographerInfo(photographerInfo);
             rating.setCustomerInfo(rdCus);
             ratingRepository.save(rating);
+            photographerInfo.setAverageRate(rating.getValue());
+            photographerInfoRepository.save(photographerInfo);
         }
         List<Album> albums = albumRepository.findAll();
         for (Album album : albums) {
@@ -327,6 +331,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             rating.setProduct(product);
             rating.setCustomerInfo(rdCus);
             ratingRepository.save(rating);
+            product.setAverageRate(rating.getValue());
+            productRepository.save(product);
         }
     }
 }

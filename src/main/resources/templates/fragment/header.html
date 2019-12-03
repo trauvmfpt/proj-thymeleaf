@@ -1,13 +1,13 @@
 <header th:fragment="header" xmlns:th="http://www.thymeleaf.org" class="sticky" style="background: #222;">
     <head>
-        <link href="layerslider/css/layerslider.min.css" rel="stylesheet">
+        <link th:href="@{/layerslider/css/layerslider.min.css}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+        <link rel="stylesheet" type="text/css" th:href="@{/semantic/semantic.css}">
         <!--        <script-->
         <!--                src="https://code.jquery.com/jquery-3.1.1.min.js"-->
         <!--                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="-->
         <!--                crossorigin="anonymous"></script>-->
-        <script src="semantic/semantic.js"></script>
+        <script th:href="@{/semantic/semantic.js}"></script>
         <style>
             * { box-sizing: border-box; }
             body {

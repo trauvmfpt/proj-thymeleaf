@@ -147,11 +147,15 @@ public class CartController {
 //            model.addAttribute("orderProduct", null);
             return "customer/checkout";
         }
+        double totalPrice = 0;
+        for (OrderDetail orderDetail: orderDetails
+             ) {
+            totalPrice = totalPrice + orderDetail.getCurrentPrice();
+        }
         model.addAttribute("orderDetails", orderDetails);
         Random rnd = new Random();
         List<Account> accounts = accountService.findAllAccountByRole(1);
         account = accounts.get(rnd.nextInt(accounts.size()));
-
         OrderProduct orderProduct = null;
 //        khi khách hàng confirm thì chưa có orderProduct, nhưng khi khách hàng thanh toán thì đã có
         if (orderProductId == null){
@@ -166,6 +170,7 @@ public class CartController {
         orderProduct.setCustomerPhone(customerInfo.getPhone());
         model.addAttribute("orderProduct", orderProduct);
         model.addAttribute("accountId", account.getId());
+        model.addAttribute("totalPrice", totalPrice);
         return "customer/checkout";
     }
 

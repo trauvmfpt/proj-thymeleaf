@@ -168,6 +168,7 @@ public class CartController {
         orderProduct.setCustomerEmail(customerInfo.getEmail());
         orderProduct.setCustomerName(customerInfo.getFullName());
         orderProduct.setCustomerPhone(customerInfo.getPhone());
+        orderProduct.setTotalPrice(totalPrice);
         model.addAttribute("orderProduct", orderProduct);
         model.addAttribute("accountId", account.getId());
         model.addAttribute("totalPrice", totalPrice);

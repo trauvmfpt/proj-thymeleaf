@@ -9,6 +9,7 @@ import com.fpt.t1708e.photoplatform.repository.CustomerInfoRepository;
 import com.fpt.t1708e.photoplatform.repository.PhotographerInfoRepository;
 import com.fpt.t1708e.photoplatform.repository.StudioInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,57 +43,38 @@ public class RegisterController {
     @Autowired
     StudioInfoRepository studioInfoRepository;
 
-    // test view tạo account customer
-    @RequestMapping(method = RequestMethod.GET,value = "/register/customer")
-    public String testRegisterCustomer(){
-        return "register/customerInfo";
-    }
-
-    // test view tạo account photographer
-    @RequestMapping(method = RequestMethod.GET,value = "/register/photographer")
-    public String testRegisterPhotographer(){
-        return "register/photographerInfo";
-    }
-
-    // test view tạo account studio
-    @RequestMapping(method = RequestMethod.GET,value = "/register/studio")
-    public String testRegisterStudio(){
-        return "register/studioInfo";
-    }
-
-    // test view login account
     @RequestMapping(method = RequestMethod.GET,value = "/account/login")
     public String loginAccount(){
         return "login/login";
     }
 
     // tao account
-    @RequestMapping(method = RequestMethod.GET, value = "/register/account")
+    @RequestMapping(method = RequestMethod.GET, value = "/register/partner/account")
     public String registerAccount(Model model){
         model.addAttribute("account", new Account());
         return "register/account";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/register/account")
+    @RequestMapping(method = RequestMethod.POST, value = "/register/partner/account")
     public String storeAccount(Model model, @Valid Account account, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws RemoteException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("account", account);
             return "register/account";
         }
+        Account existedAccount = accountRepository.findAccountByUsername(account.getUsername());
+        if(existedAccount != null){
+            return "error";
+        }
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account createdAccount = accountRepository.save(account);
         if(createdAccount != null) {
-            if (account.getRole() == 1) {
-                redirectAttributes.addAttribute("accountId", createdAccount.getId());
-                return "redirect:/register/customerInfo";
-            }
             if (account.getRole() == 2) {
                 redirectAttributes.addAttribute("accountId", createdAccount.getId());
-                return "redirect:/register/photographerInfo";
+                return "redirect:/register/partner/photographerInfo";
             }
             if (account.getRole() == 3) {
                 redirectAttributes.addAttribute("accountId", createdAccount.getId());
-                return "redirect:/register/studioInfo";
+                return "redirect:/register/partner/studioInfo";
             }
             return "redirect:/account/login";
         }
@@ -101,21 +83,30 @@ public class RegisterController {
     // tao account
 
     // tao customerInfo
-    @RequestMapping(method = RequestMethod.GET, value = "/register/customerInfo")
-    public String registerCustomerInfo(Model model, @RequestParam("accountId") long accountId){
+    @RequestMapping(method = RequestMethod.GET, value = "/register")
+    public String registerCustomerInfo(Model model){
         CustomerInfo customerInfo = new CustomerInfo();
-        model.addAttribute("accountId", accountId);
         model.addAttribute("customerInfo", customerInfo);
         return "register/customerInfo";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/register/customerInfo")
-    public String storeUserInfo(Model model, @Valid CustomerInfo customerInfo, long accountId) throws RemoteException {
-        Account account = accountRepository.findById(accountId).orElse(null);
-        if(account != null){
-            customerInfo.setAccount(account);
-            customerInfoRepository.save(customerInfo);
-            return "redirect:/account/login";
+    @RequestMapping(method = RequestMethod.POST, value = "/register")
+    public String storeUserInfo(Model model, @Valid CustomerInfo customerInfo, String username, String password) throws RemoteException {
+        if(username != null && password != null){
+            Account existedAccount = accountRepository.findAccountByUsername(username);
+            if(existedAccount != null){
+                return "error";
+            }
+            Account account = new Account();
+            account.setUsername(username);
+            account.setPassword(passwordEncoder.encode(password));
+            account.setRole(1);
+            Account createdAccount = accountRepository.save(account);
+            if(createdAccount != null){
+                customerInfo.setAccount(createdAccount);
+                customerInfoRepository.save(customerInfo);
+                return "redirect:/account/login";
+            }
         }
         return "error";
     }
@@ -124,7 +115,7 @@ public class RegisterController {
 
 
     //tao photographerInfo
-    @RequestMapping(method = RequestMethod.GET, value = "/register/photographerInfo")
+    @RequestMapping(method = RequestMethod.GET, value = "/register/partner/photographerInfo")
     public String registerPhotographerInfo(Model model, @RequestParam("accountId") long accountId){
         PhotographerInfo photographerInfo = new PhotographerInfo();
         model.addAttribute("accountId", accountId);
@@ -132,7 +123,7 @@ public class RegisterController {
         return "register/photographerInfo";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/register/photographerInfo")
+    @RequestMapping(method = RequestMethod.POST, value = "/register/partner/photographerInfo")
     public String storePhotographerInfo(Model model, @Valid PhotographerInfo photographerInfo, BindingResult bindingResult, long accountId) throws RemoteException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("photographerInfo", photographerInfo);
@@ -140,6 +131,10 @@ public class RegisterController {
         }
         Account account = accountRepository.findById(accountId).orElse(null);
         if(account != null){
+            PhotographerInfo existedInfo = photographerInfoRepository.findByAccount_Id(account.getId());
+            if(existedInfo != null){
+                return "error";
+            }
             photographerInfo.setAccount(account);
             photographerInfoRepository.save(photographerInfo);
             return "redirect:/account/login";
@@ -150,7 +145,7 @@ public class RegisterController {
 
 
     //tao studioInfo
-    @RequestMapping(method = RequestMethod.GET, value = "/register/studioInfo")
+    @RequestMapping(method = RequestMethod.GET, value = "/register/partner/studioInfo")
     public String registerStudioInfo(Model model, @RequestParam("accountId") long accountId){
         StudioInfo studioInfo = new StudioInfo();
         model.addAttribute("accountId", accountId);
@@ -158,7 +153,7 @@ public class RegisterController {
         return "register/studioInfo";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/register/studioInfo")
+    @RequestMapping(method = RequestMethod.POST, value = "/register/partner/studioInfo")
     public String storeStudioInfo(Model model, @Valid StudioInfo studioInfo, BindingResult bindingResult, long accountId) throws RemoteException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("photographerInfo", studioInfo);
@@ -166,6 +161,10 @@ public class RegisterController {
         }
         Account account = accountRepository.findById(accountId).orElse(null);
         if(account != null){
+            StudioInfo existedInfo = studioInfoRepository.findByAccount_Id(account.getId());
+            if(existedInfo != null){
+                return "error";
+            }
             studioInfo.setAccount(account);
             studioInfoRepository.save(studioInfo);
             return "redirect:/account/login";

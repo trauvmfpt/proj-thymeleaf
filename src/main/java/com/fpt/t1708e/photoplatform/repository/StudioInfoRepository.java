@@ -18,4 +18,6 @@ public interface StudioInfoRepository extends JpaRepository<StudioInfo, Long> {
     @Modifying
     @Query(nativeQuery = true, value = "alter table studio_info AUTO_INCREMENT = 1")
     void resetIncrement();
+
+    StudioInfo findByAccount_Id(long accountId);
 }

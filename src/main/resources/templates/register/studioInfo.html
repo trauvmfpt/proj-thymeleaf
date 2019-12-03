@@ -50,7 +50,7 @@
                 <strong><i class="icon_lock-open_alt"></i>
                     <h3>Create Studio Account</h3>
                 </strong>
-                <form id="studioRegisterForm" th:action="@{/register/studioInfo}" th:method="post" th:object="${studioInfo}">
+                <form id="studioRegisterForm" th:action="@{/register/partner/studioInfo}" th:method="post" th:object="${studioInfo}">
                     <input type="hidden" th:name="accountId" th:value="${accountId}">
                     <div class="form-group">
                         <input th:type="email" th:name="email" th:field="*{email}" class=" form-control required" placeholder="Email">

@@ -1,5 +1,4 @@
 package com.fpt.t1708e.photoplatform.service;
-
 import com.fpt.t1708e.photoplatform.entity.Category;
 import com.fpt.t1708e.photoplatform.entity.OrderProduct;
 import com.fpt.t1708e.photoplatform.repository.CategoryRepository;
@@ -13,6 +12,8 @@ import java.util.List;
 public class OrderProductService {
     @Autowired
     OrderProductRepository orderProductRepository;
+
+    public OrderProduct getById(long id){return orderProductRepository.findById(id).orElse(null);}
 
     public List<OrderProduct> orders(){return orderProductRepository.findAll();}
 

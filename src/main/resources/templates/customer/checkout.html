@@ -32,8 +32,6 @@
         <div th:replace="fragment/header :: header"></div>
 
         <div layout:fragment="content">
-            <section layout:fragment="content">
-
             <div id="position" style="margin-top: 60px;">
                 <div class="container">
                     <ul>
@@ -53,15 +51,15 @@
                         <div class="checkout">
 
                             <div class="row">
-                                <form th:object="${orderProduct}" id="formform">
-                                    <div class="col-md-6">
-                                        <div class="checkout_head">
-                                            <h3>BILLING DETAILS</h3>
-                                        </div>
+                                <form th:if="${orderProduct}!= null" th:object="${orderProduct}" id="formform">
+                                        <div class="col-md-6">
+                                            <div class="checkout_head">
+                                                <h3>BILLING DETAILS</h3>
+                                            </div>
 
-                                        <div class="checkout_form">
+                                            <div class="checkout_form">
 
-                                            <div class="row">
+                                                <div class="row">
                                                     <div class="col-xs-12 col-sm-12">
                                                         <label>Name</label>
                                                         <input th:field="*{customerName}" type="text" class="field-text">
@@ -87,83 +85,90 @@
                                                                name="accountId">
                                                     </div>
 
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-
-                                        <div class="checkout_head checkout_margin">
-                                            <h3>Your payment details</h3>
-                                        </div>
-
-                                        <div class="checkout_form checkout_margin">
-
-                                            <div class="checkout_cart">
-
-                                                <!-- ITEM -->
-                                                <div class="cart-item" th:each="orderDetail : ${orderDetails}">
-                                                    <div class="img">
-                                                        <a href="#"><img th:src="${orderDetail.product.thumbnail}" alt=""></a>
-                                                    </div>
-                                                    <div class="text">
-                                                        <a href="#" th:text="${orderDetail.product.name}"></a>
-                                                        <p>
-                                                            <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo.fullName : orderDetail.product.studioInfo.fullName}"></span>
-                                                            <b th:text="${orderDetail.currentPrice}">(price)</b>
-                                                        </p>
-                                                    </div>
-                                                    <a href="#" class="remove"><i class="fa fa-close"></i></a>
                                                 </div>
-                                                <!-- END / ITEM -->
 
-                                            </div>
-
-                                            <div class="checkout_cartinfo">
-                                                <p><span>Order Total:</span> <span class="color-red">(total price)</span></p>
-                                            </div>
-
-                                            <div class="checkout_option checkout-content">
-                                                <ul>
-                                                    <li>
-                                                        <input type="radio" class="radio payment-methor" name="payment">
-                                                        <h6>Direct Bank Transfer</h6>
-                                                        <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                    </li>
-                                                    <li>
-                                                        <input type="radio" class="radio payment-methor" name="payment">
-                                                        <h6>Cheque Payment</h6>
-                                                    </li>
-                                                    <li>
-                                                        <input type="radio" class="radio payment-methor" name="payment">
-                                                        <h6>Credit Card</h6>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="checkout_btn">
-                                                <button type="submit" id="confirm" onclick="confirmSubmit(event)"
-                                                        class="button confirm-content">
-                                                    Confirm
-                                                </button>
-                                                <button type="submit" id="back"
-                                                        class="button checkout-content" th:src="@{/product/list}">
-                                                    Back to product list
-                                                </button>
-                                                <button type="submit" id="cancel" onclick="cancelSubmit(event)"
-                                                        class="button checkout-content">
-                                                    Cancel
-                                                </button>
-                                                <button type="submit" id="checkout" onclick="checkoutSubmit(event)"
-                                                        class="button checkout-content">
-                                                    Check out
-                                                </button>
                                             </div>
                                         </div>
 
-                                    </div>
-                                </form>
+                                        <div class="col-md-6">
+
+                                            <div class="checkout_head checkout_margin">
+                                                <h3>Your payment details</h3>
+                                            </div>
+
+                                            <div class="checkout_form checkout_margin">
+
+                                                <div class="checkout_cart">
+
+                                                    <!-- ITEM -->
+                                                    <div class="cart-item" th:each="orderDetail : ${orderDetails}">
+                                                        <div class="img">
+                                                            <a th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}"><img th:src="${orderDetail.product.thumbnail}" alt=""></a>
+                                                        </div>
+                                                        <div class="text">
+                                                            <a th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}" th:text="${orderDetail.product.name}"></a>
+                                                            <p>
+                                                                <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo.fullName : orderDetail.product.studioInfo.fullName}"></span>
+                                                                <b th:text="${orderDetail.currentPrice}">(price)</b>
+                                                            </p>
+                                                        </div>
+                                                        <a href="#" class="remove"><i class="fa fa-close"></i></a>
+                                                    </div>
+                                                    <!-- END / ITEM -->
+
+                                                </div>
+
+                                                <div class="checkout_cartinfo">
+                                                    <p><span>Order Total:</span> <span class="color-red">(total price)</span></p>
+                                                </div>
+
+                                                <div class="checkout_option checkout-content">
+                                                    <ul>
+                                                        <li>
+                                                            <input type="radio" class="radio payment-methor" name="payment">
+                                                            <h6>Direct Bank Transfer</h6>
+                                                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                        </li>
+                                                        <li>
+                                                            <input type="radio" class="radio payment-methor" name="payment">
+                                                            <h6>Cheque Payment</h6>
+                                                        </li>
+                                                        <li>
+                                                            <input type="radio" class="radio payment-methor" name="payment">
+                                                            <h6>Credit Card</h6>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="checkout_btn">
+                                                    <button type="submit" id="confirm" onclick="confirmSubmit(event)"
+                                                            class="button confirm-content">
+                                                        Confirm
+                                                    </button>
+                                                    <button type="submit" id="back" class="button checkout-content"
+                                                            onclick="window.location.href='http://localhost:8080/product/list'">
+                                                        Back to product list
+                                                    </button>
+                                                    <button type="submit" id="cancel" onclick="cancelSubmit(event)"
+                                                            class="button checkout-content">
+                                                        Cancel
+                                                    </button>
+                                                    <button type="submit" id="checkout" onclick="checkoutSubmit(event)"
+                                                            class="button checkout-content">
+                                                        Check out
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                <div th:unless="${orderProduct}!= null">
+                                    <h1>You haven't added any items to cart!</h1>
+                                    <button class="button" onclick="window.location.href='http://localhost:8080/product/list'">
+                                        Back to product list
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

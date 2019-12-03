@@ -90,6 +90,22 @@ public class CartController {
                 HttpStatus.OK);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ResponseEntity<Object> getCart(HttpSession session) {
+        List<OrderDetail> cart = new ArrayList<OrderDetail>();
+        if (session.getAttribute("cart") != null) {
+            cart = (List<OrderDetail>) session.getAttribute("cart");
+        }
+        session.setAttribute("cart", cart);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Action success!")
+                .addData(cart)
+                .build(),
+                HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public String confirm(HttpSession session, OrderProduct orderProduct,
                           @RequestParam("accountId") long accountId) {
@@ -127,6 +143,10 @@ public class CartController {
     public String cart(HttpSession session, Model model,
                        @RequestParam(value = "orderProductId", required = false) String orderProductId){
         List<OrderDetail> orderDetails = (List<OrderDetail>) session.getAttribute("cart");
+        if (orderDetails == null){
+//            model.addAttribute("orderProduct", null);
+            return "customer/checkout";
+        }
         model.addAttribute("orderDetails", orderDetails);
         Random rnd = new Random();
         List<Account> accounts = accountService.findAllAccountByRole(1);

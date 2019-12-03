@@ -12,11 +12,11 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@JsonIgnore
-	@ManyToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "studioInfoId")
 	private StudioInfo studioInfo;
 	@JsonIgnore
-	@ManyToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "photographerInfoId")
 	private PhotographerInfo photographerInfo;
 	@JsonIgnore

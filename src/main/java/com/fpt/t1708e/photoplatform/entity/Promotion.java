@@ -10,7 +10,7 @@ public class Promotion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "adminInfoId")
 	private AdminInfo adminInfo;
 	private String name;

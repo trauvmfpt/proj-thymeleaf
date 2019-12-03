@@ -20,7 +20,7 @@ public class PhotographerInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@OneToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "accountId")
 	private Account account;
 	private String fullName;
@@ -33,10 +33,10 @@ public class PhotographerInfo {
 	private String description;
 	private String avatar;
 	private long levelExpiredAt;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "levelId")
 	private Level level;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.MERGE})
 	@JoinColumn(name = "StudioInfoId")
 	private StudioInfo studioInfo;
 	@OneToMany(mappedBy = "photographerInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

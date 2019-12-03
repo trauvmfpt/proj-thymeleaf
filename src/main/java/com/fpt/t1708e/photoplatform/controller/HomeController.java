@@ -87,6 +87,7 @@ public class HomeController {
 	public String checkout(){
 		return "customer/checkout";
 	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "seeder")
 	public String seed() {
 		Random rand = new Random();
@@ -215,7 +216,7 @@ public class HomeController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "seed/category")
 	public String categorySeed() {
-//    	
+//
 		for (int i = 0; i < 10; i++) {
 			Category category = new Category();
 			category.setName("Category " + i + 1);

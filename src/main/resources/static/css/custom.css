@@ -292,3 +292,17 @@ ul.post-comment li p {
 .planet3::after {
     background-color: #d491ff;
 }
+
+#upload_widget{
+    margin-left: 10px;
+    padding: 5px !important;
+}
+
+label.error{
+    color: red;
+    margin: 5px 12px;
+}
+
+.login-register{
+    text-align: center;
+}

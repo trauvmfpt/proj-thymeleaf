@@ -1,6 +1,10 @@
 package com.fpt.t1708e.photoplatform.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 
 @Entity
@@ -8,8 +12,11 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@NotNull(message = "Must enter username")
 	private String username;
+	@NotNull(message = "Must enter password")
 	private String password;
+	@NotNull(message = "Must choose a role")
 	private int role; // 1: customer 2: studio 3: photographer 5: admin
 	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private StudioInfo studioInfo;

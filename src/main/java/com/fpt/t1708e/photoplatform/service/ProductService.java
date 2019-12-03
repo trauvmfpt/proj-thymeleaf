@@ -5,10 +5,7 @@ import com.fpt.t1708e.photoplatform.entity.Product;
 import com.fpt.t1708e.photoplatform.repository.CategoryRepository;
 import com.fpt.t1708e.photoplatform.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,10 +31,18 @@ public class ProductService {
         product.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         return productRepository.save(product);
     }
+
     public List<Product> products(){return productRepository.findAll();}
 
-    public Page<Product> productsWithPagination(Pageable pageable){
-        List<Product> products = productRepository.findAll();
+    public Page<Product> productsWithPagination(long photographerId, long studioId, Pageable pageable){
+        List<Product> products;
+        if (photographerId != 0 && studioId == 0){
+            products = productRepository.getProductByPhotographerInfoId(photographerId);
+        } else if (studioId != 0 && photographerId == 0) {
+            products = productRepository.getProductByStudioInfoId(studioId);
+        } else {
+            products = productRepository.findAll();
+        }
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;

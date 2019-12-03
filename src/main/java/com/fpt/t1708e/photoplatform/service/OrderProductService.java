@@ -6,7 +6,6 @@ import com.fpt.t1708e.photoplatform.repository.CategoryRepository;
 import com.fpt.t1708e.photoplatform.repository.OrderProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,9 +14,8 @@ public class OrderProductService {
     @Autowired
     OrderProductRepository orderProductRepository;
 
-    public List<OrderProduct> categories() {
-        return orderProductRepository.findAll();
-    }
+    public List<OrderProduct> orders(){return orderProductRepository.findAll();}
+
 
     public OrderProduct create(OrderProduct orderProduct) {
         return orderProductRepository.save(orderProduct);

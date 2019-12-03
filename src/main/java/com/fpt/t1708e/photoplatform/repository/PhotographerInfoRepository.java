@@ -21,4 +21,6 @@ public interface PhotographerInfoRepository extends JpaRepository<PhotographerIn
     void resetIncrement();
     @Query(nativeQuery = true,value = "select * FROM photographer_info order by average_rate desc limit 10")
     List<PhotographerInfo> getTop10Rating();
+    PhotographerInfo findByAccount_Id(long accountId);
+
 }

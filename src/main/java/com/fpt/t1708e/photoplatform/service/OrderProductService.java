@@ -15,7 +15,7 @@ public class OrderProductService {
     @Autowired
     OrderProductRepository orderProductRepository;
 
-    public List<OrderProduct> categories() {
+    public List<OrderProduct> orderProducts() {
         return orderProductRepository.findAll();
     }
 

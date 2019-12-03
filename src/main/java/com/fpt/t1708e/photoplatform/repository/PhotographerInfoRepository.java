@@ -19,4 +19,6 @@ public interface PhotographerInfoRepository extends JpaRepository<PhotographerIn
     @Modifying
     @Query(nativeQuery = true, value = "alter table photographer_info AUTO_INCREMENT = 1")
     void resetIncrement();
+    @Query(nativeQuery = true,value = "select * FROM photographer_info order by average_rate desc limit 10")
+    List<PhotographerInfo> getTop10Rating();
 }

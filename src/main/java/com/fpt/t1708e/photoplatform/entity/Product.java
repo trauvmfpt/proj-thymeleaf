@@ -37,6 +37,7 @@ public class Product {
 	private String area;
 	private String destination;
 	private String thumbnail;
+	private double averageRate;
 	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Rating> ratingSet;
@@ -59,6 +60,14 @@ public class Product {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();
 		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
+	}
+
+	public double getAverageRate() {
+		return averageRate;
+	}
+
+	public void setAverageRate(double averageRate) {
+		this.averageRate = averageRate;
 	}
 
 	public long getId() {

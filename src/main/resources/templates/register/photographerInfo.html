@@ -50,7 +50,7 @@
                 <strong><i class="icon_lock-open_alt"></i>
                     <h3>Create Photographer Account</h3>
                 </strong>
-                <form id="customerRegisterForm" th:action="@{/register/photographerInfo}" th:method="post" th:object="${photographerInfo}">
+                <form id="customerRegisterForm" th:action="@{/register/partner/photographerInfo}" th:method="post" th:object="${photographerInfo}">
                     <input type="hidden" th:name="accountId" th:value="${accountId}">
                     <div class="form-group">
                         <input th:type="email" th:name="email" th:field="*{email}" class=" form-control required" placeholder="Email">

@@ -50,8 +50,19 @@
                     <strong><i class="icon_lock-open_alt"></i>
                         <h3>Create Customer Account</h3>
                     </strong>
-                    <form id="customerRegisterForm" th:action="@{/register/customerInfo}" th:method="post" th:object="${customerInfo}">
-                        <input type="hidden" th:name="accountId" th:value="${accountId}">
+                    <form id="customerRegisterForm" th:action="@{/register}" th:method="post" th:object="${customerInfo}">
+                        <div class="form-group">
+                            <input  id="username" th:name="username" type="text" class=" form-control" placeholder="Username">
+                            <span class="input-icon"><i class="icon_pencil-edit"></i></span>
+                        </div>
+                        <div class="form-group">
+                            <input th:name="password" type="password" id="txtNewPassword" class=" form-control" placeholder="Password">
+                            <span class="input-icon"><i class="icon_lock_alt"></i></span>
+                        </div>
+                        <div class="form-group">
+                            <input id="txtConfirmPassword" th:name="cfmPassword" type="password" class=" form-control" placeholder="Reconfirm Password">
+                            <span class="input-icon"><i class="icon_lock_alt"></i></span>
+                        </div>
                         <div class="form-group">
                             <input th:type="email" th:name="email" th:field="*{email}" class=" form-control required" placeholder="Email">
                             <span class="input-icon"><i class="icon_mail_alt"></i></span>

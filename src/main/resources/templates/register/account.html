@@ -48,9 +48,9 @@
         <div class="col-lg-8 col-sm-8">
             <div class="box_login">
                 <strong><i class="icon_lock-open_alt"></i>
-                    <h3>Create Customer Account</h3>
+                    <h3>Create Partner Account</h3>
                 </strong>
-                <form id="accountRegisterForm" th:action="@{/register/account}" th:method="post" th:object="${account}">
+                <form id="accountRegisterForm" th:action="@{/register/partner/account}" th:method="post" th:object="${account}">
                     <div class="form-group">
                         <input  id="username" th:name="username" th:field="*{username}" type="text" class=" form-control" placeholder="Username">
                         <span class="input-icon"><i class="icon_pencil-edit"></i></span>
@@ -69,7 +69,6 @@
                     <div class="form-group">
                         <select class="form-control" th:name="role" th:field="*{role}">
                             <option value="0" selected="selected" disabled>---- Select Role ----</option>
-                            <option value="1">Customer</option>
                             <option value="3">Studio</option>
                             <option value="2">Photographer</option>
                         </select>

@@ -19,4 +19,6 @@ public interface PhotographerInfoRepository extends JpaRepository<PhotographerIn
     @Modifying
     @Query(nativeQuery = true, value = "alter table photographer_info AUTO_INCREMENT = 1")
     void resetIncrement();
+
+    PhotographerInfo findByAccount_Id(long accountId);
 }

@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <title>Checkout</title>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        rel="stylesheet">
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/sweetalert2/dist/sweetalert2.css}">
     <style>
-        .checkout-content{
+        .checkout-content {
             display: none;
         }
     </style>
@@ -36,7 +36,8 @@
                 <div class="checkout">
 
                     <div class="row">
-                        <form th:if="${orderProduct}!= null" th:object="${orderProduct}" id="formform">
+                        <form th:if="${orderProduct != null and orderDetails != null and orderDetails.size() > 0}"
+                              th:object="${orderProduct}" id="formform">
                             <div class="col-md-6">
                                 <div class="checkout_head">
                                     <h3>BILLING DETAILS</h3>
@@ -62,12 +63,12 @@
 
                                         <div class="col-xs-12 col-sm-12">
                                             <label>Notes</label>
-                                            <textarea th:field="*{note}" class="field-textarea" placeholder="Notes about your order, eg. special notes for studio/photographer"></textarea>
+                                            <textarea th:field="*{note}" class="field-textarea"
+                                                      placeholder="Notes about your order, eg. special notes for studio/photographer"></textarea>
                                         </div>
                                         <div>
-                                            <input style="display: none;"
-                                                   th:value="${accountId}"
-                                                   name="accountId">
+                                            <input type="hidden" th:value="${accountId}" name="accountId">
+                                            <input type="hidden" th:field="*{id}">
                                         </div>
 
                                     </div>
@@ -87,41 +88,63 @@
 
                                         <!-- ITEM -->
                                         <div class="cart-item" th:each="orderDetail : ${orderDetails}">
-                                            <input type="hidden" th:value="${orderDetail.product.getId()}" class="cart-item-id">
-                                            <div class="img">
-                                                <a th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}"><img th:src="${orderDetail.product.thumbnail}" alt=""></a>
+                                            <div th:if="${orderDetail.getStatus() == 3 || orderDetail.getStatus() == 0}">
+                                                <input type="hidden" th:value="${orderDetail.product.getId()}"
+                                                       class="cart-item-id">
+                                                <div class="img">
+                                                    <a th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}"><img
+                                                            th:src="${orderDetail.product.thumbnail}" alt=""></a>
+                                                </div>
+                                                <div class="text">
+                                                    <a class="cart-item-name"
+                                                       th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}"
+                                                       th:text="${orderDetail.product.name}"></a>
+                                                    <p>
+                                                        <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo.fullName : orderDetail.product.studioInfo.fullName}"></span>
+                                                        <b class="cart-item-price" th:text="${orderDetail.currentPrice}">(price)</b>
+                                                    </p>
+                                                </div>
+                                                <a class="remove" th:data-product-id="${orderDetail.product.getId()}" th:data-order-id="${orderDetail.orderProduct.getId()}" th:if="${orderDetail.getStatus() != 3}"><i class="fa fa-close"></i></a>
                                             </div>
-                                            <div class="text">
-                                                <a class="cart-item-name" th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}" th:text="${orderDetail.product.name}"></a>
-                                                <p>
-                                                    <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo.fullName : orderDetail.product.studioInfo.fullName}"></span>
-                                                    <b class="cart-item-price" th:text="${orderDetail.currentPrice}">(price)</b>
-                                                </p>
+
+                                            <div th:if="${orderDetail.getStatus() == 1}" class="declined-item">
+                                                <p style="color: red" th:text="${'Sorry, ' + orderDetail.product.getName() + '  has been declined by merchant'}"></p>
+                                                <a href="#" class="remove" th:data-product-id="${orderDetail.product.getId()}" th:data-order-id="${orderDetail.orderProduct.getId()}"><i class="fa fa-close"></i></a>
                                             </div>
-                                            <a href="#" class="remove"><i class="fa fa-close"></i></a>
+
+                                            <div th:if="${orderDetail.getStatus() == 2}" class="unconfirmed-item">
+                                                <p style="color: lightskyblue" th:text="${'Sorry, ' + orderDetail.product.getName() + '  has yet been confirmed by merchant'}"></p>
+                                                <a href="#" class="remove" th:data-product-id="${orderDetail.product.getId()}" th:data-order-id="${orderDetail.orderProduct.getId()}"><i class="fa fa-close"></i></a>
+                                            </div>
                                         </div>
                                         <!-- END / ITEM -->
 
                                     </div>
 
                                     <div class="checkout_cartinfo">
-                                        <p><span>Order Total:</span> <span class="color-red" th:text="${totalPrice}">(total price)</span></p>
+                                        <p><span>Order Total:</span> <span class="color-red order-total" th:text="${totalPrice}">(total price)</span>
+                                        </p>
                                     </div>
 
                                     <div class="checkout_option checkout-content">
                                         <ul>
                                             <li>
-                                                <input type="radio" value="1" class="radio payment-methor" name="payment_type">
+                                                <input type="radio" value="1" class="radio payment-methor"
+                                                       name="payment_type">
                                                 <h6>Paypal</h6>
-                                                <p>Make your payment directly into our paypal account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                <p>Make your payment directly into our paypal account. Please use your
+                                                    Order ID as the payment reference. Your order won’t be shipped until
+                                                    the funds have cleared in our account.</p>
                                                 <div class="mt-2 hidden" id="paypal-button"></div>
                                             </li>
                                             <li>
-                                                <input type="radio" value="2" class="radio payment-methor" name="payment_type">
+                                                <input type="radio" value="2" class="radio payment-methor"
+                                                       name="payment_type">
                                                 <h6>Cheque Payment</h6>
                                             </li>
                                             <li>
-                                                <input type="radio" value="3" class="radio payment-methor" name="payment_type">
+                                                <input type="radio" value="3" class="radio payment-methor"
+                                                       name="payment_type">
                                                 <h6>Credit Card</h6>
                                             </li>
                                         </ul>
@@ -150,8 +173,15 @@
                             </div>
                         </form>
 
-                        <div th:unless="${orderProduct}!= null">
-                            <h1>You haven't added any items to cart!</h1>
+                        <div th:if="${orderProduct == null and orderDetails == null}">
+                            <h1 th:text="${message}"></h1>
+                            <button class="button" onclick="window.location.href='http://localhost:8080/product/list'">
+                                Back to product list
+                            </button>
+                        </div>
+
+                        <div th:if="${orderDetails.size() == 0}">
+                            <h1 th:text="${message}"></h1>
                             <button class="button" onclick="window.location.href='http://localhost:8080/product/list'">
                                 Back to product list
                             </button>
@@ -169,93 +199,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
     <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
     <script th:src="@{/js/user/checkout.js}"></script>
-    <script>
-
-        $("input[name='payment_type']").click(function () {
-            var radioValue = $("input[name='payment_type']:checked").val();
-            if(radioValue == 1){
-                $("#paypal-button").removeClass("hidden");
-            }
-            else{
-                $("#paypal-button").addClass("hidden");
-            }
-        });
-        // Give the parameter a variable name
-        var orderProductId = getParameterByName('orderProductId');
-
-        $(document).ready(function () {
-            if (orderProductId == null || orderProductId == '') {
-                $('.confirm-content').show();
-            }
-            else {
-                $('.confirm-content').hide();
-                $('.checkout-content').show();
-            }
-        });
-
-        function confirmSubmit(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'Are you sure!',
-                text: 'Do you want to confirm this order?',
-                icon: 'question',
-                confirmButtonText: 'Yes',
-                showCancelButton: true
-            }).then(function(result){
-                if (result.value){
-                    $("#formform").attr("action", "/cart/confirm");
-                    $("#formform").attr("method", "post");
-                    $("#formform").submit();
-                } else {
-                    return false;
-                }
-            });
-        }
-        function cancelSubmit(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'Are you sure!',
-                text: 'Do you want to cancel this order?',
-                icon: 'question',
-                confirmButtonText: 'Yes',
-                showCancelButton: true
-            }).then(function(result){
-                if (result.value){
-                    $("#formform").attr("action", "/cart/cancel");
-                    $("#formform").attr("method", "post");
-                    $("#formform").submit();
-                } else return false;
-            });
-        }
-        function checkoutSubmit(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'Are you sure!',
-                text: 'Choose the payment method?',
-                icon: 'question',
-                confirmButtonText: 'Yes',
-                showCancelButton: true
-            }).then(function(result){
-                if (result.value){
-                    $("#formform").attr("action", "/cart/checkout");
-                    $("#formform").attr("method", "post");
-                    $("#formform").submit();
-                } else return false;
-            });
-        }
-
-        // Parse the URL parameter
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-    </script>
 </th:block>
 
 <!--    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>-->

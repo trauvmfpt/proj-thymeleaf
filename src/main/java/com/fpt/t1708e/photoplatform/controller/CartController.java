@@ -6,11 +6,14 @@ import com.fpt.t1708e.photoplatform.repository.*;
 import com.fpt.t1708e.photoplatform.service.AccountService;
 import com.fpt.t1708e.photoplatform.service.CustomerInfoService;
 import com.fpt.t1708e.photoplatform.service.OrderProductService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/cart")
@@ -34,16 +34,19 @@ public class CartController {
     OrderProductRepository orderProductRepository;
 
     @Autowired
+    OrderDetailRepository orderDetailRepository;
+
+    @Autowired
     CustomerInfoService customerInfoService;
 
     @Autowired
     AccountService accountService;
+
     @Autowired
     OrderProductService orderProductService;
+
     @Autowired
     public JavaMailSender emailSender;
-
-    static Account account = new Account();
 
     private int exists(long id, List<OrderDetail> cart) {
         for (int i = 0; i < cart.size(); i++) {
@@ -58,7 +61,7 @@ public class CartController {
     @RequestMapping(value = "/buy/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> buy(@PathVariable("id") long id, HttpSession session) {
         Product product = productRepository.findById(id).orElse(null);
-        if(product == null){
+        if (product == null) {
             return new ResponseEntity<>(new RESTResponse.Error()
                     .setStatus(HttpStatus.BAD_REQUEST.value())
                     .setMessage("Error")
@@ -107,90 +110,162 @@ public class CartController {
                 HttpStatus.OK);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/removeFromCart", method = RequestMethod.POST)
+    public ResponseEntity<Object> removeFormCart(HttpSession session, int productId, int orderId) {
+        double totalPrice = 0;
+        if(productId != 0 && orderId == 0){
+            if (session.getAttribute("cart") != null) {
+                List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
+                for (OrderDetail orderDetail : cart
+                ) {
+                    totalPrice = totalPrice + orderDetail.getCurrentPrice();
+                }
+                for (OrderDetail orderDetail: cart
+                ) {
+                    if(orderDetail.getProduct().getId() == productId){
+                        cart.remove(orderDetail);
+                        totalPrice -= orderDetail.getCurrentPrice();
+                        break;
+                    }
+                }
+                session.setAttribute("cart", cart);
+            }
+        }
+        if(productId != 0 && orderId != 0){
+            OrderDetail orderDetail = orderDetailRepository.findByProductIdAndOrderId(productId, orderId);
+            if(orderDetail != null){
+                try{
+                    orderDetailRepository.delete(orderDetail.getId());
+                }
+                catch (Exception ex){
+
+                }
+            }
+        }
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Action success!")
+                .addData(new Gson().toJson(totalPrice))
+                .build(),
+                HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public String confirm(HttpSession session, OrderProduct orderProduct,
                           @RequestParam("accountId") long accountId) {
         if (session.getAttribute("cart") != null) {
             CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(accountId);
-            if(customerInfo == null){
+            if (customerInfo == null) {
                 return "error";
             }
-            List<OrderDetail> cart = new ArrayList<OrderDetail>();
-            cart = (List<OrderDetail>) session.getAttribute("cart");
-            for (OrderDetail orderDetail: cart
-                 ) {
-                orderDetail.setOrderProduct(orderProduct);
-                orderProduct.addOrderDetail(orderDetail);
-
-                Product product = orderDetail.getProduct();
-                if (product.getStudioInfo() != null){
-                    sendConfirmMessage(product.getStudioInfo().getEmail(), product.getName());
-
-                } else {
-                    sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
+            orderProduct.setStatus(1); // 1. dang cho xac nhan
+            List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
+            if(cart.size() > 0){
+                for (OrderDetail orderDetail : cart
+                ) {
+                    orderDetail.setStatus(2);
+                    orderDetail.setCreatedAt(Calendar.getInstance().getTimeInMillis());
+                    orderDetail.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
+                    orderDetail.setOrderProduct(orderProduct);
+                    orderProduct.addOrderDetail(orderDetail);
+                    orderProduct.setTotalPrice(orderProduct.getTotalPrice() + orderDetail.getCurrentPrice());
+                    Product product = orderDetail.getProduct();
+                    if (product.getStudioInfo() != null) {
+                        sendConfirmMessage(product.getStudioInfo().getEmail(), product.getName());
+                    } else if (product.getPhotographerInfo() != null){
+                        sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
+                    }
                 }
+                orderProduct.setCustomerInfo(customerInfo);
+                orderProductRepository.save(orderProduct);
+                session.removeAttribute("cart");
+                return "redirect:/customer/home";
             }
-            orderProduct.setCustomerInfo(customerInfo);
-            orderProductRepository.save(orderProduct);
-            session.removeAttribute("cart");
-            return "redirect:/customer/home";
-        }
-        else {
+            else{
+                return "redirect:/cart";
+            }
+        } else {
             return "error";
         }
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String cart(HttpSession session, Model model,
-                       @RequestParam(value = "orderProductId", required = false) String orderProductId){
-        double totalPrice = 0;
+                       @RequestParam(value = "orderProductId", required = false) String orderProductId) {
 
-        Random rnd = new Random();
-        List<Account> accounts = accountService.findAllAccountByRole(1);
-        account = accounts.get(rnd.nextInt(accounts.size()));
-        OrderProduct orderProduct = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            String userName = auth.getName();
+            Account account = accountService.findByUserName(userName);
+            if (account != null) {
+                CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(account.getId());
+                if (customerInfo != null) {
+                    String message = "Order does not exist!";
+                    double totalPrice = 0;
+                    OrderProduct orderProduct = null;
 //        khi khách hàng confirm thì chưa có orderProduct, nhưng khi khách hàng thanh toán thì đã có
-        if (orderProductId != null){
-            orderProduct =  orderProductService.getOrderProductById(Long.parseLong(orderProductId));
-            Set<OrderDetail> orderDetails = orderProduct.getOrderDetailSet();
-            for (OrderDetail orderDetail: orderDetails
-            ) {
-                totalPrice = totalPrice + orderDetail.getCurrentPrice();
+                    if (orderProductId != null) {
+                        orderProduct = orderProductService.getOrderProductByIdAndStatus(Long.parseLong(orderProductId) , 1);
+                        if (orderProduct != null) {
+                            Set<OrderDetail> orderDetails = orderProduct.getOrderDetailSet();
+                            for (OrderDetail orderDetail : orderDetails
+                            ) {
+                                totalPrice = totalPrice + orderDetail.getCurrentPrice();
+                            }
+                            model.addAttribute("orderDetails", orderDetails);
+                        }
+                    } else {
+                        List<OrderDetail> orderDetails = (List<OrderDetail>) session.getAttribute("cart");
+                        if (orderDetails == null || orderDetails.size() <= 0) {
+                            model.addAttribute("orderDetails", orderDetails);
+                            message = "You haven't had any item in cart yet. Please go back to choose products to add to your cart!";
+                            model.addAttribute("message", message);
+                            return "customer/checkout";
+                        }
+                        orderProduct = new OrderProduct();
+                        for (OrderDetail orderDetail : orderDetails
+                        ) {
+                            totalPrice = totalPrice + orderDetail.getCurrentPrice();
+                            orderDetail.setOrderProduct(orderProduct);
+                        }
+                        orderProduct.setCustomerEmail(customerInfo.getEmail());
+                        orderProduct.setCustomerName(customerInfo.getFullName());
+                        orderProduct.setCustomerPhone(customerInfo.getPhone());
+                        model.addAttribute("orderDetails", orderDetails);
+                    }
+                    model.addAttribute("orderProduct", orderProduct);
+                    model.addAttribute("accountId", account.getId());
+                    model.addAttribute("totalPrice", totalPrice);
+                    model.addAttribute("message", message);
+                    return "customer/checkout";
+                }
             }
-            model.addAttribute("orderDetails", orderDetails);
-        } else {
-            List<OrderDetail> orderDetails = (List<OrderDetail>) session.getAttribute("cart");
-            if (orderDetails == null){
-                return "customer/checkout";
-            }
-            orderProduct =  new OrderProduct();
-            CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(account.getId());
-            orderProduct.setCustomerInfo(customerInfo);
-            orderProduct.setCustomerEmail(customerInfo.getEmail());
-            orderProduct.setCustomerName(customerInfo.getFullName());
-            orderProduct.setCustomerPhone(customerInfo.getPhone());
-            orderProduct.setTotalPrice(totalPrice);
-            model.addAttribute("orderDetails", orderDetails);
         }
-        model.addAttribute("orderProduct", orderProduct);
-        model.addAttribute("accountId", account.getId());
-        model.addAttribute("totalPrice", totalPrice);
-        return "customer/checkout";
+        return "error";
     }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public String checkout(HttpSession session, OrderProduct orderProduct,
-                           @RequestParam("accountId") long accountId){
-        orderProduct.setStatus(2); // 2: paid?
-        OrderProduct updatedOrderProduct = orderProductService.update(orderProduct);
-        if(updatedOrderProduct != null){
-            sendConfirmMessage(orderProduct.getCustomerEmail(), "paid");
+                           @RequestParam("accountId") long accountId) {
+        OrderProduct existOrderProduct = orderProductService.getOrderProductById(orderProduct.getId());
+        if(existOrderProduct != null){
+            existOrderProduct.setCustomerPhone(orderProduct.getCustomerPhone());
+            existOrderProduct.setCustomerName(orderProduct.getCustomerName());
+            existOrderProduct.setCustomerEmail(orderProduct.getCustomerEmail());
+            existOrderProduct.setStatus(3); // 3.paid
+            OrderProduct updatedOrderProduct = orderProductService.update(existOrderProduct);
+            if (updatedOrderProduct != null) {
+                sendConfirmMessage(orderProduct.getCustomerEmail(), "paid");
+            }
+            return "redirect:/customer/home";
         }
-        return "redirect:/customer/home";
+        return "error";
     }
+
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)
     public String cancel(HttpSession session, OrderProduct orderProduct,
-                           @RequestParam("accountId") long accountId){
+                         @RequestParam("accountId") long accountId) {
         orderProductService.delete(orderProduct);
         return "redirect:/customer/home";
     }

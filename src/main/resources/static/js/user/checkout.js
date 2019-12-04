@@ -237,8 +237,7 @@ $(document).on('click', '.remove' ,function(){
             productId: product_id, orderId: order_id
         },
         success: function (resp) {
-            $(".order-total").text(resp.data);
-            currentItem.closest("div").closest("div").remove();
+            location.reload();
         },
         error: function (error) {
             event.preventDefault();

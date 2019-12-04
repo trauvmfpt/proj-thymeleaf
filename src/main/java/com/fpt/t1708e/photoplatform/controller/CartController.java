@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/cart")
@@ -139,48 +140,52 @@ public class CartController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "")
+    @RequestMapping(method = RequestMethod.GET)
     public String cart(HttpSession session, Model model,
                        @RequestParam(value = "orderProductId", required = false) String orderProductId){
-        List<OrderDetail> orderDetails = (List<OrderDetail>) session.getAttribute("cart");
-        if (orderDetails == null){
-//            model.addAttribute("orderProduct", null);
-            return "customer/checkout";
-        }
         double totalPrice = 0;
-        for (OrderDetail orderDetail: orderDetails
-             ) {
-            totalPrice = totalPrice + orderDetail.getCurrentPrice();
-        }
-        model.addAttribute("orderDetails", orderDetails);
+
         Random rnd = new Random();
         List<Account> accounts = accountService.findAllAccountByRole(1);
         account = accounts.get(rnd.nextInt(accounts.size()));
         OrderProduct orderProduct = null;
 //        khi khách hàng confirm thì chưa có orderProduct, nhưng khi khách hàng thanh toán thì đã có
-        if (orderProductId == null){
-            orderProduct =  new OrderProduct();
-        } else {
+        if (orderProductId != null){
             orderProduct =  orderProductService.getOrderProductById(Long.parseLong(orderProductId));
+            Set<OrderDetail> orderDetails = orderProduct.getOrderDetailSet();
+            for (OrderDetail orderDetail: orderDetails
+            ) {
+                totalPrice = totalPrice + orderDetail.getCurrentPrice();
+            }
+            model.addAttribute("orderDetails", orderDetails);
+        } else {
+            List<OrderDetail> orderDetails = (List<OrderDetail>) session.getAttribute("cart");
+            if (orderDetails == null){
+                return "customer/checkout";
+            }
+            orderProduct =  new OrderProduct();
+            CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(account.getId());
+            orderProduct.setCustomerInfo(customerInfo);
+            orderProduct.setCustomerEmail(customerInfo.getEmail());
+            orderProduct.setCustomerName(customerInfo.getFullName());
+            orderProduct.setCustomerPhone(customerInfo.getPhone());
+            orderProduct.setTotalPrice(totalPrice);
+            model.addAttribute("orderDetails", orderDetails);
         }
-        CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(account.getId());
-        orderProduct.setCustomerInfo(customerInfo);
-        orderProduct.setCustomerEmail(customerInfo.getEmail());
-        orderProduct.setCustomerName(customerInfo.getFullName());
-        orderProduct.setCustomerPhone(customerInfo.getPhone());
-        orderProduct.setTotalPrice(totalPrice);
         model.addAttribute("orderProduct", orderProduct);
         model.addAttribute("accountId", account.getId());
         model.addAttribute("totalPrice", totalPrice);
         return "customer/checkout";
     }
 
-    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public String checkout(HttpSession session, OrderProduct orderProduct,
                            @RequestParam("accountId") long accountId){
-//        do check out here
         orderProduct.setStatus(2); // 2: paid?
-        orderProductService.update(orderProduct);
+        OrderProduct updatedOrderProduct = orderProductService.update(orderProduct);
+        if(updatedOrderProduct != null){
+            sendConfirmMessage(orderProduct.getCustomerEmail(), "paid");
+        }
         return "redirect:/customer/home";
     }
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)

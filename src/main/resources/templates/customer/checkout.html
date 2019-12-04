@@ -87,14 +87,15 @@
 
                                         <!-- ITEM -->
                                         <div class="cart-item" th:each="orderDetail : ${orderDetails}">
+                                            <input type="hidden" th:value="${orderDetail.product.getId()}" class="cart-item-id">
                                             <div class="img">
                                                 <a th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}"><img th:src="${orderDetail.product.thumbnail}" alt=""></a>
                                             </div>
                                             <div class="text">
-                                                <a th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}" th:text="${orderDetail.product.name}"></a>
+                                                <a class="cart-item-name" th:href="@{/product/{id}(id = ${orderDetail.product.getId()})}" th:text="${orderDetail.product.name}"></a>
                                                 <p>
                                                     <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo.fullName : orderDetail.product.studioInfo.fullName}"></span>
-                                                    <b th:text="${orderDetail.currentPrice}">(price)</b>
+                                                    <b class="cart-item-price" th:text="${orderDetail.currentPrice}">(price)</b>
                                                 </p>
                                             </div>
                                             <a href="#" class="remove"><i class="fa fa-close"></i></a>
@@ -110,16 +111,17 @@
                                     <div class="checkout_option checkout-content">
                                         <ul>
                                             <li>
-                                                <input type="radio" class="radio payment-methor" name="payment">
-                                                <h6>Direct Bank Transfer</h6>
-                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                <input type="radio" value="1" class="radio payment-methor" name="payment_type">
+                                                <h6>Paypal</h6>
+                                                <p>Make your payment directly into our paypal account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                <div class="mt-2 hidden" id="paypal-button"></div>
                                             </li>
                                             <li>
-                                                <input type="radio" class="radio payment-methor" name="payment">
+                                                <input type="radio" value="2" class="radio payment-methor" name="payment_type">
                                                 <h6>Cheque Payment</h6>
                                             </li>
                                             <li>
-                                                <input type="radio" class="radio payment-methor" name="payment">
+                                                <input type="radio" value="3" class="radio payment-methor" name="payment_type">
                                                 <h6>Credit Card</h6>
                                             </li>
                                         </ul>
@@ -162,11 +164,23 @@
     <!-- END / BLOG -->
     <script th:src="@{/js/common_scripts_min.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.11/js/bootstrap-select.js"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
     <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
+    <script th:src="@{/js/user/checkout.js}"></script>
     <script>
+
+        $("input[name='payment_type']").click(function () {
+            var radioValue = $("input[name='payment_type']:checked").val();
+            if(radioValue == 1){
+                $("#paypal-button").removeClass("hidden");
+            }
+            else{
+                $("#paypal-button").addClass("hidden");
+            }
+        });
         // Give the parameter a variable name
         var orderProductId = getParameterByName('orderProductId');
 

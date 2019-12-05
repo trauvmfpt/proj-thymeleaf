@@ -70,11 +70,19 @@
                 background-color: DodgerBlue !important;
                 color: #ffffff;
             }
+
+            .menuinline {
+                display: inline-block;
+            }
+
+            .menu-right {
+                letter-spacing: 2px;
+            }
         </style>
     </head>
-    <div class="container-fluid">
+    <div class="container-fluid p-3 menu-right">
         <div class="row">
-            <div class="col--md-7 col-sm-6 col-xs-7 ">
+            <div class="col-md-7 col-sm-8 col-xs-7 ">
                 <div style="float: left" id="logo_home">
                     <h1><a href="/" title="PhotoVN">PhotoVN</a></h1>
                 </div>
@@ -84,19 +92,14 @@
                         <!--                        <input type="text" class=" search-query" placeholder="Search....">-->
                         <!--                        <input type="submit" class="btn_search" value="submit">-->
                         <div class="ui search">
-                            <div class="ui left icon input" style="margin-left:50px;width: 60% !important;">
+                            <div class="ui left icon input" style="margin-left:50px;width: 65% !important;">
                                 <input style="height: 30px" id="searchKey" class="prompt" type="text"
-                                       placeholder="Tìm kiếm Địa điểm, Studio, Photographer">
+                                       placeholder="Search...">
                                 <i class="search icon"></i>
                             </div>
                         </div>
                         <!--                        </div>-->
                     </form>
-                </div>
-                <div style="margin-left: 15em; margin-top: 2px;margin-bottom: 4px">
-                    <a style="margin-right: 10px" href="#">Wedding Photo</a>
-                    <a style="margin-right: 10px" href="#">Ky Yeu photo</a>
-                    <a style="margin-right: 10px" href="#">Family Photo</a>
                 </div>
             </div>
             <nav class="col--md-5 col-sm-6 col-xs-5">
@@ -134,7 +137,7 @@
                         <img th:src="@{/img/logo_2.png}" alt="img" data-retina="true" width="170" height="30">
                     </div>
                     <a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
-                    <ul>
+                    <ul class="text-uppercase">
                         <li><a href="/">Home</a></li>
                         <li><a href="/promotion/list">Promotion</a></li>
                         <li><a href="/about">About us</a></li>

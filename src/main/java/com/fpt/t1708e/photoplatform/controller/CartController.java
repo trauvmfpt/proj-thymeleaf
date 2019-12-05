@@ -4,6 +4,7 @@ import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
 import com.fpt.t1708e.photoplatform.repository.*;
 import com.fpt.t1708e.photoplatform.service.*;
+import com.fpt.t1708e.photoplatform.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,6 +93,22 @@ public class CartController {
                 HttpStatus.OK);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ResponseEntity<Object> getCart(HttpSession session) {
+        List<OrderDetail> cart = new ArrayList<OrderDetail>();
+        if (session.getAttribute("cart") != null) {
+            cart = (List<OrderDetail>) session.getAttribute("cart");
+        }
+        session.setAttribute("cart", cart);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Action success!")
+                .addData(cart)
+                .build(),
+                HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public String confirm(HttpSession session, OrderProduct orderProduct,
                           @RequestParam("accountId") long accountId) {
@@ -103,32 +120,27 @@ public class CartController {
             }
             List<OrderDetail> cart = new ArrayList<OrderDetail>();
             cart = (List<OrderDetail>) session.getAttribute("cart");
-            Set<OrderDetail> orderDetailsSet = orderProduct.getOrderDetailSet();
-            List<OrderDetail> orderDetails = new ArrayList<>();
-            orderDetails.addAll(orderDetailsSet);
             mailService.sendConfirmMail(
                     customerInfo.getEmail(),
-                    "receipt",
                     "Thank you for purchasing at TravelGuide!",
                     orderProduct,
-                    orderDetails,
+                    cart,
                     LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
                     );
             for (AdminInfo adminInfo: adminInfos
                  ) {
                 mailService.sendConfirmMail(
                         adminInfo.getEmail(),
-                        "receipt",
                         "New order from customer: " + customerInfo.getEmail(),
                         orderProduct,
-                        orderDetails,
+                        cart,
                         LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
                 );
             }
             orderProduct.setCustomerInfo(customerInfo);
             orderProductRepository.save(orderProduct);
             session.removeAttribute("cart");
-            return "redirect:/customer/receipt";
+            return "redirect:/cart/receipt";
         }
         else {
             return "error";
@@ -139,11 +151,19 @@ public class CartController {
     public String cart(HttpSession session, Model model,
                        @RequestParam(value = "orderProductId", required = false) String orderProductId){
         List<OrderDetail> orderDetails = (List<OrderDetail>) session.getAttribute("cart");
+        if (orderDetails == null){
+//            model.addAttribute("orderProduct", null);
+            return "customer/checkout";
+        }
+        double totalPrice = 0;
+        for (OrderDetail orderDetail: orderDetails
+             ) {
+            totalPrice = totalPrice + orderDetail.getCurrentPrice();
+        }
         model.addAttribute("orderDetails", orderDetails);
         Random rnd = new Random();
         List<Account> accounts = accountService.findAllAccountByRole(1);
         account = accounts.get(rnd.nextInt(accounts.size()));
-
         OrderProduct orderProduct = null;
 //        khi khách hàng confirm thì chưa có orderProduct, nhưng khi khách hàng thanh toán thì đã có
         if (orderProductId == null){
@@ -156,8 +176,10 @@ public class CartController {
         orderProduct.setCustomerEmail(customerInfo.getEmail());
         orderProduct.setCustomerName(customerInfo.getFullName());
         orderProduct.setCustomerPhone(customerInfo.getPhone());
+        orderProduct.setTotalPrice(totalPrice);
         model.addAttribute("orderProduct", orderProduct);
         model.addAttribute("accountId", account.getId());
+        model.addAttribute("totalPrice", totalPrice);
         return "customer/checkout";
     }
 
@@ -192,8 +214,7 @@ public class CartController {
         orderDetails.addAll(orderDetailsSet);
         account = orderProduct.getCustomerInfo().getAccount();
         model.addAttribute("orderProduct", orderProduct);
-        model.addAttribute("createdAt", LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()),
-                TimeZone.getDefault().toZoneId()));
+        model.addAttribute("createdAt", DateUtil.getDate(orderProduct.getCreatedAt()));
         model.addAttribute("orderDetails", orderDetails);
         return "customer/receipt";
     }

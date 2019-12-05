@@ -66,16 +66,88 @@ public class PhotographerInfoSeeder {
         photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575471054/ibogj5niy4vxnqv2b71m.jpg");
         photographerInfos.add(photographerInfo);
 
-            // 4.
+        // 5. --- 
         photographerInfo.setFullName("Trần Mạnh Hiệp");
         photographerInfo.setEmail("hiephappy@gmail.com");
         photographerInfo.setPhone("098 268 5995");
-        photographerInfo.setAddress("https://www.facebook.com/Happyy.Hiep");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
         photographerInfo.setDescription("
         ");
-        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575471054/ibogj5niy4vxnqv2b71m.jpg");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575547623/ynsjlah02sj7q4gv16hj.jpg");
         photographerInfos.add(photographerInfo);
 
-       
+        // 6. ---
+        photographerInfo.setFullName("Annie Leibovitz");
+        photographerInfo.setEmail("annieleibovitz@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Những bức ảnh của Leibovitz thường xoay quanh lĩnh vực thời trang mang yếu tố ảo mộng nhưng đồng thời có thể gợi lên một chútcảm xúcthân mật. 
+            Cô được biết đến nhiều nhất qua những bức ảnh chụp cho các tạp chí lớn như Vanity Fair và Rolling Stone. 
+            Những tác phẩm của Leibovitz luôn truyền tải được những cảm xúc mạnh mẽ và in sâu trong lòng người xem.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575547584/ht3gtyvreml8ohgvhpie.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 7.
+        photographerInfo.setFullName("Juergen Teller");
+        photographerInfo.setEmail("juergenteller@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+        Juergen thường được biết đến với những bộ ảnh chụp cho các thương hiệu thời trang cao cấp. 
+        Bất cứ tín đồ thời trang nào đều đã ít nhất một lần xem qua những bức ảnh của Juergen, dù không biết chúng thuộc về ai, cũng sẽ xuýt xoa. 
+        Với tài năng của mình, Juergen có thể “biến hóa” một bãi đất trống cũ kỹ trở nên sống động.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575547588/cbd3el0endqj8xxkanqj.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 8.
+        photographerInfo.setFullName("Diane Arbus");
+        photographerInfo.setEmail("dianearbus@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Qua những bức ảnh của mình, nhiếp ảnh gia Diane Arbus muốn phản ánh những sự thật luôn được che giấu của những chủ thể nằm trong ống kính của mình.
+            Arbus thích khai thác những khía cạnh ẩn giấu sâu thẳm của nhân vật thay vì những thứ mà họ bộc lộ trong cuộc sống hàng ngày.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575547584/opcfmryq2bf8vqqxyket.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 9.
+        photographerInfo.setFullName("Dorothea Lange");
+        photographerInfo.setEmail("dorothea@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Lange là một nhiếp ảnh gia và phóng viên hình ảnh nổi danhtrong thời kỳ Đại Khủng Hoảng. 
+            Cô được tôn vinh là nữ anh hùng của ngành nhiếp ảnh bởi những hình ảnh của cô ghi lại nỗi khổ và khó khăn trong cuộc sống củangườicông nhân thời kỳ đó.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575547597/zfxjusm4jk4tz9v1bjzn.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 10.
+        photographerInfo.setFullName("Willy Ronis");
+        photographerInfo.setEmail("willyronis@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Câu chuyện mà Ronis kể qua những bức ảnh luôn mang sắc màu của hy vọng và niềm hạnh phúc dạt dào dù đa phần là ảnh trắng đen.
+            Tuy nhiên, câu chuyện đời thật củaRonis lại trái ngược hoàn toànvới những sắc màu ông mang lại cho người xem, Ronis đã có một cuộc sống khó khăn và khổ sở bởi ông là một trong những tị nạn dân từ những vùng bị Đức Quốc Xả chiếm đóng.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575547583/u1bkbhep1axgdenrjx6r.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 11.
+        photographerInfo.setFullName("Vivian Maier");
+        photographerInfo.setEmail("vivianmaier@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Vivian Maier từng là một vú nuôi, và cô đã tìm thấy niềm hạnh phúc và sở thích của mình trong nhiếp ảnh. 
+            Ngẫu nhiên thay một ngày nọ những bức ảnh đường phố đẹp tuyệt vời của cô trở nên nổi tiếng trên các mặt báo khi bản thân cô không hề hay biết.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575547583/if7lfmnxeopdvrlnjr2p.jpg");
+        photographerInfos.add(photographerInfo);
     }
 }

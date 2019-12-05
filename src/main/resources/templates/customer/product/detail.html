@@ -5,6 +5,7 @@
 <head>
     <title>Home</title>
     <link rel="stylesheet" th:href="@{/sweetalert2/dist/sweetalert2.css}">
+    <link rel="stylesheet" th:href="@{/studio-photographer/css/style-detail.css}"/>
 
     <style>
         .score_wp_in {
@@ -26,7 +27,7 @@
             font-size: 14px;
             color: #fff;
             height: 70px;
-            line-height: 70px;
+            line-height: 50px;
             padding-right: 40px;
             text-align: right;
         }
@@ -107,8 +108,10 @@
                                     <i class="icon_images"></i>View Album
                                 </a>
                             </li>
-                            <li><a class="btn-add-cart" th:id="${'add-cart-' + product.id}"><i class="icon-plus"></i>Add to cart</a></li>
-                            <li><a class="btn-to-cart" th:id="${'add-cart-' + product.id}"><i class="icon-cart"></i>Buy now</a></li>
+                            <li><a class="btn-add-cart" th:id="${'add-cart-' + product.id}"><i class="icon-plus"></i>Add
+                                    to cart</a></li>
+                            <li><a class="btn-to-cart" th:id="${'add-cart-' + product.id}"><i class="icon-cart"></i>Buy
+                                    now</a></li>
                         </ul>
                     </div>
                     <!--End sticky -->
@@ -117,9 +120,9 @@
                 <div class="col-md-9 col-md-pull-3">
                     <div class="box_style_general add_bottom_30">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" th:if="${product.getStudioInfo()} != null">
                                 <div class="box_info">
-                                    <div class="studio" th:if="${product.getStudioInfo()} != null">
+                                    <div class="studio">
                                         <h3>Studio</h3>
                                         <img th:src="${product.getStudioInfo().getAvatar()}" width="80px" />
                                         <strong>
@@ -129,8 +132,12 @@
                                             </a>
                                         </strong>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <div class="photographer" th:if="${product.getPhotographerInfo()} != null">
+                            <div class="col-md-6" th:if="${product.getPhotographerInfo()} != null">
+                                <div class="box_info">
+                                    <div class="photographer">
                                         <h3>Photographer</h3>
                                         <img th:src="${product.getPhotographerInfo().getAvatar()}" width="80px" />
                                         <strong>
@@ -143,6 +150,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class=" col-md-6">
                                 <div class="box_info">
                                     <h3>Category</h3>
@@ -158,8 +166,10 @@
                         </div>
 
                         <h3 class="lead description" th:text="${product.description}"></h3>
-                        <p class="content" th:text="${product.content}"></p>
-                        <hr>
+                        <p class="product-content" style="margin-bottom: 30px" th:text="${product.content}"></p>
+                    </div>
+
+                    <div class="box_style_general add_bottom_30">
                         <h2>Comments</h2>
                         <ul class="post-comment" style="list-style: none;">
                             <li>
@@ -167,7 +177,8 @@
                                 <div class="comment-info" style="margin-top: 0px;">
                                     <h3 style="margin-top: 5px;">Mary R. Peterson</h3>
                                     <span>Sep 26, 2016 at 14:35</span>
-                                    <p>Kept in sent gave feel will oh it we. Has pleasure procured men laughing shutters
+                                    <p>Kept in sent gave feel will oh it we. Has pleasure procured men laughing
+                                        shutters
                                         nay. Old insipidity motionless continuing law shy partiality. </p>
                                 </div>
                             </li>
@@ -176,7 +187,8 @@
                                 <div class="comment-info" style="margin-top: 0px;">
                                     <h3 style="margin-top: 5px;">Mary R. Peterson</h3>
                                     <span>Sep 26, 2016 at 14:35</span>
-                                    <p>Unpleasant astonished an diminution up partiality. Noisy an their of meant. Death
+                                    <p>Unpleasant astonished an diminution up partiality. Noisy an their of meant.
+                                        Death
                                         means up civil do an offer wound of. Called square an in afraid direct. </p>
                                 </div>
                             </li>
@@ -200,29 +212,32 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="submit" value="Submit" class="button add_bottom_30" id="submit-contact" />
+                            <button type="submit" value="Submit" class="button add_bottom_30" id="submit-contact">Submit</button>
                         </form>
                     </div>
                     <!-- End box_style_general -->
-                    <h3 class="second_title">Related Products</h3>
-                    <div class="carousel">
-                        <div th:each="pro,proStat: ${listProduct}" th:if="${proStat.index < 10}">
-                            <div class="img_wrapper">
-                                <div class="img_container">
-                                    <a href="#">
-                                        <img th:src="${pro.getThumbnail()}" width="350" class="img-responsive" alt="">
-                                        <div class="short_info">
-                                            <h3 th:text="${pro.getName()}">Product name</h3>
-                                            <em>
-                                                <span>
-                                                    <span th:text="${pro.area}"></span>
-                                                    <span> - </span>
-                                                    <span th:text="${pro.destination}"></span>
-                                                </span>
-                                            </em>
-                                            <p th:text="${pro.getDescription()}">Description</p>
-                                        </div>
-                                    </a>
+                    <div th:if="${listProduct!=null and !listProduct.isEmpty}">
+                        <h3 class="second_title">Related Products</h3>
+                        <div class="carousel">
+                            <div th:each="pro,proStat: ${listProduct}" th:if="${proStat.index < 10}">
+                                <div class="img_wrapper">
+                                    <div class="img_container">
+                                        <a href="#">
+                                            <img th:src="${pro.getThumbnail()}" width="350" class="img-responsive"
+                                                alt="">
+                                            <div class="short_info">
+                                                <h3 th:text="${pro.getName()}">Product name</h3>
+                                                <em>
+                                                    <span>
+                                                        <span th:text="${pro.area}"></span>
+                                                        <span> - </span>
+                                                        <span th:text="${pro.destination}"></span>
+                                                    </span>
+                                                </em>
+                                                <p th:text="${pro.getDescription()}">Description</p>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -238,7 +253,7 @@
         <script th:src="@{/js/theia-sticky-sidebar.min.js}"></script>
         <script th:src="@{/js/owl.carousel.js}"></script>
         <script th:src="@{/js/owl.carousel.min.js}"></script>
-<!--        <script th:src="@{/js/jquery-2.2.4.min.js}"></script>-->
+        <!--        <script th:src="@{/js/jquery-2.2.4.min.js}"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
         <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>

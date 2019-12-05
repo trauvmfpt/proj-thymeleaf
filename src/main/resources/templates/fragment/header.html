@@ -1,4 +1,5 @@
-<header th:fragment="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky" style="background: #222;">
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        class="sticky" style="background: #fff;">
     <head>
         <link th:href="@{/layerslider/css/layerslider.min.css}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -12,6 +13,13 @@
         <style>
             * {
                 box-sizing: border-box;
+                color: black;
+            }
+            .main-menu > ul > li > a{
+                color: black;
+            }
+            .ui.input > input{
+                border: 1px solid transparent;
             }
 
             body {
@@ -25,7 +33,7 @@
             }
 
             input {
-                border: 1px solid transparent;
+                /*border: 1px solid transparent;*/
                 background-color: #f1f1f1;
                 padding: 1px !important;
                 font-size: 14px;
@@ -43,7 +51,7 @@
 
             .autocomplete-items {
                 position: absolute;
-                border: 1px solid #d4d4d4;
+                /*border: 1px solid #d4d4d4;*/
                 border-bottom: none;
                 border-top: none;
                 z-index: 99;
@@ -102,7 +110,7 @@
                     </form>
                 </div>
             </div>
-            <nav class="col--md-5 col-sm-6 col-xs-5">
+            <nav class="col-md-5 col-sm-4 col-xs-5">
                 <ul id="primary_nav">
                     <!--                    <li id=""><a href="/">Home</a>-->
                     <!--                    </li>-->

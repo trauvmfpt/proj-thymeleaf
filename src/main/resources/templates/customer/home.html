@@ -41,104 +41,6 @@
                         </a>
                     </div>
                 </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Popular</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Popular</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Popular</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Popular</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Popular</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Popular</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Popular</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
             </div>
             <!-- End Carousel -->
         </div>
@@ -150,7 +52,7 @@
             <div class="carousel box_cat small">
                 <div th:each="product : ${discountProducts}" class="img_wrapper">
                     <div class="ribbon">
-                        <span th:text="${100 - product.priceDiscount/product.price * 100 + '%'}" style="background: red !important;">20%</span>
+                        <span th:text="${product.priceDiscount + '%'}" style="background: red !important;">20%</span>
                     </div>
                     <!-- End tools i-->
                     <div class="img_container" style="overflow: visible !important;">

@@ -154,12 +154,11 @@ public class CartController {
     }
 
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    public String confirm(HttpSession session, OrderProduct orderProduct,
-                          @RequestParam("accountId") long accountId) {
+    public String confirm(HttpSession session, OrderProduct orderProduct, @RequestParam("accountId") long accountId) {
         if (session.getAttribute("cart") != null) {
             CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(accountId);
             List<AdminInfo> adminInfos = adminInfoService.adminInfos();
-            if(customerInfo == null){
+            if (customerInfo == null) {
                 return "error";
             }
             orderProduct.setStatus(1); // 1. dang cho xac nhan
@@ -180,37 +179,30 @@ public class CartController {
                         sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
                     }
                 }
+                mailService.sendConfirmMail(
+                        customerInfo.getEmail(),
+                        "Thank you for purchasing at TravelGuide!",
+                        orderProduct,
+                        cart,
+                        LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                );
+                for (AdminInfo adminInfo : adminInfos
+                ) {
+                    mailService.sendConfirmMail(
+                            adminInfo.getEmail(),
+                            "New order from customer: " + customerInfo.getEmail(),
+                            orderProduct,
+                            cart,
+                            LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                    );
+                }
                 orderProduct.setCustomerInfo(customerInfo);
                 orderProductRepository.save(orderProduct);
                 session.removeAttribute("cart");
-                mailService.sendConfirmMail(
-                      customerInfo.getEmail(),
-                      "Thank you for purchasing at TravelGuide!",
-                      orderProduct,
-                      cart,
-                      LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
-                      );
-              for (AdminInfo adminInfo: adminInfos
-                   ) {
-                  mailService.sendConfirmMail(
-                          adminInfo.getEmail(),
-                          "New order from customer: " + customerInfo.getEmail(),
-                          orderProduct,
-                          cart,
-                          LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
-                  );
                 return "redirect:/customer/home";
-            } else {
-                return "redirect:/cart";
             }
-            orderProduct.setCustomerInfo(customerInfo);
-            orderProductRepository.save(orderProduct);
-            session.removeAttribute("cart");
-            return "redirect:/cart/receipt";
         }
-        else {
-            return "error";
-        }
+        return "error";
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -281,7 +273,7 @@ public class CartController {
             if (updatedOrderProduct != null) {
                 sendConfirmMessage(orderProduct.getCustomerEmail(), "paid");
             }
-            return "redirect:/customer/home";
+            return "redirect:/cart/receipt/?orderProductId=" + orderProduct.getId();
         }
         return "error";
     }

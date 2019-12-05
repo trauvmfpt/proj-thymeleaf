@@ -27,12 +27,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="product, iter : ${orderDetailList}">
+                                    <tr th:each="orderDetail, iter : ${orderDetailList}" th:data-id="${orderDetail.getId()}" class="orderDetail-item">
                                         <th scope="row" th:text="${iter.index + 1}"></th>
-                                        <td th:text="${product.product.name}">Mark</td>
-                                        <td><img th:src="${product.product.thumbnail}" alt="${product.name}" style="width: 100px;"></td>
-                                        <td><a href="#" class="btn btn-success waves-effect waves-light">Confirm</a></td>
-                                        <td><a href="#" class="btn btn-info waves-effect waves-light">Cancel</a></td>
+                                        <td th:text="${orderDetail.product.name}">Mark</td>
+                                        <td><img th:src="${orderDetail.product.thumbnail}" alt="${product.name}" style="width: 100px;"></td>
+                                        <td th:if="${orderDetail.getStatus() != 3}"><a href="#" class="btn btn-success waves-effect waves-light btn-confirm">Confirm</a></td>
+                                        <td th:if="${orderDetail.getStatus() == 3}"><a href="#" class="btn btn-success waves-effect waves-light btn-confirm"><i class="dripicons-checkmark"></i></a></td>
+                                        <td th:if="${orderDetail.getStatus() != 1}"><a href="#" class="btn btn-info waves-effect waves-light btn-cancel">Cancel</a></td>
+                                        <td th:if="${orderDetail.getStatus() == 1}"><a href="#" class="btn btn-info waves-effect waves-light btn-cancel"><i class="dripicons-trash"></i></a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -40,8 +42,8 @@
                             </div>
                             <div class="card m-b-20 card-body float-right">
                                 <div class="card-body">
-                                    <a th:href="@{'/orderProduct/edit/'+${orderProduct.id}}" class="btn btn-success waves-effect waves-light">Confirm all</a>
-                                    <a th:href="@{'/orderProduct/delete/'+${orderProduct.id}}" class="btn btn-info waves-effect waves-light">Cancel all</a>
+                                    <a href="#" class="btn btn-success waves-effect waves-light btn-confirm-all">Confirm all</a>
+                                    <a href="#" class="btn btn-info waves-effect waves-light btn-cancel-all">Cancel all</a>
                                     <a th:href="@{'/order/list'}" class="btn btn-danger waves-effect waves-light">Back to list order</a>
                                 </div>
                             </div>
@@ -52,7 +54,7 @@
                     <div class="card m-b-20">
                         <div class="card-body">
                             <h4 class="mt-0 card-title">Customer info</h4>
-                            <p class="card-text" th:text="${orderProduct.customerInfo}"></p>
+                            <p class="card-text" th:text="${orderProduct.customerInfo.getFullName()}"></p>
                         </div>
                     </div>
                     <div class="card m-b-20">
@@ -81,6 +83,7 @@
 
         </div> <!-- end container -->
     </div>
+    <script th:src="@{/admin/js/confirmOrder.js}"></script>
 </section>
 </body>
 </html>

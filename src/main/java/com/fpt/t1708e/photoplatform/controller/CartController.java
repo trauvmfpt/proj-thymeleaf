@@ -121,16 +121,16 @@ public class CartController {
     @RequestMapping(value = "/removeFromCart", method = RequestMethod.POST)
     public ResponseEntity<Object> removeFormCart(HttpSession session, int productId, int orderId) {
         double totalPrice = 0;
-        if(productId != 0 && orderId == 0){
+        if (productId != 0 && orderId == 0) {
             if (session.getAttribute("cart") != null) {
                 List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
                 for (OrderDetail orderDetail : cart
                 ) {
                     totalPrice = totalPrice + orderDetail.getCurrentPrice();
                 }
-                for (OrderDetail orderDetail: cart
+                for (OrderDetail orderDetail : cart
                 ) {
-                    if(orderDetail.getProduct().getId() == productId){
+                    if (orderDetail.getProduct().getId() == productId) {
                         cart.remove(orderDetail);
                         totalPrice -= orderDetail.getCurrentPrice();
                         break;
@@ -139,15 +139,10 @@ public class CartController {
                 session.setAttribute("cart", cart);
             }
         }
-        if(productId != 0 && orderId != 0){
+        if (productId != 0 && orderId != 0) {
             OrderDetail orderDetail = orderDetailRepository.findByProductIdAndOrderId(productId, orderId);
-            if(orderDetail != null){
-                try{
-                    orderDetailRepository.delete(orderDetail.getId());
-                }
-                catch (Exception ex){
-
-                }
+            if (orderDetail != null) {
+                orderDetailRepository.delete(orderDetail.getId());
             }
         }
         return new ResponseEntity<>(new RESTResponse.Success()
@@ -167,24 +162,46 @@ public class CartController {
             if(customerInfo == null){
                 return "error";
             }
-            List<OrderDetail> cart = new ArrayList<OrderDetail>();
-            cart = (List<OrderDetail>) session.getAttribute("cart");
-            mailService.sendConfirmMail(
-                    customerInfo.getEmail(),
-                    "Thank you for purchasing at TravelGuide!",
-                    orderProduct,
-                    cart,
-                    LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
-                    );
-            for (AdminInfo adminInfo: adminInfos
-                 ) {
+            orderProduct.setStatus(1); // 1. dang cho xac nhan
+            List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
+            if (cart.size() > 0) {
+                for (OrderDetail orderDetail : cart
+                ) {
+                    orderDetail.setStatus(2);
+                    orderDetail.setCreatedAt(Calendar.getInstance().getTimeInMillis());
+                    orderDetail.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
+                    orderDetail.setOrderProduct(orderProduct);
+                    orderProduct.addOrderDetail(orderDetail);
+                    orderProduct.setTotalPrice(orderProduct.getTotalPrice() + orderDetail.getCurrentPrice());
+                    Product product = orderDetail.getProduct();
+                    if (product.getStudioInfo() != null) {
+                        sendConfirmMessage(product.getStudioInfo().getEmail(), product.getName());
+                    } else if (product.getPhotographerInfo() != null) {
+                        sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
+                    }
+                }
+                orderProduct.setCustomerInfo(customerInfo);
+                orderProductRepository.save(orderProduct);
+                session.removeAttribute("cart");
                 mailService.sendConfirmMail(
-                        adminInfo.getEmail(),
-                        "New order from customer: " + customerInfo.getEmail(),
-                        orderProduct,
-                        cart,
-                        LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
-                );
+                      customerInfo.getEmail(),
+                      "Thank you for purchasing at TravelGuide!",
+                      orderProduct,
+                      cart,
+                      LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                      );
+              for (AdminInfo adminInfo: adminInfos
+                   ) {
+                  mailService.sendConfirmMail(
+                          adminInfo.getEmail(),
+                          "New order from customer: " + customerInfo.getEmail(),
+                          orderProduct,
+                          cart,
+                          LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                  );
+                return "redirect:/customer/home";
+            } else {
+                return "redirect:/cart";
             }
             orderProduct.setCustomerInfo(customerInfo);
             orderProductRepository.save(orderProduct);
@@ -212,7 +229,7 @@ public class CartController {
                     OrderProduct orderProduct = null;
 //        khi khách hàng confirm thì chưa có orderProduct, nhưng khi khách hàng thanh toán thì đã có
                     if (orderProductId != null) {
-                        orderProduct = orderProductService.getOrderProductByIdAndStatus(Long.parseLong(orderProductId) , 1);
+                        orderProduct = orderProductService.getOrderProductByIdAndStatus(Long.parseLong(orderProductId), 1);
                         if (orderProduct != null) {
                             Set<OrderDetail> orderDetails = orderProduct.getOrderDetailSet();
                             for (OrderDetail orderDetail : orderDetails
@@ -255,7 +272,7 @@ public class CartController {
     public String checkout(HttpSession session, OrderProduct orderProduct,
                            @RequestParam("accountId") long accountId) {
         OrderProduct existOrderProduct = orderProductService.getOrderProductById(orderProduct.getId());
-        if(existOrderProduct != null){
+        if (existOrderProduct != null) {
             existOrderProduct.setCustomerPhone(orderProduct.getCustomerPhone());
             existOrderProduct.setCustomerName(orderProduct.getCustomerName());
             existOrderProduct.setCustomerEmail(orderProduct.getCustomerEmail());

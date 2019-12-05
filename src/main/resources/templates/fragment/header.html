@@ -1,4 +1,5 @@
-<header th:fragment="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky" style="background: #222;">
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky" style="background: #222;">
     <head>
         <link th:href="@{/layerslider/css/layerslider.min.css}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -106,7 +107,14 @@
 
                     <li th:if="${#authentication.getName() == 'anonymousUser'}" id="login"><a href="/account/login">Login</a>
                     </li>
-                    <li th:if="${#authentication.getName() != 'anonymousUser'}" id="currentUser"><a th:text="${#authentication.getName()}"></a>
+                    <li th:if="${#authentication.getName() != 'anonymousUser'}" class="list-inline-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <span id="currentUser" class="ml-1" th:text="${#authentication.getName()}"> <i class="mdi mdi-chevron-down"></i> </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <a class="dropdown-item" href="/logout"><i class="dripicons-exit text-muted"></i> Logout</a>
+                        </div>
                     </li>
                     <li id="buy list-inline-item dropdown notification-list show">
                         <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"

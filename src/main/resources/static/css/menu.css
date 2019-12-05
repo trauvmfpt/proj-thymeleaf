@@ -7,10 +7,13 @@ header{
 }
 
 /* Primary menu */
-ul#primary_nav {margin:0; padding:0; list-style:none; float:right;}
+ul#primary_nav {margin:0; padding:0; list-style:none; float:right; margin-top: -4px !important;}
 ul#primary_nav li {display:inline-block; padding-left:15px;}
 ul#primary_nav li a {color:#fff; opacity:1;}
+ul#primary_nav li a.dropdown-item {color:black; opacity:1;}
+ul#primary_nav li div.dropdown-menu {left: -5px !important; text-align: center}
 ul#primary_nav li a:hover{opacity:0.6;}
+
 
 ul#primary_nav li#search a{font-size:20px;}
 

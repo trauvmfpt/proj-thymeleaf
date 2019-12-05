@@ -17,7 +17,6 @@ public class OrderProductService {
 
     public List<OrderProduct> orders(){return orderProductRepository.findAll();}
 
-
     public OrderProduct create(OrderProduct orderProduct) {
         return orderProductRepository.save(orderProduct);
     }
@@ -25,6 +24,13 @@ public class OrderProductService {
 	public OrderProduct getOrderProductById(long id) {
 		return orderProductRepository.findById(id).orElse(null);
 	}
+
+    public OrderProduct getOrderProductByIdAndStatus(long id, int status) {
+         if(orderProductRepository.findByIdAndStatus(id, status) != null){
+             return orderProductRepository.findByIdAndStatus(id, status);
+         }
+         return null;
+    }
 
     public OrderProduct update(OrderProduct orderProduct) {
         orderProduct.setUpdatedAt(Calendar.getInstance().getTimeInMillis());

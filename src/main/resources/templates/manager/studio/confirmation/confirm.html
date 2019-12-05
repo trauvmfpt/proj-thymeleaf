@@ -13,27 +13,6 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card m-b-20">
-                        <div class="card-body">
-                            <h4 class="mt-0 card-title">Id</h4>
-                            <p class="card-text" th:text="${orderProduct.id}"></p>
-                        </div>
-                    </div>
-                    <div class="card m-b-20">
-                        <div class="card-body">
-                            <h4 class="mt-0 card-title">Customer email</h4>
-                            <p class="card-text" th:text="${orderProduct.customerEmail}"></p>
-                        </div>
-                    </div>
-                    <div class="card m-b-20">
-                        <div class="card-body">
-                            <h4 class="mt-0 card-title">Total price</h4>
-                            <p class="card-text" th:text="'$' + ${orderProduct.totalPrice}"></p>
-                        </div>
-                    </div>
-                </div> <!-- end col -->
-
-                <div class="col-lg-6">
-                    <div class="card m-b-20">
                         <form>
                             <div class="card-body">
                                 <h4 class="mt-0 header-title">Order detail</h4>
@@ -52,23 +31,51 @@
                                         <th scope="row" th:text="${iter.index + 1}"></th>
                                         <td th:text="${product.product.name}">Mark</td>
                                         <td><img th:src="${product.product.thumbnail}" alt="${product.name}" style="width: 100px;"></td>
-                                        <td><a th:href="@{'/orderDetail/edit' + ${product.id}}" class="btn btn-success waves-effect waves-light">Confirm</a></td>
-                                        <td><a th:href="@{'/orderDetail/delete' + ${product.id}}" class="btn btn-danger waves-effect waves-light">Cancel</a></td>
+                                        <td><a href="#" class="btn btn-success waves-effect waves-light">Confirm</a></td>
+                                        <td><a href="#" class="btn btn-info waves-effect waves-light">Cancel</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
 
                             </div>
-                            <div class="card m-b-20 card-body">
+                            <div class="card m-b-20 card-body float-right">
                                 <div class="card-body">
-                                    <a th:href="@{'/orderProduct/edit/'+${orderProduct.id}}" class="btn btn-warning waves-effect waves-light">Confirm all</a>
+                                    <a th:href="@{'/orderProduct/edit/'+${orderProduct.id}}" class="btn btn-success waves-effect waves-light">Confirm all</a>
                                     <a th:href="@{'/orderProduct/delete/'+${orderProduct.id}}" class="btn btn-info waves-effect waves-light">Cancel all</a>
-                                    <a th:href="@{/order/list}" class="btn btn-danger waves-effect waves-light">Back to list order</a>
+                                    <a th:href="@{'/order/list'}" class="btn btn-danger waves-effect waves-light">Back to list order</a>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div> <!-- end col -->
+                <div class="col-lg-6">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Customer info</h4>
+                            <p class="card-text" th:text="${orderProduct.customerInfo}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Customer email</h4>
+                            <p class="card-text" th:text="${orderProduct.customerEmail}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Customer phone</h4>
+                            <p class="card-text" th:text="${orderProduct.customerPhone}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Total price</h4>
+                            <p class="card-text" th:text="'$' + ${orderProduct.totalPrice}"></p>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+
+
 
             </div> <!-- end row -->
 

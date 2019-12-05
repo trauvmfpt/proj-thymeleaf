@@ -13,7 +13,6 @@ import java.util.List;
 public class OrderDetailService {
     @Autowired
     OrderDetailRepository orderDetailRepository;
-
     public List<OrderDetail> orderDetails() {
         return orderDetailRepository.findAll();
     }

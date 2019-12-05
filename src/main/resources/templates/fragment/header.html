@@ -1,4 +1,4 @@
-<header th:fragment="header" xmlns:th="http://www.thymeleaf.org" class="sticky" style="background: #222;">
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky" style="background: #222;">
     <head>
         <link th:href="@{/layerslider/css/layerslider.min.css}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -7,32 +7,40 @@
         <!--                src="https://code.jquery.com/jquery-3.1.1.min.js"-->
         <!--                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="-->
         <!--                crossorigin="anonymous"></script>-->
-        <script th:src="@{/semantic/semantic.js}"></script>
         <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+        <script th:src="@{/semantic/semantic.js}"></script>
         <style>
-            * { box-sizing: border-box; }
+            * {
+                box-sizing: border-box;
+            }
+
             body {
                 /*font: 12px Arial;*/
             }
+
             .autocomplete {
                 /*the container must be positioned relative:*/
                 position: relative;
                 display: inline-block;
             }
+
             input {
                 border: 1px solid transparent;
                 background-color: #f1f1f1;
                 padding: 1px !important;
                 font-size: 14px;
             }
+
             input[type=text] {
                 background-color: #f1f1f1;
                 width: 150%;
             }
+
             input[type=submit] {
                 background-color: DodgerBlue;
                 color: #fff;
             }
+
             .autocomplete-items {
                 position: absolute;
                 border: 1px solid #d4d4d4;
@@ -44,16 +52,19 @@
                 left: 0;
                 right: 0;
             }
+
             .autocomplete-items div {
                 padding: 1px;
                 cursor: pointer;
                 background-color: #fff;
                 border-bottom: 1px solid #d4d4d4;
             }
+
             .autocomplete-items div:hover {
                 /*when hovering an item:*/
                 background-color: #e9e9e9;
             }
+
             .autocomplete-active {
                 /*when navigating through the items using the arrow keys:*/
                 background-color: DodgerBlue !important;
@@ -63,22 +74,23 @@
     </head>
     <div class="container-fluid">
         <div class="row">
-            <div class="col--md-7 col-sm-8 col-xs-7 ">
+            <div class="col--md-7 col-sm-6 col-xs-7 ">
                 <div style="float: left" id="logo_home">
                     <h1><a href="/" title="PhotoVN">PhotoVN</a></h1>
                 </div>
                 <div>
                     <form>
-<!--                        <div id="custom-search-input" >-->
-                            <!--                        <input type="text" class=" search-query" placeholder="Search....">-->
-                            <!--                        <input type="submit" class="btn_search" value="submit">-->
-                            <div class="ui search" >
-                                <div class="ui left icon input" style="margin-left:50px;width: 60% !important;">
-                                    <input style="height: 30px" id="searchKey" class="prompt" type="text" placeholder="Tìm kiếm Địa điểm, Studio, Photographer">
-                                    <i class="search icon"></i>
-                                </div>
+                        <!--                        <div id="custom-search-input" >-->
+                        <!--                        <input type="text" class=" search-query" placeholder="Search....">-->
+                        <!--                        <input type="submit" class="btn_search" value="submit">-->
+                        <div class="ui search">
+                            <div class="ui left icon input" style="margin-left:50px;width: 60% !important;">
+                                <input style="height: 30px" id="searchKey" class="prompt" type="text"
+                                       placeholder="Tìm kiếm Địa điểm, Studio, Photographer">
+                                <i class="search icon"></i>
                             </div>
-<!--                        </div>-->
+                        </div>
+                        <!--                        </div>-->
                     </form>
                 </div>
                 <div style="margin-left: 15em; margin-top: 2px;margin-bottom: 4px">
@@ -87,14 +99,18 @@
                     <a style="margin-right: 10px" href="#">Family Photo</a>
                 </div>
             </div>
-            <nav class="col--md-5 col-sm-4 col-xs-5">
+            <nav class="col--md-5 col-sm-6 col-xs-5">
                 <ul id="primary_nav">
-<!--                    <li id=""><a href="/">Home</a>-->
-<!--                    </li>-->
-                    <li id="login"><a href="/account/login">Login</a>
+                    <!--                    <li id=""><a href="/">Home</a>-->
+                    <!--                    </li>-->
+
+                    <li th:if="${#authentication.getName() == 'anonymousUser'}" id="login"><a href="/account/login">Login</a>
+                    </li>
+                    <li th:if="${#authentication.getName() != 'anonymousUser'}" id="currentUser"><a th:text="${#authentication.getName()}"></a>
                     </li>
                     <li id="buy list-inline-item dropdown notification-list show">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
+                           role="button"
                            aria-haspopup="false" aria-expanded="false">
                             <i class="icon-cart"></i>
                             <span class="badge badge-info badge-pill noti-icon-badge">0</span>
@@ -137,22 +153,22 @@
                 method: 'GET',
                 success: function (resp) {
                     var content = '';
-                    if (!Array.isArray(resp.data) || !resp.data.length || resp.data.length == 0){
+                    if (!Array.isArray(resp.data) || !resp.data.length || resp.data.length == 0) {
                         $('.badge.badge-info.badge-pill.noti-icon-badge').text("0");
                         $('.dropdown-item.noti-title').find('span').text("0");
                     } else {
                         $('.badge.badge-info.badge-pill.noti-icon-badge').text(resp.data.length);
                         $('.dropdown-item.noti-title').find('span').text(resp.data.length);
-                        for (i = 0; i < resp.data.length; i++){
+                        for (i = 0; i < resp.data.length; i++) {
                             content += '<a href="/product/' + resp.data[i].product.id + '" class="dropdown-item notify-item">';
-                            content +=         '<div class="notify-icon" style="width: 40%;">';
-                            content +=             '<img src="' + resp.data[i].product.thumbnail + '" alt="" style="width: 75px;">';
-                            content +=             '<b style="color: black;">' + resp.data[i].product.name + '</b>';
-                            content +=         '</div>';
-                            content +=         '<p class="notify-details" style="color: black;">';
-                            content +=             '<small class="text-muted">' + resp.data[i].currentPrice + '</small>';
-                            content +=         '</p>';
-                            content +=     '</a>';
+                            content += '<div class="notify-icon" style="width: 40%;">';
+                            content += '<img src="' + resp.data[i].product.thumbnail + '" alt="" style="width: 75px;">';
+                            content += '<b style="color: black;">' + resp.data[i].product.name + '</b>';
+                            content += '</div>';
+                            content += '<p class="notify-details" style="color: black;">';
+                            content += '<small class="text-muted">' + resp.data[i].currentPrice + '</small>';
+                            content += '</p>';
+                            content += '</a>';
                         }
                     }
                     $('#cart-items-wrapper').html(content);
@@ -162,45 +178,49 @@
                 }
             });
         });
-        $('.ui.search')
-            .search({
-                type          : 'category',
-                minCharacters : 3,
-                apiSettings   : {
-                    onResponse: function(res) {
-                        var
-                            response = {
-                                results : {}
-                            }
-                        ;
-                        // translate GitHub API response to work with search
-                        $.each(res, function(index, item) {
+        document.addEventListener("DOMContentLoaded", function (event) {
+            $('.ui.search')
+                .search({
+                    type: 'category',
+                    minCharacters: 3,
+                    apiSettings: {
+                        onResponse: function (res) {
                             var
-                                language   = item.type || 'Unknown',
-                                maxResults = 8
+                                response = {
+                                    results: {}
+                                }
                             ;
-                            if(index >= maxResults) {
-                                return false;
-                            }
-                            // create new language category
-                            if(response.results[language] === undefined) {
-                                response.results[language] = {
-                                    name    : language,
-                                    results : []
-                                };
-                            }
-                            // add result to category
-                            response.results[language].results.push({
-                                title       : item.name,
-                                description : item.address,
-                                url         : item.url
+                            // translate GitHub API response to work with search
+                            $.each(res, function (index, item) {
+                                var
+                                    language = item.type || 'Unknown',
+                                    maxResults = 8
+                                ;
+                                if (index >= maxResults) {
+                                    return false;
+                                }
+                                // create new language category
+                                if (response.results[language] === undefined) {
+                                    response.results[language] = {
+                                        name: language,
+                                        results: []
+                                    };
+                                }
+                                // add result to category
+                                response.results[language].results.push({
+                                    title: item.name,
+                                    description: item.address,
+                                    url: item.url
+                                });
                             });
-                        });
-                        return response;
-                    },
-                    url: '/api/search?key={query}'
-                }
-            })
-        ;
+                            return response;
+                        },
+                        url: '/api/search?key={query}'
+                    }
+                })
+            ;
+        });
+
+
     </script>
 </header>

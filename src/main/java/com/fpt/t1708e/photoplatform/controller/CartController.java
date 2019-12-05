@@ -4,6 +4,7 @@ import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
 import com.fpt.t1708e.photoplatform.repository.*;
 import com.fpt.t1708e.photoplatform.service.*;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,8 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/cart")
 public class CartController {
+    @Autowired
+    public JavaMailSender emailSender;
 
     @Autowired
     ProductRepository productRepository;
@@ -291,11 +294,23 @@ public class CartController {
         Set<OrderDetail> orderDetailsSet = orderProduct.getOrderDetailSet();
         List<OrderDetail> orderDetails = new ArrayList<>();
         orderDetails.addAll(orderDetailsSet);
-        account = orderProduct.getCustomerInfo().getAccount();
+//        account = orderProduct.getCustomerInfo().getAccount();
         model.addAttribute("orderProduct", orderProduct);
         model.addAttribute("createdAt", LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()),
                 TimeZone.getDefault().toZoneId()));
         model.addAttribute("orderDetails", orderDetails);
         return "customer/receipt";
+    }
+    public void sendConfirmMessage(String to, String text) {
+        try {
+            MimeMessage mail = emailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mail, true);
+            messageHelper.setTo(to);
+            messageHelper.setSubject("You have a new order to confirm!");
+            messageHelper.setText(text, true);
+            emailSender.send(mail);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

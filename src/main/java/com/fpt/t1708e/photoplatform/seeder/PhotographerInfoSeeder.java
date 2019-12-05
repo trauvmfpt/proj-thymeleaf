@@ -9,7 +9,7 @@ import java.util.List;
 public class PhotographerInfoSeeder {
     public static List<PhotographerInfo> photographerInfos = new ArrayList<>();
     public void addPtg(){
-//        PhotographerInfo photographerInfo = new PhotographerInfo();
+        PhotographerInfo photographerInfo = new PhotographerInfo();
 //        https://www.elleman.vn/hot-women/nu-nhiep-anh-gia-viet-nam-tre?fbclid=IwAR2t4fUht4Zd2UJktatHFNF-tV58Lofs2GG5k2wgMbr8QG7Ld8a7qe67FjQ
 
         // 1.
@@ -148,6 +148,140 @@ public class PhotographerInfoSeeder {
             Ngẫu nhiên thay một ngày nọ những bức ảnh đường phố đẹp tuyệt vời của cô trở nên nổi tiếng trên các mặt báo khi bản thân cô không hề hay biết.
         ");
         photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575547583/if7lfmnxeopdvrlnjr2p.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 12.
+        photographerInfo.setFullName("Florian Schulz");
+        photographerInfo.setEmail("florianschulz@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            For more than 25 years, Florian Schulz has been following his passion for nature photography. His work opens a window into the natural world.
+            And looking at his stunning images, you can experience moments that few have ever seen. He is first on our list for a reason.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551804/ta2ckvmnmgmboul5mdnq.jpg");
+        photographerInfos.add(photographerInfo);
+
+
+        // 13.
+        photographerInfo.setFullName("Karla Gachet");
+        photographerInfo.setEmail("karlagachet@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Karla Gachet is an artistic and documentary photographer. Her time in the USA after studying allowed her to return to Ecuador with a fresh perspective.
+            Her freelance career allows time for personal projects. I highly recommend looking through her project Ceci: Tango in El Caminito.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551807/ebloaaqeplalkyvif68d.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 14.
+        photographerInfo.setFullName("Simon Norfolk");
+        photographerInfo.setEmail("simonnofolk@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Simon Norfolk is the gold standard for landscape fine art and documentary photography.
+            Warfare was an important area for him and his visual imagery until he turned to his project ‘When I am Laid In Earth’.
+            Not only is it a clever idea of the constant changing of the landscapes worldwide, but also an indirect complaint towards the effects of global warming.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551805/xap4ua5xapqufveaspqs.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 15.
+        photographerInfo.setFullName("Theron Humphrey");
+        photographerInfo.setEmail("theron@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Theron Humphrey loves his dog almost more than he loves photography. Thankfully he can meld both of them together to create a 1.something Instagram following.
+            The storytelling of his day-to-day life is inspiring for artists, photographers and even those wishing to jump off the grid.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551808/u90lir7569xpijy8j0ns.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 16. ---------------
+        photographerInfo.setFullName("Frans Lanting");
+        photographerInfo.setEmail("franzlanting@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            We should all be thankful that Frans Lanting left his Economics background behind. Otherwise, the world would have been robbed of his beautiful, visual imagery.
+            For three decades he has documented wildlife from the Amazon to Antarctica to promote understanding about the Earth.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551804/hxwdvzfm5tpjm7qnldjd.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 17.
+        photographerInfo.setFullName("Jeff Kerby");
+        photographerInfo.setEmail("jeffkerby@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Jeff Kerby’s wildlife photography is what brought his name to National Geographic. The Gelada monkeys in Ethiopia were his models for this.
+            Drone and aerial photography is also common in his work, and he uses it to stand out from the ‘sky crowd’.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551813/eavyv1fszzyf1ckkwhkp.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 18.
+        photographerInfo.setFullName("Brian Lehmann");
+        photographerInfo.setEmail("brianlehman@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            You can’t say that photojournalist Brian Lehman isn’t fully immersed in his work. Being the third wheel to a hyena and its owner is no small feat.
+            If that isn’t enough, his photographic journey has seen him contracting both malaria and leptospirosis. He goes the full distance.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551804/hjyqjxvrshvjpcxpxstq.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 19.
+        photographerInfo.setFullName("Paul Nicklen");
+        photographerInfo.setEmail("paulnickle@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Paul Nicklen is a Canadian photographer and marine biologist. His work has taken him around the globe.
+            He has been documenting the beauty and the plight of our planet for over twenty years.
+            BBC Wildlife Photographer of the Year and the prestigious World Press Photo for Photojournalism are just two of his awards.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551807/lihcqpqvsfxkeebaxokk.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 20.
+        photographerInfo.setFullName("Stephen Wilkes");
+        photographerInfo.setEmail("stephenwilkes@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Fine art photographer Stephen Wilkes will always be a favourite of mine. He takes panoramas of cities, showing the transition from night into day.
+            These images capture a 24 hour period in one image – I told you photography is a waiting man’s game.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551808/r2vj8jzskuzukznzaxk7.png");
+        photographerInfos.add(photographerInfo);
+
+        // 21.
+        photographerInfo.setFullName("Matthias Haker");
+        photographerInfo.setEmail("mathhias@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Architecture is the focus of Matthias Haker. Whether this means empty spaces, spiraling staircases or facades that resemble paintings, he has photographed it all.
+            Originally from Germany, he still resides there as a freelance photographer.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575551805/pfftqdnrwfaqnsyr2gvs.jpg");
+        photographerInfos.add(photographerInfo);
+
+        // 21.
+        photographerInfo.setFullName("Hedi Slimane");
+        photographerInfo.setEmail("hedislimane@gmail.com");
+        photographerInfo.setPhone("098 268 5995");
+        photographerInfo.setAddress("số 88 Tôn Thất Thuyết");
+        photographerInfo.setDescription("
+            Hedi Slimane (born July 5, 1968) is a French photographer and fashion designer. From 2000 to 2007, he held the position of creative director for Dior Homme (the menswear line of Christian Dior). From 2012 to 2016, he was the creative director for Yves Saint Laurent. He left the brand on March 31, 2016.
+        ");
+        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575552390/ubowkw05hvb6ghhtc0rh.jpg");
         photographerInfos.add(photographerInfo);
     }
 }

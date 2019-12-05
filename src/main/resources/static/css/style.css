@@ -225,12 +225,13 @@ header.sticky, header#plain{
 }
 #logo_home h1 a{
 	width:170px;
-	height:30px;
+	/*height:30px;*/
 	display:block;
-	background-image:url(../img/logo.png);
+	background-image:url(../logo-pink.png);
+	color: black;
 	background-repeat:no-repeat;
 	background-position:left top;
-	background-size: 170px 30px;
+	/*background-size: 170px 30px;*/
 	text-indent:-9999px;
 }
 @media only screen and (min--moz-device-pixel-ratio: 2),

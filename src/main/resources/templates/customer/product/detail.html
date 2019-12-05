@@ -216,7 +216,7 @@
                         </form>
                     </div>
                     <!-- End box_style_general -->
-                    <div th:if="${listProduct!=null and !listProduct.isEmpty}">
+                    <div th:if="${listProduct!=null and !listProduct.isEmpty()}">
                         <h3 class="second_title">Related Products</h3>
                         <div class="carousel">
                             <div th:each="pro,proStat: ${listProduct}" th:if="${proStat.index < 10}">

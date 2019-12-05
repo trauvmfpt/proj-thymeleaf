@@ -16,7 +16,7 @@ public class OrderProduct {
 	private double totalPrice;
 	private int paymentType;
 	private String customerEmail;
-	@OneToMany(mappedBy = "orderProduct", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orderProduct", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<OrderDetail> orderDetailSet;
 	@ManyToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customerInfo")

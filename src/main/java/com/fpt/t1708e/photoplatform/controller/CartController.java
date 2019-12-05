@@ -114,16 +114,16 @@ public class CartController {
     @RequestMapping(value = "/removeFromCart", method = RequestMethod.POST)
     public ResponseEntity<Object> removeFormCart(HttpSession session, int productId, int orderId) {
         double totalPrice = 0;
-        if(productId != 0 && orderId == 0){
+        if (productId != 0 && orderId == 0) {
             if (session.getAttribute("cart") != null) {
                 List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
                 for (OrderDetail orderDetail : cart
                 ) {
                     totalPrice = totalPrice + orderDetail.getCurrentPrice();
                 }
-                for (OrderDetail orderDetail: cart
+                for (OrderDetail orderDetail : cart
                 ) {
-                    if(orderDetail.getProduct().getId() == productId){
+                    if (orderDetail.getProduct().getId() == productId) {
                         cart.remove(orderDetail);
                         totalPrice -= orderDetail.getCurrentPrice();
                         break;
@@ -132,15 +132,10 @@ public class CartController {
                 session.setAttribute("cart", cart);
             }
         }
-        if(productId != 0 && orderId != 0){
+        if (productId != 0 && orderId != 0) {
             OrderDetail orderDetail = orderDetailRepository.findByProductIdAndOrderId(productId, orderId);
-            if(orderDetail != null){
-                try{
-                    orderDetailRepository.delete(orderDetail.getId());
-                }
-                catch (Exception ex){
-
-                }
+            if (orderDetail != null) {
+                orderDetailRepository.delete(orderDetail.getId());
             }
         }
         return new ResponseEntity<>(new RESTResponse.Success()
@@ -161,7 +156,7 @@ public class CartController {
             }
             orderProduct.setStatus(1); // 1. dang cho xac nhan
             List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
-            if(cart.size() > 0){
+            if (cart.size() > 0) {
                 for (OrderDetail orderDetail : cart
                 ) {
                     orderDetail.setStatus(2);
@@ -173,7 +168,7 @@ public class CartController {
                     Product product = orderDetail.getProduct();
                     if (product.getStudioInfo() != null) {
                         sendConfirmMessage(product.getStudioInfo().getEmail(), product.getName());
-                    } else if (product.getPhotographerInfo() != null){
+                    } else if (product.getPhotographerInfo() != null) {
                         sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
                     }
                 }
@@ -181,8 +176,7 @@ public class CartController {
                 orderProductRepository.save(orderProduct);
                 session.removeAttribute("cart");
                 return "redirect:/customer/home";
-            }
-            else{
+            } else {
                 return "redirect:/cart";
             }
         } else {
@@ -206,7 +200,7 @@ public class CartController {
                     OrderProduct orderProduct = null;
 //        khi khách hàng confirm thì chưa có orderProduct, nhưng khi khách hàng thanh toán thì đã có
                     if (orderProductId != null) {
-                        orderProduct = orderProductService.getOrderProductByIdAndStatus(Long.parseLong(orderProductId) , 1);
+                        orderProduct = orderProductService.getOrderProductByIdAndStatus(Long.parseLong(orderProductId), 1);
                         if (orderProduct != null) {
                             Set<OrderDetail> orderDetails = orderProduct.getOrderDetailSet();
                             for (OrderDetail orderDetail : orderDetails
@@ -249,7 +243,7 @@ public class CartController {
     public String checkout(HttpSession session, OrderProduct orderProduct,
                            @RequestParam("accountId") long accountId) {
         OrderProduct existOrderProduct = orderProductService.getOrderProductById(orderProduct.getId());
-        if(existOrderProduct != null){
+        if (existOrderProduct != null) {
             existOrderProduct.setCustomerPhone(orderProduct.getCustomerPhone());
             existOrderProduct.setCustomerName(orderProduct.getCustomerName());
             existOrderProduct.setCustomerEmail(orderProduct.getCustomerEmail());

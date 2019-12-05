@@ -22,6 +22,12 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Long> {
     @Query("SELECT o FROM OrderDetail o where o.product.id = :productId and o.orderProduct.id = :orderId")
     OrderDetail findByProductIdAndOrderId(long productId, long orderId);
 
+    @Query("SELECT o FROM OrderDetail o join o.product p left join p.studioInfo s left join p.photographerInfo ph where ph.account.id = :id or s.account.id = :id")
+    List<OrderDetail> findByAccountId(long id);
+
+    @Query("SELECT o FROM OrderDetail o join o.product p left join p.studioInfo s left join p.photographerInfo ph where (s.account.id = :accountId or ph.account.id = :accountId) and o.orderProduct.id =:orderId")
+    List<OrderDetail> findByAccountIdAndOrderId(long accountId, long orderId);
+
     @Modifying
     @Query("DELETE FROM OrderDetail o WHERE o.id = :id")
     @Transactional

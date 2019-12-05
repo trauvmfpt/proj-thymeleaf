@@ -6,7 +6,7 @@ $(".cart-item").each(function () {
         price: currency($(this).find(".cart-item-price").text().replace(/,/g, "") / 23600),
         sku: $(this).find(".cart-item-id").val(),
         currency: "USD"
-    }
+    };
     products_checkout.push(cartItem);
 });
 
@@ -231,7 +231,7 @@ $(document).on('click', '.remove' ,function(){
     var product_id = $(this).data('product-id');
     var order_id = $(this).data('order-id');
     $.ajax({
-        url: 'http://localhost:8080/cart/removeFromCart',
+        url: '/cart/removeFromCart',
         method: 'POST',
         data:{
             productId: product_id, orderId: order_id
@@ -242,7 +242,7 @@ $(document).on('click', '.remove' ,function(){
         error: function (error) {
             event.preventDefault();
             Swal.fire({
-                title: 'Can`t add product!',
+                title: 'Can`t remove product!',
                 text: 'Try again later?',
                 icon: 'error'
             });

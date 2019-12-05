@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--[if IE 9]><html class="ie ie9"> <![endif]-->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/icon_fonts/css/all_icons.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/login.css}">
 </head>
 
 <body id="login">
@@ -51,22 +52,20 @@
                     <strong><i class="icon_key_alt"></i>
                         <h3>Please Login</h3>
                     </strong>
-                    <form>
+                    <div th:if="${param.error}" style="color: red">
+                        Invalid username and password.
+                    </div>
+                    <div th:if="${param.logout}" style="color: red">
+                        You have been logged out.
+                    </div>
+                    <form th:action="@{/account/login}" method="post">
                         <div class="form-group">
-                            <input type="text" class=" form-control " placeholder="Username">
+                            <input type="text" name="username" class=" form-control " placeholder="Username">
                             <span class="input-icon"><i class="icon_pencil-edit"></i></span>
                         </div>
                         <div class="form-group">
-                            <input type="text" class=" form-control" placeholder="Password">
+                            <input type="password" name="password" class=" form-control" placeholder="Password">
                             <span class="input-icon"><i class="icon_lock_alt"></i></span>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control">
-                                <option value="" selected disabled>---- Select Role ----</option>
-                                <option value="1">Customer</option>
-                                <option value="2">Photographer</option>
-                                <option value="3">Studio</option>
-                            </select>
                         </div>
                         <div class="form-group">
                             <p class="small">
@@ -74,6 +73,9 @@
                             </p>
                             <button class="button_login" style="margin:auto;">Log in</button>
                         </div>
+
+                        <a th:href="@{/register}" class="login-register"><h5>Haven't had an account yet? <span style="color: lightskyblue">Register now!</span></h5></a>
+                        <a th:href="@{/register/partner/account}" class="login-register"><h5><span style="color: lightskyblue">Or become our partner?</span></h5></a>
                     </form>
                 </div>
             </div>

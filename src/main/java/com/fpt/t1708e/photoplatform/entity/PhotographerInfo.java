@@ -29,6 +29,7 @@ public class PhotographerInfo {
 	private String email;
 	private long birthday;
 	private int gender;
+	private double averageRate;
 	@Column(columnDefinition = "text")
 	private String description;
 	private String avatar;
@@ -56,6 +57,14 @@ public class PhotographerInfo {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();
 		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
+	}
+
+	public double getAverageRate() {
+		return averageRate;
+	}
+
+	public void setAverageRate(double averageRate) {
+		this.averageRate = averageRate;
 	}
 
 	public long getId() {

@@ -18,7 +18,7 @@ public class OrderDetail {
     private long createdAt;
     private long updatedAt;
     private long deletedAt;
-    private int status;
+    private int status; // 0. new, 1. da huy, 2.cho xac nhan, 3. da xac nhan
 
     public OrderDetail() {
         this.createdAt = Calendar.getInstance().getTimeInMillis();
@@ -29,6 +29,7 @@ public class OrderDetail {
     public OrderDetail(Product product, double currentPrice) {
         this.product = product;
         this.currentPrice = product.getPriceDiscount();
+        this.status = 0;
 
     }
 

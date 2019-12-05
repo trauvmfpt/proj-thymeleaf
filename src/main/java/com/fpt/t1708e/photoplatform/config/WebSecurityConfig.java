@@ -17,17 +17,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.authorizeRequests()
-//                .antMatchers("/place/create", "/posts/create").hasRole("guide")
+                .antMatchers("/product/list").authenticated()
 //                .antMatchers("/comment/create", "/rating/create").hasAnyRole("traveller", "guide")
                 .antMatchers("*").permitAll()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/place/list", true)
+                .loginPage("/account/login")
+                .defaultSuccessUrl("/", true)
                 .permitAll()
                 .and()
                 .logout()
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/place/list")
+                .logoutSuccessUrl("/")
                 .clearAuthentication(true)
                 .permitAll();
     }

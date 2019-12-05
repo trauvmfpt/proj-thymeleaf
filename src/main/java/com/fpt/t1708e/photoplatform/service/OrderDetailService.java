@@ -4,7 +4,6 @@ import com.fpt.t1708e.photoplatform.entity.OrderDetail;
 import com.fpt.t1708e.photoplatform.repository.OrderDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import java.util.List;
 public class OrderDetailService {
     @Autowired
     OrderDetailRepository orderDetailRepository;
-
     public List<OrderDetail> orderDetails() {
         return orderDetailRepository.findAll();
     }
@@ -35,4 +33,5 @@ public class OrderDetailService {
         orderDetail.setStatus(0);
         return orderDetailRepository.save(orderDetail);
     }
+    public List<OrderDetail> getByOrderProductId(long id){return orderDetailRepository.findByOrderProductId(id);}
 }

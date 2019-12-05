@@ -1,143 +1,86 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{manager/layout/admin-layout}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Confirm order</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,300"
-          th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}" rel="stylesheet" type="text/css">
-
-    <!-- App Icons -->
-    <link rel="shortcut icon" th:href="@{/admin/images/favicon.ico}">
-
-    <!-- DataTables -->
-    <link th:href="@{/admin/plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/admin/plugins/datatables/buttons.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
-    <!-- Responsive datatable examples -->
-    <link th:href="@{/admin/plugins/datatables/responsive.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
-
-
-    <link th:href="@{/admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css}" rel="stylesheet">
-    <link th:href="@{/admin/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}" rel="stylesheet">
-    <link th:href="@{/admin/plugins/select2/css/select2.min.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/admin/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css}" rel="stylesheet" />
-
-    <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/admin/css/icons.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" />
-
-    <style>
-        span.dtr-data {
-            white-space: normal;
-            overflow: hidden;
-        }
-    </style>
-
+    <title>Home</title>
 </head>
 <body>
-<div class="super_container">
-    <!--admin-header.html  that's here  -->
-    <div th:replace="manager/layout/admin-header :: admin-header"></div>
+<section layout:fragment="admin-content">
+    <div class="wrapper">
+        <div class="container-fluid">
 
-    <div layout:fragment="admin-content">
-        <section layout:fragment="admin-content">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card m-b-20">
+                        <form>
+                            <div class="card-body">
+                                <h4 class="mt-0 header-title">Order detail</h4>
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Thumbnail</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="product, iter : ${orderDetailList}">
+                                        <th scope="row" th:text="${iter.index + 1}"></th>
+                                        <td th:text="${product.product.name}">Mark</td>
+                                        <td><img th:src="${product.product.thumbnail}" alt="${product.name}" style="width: 100px;"></td>
+                                        <td><a href="#" class="btn btn-success waves-effect waves-light">Confirm</a></td>
+                                        <td><a href="#" class="btn btn-info waves-effect waves-light">Cancel</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
 
-            <div class="wrapper">
-                <div class="container-fluid">
-
-                    <div class="row ">
-                        <div class="col-12" style="float: none;">
-                            <div class="card m-b-20">
+                            </div>
+                            <div class="card m-b-20 card-body float-right">
                                 <div class="card-body">
-
-                                    <div class="">
-                                        <div class="card m-b-20">
-                                            <div class="card-body">
-                                                <h4 class="mt-0 header-title">Confirm order</h4>
-                                                <p class="text-muted m-b-30 font-14">
-                                                    Products from order
-                                                </p>
-
-                                                <table id="datatable"
-                                                       class="table  dt-responsive nowrap"
-                                                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Order product</th>
-                                                        <th>Price</th>
-                                                        <th>Discount</th>
-                                                        <th>Thumbnail</th>
-                                                        <th>Customer name</th>
-                                                        <th>Customer phone</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <th scope="row">(1)</th>
-                                                        <td>(product name)</td>
-                                                        <td>(price)</td>
-                                                        <td>(price discount)</td>
-                                                        <td>
-                                                            <img src="https://img1.daumcdn.net/thumb/R1500x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FXphen%2FbtqzPmBEAE9%2FtEfLIuevmqKGmvlpNkxViK%2Fimg.jpg"
-                                                                 style="height: 100px;">
-                                                        </td>
-                                                        <td>(customer name)</td>
-                                                        <td>(customer phone)</td>
-                                                        <td>
-                                                            <div class="mr-1">
-                                                                <a href="#">
-                                                                <span class="fa fa-check" style="color: green;"></span>
-                                                                </a>
-                                                            </div>
-                                                            <div><a href="#"><span class="fa fa-close" style="color: red;"></span></a></div>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div><!-- end col -->
+                                    <a th:href="@{'/orderProduct/edit/'+${orderProduct.id}}" class="btn btn-success waves-effect waves-light">Confirm all</a>
+                                    <a th:href="@{'/orderProduct/delete/'+${orderProduct.id}}" class="btn btn-info waves-effect waves-light">Cancel all</a>
+                                    <a th:href="@{'/order/list'}" class="btn btn-danger waves-effect waves-light">Back to list order</a>
                                 </div>
                             </div>
+                        </form>
+                    </div>
+                </div> <!-- end col -->
+                <div class="col-lg-6">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Customer info</h4>
+                            <p class="card-text" th:text="${orderProduct.customerInfo}"></p>
                         </div>
                     </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Customer email</h4>
+                            <p class="card-text" th:text="${orderProduct.customerEmail}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Customer phone</h4>
+                            <p class="card-text" th:text="${orderProduct.customerPhone}"></p>
+                        </div>
+                    </div>
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 card-title">Total price</h4>
+                            <p class="card-text" th:text="'$' + ${orderProduct.totalPrice}"></p>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
 
-                </div> <!-- end container -->
-            </div>
-            <!-- end wrapper -->
-        </section>
+
+
+            </div> <!-- end row -->
+
+        </div> <!-- end container -->
     </div>
-    <div th:replace="manager/layout/admin-footer :: admin-footer"></div>
-</div>
-
-<script th:src="@{/admin/js/jquery.min.js}"></script>
-<script th:src="@{/admin/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/admin/js/modernizr.min.js}"></script>
-<script th:src="@{/admin/js/waves.js}"></script>
-<script th:src="@{/admin/js/jquery.slimscroll.js}"></script>
-<script th:src="@{/admin/js/jquery.nicescroll.js}"></script>
-<script th:src="@{/admin/js/jquery.scrollTo.min.js}"></script>
-
-<!-- Required datatable js -->
-<script th:src="@{/admin/plugins/datatables/jquery.dataTables.min.js}"></script>
-<script th:src="@{/admin/plugins/datatables/dataTables.bootstrap4.min.js}"></script>
-<!-- Buttons examples -->
-<script th:src="@{/admin/plugins/datatables/dataTables.buttons.min.js}"></script>
-<script th:src="@{/admin/plugins/datatables/buttons.bootstrap4.min.js}"></script>
-<script th:src="@{/admin/plugins/datatables/jszip.min.js}"></script>
-<script th:src="@{/admin/plugins/datatables/pdfmake.min.js}"></script>
-<script th:src="@{/admin/plugins/datatables/vfs_fonts.js}"></script>
-<script th:src="@{/admin/plugins/datatables/buttons.html5.min.js}"></script>
-<script th:src="@{/admin/plugins/datatables/buttons.print.min.js}"></script>
-<script th:src="@{/admin/plugins/datatables/buttons.colVis.min.js}"></script>
-<!-- Responsive examples -->
-<script th:src="@{/admin/plugins/datatables/dataTables.responsive.min.js}"></script>
-<script th:src="@{/admin/plugins/datatables/responsive.bootstrap4.min.js}"></script>
-
-<!-- Datatable init js -->
-<script th:src="@{/admin/pages/datatables-list-product.init.js}"></script>
-<script th:src="@{/admin/js/app.js}"></script>
+</section>
 </body>
 </html>

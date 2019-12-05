@@ -3283,7 +3283,7 @@ fieldset[disabled] .btn-success.active {
 .btn-info.active:focus,
 .open > .dropdown-toggle.btn-info:focus,
 .btn-info:active.focus,
-.btn-info.active.focus,
+. btn-info.active.focus,
 .open > .dropdown-toggle.btn-info.focus {
   color: #fff;
   background-color: #269abc;

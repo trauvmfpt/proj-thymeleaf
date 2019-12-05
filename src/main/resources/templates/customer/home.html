@@ -148,223 +148,16 @@
         <div class="container margin_30_30">
             <h3 class="second_title" style="margin-top: 1em">Discount Services</h3>
             <div class="carousel box_cat small">
-                <div class="img_wrapper">
+                <div th:each="product : ${discountProducts}" class="img_wrapper">
                     <div class="ribbon">
-                        <span style="background: red !important;">20%</span>
+                        <span th:text="${100 - product.priceDiscount/product.price * 100 + '%'}" style="background: red !important;">20%</span>
                     </div>
                     <!-- End tools i-->
                     <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
+                        <a th:href="${'/product/' + product.id}">
+                            <img th:src="${product.getThumbnail()}" width="800" height="533" class="" alt="">
                             <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: red !important;">20%</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: red !important;">20%</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: red !important;">20%</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: red !important;">20%</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: red !important;">20%</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: red !important;">20%</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-
-            </div>
-            <!-- End Carousel -->
-        </div>
-        <!-- End Container -->
-    </div>
-    <div class="bg_white">
-        <div class="container margin_30_30">
-            <h3 class="second_title" style="margin-top: 1em">Top Services</h3>
-            <div class="carousel box_cat small">
-                <div class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
+                                <em th:text="${product.name}">1Architectural Buildings</em>
                             </div>
                         </a>
                     </div>
@@ -377,7 +170,30 @@
     </div>
     <div class="bg_white">
         <div class="container margin_30_30">
-            <h3 class="second_title" style="margin-top: 1em">Recommend Services</h3>
+            <h3 class="second_title" style="margin-top: 1em">Top Services</h3>
+            <div class="carousel box_cat small">
+                <div th:each="product : ${rateProduct}" class="img_wrapper">
+                    <div class="ribbon top">
+                        <span>Top Rated</span>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container" style="overflow: visible !important;">
+                        <a th:href="${'/product/' + product.id}">
+                            <img th:src="${product.getThumbnail()}" width="800" height="533" class="" alt="">
+                            <div class="short_info">
+                                <em th:text="${product.name}">1Architectural Buildings</em>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Carousel -->
+        </div>
+        <!-- End Container -->
+    </div>
+    <div class="bg_white">
+        <div class="container margin_30_30">
+            <h3 class="second_title" style="margin-top: 1em">Best Seller Services</h3>
             <div class="carousel box_cat small">
                 <div class="img_wrapper">
                     <div class="ribbon">
@@ -472,72 +288,16 @@
         <div class="container margin_30_30">
             <h3 class="second_title" style="margin-top: 1em">Top Studio</h3>
             <div class="carousel box_cat small">
-                <div class="img_wrapper">
+                <div th:each="studio : ${rateStudios}" class="img_wrapper">
                     <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
+                        <span th:text="${studio.averageRate}" style="background: #ff00c7">Best Seller</span>
                     </div>
                     <!-- End tools i-->
                     <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
+                        <a th:href="${'/studio/'+ studio.id}">
+                            <img th:src="${studio.avatar}" width="800" height="533" class="" alt="">
                             <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
+                                <em th:text="${studio.fullName}">1Architectural Buildings</em>
                             </div>
                         </a>
                     </div>
@@ -551,72 +311,16 @@
         <div class="container margin_30_30">
             <h3 class="second_title" style="margin-top: 1em">Top Photographer</h3>
             <div class="carousel box_cat small">
-                <div class="img_wrapper">
+                <div th:each="pgtInfo : ${ratePhotographers}" class="img_wrapper">
                     <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
+                        <span th:text="${pgtInfo.averageRate}" style="background: #ff00c7">Best Seller</span>
                     </div>
                     <!-- End tools i-->
                     <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
+                        <a th:href="${'/photographer/' + pgtInfo.id}">
+                            <img th:src="${pgtInfo.avatar}" width="800" height="533" class="" alt="">
                             <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
+                                <em th:text="${pgtInfo.fullName}">1Architectural Buildings</em>
                             </div>
                         </a>
                     </div>
@@ -725,7 +429,7 @@
         <!-- End row -->
     </div>
     <!-- End container -->
-    <script src="js/common_scripts_min.js"></script>
+    <script src="/js/common_scripts_min.js"></script>
     <script src="/js/ion.rangeSlider.min.js"></script>
 
     <script src="/js/theia-sticky-sidebar.min.js"></script>

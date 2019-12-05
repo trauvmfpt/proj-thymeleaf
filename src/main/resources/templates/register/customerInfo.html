@@ -13,6 +13,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/icon_fonts/css/all_icons.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}">
+    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
 </head>
 
 <body id="login">
@@ -48,53 +50,56 @@
                     <strong><i class="icon_lock-open_alt"></i>
                         <h3>Create Customer Account</h3>
                     </strong>
-                    <form>
+                    <form id="customerRegisterForm" th:action="@{/register}" th:method="post" th:object="${customerInfo}">
                         <div class="form-group">
-                            <input type="text" class=" form-control required" placeholder="Username">
+                            <input  id="username" th:name="username" type="text" class=" form-control" placeholder="Username">
                             <span class="input-icon"><i class="icon_pencil-edit"></i></span>
                         </div>
                         <div class="form-group">
-                            <input type="text" class=" form-control required" placeholder="Password">
+                            <input th:name="password" type="password" id="txtNewPassword" class=" form-control" placeholder="Password">
                             <span class="input-icon"><i class="icon_lock_alt"></i></span>
                         </div>
                         <div class="form-group">
-                            <input type="text" class=" form-control required" placeholder="Reconfirm Password">
+                            <input id="txtConfirmPassword" th:name="cfmPassword" type="password" class=" form-control" placeholder="Reconfirm Password">
                             <span class="input-icon"><i class="icon_lock_alt"></i></span>
                         </div>
                         <div class="form-group">
-                            <input th:type="text" class=" form-control required" placeholder="Email">
+                            <input th:type="email" th:name="email" th:field="*{email}" class=" form-control required" placeholder="Email">
                             <span class="input-icon"><i class="icon_mail_alt"></i></span>
                         </div>
                         <div class="form-group">
-                            <input th:type="text" class=" form-control required" placeholder="Full Name">
+                            <input th:type="text" th:name="fullname" th:field="*{fullName}" class=" form-control required" placeholder="Full Name">
                             <span class="input-icon"><i class="icon_pencil-edit"></i></span>
                         </div>
                         <div class="form-group">
-                            <input th:type="text" class=" form-control required" placeholder="Address">
+                            <input th:type="text" th:name="address" th:field="*{address}" class=" form-control required" placeholder="Address">
                         </div>
                         <div class="form-group">
-                            <input th:type="number" class=" form-control required" placeholder="Phone">
+                            <input th:type="number" th:name="phone" th:field="*{phone}" class=" form-control required" placeholder="Phone">
                         </div>
+<!--                        <div class="form-group">-->
+<!--                            <input th:type="date" th:name="birthday" th:field="*{birthday}" class=" form-control required">-->
+<!--                        </div>-->
                         <div class="form-group">
-                            <input th:type="date" class=" form-control required">
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="lang" id="lang">
-                                <option value="" selected>---- Select Gender ----</option>
+                            <select th:name="gender" th:field="*{gender}" class="form-control" name="lang" id="lang">
+                                <option value="0" selected disabled>---- Select Gender ----</option>
                                 <option value="1">Man</option>
                                 <option value="2">Woman</option>
+                                <option value="3">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <input th:type="text" class=" form-control required" placeholder="Avatar">
+                            <span><label th:text="Avatar"></label><button type="button" id="upload_widget" class="cloudinary-button">Upload files</button></span>
+                            <div class="uploaded_images"></div>
+                            <div id="input_images"></div>
                         </div>
                         <div class="form-group">
-                            <textarea th:type="text" rows="4" cols="50" class=" form-control required"
+                            <textarea th:type="text" rows="4" cols="50" class=" form-control"
                                 placeholder="Description"></textarea>
                             <span class="input-icon"><i class="icon_pencil-edit"></i></span>
                         </div>
                         <div class="form-group">
-                            <button class="button_login" style="margin:auto;">Create an account</button>
+                            <button class="button_login" style="margin:auto;">Create account</button>
                         </div>
                     </form>
                 </div>
@@ -112,11 +117,34 @@
     <!-- End container -->
 
     <!-- COMMON SCRIPTS -->
-    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
     <script th:src="@{/js/common_scripts_min.js}"></script>
     <script th:src="@{/assets/validate.js}"></script>
     <script th:src="@{/js/functions.js}"></script>
     <script th:src="@{/js/modernizr.js}"></script>
+    <script th:src="@{/js/user/registerCustomerInfo.js}"></script>
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var myWidget = cloudinary.createUploadWidget({
+            cloudName: 'phucvu',
+            sources: ['local', 'url', 'instagram', 'facebook'],
+            thumbnails: ".uploaded_images",
+            uploadPreset: 'photoPlatForm',
+            multiple: false
+        }, (error, result) => {
+            if (!error && result && result.event === "success") {
+            var x = document.createElement("INPUT");
+            x.setAttribute("type", "hidden");
+            x.setAttribute("name", "avatar");
+            x.setAttribute("value", result.info.secure_url);
+            document.getElementById("input_images").appendChild(x);
+        }
+        }
+        )
+
+        document.getElementById("upload_widget").addEventListener("click", function () {
+            myWidget.open();
+        }, false);
+    </script>
 </body>
 
 </html>

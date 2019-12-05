@@ -16,15 +16,15 @@ public class OrderProduct {
 	private double totalPrice;
 	private int paymentType;
 	private String customerEmail;
-	@OneToMany(mappedBy = "orderProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "orderProduct", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<OrderDetail> orderDetailSet;
-	@ManyToOne(cascade = { CascadeType.MERGE })
+	@ManyToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customerInfo")
 	private CustomerInfo customerInfo;
 	private long createdAt;
 	private long updatedAt;
 	private long deletedAt;
-	private int status;
+	private int status; //0. da huy, 1.cho xac nhan, 2.da xac nhan, 3.paid
 
 	public OrderProduct() {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();

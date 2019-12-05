@@ -30,6 +30,7 @@ public class StudioInfo {
 	@Column(columnDefinition = "text")
 	private String description;
 	private String avatar;
+	private double averageRate;
 	private long levelExpiredAt;
 	@ManyToOne(cascade = { CascadeType.MERGE})
 	@JoinColumn(name = "levelId")
@@ -53,6 +54,14 @@ public class StudioInfo {
 		this.createdAt = Calendar.getInstance().getTimeInMillis();
 		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
+	}
+
+	public double getAverageRate() {
+		return averageRate;
+	}
+
+	public void setAverageRate(double averageRate) {
+		this.averageRate = averageRate;
 	}
 
 	public long getId() {

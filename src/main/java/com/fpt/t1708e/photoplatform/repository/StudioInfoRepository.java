@@ -18,4 +18,7 @@ public interface StudioInfoRepository extends JpaRepository<StudioInfo, Long> {
     @Modifying
     @Query(nativeQuery = true, value = "alter table studio_info AUTO_INCREMENT = 1")
     void resetIncrement();
+    @Query(nativeQuery = true,value = "select * FROM studio_info order by average_rate desc limit 10")
+    List<StudioInfo> getTop10Rating();
+    StudioInfo findByAccount_Id(long accountId);
 }

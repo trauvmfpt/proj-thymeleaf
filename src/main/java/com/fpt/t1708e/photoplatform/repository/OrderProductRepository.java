@@ -13,4 +13,6 @@ public interface OrderProductRepository extends JpaRepository<OrderProduct,Long>
     @Modifying
     @Query(nativeQuery = true, value = "alter table order_product AUTO_INCREMENT = 1")
     void resetIncrement();
+
+    OrderProduct findByIdAndStatus(long id, int status);
 }

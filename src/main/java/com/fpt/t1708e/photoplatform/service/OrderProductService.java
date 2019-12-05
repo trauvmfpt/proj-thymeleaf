@@ -26,6 +26,13 @@ public class OrderProductService {
 		return orderProductRepository.findById(id).orElse(null);
 	}
 
+    public OrderProduct getOrderProductByIdAndStatus(long id, int status) {
+         if(orderProductRepository.findByIdAndStatus(id, status) != null){
+             return orderProductRepository.findByIdAndStatus(id, status);
+         }
+         return null;
+    }
+
     public OrderProduct update(OrderProduct orderProduct) {
         orderProduct.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         return orderProductRepository.save(orderProduct);

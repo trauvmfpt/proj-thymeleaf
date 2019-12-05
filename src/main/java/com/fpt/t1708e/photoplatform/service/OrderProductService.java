@@ -13,9 +13,6 @@ public class OrderProductService {
     @Autowired
     OrderProductRepository orderProductRepository;
 
-    public List<OrderProduct> orderProducts() {
-        return orderProductRepository.findAll();
-    }
     public OrderProduct getById(long id){return orderProductRepository.findById(id).orElse(null);}
 
     public List<OrderProduct> orders(){return orderProductRepository.findAll();}

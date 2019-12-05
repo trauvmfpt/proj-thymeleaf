@@ -4,6 +4,7 @@ import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
 import com.fpt.t1708e.photoplatform.repository.*;
 import com.fpt.t1708e.photoplatform.service.*;
+import com.fpt.t1708e.photoplatform.util.DateUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -168,32 +169,27 @@ public class CartController {
             }
             List<OrderDetail> cart = new ArrayList<OrderDetail>();
             cart = (List<OrderDetail>) session.getAttribute("cart");
-            Set<OrderDetail> orderDetailsSet = orderProduct.getOrderDetailSet();
-            List<OrderDetail> orderDetails = new ArrayList<>();
-            orderDetails.addAll(orderDetailsSet);
             mailService.sendConfirmMail(
                     customerInfo.getEmail(),
-                    "receipt",
                     "Thank you for purchasing at TravelGuide!",
                     orderProduct,
-                    orderDetails,
+                    cart,
                     LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
                     );
             for (AdminInfo adminInfo: adminInfos
                  ) {
                 mailService.sendConfirmMail(
                         adminInfo.getEmail(),
-                        "receipt",
                         "New order from customer: " + customerInfo.getEmail(),
                         orderProduct,
-                        orderDetails,
+                        cart,
                         LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
                 );
             }
             orderProduct.setCustomerInfo(customerInfo);
             orderProductRepository.save(orderProduct);
             session.removeAttribute("cart");
-            return "redirect:/customer/receipt";
+            return "redirect:/cart/receipt";
         }
         else {
             return "error";
@@ -296,8 +292,7 @@ public class CartController {
         orderDetails.addAll(orderDetailsSet);
 //        account = orderProduct.getCustomerInfo().getAccount();
         model.addAttribute("orderProduct", orderProduct);
-        model.addAttribute("createdAt", LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()),
-                TimeZone.getDefault().toZoneId()));
+        model.addAttribute("createdAt", DateUtil.getDate(orderProduct.getCreatedAt()));
         model.addAttribute("orderDetails", orderDetails);
         return "customer/receipt";
     }

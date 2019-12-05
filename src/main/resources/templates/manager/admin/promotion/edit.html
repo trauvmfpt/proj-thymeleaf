@@ -55,8 +55,8 @@
                                     <div class="form-group">
                                         <label>Expire At</label>
                                         <div>
-                                            <input class="form-control" required type="datetime-local"
-                                                   th:value="${#temporals.format(currentExpiredAt, 'MM/dd/yyyy HH:mm a')}"
+                                            <input class="form-control" required type="datetime"
+                                                   th:value="${#temporals.format(currentExpiredAt, 'MM/dd/yyyy HH:mm')}"
                                                    name="expiredAtString">
                                         </div>
                                     </div>

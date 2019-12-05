@@ -3,15 +3,15 @@ package com.fpt.t1708e.photoplatform.controller;
 import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
 import com.fpt.t1708e.photoplatform.repository.*;
-import com.fpt.t1708e.photoplatform.service.AccountService;
-import com.fpt.t1708e.photoplatform.service.CustomerInfoService;
-import com.fpt.t1708e.photoplatform.service.OrderProductService;
+import com.fpt.t1708e.photoplatform.service.*;
+import com.fpt.t1708e.photoplatform.util.DateUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,11 +21,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
 @RequestMapping(value = "/cart")
 public class CartController {
+    @Autowired
+    public JavaMailSender emailSender;
 
     @Autowired
     ProductRepository productRepository;
@@ -46,7 +50,10 @@ public class CartController {
     OrderProductService orderProductService;
 
     @Autowired
-    public JavaMailSender emailSender;
+    AdminInfoService adminInfoService;
+
+    @Autowired
+    MailService mailService;
 
     private int exists(long id, List<OrderDetail> cart) {
         for (int i = 0; i < cart.size(); i++) {
@@ -151,7 +158,8 @@ public class CartController {
                           @RequestParam("accountId") long accountId) {
         if (session.getAttribute("cart") != null) {
             CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(accountId);
-            if (customerInfo == null) {
+            List<AdminInfo> adminInfos = adminInfoService.adminInfos();
+            if(customerInfo == null){
                 return "error";
             }
             orderProduct.setStatus(1); // 1. dang cho xac nhan
@@ -175,11 +183,32 @@ public class CartController {
                 orderProduct.setCustomerInfo(customerInfo);
                 orderProductRepository.save(orderProduct);
                 session.removeAttribute("cart");
+                mailService.sendConfirmMail(
+                      customerInfo.getEmail(),
+                      "Thank you for purchasing at TravelGuide!",
+                      orderProduct,
+                      cart,
+                      LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                      );
+              for (AdminInfo adminInfo: adminInfos
+                   ) {
+                  mailService.sendConfirmMail(
+                          adminInfo.getEmail(),
+                          "New order from customer: " + customerInfo.getEmail(),
+                          orderProduct,
+                          cart,
+                          LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                  );
                 return "redirect:/customer/home";
             } else {
                 return "redirect:/cart";
             }
-        } else {
+            orderProduct.setCustomerInfo(customerInfo);
+            orderProductRepository.save(orderProduct);
+            session.removeAttribute("cart");
+            return "redirect:/cart/receipt";
+        }
+        else {
             return "error";
         }
     }
@@ -264,6 +293,26 @@ public class CartController {
         return "redirect:/customer/home";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/receipt")
+    public String receipt(Model model, @RequestParam(value = "orderProductId") String orderProductId){
+        OrderProduct orderProduct = null;
+        if (orderProductId == null){
+            return "redirect:/customer/home";
+        } else {
+            orderProduct =  orderProductService.getOrderProductById(Long.parseLong(orderProductId));
+            if (orderProduct == null){
+                return "redirect:/customer/home";
+            }
+        }
+        Set<OrderDetail> orderDetailsSet = orderProduct.getOrderDetailSet();
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        orderDetails.addAll(orderDetailsSet);
+//        account = orderProduct.getCustomerInfo().getAccount();
+        model.addAttribute("orderProduct", orderProduct);
+        model.addAttribute("createdAt", DateUtil.getDate(orderProduct.getCreatedAt()));
+        model.addAttribute("orderDetails", orderDetails);
+        return "customer/receipt";
+    }
     public void sendConfirmMessage(String to, String text) {
         try {
             MimeMessage mail = emailSender.createMimeMessage();
@@ -276,5 +325,4 @@ public class CartController {
             e.printStackTrace();
         }
     }
-
 }

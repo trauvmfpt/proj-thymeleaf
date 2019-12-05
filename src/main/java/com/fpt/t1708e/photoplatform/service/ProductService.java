@@ -69,7 +69,9 @@ public class ProductService {
         for (Category category : categoryList
         ){
            Product product = productRepository.getTop1DiscountByCategory(category.getId());
-           productList.add(product);
+           if (product != null){
+               productList.add(product);
+           }
         }
         return productList;
     }

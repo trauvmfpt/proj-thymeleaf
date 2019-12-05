@@ -17,7 +17,6 @@ public class OrderProductService {
 
     public List<OrderProduct> orders(){return orderProductRepository.findAll();}
 
-
     public OrderProduct create(OrderProduct orderProduct) {
         return orderProductRepository.save(orderProduct);
     }

@@ -35,7 +35,7 @@ public class CustomerInfo {
 	@ManyToOne(cascade = { CascadeType.MERGE})
 	@JoinColumn(name = "rankId")
 	private Rank rank;
-	@OneToMany(mappedBy = "customerInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "customerInfo", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Set<OrderProduct> orderProductSet;
 	@OneToMany(mappedBy = "customerInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Rating> ratingSet;

@@ -407,10 +407,10 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         accountRepository.save(account);
         customerInfoRepository.save(userInfo);
 
-        orderProductRepository.resetIncrement();
         orderProductRepository.deleteAll();
-        orderDetailRepository.resetIncrement();
+        orderProductRepository.resetIncrement();
         orderDetailRepository.deleteAll();
+        orderDetailRepository.resetIncrement();
 
         OrderProduct orderProduct = new OrderProduct();
         orderProduct.setCustomerEmail(userInfo.getEmail());
@@ -431,17 +431,17 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         orderDetail.setCurrentPrice(product.getPriceDiscount());
         orderProduct.setTotalPrice(orderDetail.getCurrentPrice());
 
-        orderDetail = new OrderDetail();
-        orderDetail.setOrderProduct(orderProduct);
-        orderDetail.setStatus(1);
+        OrderDetail orderDetail1 = new OrderDetail();
+        orderDetail1.setOrderProduct(orderProduct);
+        orderDetail1.setStatus(1);
         //
         product = productRepository.getTop10Rating().get(1);
-        orderDetail.setProduct(product);
-        orderDetail.setCurrentPrice(product.getPriceDiscount());
-        orderProduct.setTotalPrice(orderProduct.getTotalPrice() + orderDetail.getCurrentPrice());
+        orderDetail1.setProduct(product);
+        orderDetail1.setCurrentPrice(product.getPriceDiscount());
+        orderProduct.setTotalPrice(orderProduct.getTotalPrice() + orderDetail1.getCurrentPrice());
         orderProductRepository.save(orderProduct);
         orderDetailRepository.save(orderDetail);
-        orderDetailRepository.save(orderDetail);
+        orderDetailRepository.save(orderDetail1);
 
 
     }

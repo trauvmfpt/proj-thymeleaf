@@ -8,10 +8,10 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "orderProductId")
     private OrderProduct orderProduct;
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "productId")
     private Product product;
     private double currentPrice;

@@ -1,5 +1,7 @@
-<header th:fragment="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-        class="sticky" style="background: #fff;">
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky"
+    style="background: palevioletred; padding-top: 5px;">
+
     <head>
         <link th:href="@{/layerslider/css/layerslider.min.css}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -15,10 +17,12 @@
                 box-sizing: border-box;
                 color: black;
             }
-            .main-menu > ul > li > a{
+
+            .main-menu>ul>li>a {
                 color: black;
             }
-            .ui.input > input{
+
+            .ui.input>input {
                 border: 1px solid transparent;
             }
 
@@ -88,19 +92,19 @@
             }
         </style>
     </head>
-    <div class="container-fluid menu-right" style="padding-bottom: 15px;">
+    <div class="container-fluid menu-right" style="padding-bottom: 5px;">
         <div class="row">
             <div class="col-md-7 col-sm-8 col-xs-7 ">
                 <div style="float: left" id="logo_home">
                     <img src="logo-pink.png" style="width: 130px;">
-<!--                    <h1><a href="/" title="PhotoVN">PhotoVN</a></h1>-->
+                    <!--                    <h1><a href="/" title="PhotoVN">PhotoVN</a></h1>-->
                 </div>
                 <div style="margin-top: 10px;">
                     <form>
                         <div class="ui search">
                             <div class="ui left icon input" style="margin-left:50px; width: 65% !important;">
-                                <input style="height: 40px; border-radius: 1px; border: solid #0b0b0b 1px;" id="searchKey" class="prompt" type="text"
-                                       placeholder="Search...">
+                                <input style="height: 40px; border-radius: 1px; border: solid #0b0b0b 1px;"
+                                    id="searchKey" class="prompt" type="text" placeholder="Search...">
                                 <i class="search icon"></i>
                             </div>
                         </div>
@@ -108,7 +112,7 @@
                     </form>
                 </div>
             </div>
-            <nav class="col-md-5 col-sm-4 col-xs-5" style="margin-top: 10px;">
+            <nav class="col-md-5 col-sm-4 col-xs-5" style="margin-top: 15px;">
                 <ul id="primary_nav">
                     <!--                    <li id=""><a href="/">Home</a>-->
                     <!--                    </li>-->
@@ -198,13 +202,13 @@
                                 response = {
                                     results: {}
                                 }
-                            ;
+                                ;
                             // translate GitHub API response to work with search
                             $.each(res, function (index, item) {
                                 var
                                     language = item.type || 'Unknown',
                                     maxResults = 8
-                                ;
+                                    ;
                                 if (index >= maxResults) {
                                     return false;
                                 }
@@ -227,7 +231,7 @@
                         url: '/api/search?key={query}'
                     }
                 })
-            ;
+                ;
         });
 
 

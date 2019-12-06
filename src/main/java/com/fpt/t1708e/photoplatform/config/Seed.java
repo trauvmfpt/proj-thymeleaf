@@ -61,20 +61,20 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
-        if (isDebug) {
-            LOGGER.log(java.util.logging.Level.INFO, String.format("Start seeding..."));
-            rankRepository.disableForeignKeyCheck();
-            seedRankAndLevel();
-            seedAccount();
-            categorySeed();
-            albumSeeder();
-            pictureSeeder();
-            productSeeder();
-            ratingAndCommentSeeder();
-            orderDetail();
-            rankRepository.enableForeignKeyCheck();
-            LOGGER.log(java.util.logging.Level.INFO, String.format("Success in seeding..."));
-        }
+//        if (isDebug) {
+//            LOGGER.log(java.util.logging.Level.INFO, String.format("Start seeding..."));
+//            rankRepository.disableForeignKeyCheck();
+//            seedRankAndLevel();
+//            seedAccount();
+//            categorySeed();
+//            albumSeeder();
+//            pictureSeeder();
+//            productSeeder();
+//            ratingAndCommentSeeder();
+//            orderDetail();
+//            rankRepository.enableForeignKeyCheck();
+//            LOGGER.log(java.util.logging.Level.INFO, String.format("Success in seeding..."));
+//        }
 
     }
 

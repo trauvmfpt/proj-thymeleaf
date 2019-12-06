@@ -1,387 +1,571 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragment/layout}"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragment/layout}"
+    xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Home1</title>
     <link href="/css/ion.rangeSlider.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fix-template.css}">
     <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
 </head>
+
 <body>
-<th:block layout:fragment="content">
-    <div th:replace="fragment/slider :: slider"></div>
-    <div class="bg_white">
-        <div class="container margin_30_30">
-            <h3 class="second_title" style="margin-top: 1em">Recommend Services</h3>
-            <div class="carousel box_cat small">
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Recommend</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span>Popular</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- End Carousel -->
-        </div>
-        <!-- End Container -->
-    </div>
-    <div class="bg_white">
-        <div class="container margin_30_30">
-            <h3 class="second_title" style="margin-top: 1em">Discount Services</h3>
-            <div class="carousel box_cat small">
-                <div th:each="product : ${discountProducts}" class="img_wrapper">
-                    <div class="ribbon">
-                        <span th:text="${product.priceDiscount + '%'}" style="background: red !important;">20%</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a th:href="${'/product/' + product.id}">
-                            <img th:src="${product.getThumbnail()}" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em th:text="${product.name}">1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+    <th:block layout:fragment="content">
+        <div th:replace="fragment/slider :: slider"></div>
 
-            </div>
-            <!-- End Carousel -->
-        </div>
-        <!-- End Container -->
-    </div>
-    <div class="bg_white">
-        <div class="container margin_30_30">
-            <h3 class="second_title" style="margin-top: 1em">Top Services</h3>
-            <div class="carousel box_cat small">
-                <div th:each="product : ${rateProduct}" class="img_wrapper">
-                    <div class="ribbon top">
-                        <span>Top Rated</span>
+        <!-- Chúng tôi làm được gì cho các bạn -->
+        <div class="container margin_60_30">
+            <div class="row">
+                <div class="col-md-6 text">
+                    <div class="text1">
+                        <h3>Lorem Ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sem sem, venenatis eget
+                            lacus
+                            id,
+                            lobortis placerat orci. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                            Suspendisse
+                            ornare commodo ipsum, id tempor quam venenatis vitae. Proin nibh nunc, rutrum non dignissim
+                            gravida,
+                            porttitor eget diam.</p>
                     </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a th:href="${'/product/' + product.id}">
-                            <img th:src="${product.getThumbnail()}" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em th:text="${product.name}">1Architectural Buildings</em>
-                            </div>
-                        </a>
+                </div>
+                <div class="col-md-6 text">
+                    <div class="text1">
+                        <h3>Lorem Ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sem sem, venenatis eget
+                            lacus
+                            id,
+                            lobortis placerat orci. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                            Suspendisse
+                            ornare commodo ipsum, id tempor quam venenatis vitae. Proin nibh nunc, rutrum non dignissim
+                            gravida,
+                            porttitor eget diam.</p>
                     </div>
                 </div>
             </div>
-            <!-- End Carousel -->
-        </div>
-        <!-- End Container -->
-    </div>
-    <div class="bg_white">
-        <div class="container margin_30_30">
-            <h3 class="second_title" style="margin-top: 1em">Best Seller Services</h3>
-            <div class="carousel box_cat small">
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #00ff5c">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #00ff5c">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #00ff5c">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #00ff5c">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #00ff5c">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="img_wrapper">
-                    <div class="ribbon">
-                        <span style="background: #00ff5c">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a href="#">
-                            <img src="img/events_list_1.jpg" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em>1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- End Carousel -->
-        </div>
-        <!-- End Container -->
-    </div>
-    <div class="bg_white">
-        <div class="container margin_30_30">
-            <h3 class="second_title" style="margin-top: 1em">Top Studio</h3>
-            <div class="carousel box_cat small">
-                <div th:each="studio : ${rateStudios}" class="img_wrapper">
-                    <div class="ribbon">
-                        <span th:text="${studio.averageRate}" style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a th:href="${'/studio/'+ studio.id}">
-                            <img th:src="${studio.avatar}" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em th:text="${studio.fullName}">1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- End Carousel -->
-        </div>
-        <!-- End Container -->
-    </div>
-    <div class="bg_white">
-        <div class="container margin_30_30">
-            <h3 class="second_title" style="margin-top: 1em">Top Photographer</h3>
-            <div class="carousel box_cat small">
-                <div th:each="pgtInfo : ${ratePhotographers}" class="img_wrapper">
-                    <div class="ribbon">
-                        <span th:text="${pgtInfo.averageRate}" style="background: #ff00c7">Best Seller</span>
-                    </div>
-                    <!-- End tools i-->
-                    <div class="img_container" style="overflow: visible !important;">
-                        <a th:href="${'/photographer/' + pgtInfo.id}">
-                            <img th:src="${pgtInfo.avatar}" width="800" height="533" class="" alt="">
-                            <div class="short_info">
-                                <em th:text="${pgtInfo.fullName}">1Architectural Buildings</em>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- End Carousel -->
-        </div>
-        <!-- End Container -->
-    </div>
-    <div class="container margin_30_30 fix_mobile">
-        <div class="main_title">
-            <h2><strong>Recently Searched</strong></h2>
-            <p>
-
-            </p>
-            <span><em></em></span>
         </div>
 
-        <div class="row box_cat">
-            <div class="col-md-3 col-sm-6">
-                <a href="florence-must-see-map-listing.html">
-                    <span>24</span>
-                    <!--                    <i class=" icon_set_1_icon-1"></i>-->
-                    <img src="https://tadiha.com/pictures/picfullsizes/2017/05/15/ppr1494858892.jpg" alt="">
-                    <h3>Đà Nẵng</h3>
+        <!-- Top các album được đánh giá cao nhất ... -->
+        <div class="pattern_dots">
+            <div class="container margin_60_45">
+                <div class="main_title">
+                    <h2><strong>Top Album</strong> được đánh giá cao nhất</h2>
                     <p>
-                        Thành phố đáng sống
+                        Ne his postulant posidonium adversarium. Ius tollit tamquam indoctum ea, cu quo equidem perfecto
+                        adipiscing. Eu mel aliquid delenit. Recteque laboramus ea est, te qui eirmod similique.
                     </p>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="florence-event-map-listing.html">
-                    <span>34</span>
-                    <!--                    <i class="icon_set_1_icon-41"></i>-->
-                    <img src="https://sites.google.com/site/quoctugiammotgocnhinlichsu/_/rsrc/1415094610223/home/van%20mieu%20quoc%20tu%20giam%20%2813%29.jpg"
-                         alt="">
+                    <span><em></em></span>
+                </div>
+                <!-- End main_title -->
 
-                    <h3>Hà Nội</h3>
-                    <p>
-                        Cổ kính, trang nghiêm
-                    </p>
-                </a>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon">
+                                <span>Popular</span>
+                            </div>
+                            <div class="img_container_grid_home">
+                                <a href="florence-must-see-detail.html">
+                                    <img src="img/grid_home_1.jpg" width="800" height="480" class="img-responsive"
+                                        alt="" style="max-height: 440px;">
+                                    <div class="short_info_grid_home">
+                                        <div class="content_info_home">
+                                            <small><strong>Tên Album.</strong></small>
+                                            <h3>Tên Studio hoặc photographer</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon">
+                                <span>Popular</span>
+                            </div>
+                            <div class="img_container_grid_home">
+                                <a href="florence-must-see-detail.html">
+                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
+                                        alt="" style="max-height: 205px;">
+                                    <div class="short_info_grid_home">
+                                        <div class="content_info_home">
+                                            <small><strong>Tên Album.</strong></small>
+                                            <h3>Tên Studio hoặc photographer</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon">
+                                <span>Popular</span>
+                            </div>
+                            <div class="img_container_grid_home">
+                                <a href="florence-must-see-detail.html">
+                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
+                                        alt="" style="max-height: 205px;">
+                                    <div class="short_info_grid_home">
+                                        <div class="content_info_home">
+                                            <small><strong>Tên Album.</strong></small>
+                                            <h3>Tên Studio hoặc photographer</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                </div>
+                <!-- End row -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon">
+                                <span>Popular</span>
+                            </div>
+                            <div class="img_container_grid_home">
+                                <a href="florence-must-see-detail.html">
+                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
+                                        alt="" style="max-height: 205px;">
+                                    <div class="short_info_grid_home">
+                                        <div class="content_info_home">
+                                            <small><strong>Tên Album.</strong></small>
+                                            <h3>Tên Studio hoặc photographer</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon">
+                                <span>Popular</span>
+                            </div>
+                            <div class="img_container_grid_home">
+                                <a href="florence-must-see-detail.html">
+                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
+                                        alt="" style="max-height: 205px;">
+                                    <div class="short_info_grid_home">
+                                        <div class="content_info_home">
+                                            <small><strong>Tên Album.</strong></small>
+                                            <h3>Tên Studio hoặc photographer</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon">
+                                <span>Popular</span>
+                            </div>
+                            <div class="img_container_grid_home">
+                                <a href="florence-must-see-detail.html">
+                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
+                                        alt="" style="max-height: 205px;">
+                                    <div class="short_info_grid_home">
+                                        <div class="content_info_home">
+                                            <small><strong>Tên Album.</strong></small>
+                                            <h3>Tên Studio hoặc photographer</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                </div>
+                <!-- End row -->
             </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="florence-hotels-map-listing.html">
-                    <span>12</span>
-                    <!--                    <i class="icon_set_1_icon-6"></i>-->
-                    <img src="https://www.thietbichamcong.com.vn/media/news/2709_01.jpg" alt="">
-                    <h3>TP Hồ Chí Minh </h3>
-                    <p>
-                        Sôi động, náo nhiệt
-                    </p>
-                </a>
+            <!-- End container -->
+        </div>
+
+        <!-- Top các dịch vụ hot -->
+        <div class="container margin_60_30">
+            <div class="main_title">
+                <h2><strong>Top các dịch vụ hot</strong></h2>
+                <p>
+                    Ne his postulant posidonium adversarium. Ius tollit tamquam indoctum ea, cu quo equidem perfecto
+                    adipiscing. Eu mel aliquid delenit. Recteque laboramus ea est, te qui eirmod similique.
+                </p>
+                <span><em></em></span>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="florence-restaurants-map-listing.html">
-                    <span>43</span>
-                    <!--                    <i class="icon_set_1_icon-58"></i>-->
-                    <img src="https://datviettour.com.vn/uploads/images/tay-nguyen/da-lat/hinh-danh-thang/dalat-sunset-1.jpg"
-                         alt="">
-                    <h3>Đà Lạt</h3>
+
+            <div class="box_cat">
+                <div class="col-md-3 col-sm-6">
+                    <a href="florence-must-see-map-listing.html">
+                        <img src="img/grid_home_6.jpg" alt="">
+                        <h3>Must see</h3>
+                        <p>
+                            Pri melius fuisset at, pro legimus corpora no
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="florence-must-see-map-listing.html">
+                        <img src="img/grid_home_6.jpg" alt="">
+                        <h3>Must see</h3>
+                        <p>
+                            Pri melius fuisset at, pro legimus corpora no
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="florence-must-see-map-listing.html">
+                        <img src="img/grid_home_6.jpg" alt="">
+                        <h3>Must see</h3>
+                        <p>
+                            Pri melius fuisset at, pro legimus corpora no
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="florence-must-see-map-listing.html">
+                        <img src="img/grid_home_6.jpg" alt="">
+                        <h3>Must see</h3>
+                        <p>
+                            Pri melius fuisset at, pro legimus corpora no
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="florence-must-see-map-listing.html">
+                        <img src="img/grid_home_6.jpg" alt="">
+                        <h3>Must see</h3>
+                        <p>
+                            Pri melius fuisset at, pro legimus corpora no
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="florence-must-see-map-listing.html">
+                        <img src="img/grid_home_6.jpg" alt="">
+                        <h3>Must see</h3>
+                        <p>
+                            Pri melius fuisset at, pro legimus corpora no
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="florence-must-see-map-listing.html">
+                        <img src="img/grid_home_6.jpg" alt="">
+                        <h3>Must see</h3>
+                        <p>
+                            Pri melius fuisset at, pro legimus corpora no
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="florence-must-see-map-listing.html">
+                        <img src="img/grid_home_6.jpg" alt="">
+                        <h3>Must see</h3>
+                        <p>
+                            Pri melius fuisset at, pro legimus corpora no
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <!-- End row -->
+        </div>
+
+        <!-- Top các studio nổi tiếng -->
+        <div class="container margin_60_45">
+            <div class="main_title">
+                <h2><strong>Top Studio</strong> nổi tiếng</h2>
+                <p>
+                    Ne his postulant posidonium adversarium. Ius tollit tamquam indoctum ea, cu quo equidem perfecto
+                    adipiscing. Eu mel aliquid delenit. Recteque laboramus ea est, te qui eirmod similique.
+                </p>
+                <span><em></em></span>
+            </div>
+            <!-- End main_title -->
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="img_wrapper_grid">
+                        <div class="ribbon">
+                            <span>Popular</span>
+                        </div>
+                        <div class="img_container_grid">
+                            <a href="florence-must-see-detail.html">
+                                <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive" alt=""
+                                    style="max-height: 150px;">
+                                <div class="short_info_grid">
+                                    <small><strong>Duration: 60 min.</strong></small>
+                                    <h3>Santa Maria Novella</h3>
+                                    <em>Monuments - Attractions</em>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End img_wrapper_grid -->
+                    <div class="img_wrapper_grid">
+                        <div class="ribbon">
+                            <span>Popular</span>
+                        </div>
+                        <div class="img_container_grid">
+                            <a href="florence-must-see-detail.html">
+                                <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive" alt=""
+                                    style="max-height: 150px;">
+                                <div class="short_info_grid">
+                                    <small><strong>Duration: 60 min.</strong></small>
+                                    <h3>Santa Maria Novella</h3>
+                                    <em>Monuments - Attractions</em>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End img_wrapper_grid -->
+                    <div class="img_wrapper_grid">
+                        <div class="ribbon">
+                            <span>Popular</span>
+                        </div>
+                        <div class="img_container_grid">
+                            <a href="florence-must-see-detail.html">
+                                <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive" alt=""
+                                    style="max-height: 150px;">
+                                <div class="short_info_grid">
+                                    <small><strong>Duration: 60 min.</strong></small>
+                                    <h3>Santa Maria Novella</h3>
+                                    <em>Monuments - Attractions</em>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End img_wrapper_grid -->
+                </div>
+                <div class="col-md-9" style="margin: auto;">
+                    <div class="img_wrapper_grid">
+                        <div class="ribbon">
+                            <span>Popular</span>
+                        </div>
+                        <div class="img_container_grid">
+                            <a href="florence-must-see-detail.html">
+                                <img src="img/grid_home_1.jpg" width="800" height="480" class="img-responsive" alt=""
+                                    style="max-height: 450px;">
+                                <div class="short_info_grid">
+                                    <small><strong>Duration: 90 min.</strong></small>
+                                    <h3>Duomo Cathedral</h3>
+                                    <em>Historic Buildings</em>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End img_wrapper_grid -->
+                </div>
+
+            </div>
+            <!-- End row -->
+        </div>
+
+        <!-- Top các photographer được yêu thích -->
+        <div class="pattern_dots">
+            <div class="container margin_60_45">
+                <div class="main_title">
+                    <h2><strong>Top photographer</strong> được yêu thích</h2>
                     <p>
-                        Bình yên, sâu lắng
+                        Ne his postulant posidonium adversarium. Ius tollit tamquam indoctum ea, cu quo equidem perfecto
+                        adipiscing. Eu mel aliquid delenit. Recteque laboramus ea est, te qui eirmod similique.
                     </p>
-                </a>
+                    <span><em></em></span>
+                </div>
+                <!-- End main_title -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon top">
+                                <span>Top rated</span>
+                            </div>
+                            <div class="img_container_grid">
+                                <a href="florence-restaurant-detail.html">
+                                    <img src="img/grid_home_4.jpg" width="800" height="468" class="img-responsive"
+                                        alt="">
+                                    <div class="short_info_grid">
+                                        <small><strong>From 30$</strong></small>
+                                        <h3>Da Domenico</h3>
+                                        <em>Restaurant</em>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon top">
+                                <span>Top rated</span>
+                            </div>
+                            <div class="img_container_grid">
+                                <a href="florence-bar-detail.html">
+                                    <img src="img/grid_home_5.jpg" width="800" height="468" class="img-responsive"
+                                        alt="">
+                                    <div class="short_info_grid">
+                                        <small><strong>From 20$</strong></small>
+                                        <h3>La Grotta Pub</h3>
+                                        <em>Bar - Pun</em>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon top">
+                                <span>Top rated</span>
+                            </div>
+                            <div class="img_container_grid">
+                                <a href="florence-shop-detail.html">
+                                    <img src="img/grid_home_6.jpg" width="800" height="468" class="img-responsive"
+                                        alt="">
+                                    <div class="short_info_grid">
+                                        <h3>Shopping Mall</h3>
+                                        <em>Shop</em>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                </div>
+                <!-- End row -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon top">
+                                <span>Top rated</span>
+                            </div>
+                            <div class="img_container_grid">
+                                <a href="florence-restaurant-detail.html">
+                                    <img src="img/grid_home_4.jpg" width="800" height="468" class="img-responsive"
+                                        alt="">
+                                    <div class="short_info_grid">
+                                        <small><strong>From 30$</strong></small>
+                                        <h3>Da Domenico</h3>
+                                        <em>Restaurant</em>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon top">
+                                <span>Top rated</span>
+                            </div>
+                            <div class="img_container_grid">
+                                <a href="florence-bar-detail.html">
+                                    <img src="img/grid_home_5.jpg" width="800" height="468" class="img-responsive"
+                                        alt="">
+                                    <div class="short_info_grid">
+                                        <small><strong>From 20$</strong></small>
+                                        <h3>La Grotta Pub</h3>
+                                        <em>Bar - Pun</em>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon top">
+                                <span>Top rated</span>
+                            </div>
+                            <div class="img_container_grid">
+                                <a href="florence-shop-detail.html">
+                                    <img src="img/grid_home_6.jpg" width="800" height="468" class="img-responsive"
+                                        alt="">
+                                    <div class="short_info_grid">
+                                        <h3>Shopping Mall</h3>
+                                        <em>Shop</em>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
+                </div>
+                <!-- End row -->
+            </div>
+            <!-- End container -->
+        </div>
+
+        <!-- Top các địa điểm hot -->
+
+        <div class="parallax_window_home bright">
+            <div class="container">
+                <div class="main_title">
+                    <h3><strong>Địa điểm </strong>chụp ảnh hot </h3>
+                </div>
+                <div class="row features add_bottom_45">
+                    <div class="col-sm-4">
+                        <div id="feat_2">
+                            <a href="about.html" class="bt_info">Read more</a>
+                            <h3>Find places</h3>
+                            <p>
+                                The most interesting place close to you. Attractions, Museums, Restaurant...
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="feat_1">
+                            <a href="about.html" class="bt_info">Read more</a>
+                            <h3>Get info&amp;tips</h3>
+                            <p>
+                                The most important tips on your Mobile during a visit....online and offline.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="feat_3">
+                            <a href="about.html" class="bt_info">Read more</a>
+                            <h3>Read and listen</h3>
+                            <p>
+                                The most important info about a place reviewed by Quality Authors.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="feat_2">
+                            <a href="about.html" class="bt_info">Read more</a>
+                            <h3>Find places</h3>
+                            <p>
+                                The most interesting place close to you. Attractions, Museums, Restaurant...
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="feat_1">
+                            <a href="about.html" class="bt_info">Read more</a>
+                            <h3>Get info&amp;tips</h3>
+                            <p>
+                                The most important tips on your Mobile during a visit....online and offline.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="feat_3">
+                            <a href="about.html" class="bt_info">Read more</a>
+                            <h3>Read and listen</h3>
+                            <p>
+                                The most important info about a place reviewed by Quality Authors.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- End row -->
-
-        <div class="row box_cat">
-            <div class="col-md-3 col-sm-6">
-                <a href="florence-bars-map-listing.html">
-                    <span>24</span>
-                    <!--                    <i class="icon_set_1_icon-20"></i>-->
-                    <img src="https://wikidulich.org/wp-content/uploads/2019/08/1553224096_sapa-5.jpg" alt="">
-                    <h3>Sapa</h3>
-                    <p>
-                        Cảnh đẹp của thiên nhiên hùng vĩ
-                    </p>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="florence-shops-map-listing.html">
-                    <span>34</span>
-                    <!--                    <i class="icon_set_1_icon-50"></i>-->
-                    <img src="https://img.rnudah.com/images/12/124926044969715.jpg" alt="">
-                    <h3>Phú Quốc</h3>
-                    <p>
-                        Chụp ảnh cũng những ngày nghỉ dưỡng
-                    </p>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="florence-transports.html">
-                    <span>43</span>
-                    <!--                    <i class="icon_set_1_icon-25"></i>-->
-                    <img src="https://nupakachi.com/wp-content/uploads/2019/05/58443283_1588004744666622_3335159521159938048_o-650x432.jpg"
-                         alt="">
-                    <h3>Studio</h3>
-                    <p>
-                        Concept của những nghệ sĩ tài năng
-                    </p>
-                </a>
-            </div>
         </div>
-        <!-- End row -->
-    </div>
-    <!-- End container -->
-    <script src="/js/common_scripts_min.js"></script>
-    <script src="/js/ion.rangeSlider.min.js"></script>
-
-    <script src="/js/theia-sticky-sidebar.min.js"></script>
-    <script>
-        'use strict';
-        jQuery('#sidebar').theiaStickySidebar({
-            additionalMarginTop: 80
-        });
-
-        $("#range").ionRangeSlider({
-            hide_min_max: true,
-            keyboard: true,
-            min: 30,
-            max: 180,
-            from: 60,
-            to: 130,
-            type: 'double',
-            step: 1,
-            prefix: "Min. ",
-            grid: false
-        });
-
-        $('.carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            autoplay: false,
-            smartSpeed: 300,
-            responsiveClass: true,
-            responsive: {
-                320: {
-                    items: 2,
-                    margin: 10,
-                },
-                1000: {
-                    items: 6,
-                    margin: 10,
-                    nav: false
-                }
-            }
-        });
-
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-        elems.forEach(function (html) {
-            var switchery = new Switchery(html, {
-                size: 'small'
-            });
-        });
-    </script>
-</th:block>
+    </th:block>
 
 </body>
+
 </html>

@@ -22,5 +22,6 @@ public interface PhotographerInfoRepository extends JpaRepository<PhotographerIn
     @Query(nativeQuery = true,value = "select * FROM photographer_info order by average_rate desc limit 10")
     List<PhotographerInfo> getTop10Rating();
     PhotographerInfo findByAccount_Id(long accountId);
-
+    @Query("SELECT c FROM PhotographerInfo c where c.fullName LIKE %:key% or c.description LIKE %:key% or c.email LIKE %:key% ")
+    List<PhotographerInfo> getAllByKey(String key);
 }

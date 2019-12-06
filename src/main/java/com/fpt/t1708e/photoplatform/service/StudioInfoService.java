@@ -24,4 +24,8 @@ public class StudioInfoService {
 
 		return studioInfoList;
 	}
+
+    public List<StudioInfo> getAllByKey(String key) {
+		return studioInfoRepository.getAllByKey(key);
+    }
 }

@@ -25,5 +25,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> getTop10Rating();
     List<Product> getProductByPhotographerInfoId(@Param("photographer") long id);
     List<Product> getProductByStudioInfoId(@Param("studio") long id);
-
+    @Query("SELECT c FROM Product c where c.name LIKE %:key% or c.description LIKE %:key% or c.content LIKE %:key% ")
+    List<Product> getAllByKey(String key);
 }

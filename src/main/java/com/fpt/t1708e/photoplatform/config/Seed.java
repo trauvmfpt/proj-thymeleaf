@@ -61,7 +61,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
-        if (isDebug) {
+        if (!isDebug) {
             LOGGER.log(java.util.logging.Level.INFO, String.format("Start seeding..."));
             rankRepository.disableForeignKeyCheck();
             seedRankAndLevel();

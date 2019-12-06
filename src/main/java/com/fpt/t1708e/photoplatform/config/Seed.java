@@ -416,7 +416,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         orderProduct.setCustomerEmail(userInfo.getEmail());
         orderProduct.setCustomerName(userInfo.getFullName());
         orderProduct.setCustomerPhone(userInfo.getPhone());
-        orderProduct.setStatus(1);
+        orderProduct.setStatus(0);
         orderProduct.setCustomerInfo(userInfo);
         orderProduct.setNote("Nothing Node here");
         orderProduct.setPaymentType(1);
@@ -424,7 +424,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
 
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrderProduct(orderProduct);
-        orderDetail.setStatus(1);
+        orderDetail.setStatus(0);
         //
         Product product = productRepository.getTop10Rating().get(0);
         orderDetail.setProduct(product);
@@ -433,7 +433,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
 
         OrderDetail orderDetail1 = new OrderDetail();
         orderDetail1.setOrderProduct(orderProduct);
-        orderDetail1.setStatus(1);
+        orderDetail1.setStatus(0);
         //
         product = productRepository.getTop10Rating().get(1);
         orderDetail1.setProduct(product);

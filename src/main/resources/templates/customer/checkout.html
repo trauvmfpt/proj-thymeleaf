@@ -156,8 +156,8 @@
                                             Confirm
                                         </button>
                                         <button type="submit" id="back" class="button checkout-content"
-                                                onclick="window.location.href='http://localhost:8080/product/list'">
-                                            Back to product list
+                                                onclick="window.location.href='http://localhost:8080/'">
+                                            Back to homepage
                                         </button>
                                         <button type="submit" id="cancel" onclick="cancelSubmit(event)"
                                                 class="button checkout-content">
@@ -201,6 +201,26 @@
     <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
     <script th:src="@{/js/user/checkout.js}"></script>
+    <script>
+        function confirmSubmit(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure!',
+                text: 'Do you want to confirm this order?',
+                icon: 'question',
+                confirmButtonText: 'Yes',
+                showCancelButton: true
+            }).then(function (result) {
+                if (result.value) {
+                    $("#formform").attr("action", "/cart/confirm");
+                    $("#formform").attr("method", "post");
+                    $("#formform").submit();
+                } else {
+                    return false;
+                }
+            });
+        }
+    </script>
 </th:block>
 
 <!--    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>-->

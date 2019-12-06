@@ -44,8 +44,8 @@ public class MailService {
     @Autowired
     private ApplicationContext applicationContext;
 
-    public void sendConfirmMail(String to, String subject,
-                                OrderProduct orderProduct, List<OrderDetail> orderDetails, LocalDateTime createdAt) {
+    public void sendReceiptMail(String to, String subject,
+                                OrderProduct orderProduct, List<OrderDetail> orderDetails, String createdAt) {
         try {
             SpringResourceTemplateResolver emailTemplateResolver = new SpringResourceTemplateResolver();
             emailTemplateResolver.setPrefix("classpath:/templates/");
@@ -67,6 +67,40 @@ public class MailService {
             context.setVariable("orderDetails", orderDetails);
             context.setVariable("createdAt", createdAt);
             String html = templateEngine.process("customer/receipt", context);
+
+            helper.setTo(to);
+            helper.setText(html, true);
+            helper.setSubject(subject);
+            helper.setFrom("photoplatform0@gmail.com");
+
+            emailSender.send(cfMail);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+    public void sendConfirmMail(String to, String subject,
+                                OrderProduct orderProduct, List<OrderDetail> orderDetails, String createdAt) {
+        try {
+            SpringResourceTemplateResolver emailTemplateResolver = new SpringResourceTemplateResolver();
+            emailTemplateResolver.setPrefix("classpath:/templates/");
+            emailTemplateResolver.setSuffix(".html");
+            emailTemplateResolver.setTemplateMode(TemplateMode.HTML);
+            emailTemplateResolver.setApplicationContext(applicationContext);
+            emailTemplateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
+
+            SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+            templateEngine.addTemplateResolver(emailTemplateResolver);
+
+            MimeMessage cfMail = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(cfMail,
+                    MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                    StandardCharsets.UTF_8.name());
+
+            final Context context = new Context();
+            context.setVariable("orderProduct", orderProduct);
+            context.setVariable("orderDetails", orderDetails);
+            context.setVariable("createdAt", createdAt);
+            String html = templateEngine.process("customer/confirm", context);
 
             helper.setTo(to);
             helper.setText(html, true);

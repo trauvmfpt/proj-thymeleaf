@@ -172,37 +172,42 @@ public class CartController {
                     orderDetail.setOrderProduct(orderProduct);
                     orderProduct.addOrderDetail(orderDetail);
                     orderProduct.setTotalPrice(orderProduct.getTotalPrice() + orderDetail.getCurrentPrice());
-                    Product product = orderDetail.getProduct();
-                    if (product.getStudioInfo() != null) {
-                        sendConfirmMessage(product.getStudioInfo().getEmail(), product.getName());
-                    } else if (product.getPhotographerInfo() != null) {
-                        sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
-                    }
+//                    Product product = orderDetail.getProduct();
+//                    if (product.getStudioInfo() != null) {
+//                        sendConfirmMessage(product.getStudioInfo().getEmail(), product.getName());
+//                    } else if (product.getPhotographerInfo() != null) {
+//                        sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
+//                    }
                 }
-                mailService.sendConfirmMail(
+                mailService.sendReceiptMail(
                         customerInfo.getEmail(),
-                        "Thank you for purchasing at TravelGuide!",
+                        "Confirmation of your order at Posé!",
                         orderProduct,
                         cart,
-                        LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                        DateUtil.getDate(orderProduct.getCreatedAt())
                 );
                 for (AdminInfo adminInfo : adminInfos
                 ) {
-                    mailService.sendConfirmMail(
+                    mailService.sendReceiptMail(
                             adminInfo.getEmail(),
                             "New order from customer: " + customerInfo.getEmail(),
                             orderProduct,
                             cart,
-                            LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                            DateUtil.getDate(orderProduct.getCreatedAt())
                     );
                 }
-                orderProduct.setCustomerInfo(customerInfo);
-                orderProductRepository.save(orderProduct);
-                session.removeAttribute("cart");
-                return "redirect:/customer/home";
             }
+            else {
+                return "redirect:/cart";
+            }
+            orderProduct.setCustomerInfo(customerInfo);
+            orderProductRepository.save(orderProduct);
+            session.removeAttribute("cart");
+            return "redirect:/cart/receipt?orderProductId=" + orderProduct.getId();
         }
-        return "error";
+        else {
+            return "error";
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -268,10 +273,22 @@ public class CartController {
             existOrderProduct.setCustomerPhone(orderProduct.getCustomerPhone());
             existOrderProduct.setCustomerName(orderProduct.getCustomerName());
             existOrderProduct.setCustomerEmail(orderProduct.getCustomerEmail());
+            List<OrderDetail> orderDetails = new ArrayList<>();
+            for (OrderDetail orderDetail: orderProduct.getOrderDetailSet()){
+                if (orderDetail.getStatus() == 3){
+                    orderDetails.add(orderDetail);
+                }
+            }
             existOrderProduct.setStatus(3); // 3.paid
             OrderProduct updatedOrderProduct = orderProductService.update(existOrderProduct);
             if (updatedOrderProduct != null) {
-                sendConfirmMessage(orderProduct.getCustomerEmail(), "paid");
+                mailService.sendReceiptMail(
+                        orderProduct.getCustomerInfo().getEmail(),
+                        "Thank you for purchasing at Posé!",
+                        orderProduct,
+                        orderDetails,
+                        DateUtil.getDate(orderProduct.getCreatedAt())
+                );
             }
             return "redirect:/cart/receipt/?orderProductId=" + orderProduct.getId();
         }
@@ -282,18 +299,18 @@ public class CartController {
     public String cancel(HttpSession session, OrderProduct orderProduct,
                          @RequestParam("accountId") long accountId) {
         orderProductService.delete(orderProduct);
-        return "redirect:/customer/home";
+        return "redirect:/home";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/receipt")
     public String receipt(Model model, @RequestParam(value = "orderProductId") String orderProductId){
         OrderProduct orderProduct = null;
         if (orderProductId == null){
-            return "redirect:/customer/home";
+            return "redirect:/home";
         } else {
             orderProduct =  orderProductService.getOrderProductById(Long.parseLong(orderProductId));
             if (orderProduct == null){
-                return "redirect:/customer/home";
+                return "redirect:/home";
             }
         }
         Set<OrderDetail> orderDetailsSet = orderProduct.getOrderDetailSet();
@@ -303,7 +320,7 @@ public class CartController {
         model.addAttribute("orderProduct", orderProduct);
         model.addAttribute("createdAt", DateUtil.getDate(orderProduct.getCreatedAt()));
         model.addAttribute("orderDetails", orderDetails);
-        return "customer/receipt";
+        return "cart/receipt";
     }
     public void sendConfirmMessage(String to, String text) {
         try {

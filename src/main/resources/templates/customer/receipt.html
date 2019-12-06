@@ -128,12 +128,12 @@
             <td colspan="2">
                 <table>
                     <tr>
-                        <p>Thank you for using TravelGuide. Your order of
+                        <p>Thank you for using TravelGuide. Your order No #
                             <span th:text="${orderProduct.id}"></span> has been recorded and ready to be processed.
                             TravelGuide will confirm your order with your chosen photographer(s) and/or studio(s)
                             and will get back to you ASAP.</p>
                         <br>
-                        <h4>Order Content <span th:text="${orderProduct.id}"></span>
+                        <h4>Order No: #<span th:text="${orderProduct.id}"></span> -
                             <span th:text="${createdAt}"></span></h4>
                         <hr>
                     </tr>
@@ -146,9 +146,9 @@
                     <tr>
                         <td>
                             <b>Checkout Details</b><br>
-                            <span th:text="${orderProduct.getCustomerName()}"></span><br>
-                            <span th:text="${orderProduct.getCustomerEmail()}"></span><br>
-                            <span th:text="${orderProduct.getCustomerPhone()}"></span>
+                            Customer: <span th:text="${orderProduct.getCustomerName()}"></span><br>
+                            Email: <span th:text="${orderProduct.getCustomerEmail()}"></span><br>
+                            Phone Number: <span th:text="${orderProduct.getCustomerPhone()}"></span>
                         </td>
                     </tr>
                 </table>
@@ -186,6 +186,7 @@
         </tr>
         <tr class="item" th:each="orderDetail : ${orderDetails}">
             <td th:text="${orderDetail.product.name}">
+                by <span th:text="${orderDetail.product.photographerInfo.fullName}"></span>
             </td>
             <td class="price" th:text="${orderDetail.currentPrice}">
             </td>

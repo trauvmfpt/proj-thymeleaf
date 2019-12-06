@@ -86,4 +86,8 @@ public class ProductService {
         List<Product> productList = new ArrayList<>();
         return productList;
     }
+
+    public List<Product> getAllByKey(String key) {
+        return productRepository.getAllByKey(key);
+    }
 }

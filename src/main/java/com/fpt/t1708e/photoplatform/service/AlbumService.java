@@ -29,4 +29,8 @@ public class AlbumService {
 	public List<Album> albumsByPhotographer(PhotographerInfo photographerInfo) {
 		return albumRepository.findAllByPhotographerInfo(photographerInfo);
 	}
+	public List<Album> getAllByKey(String key){
+		List<Album> albumList = albumRepository.findALlByKey(key);
+		return albumList;
+	}
 }

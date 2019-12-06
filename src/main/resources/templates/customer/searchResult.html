@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home1</title>
+    <link href="/css/ion.rangeSlider.min.css" rel="stylesheet">
+    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div style="margin-top: 100px"></div>
+    <div style="text-align: center" th:if="${albumList.size() ==0 && studioInfoList.size() ==0 && photographerInfoList.size() ==0 && productList.size() ==0}">
+        <p><b style="font-size: larger">Nothing to show with your keyword</b></p>
+    </div>
+    <div th:if="${studioInfoList.size() >0}" class="bg_white">
+        <div class="container margin_30_30">
+            <h3 class="second_title" style="margin-top: 1em">Studio</h3>
+            <div class="carousel box_cat small">
+                <div th:each="studioInfo : ${studioInfoList}" class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Studio</span>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container" style="overflow: visible !important;">
+                        <a th:href="${'/studio/' + studioInfo.id}">
+                            <img th:src="${studioInfo.avatar}" width="800" height="533" class="" alt="">
+                            <div class="short_info">
+                                <em th:text="${studioInfo.fullName}">1Architectural Buildings</em>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Carousel -->
+        </div>
+        <!-- End Container -->
+    </div>
+    <div th:if="${photographerInfoList.size() >0}" class="bg_white">
+        <div class="container margin_30_30">
+            <h3 class="second_title" style="margin-top: 1em">Photographer</h3>
+            <div class="carousel box_cat small">
+                <div th:each="photographerInfo : ${photographerInfoList}" class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Photographer</span>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container" style="overflow: visible !important;">
+                        <a th:href="${'/photographer/' + photographerInfo.id}">
+                            <img th:src="${photographerInfo.avatar}" width="800" height="533" class="" alt="">
+                            <div class="short_info">
+                                <em th:text="${photographerInfo.fullName}">1Architectural Buildings</em>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Carousel -->
+        </div>
+        <!-- End Container -->
+    </div>
+    <div th:if="${productList.size() >0}" class="bg_white">
+        <div class="container margin_30_30">
+            <h3 class="second_title" style="margin-top: 1em">Product</h3>
+            <div class="carousel box_cat small">
+                <div th:each="product : ${productList}" class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Photographer</span>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container" style="overflow: visible !important;">
+                        <a th:href="${'/product/' + product.id}">
+                            <img th:src="${product.thumbnail}" width="800" height="533" class="" alt="">
+                            <div class="short_info">
+                                <em th:text="${product.name}">1Architectural Buildings</em>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Carousel -->
+        </div>
+        <!-- End Container -->
+    </div>
+    <div th:if="${albumList.size() >0}" class="bg_white">
+        <div class="container margin_30_30">
+            <h3 class="second_title" style="margin-top: 1em">Album</h3>
+            <div class="carousel box_cat small">
+                <div th:each="album : ${albumList}" class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Album</span>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container" style="overflow: visible !important;">
+                        <a th:href="${'/album/' + album.id}">
+                            <img th:src="${album.thumbnail}" width="800" height="533" class="" alt="">
+                            <div class="short_info">
+                                <em th:text="${album.name}">1Architectural Buildings</em>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Carousel -->
+        </div>
+        <!-- End Container -->
+    </div>
+
+
+    <!-- End container -->
+    <script src="/js/common_scripts_min.js"></script>
+    <script src="/js/ion.rangeSlider.min.js"></script>
+
+    <script src="/js/theia-sticky-sidebar.min.js"></script>
+    <script>
+        'use strict';
+        jQuery('#sidebar').theiaStickySidebar({
+            additionalMarginTop: 80
+        });
+
+        $("#range").ionRangeSlider({
+            hide_min_max: true,
+            keyboard: true,
+            min: 30,
+            max: 180,
+            from: 60,
+            to: 130,
+            type: 'double',
+            step: 1,
+            prefix: "Min. ",
+            grid: false
+        });
+
+        $('.carousel').owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: false,
+            smartSpeed: 300,
+            responsiveClass: true,
+            responsive: {
+                320: {
+                    items: 2,
+                    margin: 10,
+                },
+                1000: {
+                    items: 6,
+                    margin: 10,
+                    nav: false
+                }
+            }
+        });
+
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function (html) {
+            var switchery = new Switchery(html, {
+                size: 'small'
+            });
+        });
+    </script>
+</th:block>
+
+</body>
+</html>

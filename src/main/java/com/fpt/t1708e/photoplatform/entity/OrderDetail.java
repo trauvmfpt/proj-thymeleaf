@@ -23,7 +23,7 @@ public class OrderDetail {
     public OrderDetail() {
         this.createdAt = Calendar.getInstance().getTimeInMillis();
         this.updatedAt = Calendar.getInstance().getTimeInMillis();
-        this.status = 1;
+        this.status = 0;
     }
 
     public OrderDetail(Product product, double currentPrice) {

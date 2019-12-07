@@ -25,4 +25,8 @@ public class PhotographerInfoService {
 
 		return photographerInfoList;
     }
+
+    public List<PhotographerInfo> getAllByKey(String key) {
+		return photographerInfoRepository.getAllByKey(key);
+    }
 }

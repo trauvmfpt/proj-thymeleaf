@@ -1,7 +1,7 @@
 function addToCart(product_id, btn) {
     if($("#currentUser").text() != ""){
         $.ajax({
-            url: 'http://localhost:8080/cart/buy/' + product_id,
+            url: '/cart/buy/' + product_id,
             method: 'GET',
             success: function (resp) {
                 if (btn == 'btn-add-cart') {

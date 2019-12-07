@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Home</title>
@@ -25,6 +25,7 @@
     <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/admin/css/icons.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
 
     <style>
         span.dtr-data {
@@ -73,8 +74,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="order,orderStat : ${orders}">
-                                        <td th:text="${orderStat.index}"></td>
+                                    <tr th:each="order,orderStat : ${orders}" th:data-id="${order.getId()}" class="order-item">
+                                        <td th:text="${orderStat.index + 1}"></td>
                                         <td th:text="${order.getCustomerInfo().getFullName()}"></td>
                                         <td th:text="${order.getCustomerEmail()}"></td>
                                         <td th:text="${order.getCustomerPhone()}"></td>
@@ -82,15 +83,30 @@
                                         <td th:text="${order.getTotalPrice()}"></td>
                                         <td th:text="${order.getCreatedAt()}"></td>
                                         <td th:text="${order.getStatus()}"></td>
-                                        <td><a th:href="@{'/order/'+${order.id}}" class="btn btn-success">Detail</a></td>
+                                        <td>
+                                            <a th:href="@{'/manager/order/'+${order.id}}" class="btn btn-success">Detail</a>
+                                            <span th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_5')}">
+                                                <a th:if="${order.getStatus() != 3 && order.getStatus() != 2}" href="#" class="btn btn-success waves-effect waves-light btn-confirm-order">Confirm</a>
+                                                <a th:if="${order.getStatus() == 3 || order.getStatus() == 2}" href="#" class="btn btn-success waves-effect waves-light btn-confirm-order"><i class="dripicons-checkmark"></i></a>
+                                                <a th:if="${order.getStatus() != 3 && order.getStatus() != 0 }" href="#" class="btn btn-info waves-effect waves-light btn-cancel-order">Cancel</a>
+                                                <a th:if="${order.getStatus() == 0}" href="#" class="btn btn-info waves-effect waves-light btn-cancel-order"><i class="dripicons-trash"></i></a>
+                                            </span>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
 
                             </div>
+
+                            <div class="card m-b-20 card-body float-right" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_5')}">
+                                <div class="card-body">
+                                    <a href="#" class="btn btn-success waves-effect waves-light btn-confirm-all-order">Confirm all</a>
+                                    <a href="#" class="btn btn-info waves-effect waves-light btn-cancel-all-order">Cancel all</a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
                 </div> <!-- end container -->
             </div>
             <!-- end wrapper -->
@@ -131,6 +147,7 @@
 <!-- Datatable init js -->
 <script th:src="@{/admin/pages/datatables-list-product.init.js}"></script>
 <script th:src="@{/admin/js/app.js}"></script>
+<script th:src="@{/admin/js/confirmOrder.js}"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
-<header th:fragment="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-        class="sticky" style="background: #fff;">
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky" style="background: #fff;">
+
     <head>
         <link th:href="@{/layerslider/css/layerslider.min.css}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -15,10 +16,12 @@
                 box-sizing: border-box;
                 color: black;
             }
-            .main-menu > ul > li > a{
+
+            .main-menu>ul>li>a {
                 color: black;
             }
-            .ui.input > input{
+
+            .ui.input>input {
                 border: 1px solid transparent;
             }
 
@@ -93,14 +96,17 @@
             <div class="col-md-7 col-sm-8 col-xs-7 ">
                 <div style="float: left" id="logo_home">
                     <img src="logo-pink.png" style="width: 130px;">
-<!--                    <h1><a href="/" title="PhotoVN">PhotoVN</a></h1>-->
+                    <!--                    <h1><a href="/" title="PhotoVN">PhotoVN</a></h1>-->
                 </div>
-                <div style="margin-top: 10px;">
-                    <form>
+                <div>
+                    <form method="get" action="/search">
+                        <!--                        <div id="custom-search-input" >-->
+                        <!--                        <input type="text" class=" search-query" placeholder="Search....">-->
+                        <!--                        <input type="submit" class="btn_search" value="submit">-->
                         <div class="ui search">
-                            <div class="ui left icon input" style="margin-left:50px; width: 65% !important;">
-                                <input style="height: 40px; border-radius: 1px; border: solid #0b0b0b 1px;" id="searchKey" class="prompt" type="text"
-                                       placeholder="Search...">
+                            <div class="ui left icon input" style="margin-left:50px;width: 60% !important;">
+                                <input name="key" style="height: 30px" id="searchKey" class="prompt" type="text"
+                                    placeholder="Tìm kiếm Địa điểm, Studio, Photographer">
                                 <i class="search icon"></i>
                             </div>
                         </div>
@@ -115,7 +121,14 @@
 
                     <li th:if="${#authentication.getName() == 'anonymousUser'}" id="login"><a href="/account/login" style="color: black;">LOGIN</a>
                     </li>
-                    <li th:if="${#authentication.getName() != 'anonymousUser'}" id="currentUser"><a th:text="${#authentication.getName()}"></a>
+                    <li th:if="${#authentication.getName() != 'anonymousUser'}" class="list-inline-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <span id="currentUser" class="ml-1" th:text="${#authentication.getName()}"> <i class="mdi mdi-chevron-down"></i> </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <a class="dropdown-item" href="/logout"><i class="dripicons-exit text-muted"></i> Logout</a>
+                        </div>
                     </li>
                     <li id="buy list-inline-item dropdown notification-list show">
                         <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
@@ -198,13 +211,13 @@
                                 response = {
                                     results: {}
                                 }
-                            ;
+                                ;
                             // translate GitHub API response to work with search
                             $.each(res, function (index, item) {
                                 var
                                     language = item.type || 'Unknown',
                                     maxResults = 8
-                                ;
+                                    ;
                                 if (index >= maxResults) {
                                     return false;
                                 }
@@ -227,7 +240,7 @@
                         url: '/api/search?key={query}'
                     }
                 })
-            ;
+                ;
         });
 
 

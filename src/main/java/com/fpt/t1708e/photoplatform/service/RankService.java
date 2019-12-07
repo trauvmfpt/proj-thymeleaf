@@ -5,7 +5,9 @@ import com.fpt.t1708e.photoplatform.repository.RankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,7 +23,7 @@ public class RankService {
         return rankRepository.save(rank);
     }
     public Rank update(Rank rank) {
-        rank.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
+        rank.setUpdatedAt(LocalDate.now());
         return rankRepository.save(rank);
     }
 }

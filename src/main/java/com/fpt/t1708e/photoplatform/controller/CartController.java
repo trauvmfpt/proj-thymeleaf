@@ -22,7 +22,9 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 
 @Controller
@@ -167,8 +169,8 @@ public class CartController {
                 for (OrderDetail orderDetail : cart
                 ) {
                     orderDetail.setStatus(2);
-                    orderDetail.setCreatedAt(Calendar.getInstance().getTimeInMillis());
-                    orderDetail.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
+                    orderDetail.setCreatedAt(LocalDate.now());
+                    orderDetail.setUpdatedAt(LocalDate.now());
                     orderDetail.setOrderProduct(orderProduct);
                     orderProduct.addOrderDetail(orderDetail);
                     orderProduct.setTotalPrice(orderProduct.getTotalPrice() + orderDetail.getCurrentPrice());
@@ -184,7 +186,7 @@ public class CartController {
                         "Thank you for purchasing at TravelGuide!",
                         orderProduct,
                         cart,
-                        LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                        LocalDateTime.ofInstant(orderProduct.getCreatedAt().atStartOfDay().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())
                 );
                 for (AdminInfo adminInfo : adminInfos
                 ) {
@@ -193,7 +195,7 @@ public class CartController {
                             "New order from customer: " + customerInfo.getEmail(),
                             orderProduct,
                             cart,
-                            LocalDateTime.ofInstant(Instant.ofEpochMilli(orderProduct.getCreatedAt()), TimeZone.getDefault().toZoneId())
+                            LocalDateTime.ofInstant(orderProduct.getCreatedAt().atStartOfDay().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())
                     );
                 }
                 orderProduct.setCustomerInfo(customerInfo);
@@ -301,7 +303,7 @@ public class CartController {
         orderDetails.addAll(orderDetailsSet);
 //        account = orderProduct.getCustomerInfo().getAccount();
         model.addAttribute("orderProduct", orderProduct);
-        model.addAttribute("createdAt", DateUtil.getDate(orderProduct.getCreatedAt()));
+        model.addAttribute("createdAt", orderProduct.getCreatedAt());
         model.addAttribute("orderDetails", orderDetails);
         return "customer/receipt";
     }

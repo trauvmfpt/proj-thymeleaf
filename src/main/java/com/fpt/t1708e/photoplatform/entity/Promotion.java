@@ -1,7 +1,9 @@
 package com.fpt.t1708e.photoplatform.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,14 +22,14 @@ public class Promotion {
 	@JoinTable(name = "promotion_product", joinColumns = @JoinColumn(name = "promotion_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private Set<Product> productSet;
 	private long expiredAt;
-	private long createdAt;
-	private long updatedAt;
-	private long deletedAt;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
+	private LocalDate deletedAt;
 	private int status;
 
 	public Promotion() {
-		this.createdAt = Calendar.getInstance().getTimeInMillis();
-		this.updatedAt = Calendar.getInstance().getTimeInMillis();
+		this.createdAt = LocalDate.now();
+		this.updatedAt = LocalDate.now();
 		this.status = 1;
 	}
 
@@ -87,27 +89,27 @@ public class Promotion {
 		this.productSet = productSet;
 	}
 
-	public long getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(long createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public long getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(long updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-	public long getDeletedAt() {
+	public LocalDate getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(long deletedAt) {
+	public void setDeletedAt(LocalDate deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 

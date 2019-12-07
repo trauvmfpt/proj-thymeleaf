@@ -1,7 +1,9 @@
 package com.fpt.t1708e.photoplatform.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 public class OrderDetail {
@@ -15,14 +17,14 @@ public class OrderDetail {
     @JoinColumn(name = "productId")
     private Product product;
     private double currentPrice;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
+    private LocalDate deletedAt;
     private int status; // 0. new, 1. da huy, 2.cho xac nhan, 3. da xac nhan
 
     public OrderDetail() {
-        this.createdAt = Calendar.getInstance().getTimeInMillis();
-        this.updatedAt = Calendar.getInstance().getTimeInMillis();
+        this.createdAt = LocalDate.now();
+        this.updatedAt = LocalDate.now();
         this.status = 0;
     }
 
@@ -65,27 +67,27 @@ public class OrderDetail {
         this.currentPrice = currentPrice;
     }
 
-    public long getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public long getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(long updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public long getDeletedAt() {
+    public LocalDate getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(long deletedAt) {
+    public void setDeletedAt(LocalDate deletedAt) {
         this.deletedAt = deletedAt;
     }
 

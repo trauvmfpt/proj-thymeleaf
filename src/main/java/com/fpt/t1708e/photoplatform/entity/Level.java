@@ -16,9 +16,9 @@ public class Level {
 	private String description;
 	private float price;
 	private long durationInDay;
-	@OneToMany(mappedBy = "level", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "level", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Set<StudioInfo> studioInfoSet;
-	@OneToMany(mappedBy = "level", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "level", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Set<PhotographerInfo> photographerInfoSet;
 	private int status;
 	private LocalDate createdAt;

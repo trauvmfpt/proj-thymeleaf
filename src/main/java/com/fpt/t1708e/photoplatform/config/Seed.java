@@ -60,7 +60,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
-        if (!isDebug) {
+        if (isDebug) {
             LOGGER.log(java.util.logging.Level.INFO, String.format("Start seeding..."));
             rankRepository.disableForeignKeyCheck();
             seedRankAndLevel();
@@ -115,7 +115,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         List<Integer> role = Arrays.asList(1, 2, 3);
         List<Rank> rankList = rankRepository.findAll();
         List<Level> levelList = levelRepository.findAll();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 30; i++) {
             Account account = new Account();
             account.setRole(1);
 
@@ -133,8 +133,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 AdminInfo userInfo = new AdminInfo();
                 userInfo.setAvatar("https://www.w3schools.com/w3images/avatar2.png");
                 userInfo.setFullName(fullName);
-                System.out.println(username);
-                account.setUsername(username);
+                System.out.println("Admin");
+                account.setUsername("admin");
                 userInfo.setAccount(account);
                 accountRepository.save(account);
                 adminInfoRepository.save(userInfo);
@@ -415,7 +415,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         orderProduct.setCustomerEmail(userInfo.getEmail());
         orderProduct.setCustomerName(userInfo.getFullName());
         orderProduct.setCustomerPhone(userInfo.getPhone());
-        orderProduct.setStatus(0);
+        orderProduct.setStatus(1);
         orderProduct.setCustomerInfo(userInfo);
         orderProduct.setNote("Nothing Node here");
         orderProduct.setPaymentType(1);
@@ -423,7 +423,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
 
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrderProduct(orderProduct);
-        orderDetail.setStatus(0);
+        orderDetail.setStatus(2);
         //
         Product product = productRepository.getTop10Rating().get(0);
         orderDetail.setProduct(product);
@@ -432,7 +432,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
 
         OrderDetail orderDetail1 = new OrderDetail();
         orderDetail1.setOrderProduct(orderProduct);
-        orderDetail1.setStatus(0);
+        orderDetail1.setStatus(2);
         //
         product = productRepository.getTop10Rating().get(1);
         orderDetail1.setProduct(product);
@@ -441,5 +441,89 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         orderProductRepository.save(orderProduct);
         orderDetailRepository.save(orderDetail);
         orderDetailRepository.save(orderDetail1);
+
+        // Success Order
+
+        List<CustomerInfo> customerInfos = customerInfoRepository.findAll();
+        for (CustomerInfo customerInfo: customerInfos
+             ) {
+            for (int i=0;i < 5;i++){
+                LocalDate localDate = LocalDate.now().minusDays(rand.nextInt(10));
+                OrderProduct orderProductSuccess = new OrderProduct();
+                orderProductSuccess.setCustomerEmail(customerInfo.getEmail());
+                orderProductSuccess.setCustomerName(customerInfo.getFullName());
+                orderProductSuccess.setCustomerPhone(customerInfo.getPhone());
+                orderProductSuccess.setStatus(3);
+                orderProductSuccess.setCustomerInfo(customerInfo);
+                orderProductSuccess.setNote("Customer wrote nothing");
+                orderProductSuccess.setPaymentType(1);
+                orderProductSuccess.setCreatedAt(localDate);
+                orderProductSuccess.setUpdatedAt(localDate);
+                List<Product> productList = productRepository.findAll();
+                List<Integer> index = new ArrayList<>();
+                for (int m =0; m<productList.size();m++){
+                    index.add(m);
+                }
+                for (int j=0;j<3;j++){
+                    OrderDetail orderDetailSuccess = new OrderDetail();
+                    orderDetailSuccess.setOrderProduct(orderProductSuccess);
+                    orderDetailSuccess.setStatus(3);
+                    orderDetailSuccess.setCreatedAt(localDate);
+                    orderDetailSuccess.setUpdatedAt(localDate);
+                    //
+                    int indexNumb = rand.nextInt(index.size());
+                    Product _product = productList.get(index.get(indexNumb));
+                    index.removeIf(s -> s.equals(index.get(indexNumb)));
+                    orderDetailSuccess.setProduct(_product);
+                    orderDetailSuccess.setCurrentPrice(_product.getPriceDiscount());
+                    orderProductSuccess.setTotalPrice(orderProductSuccess.getTotalPrice() + orderDetailSuccess.getCurrentPrice());
+                    orderProductRepository.save(orderProductSuccess);
+                    orderDetailRepository.save(orderDetailSuccess);
+                }
+
+            }
+        }
+
+        for (int k=0;k<12;k++){
+            for (CustomerInfo customerInfo: customerInfos
+            ) {
+                for (int i=0;i < 5;i++){
+                    LocalDate localDate = LocalDate.now().minusMonths(i+1);
+                    OrderProduct orderProductSuccess = new OrderProduct();
+                    orderProductSuccess.setCustomerEmail(customerInfo.getEmail());
+                    orderProductSuccess.setCustomerName(customerInfo.getFullName());
+                    orderProductSuccess.setCustomerPhone(customerInfo.getPhone());
+                    orderProductSuccess.setStatus(3);
+                    orderProductSuccess.setCustomerInfo(customerInfo);
+                    orderProductSuccess.setNote("Customer wrote nothing");
+                    orderProductSuccess.setPaymentType(1);
+                    orderProductSuccess.setCreatedAt(localDate);
+                    orderProductSuccess.setUpdatedAt(localDate);
+                    List<Product> productList = productRepository.findAll();
+                    List<Integer> index = new ArrayList<>();
+                    for (int m =0; m<productList.size();m++){
+                        index.add(m);
+                    }
+                    for (int j=0;j<3;j++){
+                        OrderDetail orderDetailSuccess = new OrderDetail();
+                        orderDetailSuccess.setOrderProduct(orderProductSuccess);
+                        orderDetailSuccess.setStatus(3);
+                        orderDetailSuccess.setCreatedAt(localDate);
+                        orderDetailSuccess.setUpdatedAt(localDate);
+                        //
+                        int indexNumb = rand.nextInt(index.size());
+                        Product _product = productList.get(index.get(indexNumb));
+                        index.removeIf(s -> s.equals(index.get(indexNumb)));
+                        orderDetailSuccess.setProduct(_product);
+                        orderDetailSuccess.setCurrentPrice(_product.getPriceDiscount());
+                        orderProductSuccess.setTotalPrice(orderProductSuccess.getTotalPrice() + orderDetailSuccess.getCurrentPrice());
+                        orderProductRepository.save(orderProductSuccess);
+                        orderDetailRepository.save(orderDetailSuccess);
+                    }
+
+                }
+            }
+        }
     }
+
 }

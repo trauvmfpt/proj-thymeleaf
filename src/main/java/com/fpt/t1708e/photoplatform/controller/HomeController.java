@@ -26,6 +26,7 @@ import com.fpt.t1708e.photoplatform.repository.RankRepository;
 import com.fpt.t1708e.photoplatform.repository.RatingRepository;
 import com.fpt.t1708e.photoplatform.repository.StudioInfoRepository;
 import com.fpt.t1708e.photoplatform.repository.CustomerInfoRepository;
+import com.fpt.t1708e.photoplatform.service.AlbumService;
 import com.fpt.t1708e.photoplatform.service.PhotographerInfoService;
 import com.fpt.t1708e.photoplatform.service.ProductService;
 import com.fpt.t1708e.photoplatform.service.StudioInfoService;
@@ -46,40 +47,43 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Controller
-@RequestMapping({"/home",""})
+@RequestMapping({"/home", ""})
 public class HomeController {
-	@Autowired
-	ProductService productService;
-	@Autowired
-	StudioInfoService studioInfoService;
-	@Autowired
-	PhotographerInfoService photographerInfoService;
+    @Autowired
+    ProductService productService;
+    @Autowired
+    StudioInfoService studioInfoService;
+    @Autowired
+    PhotographerInfoService photographerInfoService;
+    @Autowired
+    AlbumService albumService;
 
-
-	@RequestMapping(method = RequestMethod.GET)
-	public String index(Model model){
-		List<Product> productList = productService.getProductByDiscountEachCategory();
-		for (Product product:productList
-			 ) {
-			if (product != null){
-				product.setPriceDiscount((int)Math.round(product.getPriceDiscount()/product.getPrice() *100));
-			}
-		}
-		model.addAttribute("discountProducts",productList);
-		model.addAttribute("rateProduct",productService.getProductByTopRate());
+    @RequestMapping(method = RequestMethod.GET)
+    public String index(Model model) {
+        List<Product> productList = productService.getProductByDiscountEachCategory();
+        for (Product product : productList
+        ) {
+            if (product != null) {
+                product.setPriceDiscount((int) Math.round(product.getPriceDiscount() / product.getPrice() * 100));
+            }
+        }
+        model.addAttribute("discountProducts", productList);
+        model.addAttribute("rateProduct", productService.getProductByTopRate());
 //		model.addAttribute("rateProduct",productService.getProductBestSeller());
-		model.addAttribute("rateStudios",studioInfoService.getStudioByTopRate());
-		model.addAttribute("ratePhotographers",photographerInfoService.getByTopRate());
-		return "customer/home";
+        model.addAttribute("rateStudios", studioInfoService.getStudioByTopRate());
+        model.addAttribute("ratePhotographers", photographerInfoService.getByTopRate());
+        model.addAttribute("rateAlbum", albumService.getByTopRate());
+        return "customer/home";
 //		return "admin-layout/admin-layout";
-	}
-	@RequestMapping(value = "/detail")
-	public String detail(){
-		return "manager/studio/studio-photographer/detail";
-	}
+    }
 
-	@RequestMapping(value = "/checkout")
-	public String checkout(){
-		return "customer/checkout";
-	}
+    @RequestMapping(value = "/detail")
+    public String detail() {
+        return "manager/studio/studio-photographer/detail";
+    }
+
+    @RequestMapping(value = "/checkout")
+    public String checkout() {
+        return "customer/checkout";
+    }
 }

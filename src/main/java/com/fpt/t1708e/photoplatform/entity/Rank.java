@@ -15,7 +15,7 @@ public class Rank {
 	private float discount;
 	@Column(columnDefinition = "text")
 	private String description;
-	@OneToMany(mappedBy = "rank", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "rank", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Set<CustomerInfo> customerInfoSet;
 	private long pointRequired;
 	private int status;

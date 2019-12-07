@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -28,7 +26,7 @@ public class ProductService {
     }
 
     public Product update(Product product) {
-        product.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
+        product.setUpdatedAt(LocalDate.now());
         return productRepository.save(product);
     }
 

@@ -7,7 +7,9 @@ import com.fpt.t1708e.photoplatform.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,7 +30,7 @@ public class CategoryService {
 	}
 
     public Category update(Category category) {
-        category.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
+        category.setUpdatedAt(LocalDate.now());
         return categoryRepository.save(category);
     }
 

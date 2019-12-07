@@ -1,6 +1,8 @@
 package com.fpt.t1708e.photoplatform.entity;
 
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -31,7 +33,7 @@ public class StudioInfo {
 	private String description;
 	private String avatar;
 	private double averageRate;
-	private long levelExpiredAt;
+	private Date levelExpiredAt;
 	@ManyToOne(cascade = { CascadeType.MERGE})
 	@JoinColumn(name = "levelId")
 	private Level level;
@@ -45,14 +47,14 @@ public class StudioInfo {
 	private Set<Comment> commentSet;
 	@OneToMany(mappedBy = "studioInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<PhotographerInfo> photographerInfoSet;
-	private long createdAt;
-	private long updatedAt;
-	private long deletedAt;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
+	private LocalDate deletedAt;
 	private int status;
 
 	public StudioInfo() {
-		this.createdAt = Calendar.getInstance().getTimeInMillis();
-		this.updatedAt = Calendar.getInstance().getTimeInMillis();
+		this.createdAt = LocalDate.now();
+		this.updatedAt = LocalDate.now();
 		this.status = 1;
 	}
 
@@ -128,11 +130,11 @@ public class StudioInfo {
 		this.avatar = avatar;
 	}
 
-	public long getLevelExpiredAt() {
+	public Date getLevelExpiredAt() {
 		return levelExpiredAt;
 	}
 
-	public void setLevelExpiredAt(long levelExpiredAt) {
+	public void setLevelExpiredAt(Date levelExpiredAt) {
 		this.levelExpiredAt = levelExpiredAt;
 	}
 
@@ -176,27 +178,27 @@ public class StudioInfo {
 		this.commentSet = commentSet;
 	}
 
-	public long getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(long createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public long getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(long updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-	public long getDeletedAt() {
+	public LocalDate getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(long deletedAt) {
+	public void setDeletedAt(LocalDate deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 

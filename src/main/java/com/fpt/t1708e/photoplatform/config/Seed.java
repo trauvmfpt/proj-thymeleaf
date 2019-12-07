@@ -14,10 +14,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -146,7 +145,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 userInfo.setAddress("Khong co");
                 userInfo.setAvatar("https://www.w3schools.com/w3images/avatar2.png");
                 userInfo.setFullName(fullName);
-                userInfo.setBirthday(Calendar.getInstance().getTimeInMillis());
+                userInfo.setBirthday(LocalDate.now());
                 userInfo.setDescription("Nothing");
                 userInfo.setGender(i % 2);
                 userInfo.setPhone("098902020" + i);
@@ -173,12 +172,12 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             userInfo.setFullName(PhotographerInfoSeeder.photographerInfos.get(i).getFullName());
             userInfo.setDescription(PhotographerInfoSeeder.photographerInfos.get(i).getDescription());
             userInfo.setPhone(PhotographerInfoSeeder.photographerInfos.get(i).getPhone());
-            userInfo.setBirthday(Calendar.getInstance().getTimeInMillis());
+            userInfo.setBirthday(LocalDate.now());
             userInfo.setGender(i % 2);
             System.out.println(VNCharUtil.removeAccent(PhotographerInfoSeeder.photographerInfos.get(i).getFullName()));
             userInfo.setEmail(PhotographerInfoSeeder.photographerInfos.get(i).getEmail());
             userInfo.setLevel(level);
-            userInfo.setLevelExpiredAt(Calendar.getInstance().getTimeInMillis() + level.getDurationInDay());
+            userInfo.setLevelExpiredAt(new Date(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli() + level.getDurationInDay()));
             account.setUsername(VNCharUtil.removeAccent(PhotographerInfoSeeder.photographerInfos.get(i).getFullName()));
             userInfo.setAccount(account);
             accountRepository.save(account);
@@ -200,7 +199,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             System.out.println(VNCharUtil.removeAccent(StudioInfoSeeder.studioInfos.get(i).getFullName()));
             userInfo.setEmail(StudioInfoSeeder.studioInfos.get(i).getEmail());
             userInfo.setLevel(level);
-            userInfo.setLevelExpiredAt(Calendar.getInstance().getTimeInMillis() + level.getDurationInDay());
+            userInfo.setLevelExpiredAt(new Date(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli() + level.getDurationInDay()));
             account.setUsername(VNCharUtil.removeAccent(StudioInfoSeeder.studioInfos.get(i).getFullName()));
             userInfo.setAccount(account);
             accountRepository.save(account);
@@ -395,7 +394,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         userInfo.setAddress("Khong co");
         userInfo.setAvatar("https://www.w3schools.com/w3images/avatar2.png");
         userInfo.setFullName("User Pending");
-        userInfo.setBirthday(Calendar.getInstance().getTimeInMillis());
+        userInfo.setBirthday(LocalDate.now());
         userInfo.setDescription("Nothing");
         userInfo.setGender(1);
         userInfo.setPhone("0979020863");
@@ -442,7 +441,5 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         orderProductRepository.save(orderProduct);
         orderDetailRepository.save(orderDetail);
         orderDetailRepository.save(orderDetail1);
-
-
     }
 }

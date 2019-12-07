@@ -5,7 +5,9 @@ import com.fpt.t1708e.photoplatform.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,7 +28,7 @@ public class PromotionService {
 	}
 
     public Promotion update(Promotion promotion) {
-        promotion.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
+        promotion.setUpdatedAt(LocalDate.now());
         return promotionRepository.save(promotion);
     }
 }

@@ -1,5 +1,6 @@
 package com.fpt.t1708e.photoplatform.repository;
 
+import com.fpt.t1708e.photoplatform.dto.RevenueDTO;
 import com.fpt.t1708e.photoplatform.entity.Album;
 import com.fpt.t1708e.photoplatform.entity.OrderDetail;
 import com.fpt.t1708e.photoplatform.entity.OrderProduct;
@@ -9,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +27,13 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Long> {
 
     @Query("SELECT o FROM OrderDetail o join o.product p left join p.studioInfo s left join p.photographerInfo ph where ph.account.id = :id or s.account.id = :id")
     List<OrderDetail> findByAccountId(long id);
+
+    @Query("SELECT SUM(o.currentPrice) as revenue, o.createdAt as day FROM OrderDetail o left join o.orderProduct op left join o.product p left join p.studioInfo s left join p.photographerInfo ph where " +
+            "(ph.account.id = :id or s.account.id = :id) " +
+            "and op.status = 3 and o.status = 3" +
+            "and (o.createdAt between :startDate and :endDate) " +
+            "group by o.createdAt order by o.createdAt")
+    List<Object[]> getRevenue(long id, LocalDate startDate, LocalDate endDate);
 
     @Query("SELECT o FROM OrderDetail o join o.product p left join p.studioInfo s left join p.photographerInfo ph where (s.account.id = :accountId or ph.account.id = :accountId) and o.orderProduct.id =:orderId")
     List<OrderDetail> findByAccountIdAndOrderId(long accountId, long orderId);

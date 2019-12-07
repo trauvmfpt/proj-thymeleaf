@@ -1,6 +1,8 @@
 package com.fpt.t1708e.photoplatform.entity;
 
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -27,13 +29,13 @@ public class PhotographerInfo {
 	private String address;
 	private String phone;
 	private String email;
-	private long birthday;
+	private LocalDate birthday;
 	private int gender;
 	private double averageRate;
 	@Column(columnDefinition = "text")
 	private String description;
 	private String avatar;
-	private long levelExpiredAt;
+	private Date levelExpiredAt;
 	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "levelId")
 	private Level level;
@@ -48,14 +50,14 @@ public class PhotographerInfo {
 	private Set<Rating> ratingSet;
 	@OneToMany(mappedBy = "photographerInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> commentSet;
-	private long createdAt;
-	private long updatedAt;
-	private long deletedAt;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
+	private LocalDate deletedAt;
 	private int status;
 
 	public PhotographerInfo() {
-		this.createdAt = Calendar.getInstance().getTimeInMillis();
-		this.updatedAt = Calendar.getInstance().getTimeInMillis();
+		this.createdAt = LocalDate.now();
+		this.updatedAt = LocalDate.now();
 		this.status = 1;
 	}
 
@@ -71,11 +73,11 @@ public class PhotographerInfo {
 		return id;
 	}
 
-	public long getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(long birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
@@ -147,11 +149,11 @@ public class PhotographerInfo {
 		this.avatar = avatar;
 	}
 
-	public long getLevelExpiredAt() {
+	public Date getLevelExpiredAt() {
 		return levelExpiredAt;
 	}
 
-	public void setLevelExpiredAt(long levelExpiredAt) {
+	public void setLevelExpiredAt(Date levelExpiredAt) {
 		this.levelExpiredAt = levelExpiredAt;
 	}
 
@@ -203,27 +205,27 @@ public class PhotographerInfo {
 		this.commentSet = commentSet;
 	}
 
-	public long getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(long createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public long getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(long updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-	public long getDeletedAt() {
+	public LocalDate getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(long deletedAt) {
+	public void setDeletedAt(LocalDate deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 

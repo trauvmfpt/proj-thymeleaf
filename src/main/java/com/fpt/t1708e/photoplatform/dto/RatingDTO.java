@@ -3,12 +3,14 @@ package com.fpt.t1708e.photoplatform.dto;
 import com.fpt.t1708e.photoplatform.entity.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class RatingDTO {
     private long id;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
+    private LocalDate deletedAt;
     private int status;
     private float value;
     private long albumId;
@@ -54,27 +56,27 @@ public class RatingDTO {
         this.id = id;
     }
 
-    public long getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public long getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(long updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public long getDeletedAt() {
+    public LocalDate getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(long deletedAt) {
+    public void setDeletedAt(LocalDate deletedAt) {
         this.deletedAt = deletedAt;
     }
 

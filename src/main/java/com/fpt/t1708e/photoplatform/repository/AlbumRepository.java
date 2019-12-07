@@ -25,4 +25,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 	void resetIncrement();
 	@Query("SELECT c FROM Album c where c.name LIKE %:key% or c.description LIKE %:key%")
     List<Album> findALlByKey(@Param("key") String key);
+	@Query(nativeQuery = true,value = "select * FROM album order by id desc limit 10")
+    List<Album> getTopRate();
 }

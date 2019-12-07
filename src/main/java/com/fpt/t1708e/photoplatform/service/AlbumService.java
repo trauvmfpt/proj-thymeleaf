@@ -33,4 +33,8 @@ public class AlbumService {
 		List<Album> albumList = albumRepository.findALlByKey(key);
 		return albumList;
 	}
+
+    public List<Album> getByTopRate() {
+		return albumRepository.getTopRate();
+    }
 }

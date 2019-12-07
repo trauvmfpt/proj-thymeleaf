@@ -459,14 +459,21 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 orderProductSuccess.setPaymentType(1);
                 orderProductSuccess.setCreatedAt(localDate);
                 orderProductSuccess.setUpdatedAt(localDate);
+                List<Product> productList = productRepository.findAll();
+                List<Integer> index = new ArrayList<>();
+                for (int m =0; m<productList.size();m++){
+                    index.add(m);
+                }
                 for (int j=0;j<3;j++){
                     OrderDetail orderDetailSuccess = new OrderDetail();
                     orderDetailSuccess.setOrderProduct(orderProductSuccess);
-                    orderDetailSuccess.setStatus(2);
+                    orderDetailSuccess.setStatus(3);
                     orderDetailSuccess.setCreatedAt(localDate);
                     orderDetailSuccess.setUpdatedAt(localDate);
                     //
-                    Product _product = productRepository.getTop10Rating().get(rand.nextInt(5));
+                    int indexNumb = rand.nextInt(index.size());
+                    Product _product = productList.get(index.get(indexNumb));
+                    index.removeIf(s -> s.equals(index.get(indexNumb)));
                     orderDetailSuccess.setProduct(_product);
                     orderDetailSuccess.setCurrentPrice(_product.getPriceDiscount());
                     orderProductSuccess.setTotalPrice(orderProductSuccess.getTotalPrice() + orderDetailSuccess.getCurrentPrice());
@@ -492,14 +499,21 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                     orderProductSuccess.setPaymentType(1);
                     orderProductSuccess.setCreatedAt(localDate);
                     orderProductSuccess.setUpdatedAt(localDate);
+                    List<Product> productList = productRepository.findAll();
+                    List<Integer> index = new ArrayList<>();
+                    for (int m =0; m<productList.size();m++){
+                        index.add(m);
+                    }
                     for (int j=0;j<3;j++){
                         OrderDetail orderDetailSuccess = new OrderDetail();
                         orderDetailSuccess.setOrderProduct(orderProductSuccess);
-                        orderDetailSuccess.setStatus(2);
+                        orderDetailSuccess.setStatus(3);
                         orderDetailSuccess.setCreatedAt(localDate);
                         orderDetailSuccess.setUpdatedAt(localDate);
                         //
-                        Product _product = productRepository.getTop10Rating().get(rand.nextInt(5));
+                        int indexNumb = rand.nextInt(index.size());
+                        Product _product = productList.get(index.get(indexNumb));
+                        index.removeIf(s -> s.equals(index.get(indexNumb)));
                         orderDetailSuccess.setProduct(_product);
                         orderDetailSuccess.setCurrentPrice(_product.getPriceDiscount());
                         orderProductSuccess.setTotalPrice(orderProductSuccess.getTotalPrice() + orderDetailSuccess.getCurrentPrice());

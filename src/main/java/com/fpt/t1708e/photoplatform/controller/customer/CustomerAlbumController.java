@@ -32,4 +32,9 @@ public class CustomerAlbumController {
         }
         return "manager/admin/error/404";
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/list")
+    public String detail(Model model) throws RemoteException {
+        return "customer/album/list";
+    }
 }

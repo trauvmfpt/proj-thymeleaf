@@ -67,7 +67,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             seedRankAndLevel();
             seedAccount();
             categorySeed();
-            albumSeeder();
+//            albumSeeder();
             pictureSeeder();
             productSeeder();
             ratingAndCommentSeeder();

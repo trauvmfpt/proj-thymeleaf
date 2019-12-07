@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragment/layout}"
+    xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Album</title>
+</head>
+
+<body>
+
+    <section layout:fragment="content">
+        <div class="parallax_window_in" data-parallax="scroll" data-image-src="img/sub_header_florence_2.jpg"
+            data-natural-width="1400" data-natural-height="420">
+            <div id="sub_content_in">
+                <h1>Florence Restaurants</h1>
+                <p>
+                    "All what needs to a traveler in Florence...Easly find places, guides, directions, info...."
+                </p>
+            </div>
+            <!-- End sub_content -->
+        </div>
+
+        <div id="position">
+            <div class="container">
+                <ul>
+                    <li><a href="#">Home</a>
+                    </li>
+                    <li><a href="#">Category</a>
+                    </li>
+                    <li>Page active</li>
+                </ul>
+            </div>
+        </div>
+        <!-- End position -->
+
+        <div class="container margin_60_30">
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content"> Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>King Food</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_1" class="score" data-value="7.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.2s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>Catrine</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_2" class="score" data-value="8.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.2s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>Catrine</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_2" class="score" data-value="8.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content"> Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>King Food</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_1" class="score" data-value="7.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.2s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>Catrine</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_2" class="score" data-value="8.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.2s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>Catrine</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_2" class="score" data-value="8.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content"> Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>King Food</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_1" class="score" data-value="7.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.2s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>Catrine</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_2" class="score" data-value="8.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.2s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>Catrine</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_2" class="score" data-value="8.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content"> Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>King Food</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_1" class="score" data-value="7.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.2s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>Catrine</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_2" class="score" data-value="8.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.2s">
+                <div class="img_wrapper">
+                    <div class="ribbon">
+                        <span>Popular</span>
+                    </div>
+                    <div class="tools_i">
+                        <form action="http://maps.google.com/maps" method="get" target="_blank" class="directions_list">
+                            <input type="hidden" name="daddr" value="43.773460, 11.255985">
+                            <button type="submit" class="tooltip_styled tooltip-effect-4">
+                                <span class="tooltip-item"></span>
+                                <span class="tooltip-content">Directions</span>
+                            </button>
+                        </form>
+                        <div class="wishlist">
+                            <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End tools i-->
+                    <div class="img_container">
+                        <a href="florence-restaurant-detail.html">
+                            <img src="https://znews-photo.zadn.vn/w1024/Uploaded/kbd_bcvi/2019_11_23/5d828d976f24eb1a752053b5.jpg"
+                                width="800" height="533" class="img-responsive" alt="">
+                            <div class="short_info">
+                                <strong>From 30$</strong>
+                                <h3>Catrine</h3>
+                                <em>Fast food</em>
+                                <p>
+                                    A quam morbi ut arcu, eget neque molestie, ullamcorper congue pharetra,
+                                    hendrerit odio consectetuer.
+                                </p>
+                                <div class="score_wp">Superb
+                                    <div id="score_2" class="score" data-value="8.5"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End img_wrapper -->
+            </div>
+            <!-- End col-md-4 -->
+
+
+            <!-- End col lg 9 -->
+        </div>
+
+        <nav style="text-align: center;">
+            <ul class="pagination">
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                </li>
+                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a href="#">2</a>
+                </li>
+                <li><a href="#">3</a>
+                </li>
+                <li><a href="#">4</a>
+                </li>
+                <li><a href="#">5</a>
+                </li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </section>
+</body>
+
+</html>

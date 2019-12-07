@@ -1,5 +1,7 @@
 <header th:fragment="header" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky" style="background: #fff;">
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky"
+    style="background: rgb(201,223,244);
+                background: linear-gradient(90deg, rgba(201,223,244,1) 0%, rgba(254,167,197,1) 100%); padding-top: 5px;">
 
     <head>
         <link th:href="@{/layerslider/css/layerslider.min.css}" rel="stylesheet">
@@ -91,22 +93,22 @@
             }
         </style>
     </head>
-    <div class="container-fluid menu-right" style="padding-bottom: 15px;">
+    <div class="container-fluid menu-right" style="padding-bottom: 5px; max-width: 1400px;">
         <div class="row">
             <div class="col-md-7 col-sm-8 col-xs-7 ">
                 <div style="float: left" id="logo_home">
-                    <img src="logo-pink.png" style="width: 130px;">
+                    <img th:src="@{/logo-black.png}" style="width: 130px; color: black;">
                     <!--                    <h1><a href="/" title="PhotoVN">PhotoVN</a></h1>-->
                 </div>
-                <div>
+                <div style="padding-top: 8px;">
                     <form method="get" action="/search">
                         <!--                        <div id="custom-search-input" >-->
                         <!--                        <input type="text" class=" search-query" placeholder="Search....">-->
                         <!--                        <input type="submit" class="btn_search" value="submit">-->
                         <div class="ui search">
-                            <div class="ui left icon input" style="margin-left:50px;width: 60% !important;">
-                                <input name="key" style="height: 30px" id="searchKey" class="prompt" type="text"
-                                    placeholder="Tìm kiếm Địa điểm, Studio, Photographer">
+                            <div class="ui left icon input" style="margin-left:50px; width: 65% !important;">
+                                <input style="height: 40px; border-radius: 1px; border: 1px solid rgb(201,223,244);"
+                                    id="searchKey" class="prompt" type="text" placeholder="Search...">
                                 <i class="search icon"></i>
                             </div>
                         </div>
@@ -114,8 +116,8 @@
                     </form>
                 </div>
             </div>
-            <nav class="col-md-5 col-sm-4 col-xs-5" style="margin-top: 10px;">
-                <ul id="primary_nav">
+            <nav class="col-md-5 col-sm-4 col-xs-5" style="margin-top: 15px;">
+                <ul id="primary_nav" style="padding-top: 3px;">
                     <!--                    <li id=""><a href="/">Home</a>-->
                     <!--                    </li>-->
 
@@ -137,7 +139,7 @@
                             <i class="icon-cart"></i>
                             <span class="badge badge-info badge-pill noti-icon-badge">0</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg" style="border-radius: 0px; box-shadow: none;">
                             <div class="dropdown-item noti-title">
                                 <h5>Cart (<span></span>)</h5>
                             </div>

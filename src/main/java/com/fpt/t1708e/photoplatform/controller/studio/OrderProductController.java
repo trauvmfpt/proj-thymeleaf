@@ -102,7 +102,7 @@ public class OrderProductController {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.OK.value())
                     .setMessage("Action success!")
-                    .addData(new Gson().toJson(orderDetailIds))
+                    .addData(orderDetailIds)
                     .build(),
                     HttpStatus.OK);
         }
@@ -128,7 +128,7 @@ public class OrderProductController {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.OK.value())
                     .setMessage("Action success!")
-                    .addData(new Gson().toJson(orderDetailIds))
+                    .addData(orderDetailIds)
                     .build(),
                     HttpStatus.OK);
         }
@@ -164,7 +164,7 @@ public class OrderProductController {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.OK.value())
                     .setMessage("Action success!")
-                    .addData(new Gson().toJson(orderIds))
+                    .addData(orderIds)
                     .build(),
                     HttpStatus.OK);
         }
@@ -200,7 +200,7 @@ public class OrderProductController {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.OK.value())
                     .setMessage("Action success!")
-                    .addData(new Gson().toJson(orderIds))
+                    .addData(orderIds)
                     .build(),
                     HttpStatus.OK);
         }

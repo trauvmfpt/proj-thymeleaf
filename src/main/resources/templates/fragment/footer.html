@@ -1,53 +1,79 @@
-<footer th:fragment="footer" xmlns:th="http://www.thymeleaf.org">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
+<footer th:fragment="footer" xmlns:th="http://www.thymeleaf.org" style="background: rgb(201,223,244);
+                background: linear-gradient(90deg, rgba(201,223,244,1) 0%, rgba(254,167,197,1) 100%);">
+    <div class="container pb-5 pt-4">
+        <div class="row" style="
+    width: 115%;
+    margin-left: -5%;
+">
+            <div class="col-md-4 col-sm-6" style="
+                                    letter-spacing: 2px;
+                                    font-size: 17px;
+                                    line-height: 2;">
                 <h3>INTRODUCE</h3>
-                <ul>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Policies</a></li>
-                    <li><a href="#">Phone: 024.3577 8989</a></li>
-                    <li><a href="#">Hotline: 0969275766</a></li>
+                <ul class=" group-list">
+                    <li><a href="#"><span class="glyphicon glyphicon-star"></span> About us</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-bookmark"></span> Policies</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-earphone"></span> Phone: 024.3577 8989</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-phone-alt"></span> Hotline: 0969275766</a></li>
                 </ul>
             </div>
 
-            <div class="col-md-3 col-sm-6">
-                <h3>TOP STUDIO</h3>
-                <ul>
-                    <li><a href="#">Tuart Wedding</a></li>
-                    <li><a href="#">Aloha Studio</a></li>
-                    <li><a href="#">Phiêu Media</a></li>
-                    <li><a href="#">Queen Bridal</a></li>
+            <!--            <div class="col-md-3 col-sm-6">-->
+            <!--                <h3>TOP STUDIO</h3>-->
+            <!--                <ul class="group-list">-->
+            <!--                    <li><a href="#">Tuart Wedding</a></li>-->
+            <!--                    <li><a href="#">Aloha Studio</a></li>-->
+            <!--                    <li><a href="#">Phiêu Media</a></li>-->
+            <!--                    <li><a href="#">Queen Bridal</a></li>-->
+            <!--                </ul>-->
+            <!--            </div>-->
+            <div class="col-md-4 col-sm-6" style="
+                                    letter-spacing: 2px;
+                                    font-size: 17px;
+                                    line-height: 2;">
+                <h3><L>LATEST NEWS</L></h3>
+                <ul class=" group-list">
+                    <li><a href="#"><span class="glyphicon glyphicon-star"></span> About us</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-bookmark"></span> Policies</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-earphone"></span> Phone: 024.3577 8989</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-phone-alt"></span> Hotline: 0969275766</a></li>
                 </ul>
             </div>
-
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
                 <h3>HOT ALBUM</h3>
-                <ul>
-                    <li><a href="#">Album 1234</a></li>
-                    <li><a href="#">Album 1234</a></li>
-                    <li><a href="#">Album 1234</a></li>
-                    <li><a href="#">Album 1234</a></li>
+                <ul class="group-list wrap-gallery-footer flex-w row">
+                    <a href="#" class="col-3 item-gallery-footer wrap-pic-w"
+                       data-lightbox="gallery-footer">
+                        <img src="https://66.media.tumblr.com/avatar_4035e28a7a03_128.pnj" alt="GALLERY">
+                    </a>
+                    <a href="#" class="col-3 item-gallery-footer wrap-pic-w"
+                       data-lightbox="gallery-footer">
+                        <img src="https://cdn140.picsart.com/312502536001201.jpg?c256x256" alt="GALLERY">
+                    </a>
+                    <a href="#" class="col-3 item-gallery-footer wrap-pic-w"
+                       data-lightbox="gallery-footer">
+                        <img src="https://images.wallpapersden.com/image/download/scenery-night-digital-art_66229_128x128.jpg" alt="GALLERY">
+                    </a>
+                    <a href="#" class="col-3 item-gallery-footer wrap-pic-w"
+                       data-lightbox="gallery-footer">
+                        <img src="https://cdn130.picsart.com/269698428007201.gif?c256x256" alt="GALLERY">
+                    </a>
+                    <a href="#" class="col-3 item-gallery-footer wrap-pic-w"
+                       data-lightbox="gallery-footer">
+                        <img src="http://roshan.info/gallery/var/thumbs/scenery/sunsetolympia.jpg?m=1375624283" alt="GALLERY">
+                    </a>
+                    <a href="#" class="col-3 item-gallery-footer wrap-pic-w"
+                       data-lightbox="gallery-footer">
+                        <img src="https://a.wattpad.com/useravatar/ScytheStories.128.564388.jpg" alt="GALLERY">
+                    </a>
                 </ul>
             </div>
 
-            <div class="col-md-3 col-sm-6">
-                <h3>PRODUCT</h3>
-                <ul>
-                    <li><a href="#">Make up</a></li>
-                    <li><a href="#">Wedding dress rental</a></li>
-                    <li><a href="#">Prom dresses</a></li>
-                </ul>
-            </div>
+
         </div>
         <!-- End row -->
-        <hr>
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                © TravelGuide 2016 - All Rights Reserved
-            </div>
-        </div>
         <!-- End row -->
     </div>
+
     <!-- End container -->
 </footer>

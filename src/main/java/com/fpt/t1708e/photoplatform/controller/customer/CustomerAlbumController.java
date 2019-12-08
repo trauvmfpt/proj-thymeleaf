@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.rmi.RemoteException;
 
 @Controller
-@RequestMapping(value = "/customer/album")
+@RequestMapping(value = "/album")
 public class CustomerAlbumController {
     @Autowired
     AlbumRepository albumRepository;

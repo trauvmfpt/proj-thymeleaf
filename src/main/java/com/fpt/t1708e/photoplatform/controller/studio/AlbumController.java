@@ -31,7 +31,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "/album")
+@RequestMapping(value = "manager/album")
 public class AlbumController {
 
     @Autowired
@@ -73,7 +73,7 @@ public class AlbumController {
             album.setPictureSet(imageList);
         }
         albumRepository.save(album);
-        return "redirect:/album/create";
+        return "redirect:/manager/album/create";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
@@ -104,7 +104,7 @@ public class AlbumController {
             return "manager/studio/album/edit";
         }
         albumRepository.save(album);
-        return "redirect:/list";
+        return "redirect:manager/album/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{id}")
@@ -114,7 +114,7 @@ public class AlbumController {
             album.setStatus(0);
             albumRepository.save(album);
         }
-        return "redirect:album/list";
+        return "redirect:manager/album/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
@@ -125,6 +125,6 @@ public class AlbumController {
             model.addAttribute("pictures", album.getPictureSet());
             return "manager/studio/album/detail";
         }
-        return "redirect:album/list";
+        return "redirect:manager/album/list";
     }
 }

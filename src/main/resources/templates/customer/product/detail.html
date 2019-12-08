@@ -5,7 +5,7 @@
 <head>
     <title>Home</title>
     <link rel="stylesheet" th:href="@{/sweetalert2/dist/sweetalert2.css}">
-    <link rel="stylesheet" th:href="@{/studio-photographer/css/style-detail.css}"/>
+    <link rel="stylesheet" th:href="@{/studio-photographer/css/style-detail.css}" />
 
     <style>
         .score_wp_in {
@@ -36,8 +36,7 @@
 
 <body>
     <section layout:fragment="content">
-        <div class="parallax_window_in" data-parallax="scroll" th:data-image-src="${product.thumbnail}"
-            data-natural-width="1400" data-natural-height="420">
+        <div class="parallax_window_in" data-parallax="scroll" data-natural-width="1400" data-natural-height="420">
             <div id="sub_content_in">
                 <div id="sub_content_in_left">
                     <div class="container">
@@ -85,19 +84,6 @@
             <!-- End sub_content_left -->
         </div>
 
-        <div id="position">
-            <div class="container">
-                <ul>
-                    <li><a href="#">Home</a>
-                    </li>
-                    <li><a href="#">Category</a>
-                    </li>
-                    <li>Product</li>
-                </ul>
-            </div>
-        </div>
-        <!-- End position -->
-
         <div class="container margin_60">
             <div class="row">
                 <aside class="col-md-3 col-md-push-9" id="sidebar">
@@ -108,10 +94,14 @@
                                     <i class="icon_images"></i>View Album
                                 </a>
                             </li>
-                            <li><a class="btn-add-cart" th:id="${'add-cart-' + product.id}"><i class="icon-plus"></i>Add
-                                    to cart</a></li>
-                            <li><a class="btn-to-cart" th:id="${'add-cart-' + product.id}"><i class="icon-cart"></i>Buy
-                                    now</a></li>
+                            <li>
+                                <a class="btn-add-cart" th:id="${'add-cart-' + product.id}">
+                                    <i class="icon-plus"></i>Add to cart</a>
+                            </li>
+                            <li>
+                                <a class="btn-to-cart" th:id="${'add-cart-' + product.id}">
+                                    <i class="icon-cart"></i>Buy now</a>
+                            </li>
                         </ul>
                     </div>
                     <!--End sticky -->
@@ -124,7 +114,8 @@
                                 <div class="box_info">
                                     <div class="studio">
                                         <h3>Studio</h3>
-                                        <img th:src="${product.getStudioInfo().getAvatar()}" width="80px" />
+                                        <img th:src="${product.getStudioInfo().getAvatar()}" width="80px" height="80px"
+                                            style="object-fit: cover;" />
                                         <strong>
                                             <a th:href="@{/studio/{id}(id = ${product.getStudioInfo().getId()})}">
                                                 <span th:text="${product.getStudioInfo().getFullName()}"
@@ -139,7 +130,8 @@
                                 <div class="box_info">
                                     <div class="photographer">
                                         <h3>Photographer</h3>
-                                        <img th:src="${product.getPhotographerInfo().getAvatar()}" width="80px" />
+                                        <img th:src="${product.getPhotographerInfo().getAvatar()}" width="80px"
+                                            height="80px" style="object-fit: cover;" />
                                         <strong>
                                             <a
                                                 th:href="@{/photographer/{id}(id = ${product.getPhotographerInfo().getId()})}">
@@ -154,7 +146,8 @@
                             <div class=" col-md-6">
                                 <div class="box_info">
                                     <h3>Category</h3>
-                                    <img th:src="${product.getCategory().getThumbnail()}" width="80px" />
+                                    <img th:src="${product.getCategory().getThumbnail()}" width="80px" height="80px"
+                                        style="object-fit: cover;" />
                                     <strong>
                                         <a th:href="@{/category/{id}(id = ${product.getCategory().getId()})}">
                                             <span th:text="${product.getCategory().getName()}"
@@ -165,8 +158,17 @@
                             </div>
                         </div>
 
-                        <h3 class="lead description" th:text="${product.description}"></h3>
-                        <p class="product-content" style="margin-bottom: 30px" th:text="${product.content}"></p>
+                        <div class="product-description">
+                            <h3 class="lead description" th:text="${product.description}"></h3>
+                            <p class="product-content" style="margin-bottom: 30px" th:text="${product.content}"></p>
+                        </div>
+
+                        <div class="img-product">
+                            <div class="col-md-3" th:each="img,imgStat: ${product.getAlbum().getPictureSet()}">
+                                <img th:src="${img.getUrl()}" width="800" height="480" class="img-responsive" alt="">
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
                     </div>
 
                     <div class="box_style_general add_bottom_30">
@@ -212,41 +214,46 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" value="Submit" class="button add_bottom_30" id="submit-contact">Submit</button>
+                            <button type="submit" value="Submit" class="button add_bottom_30"
+                                id="submit-contact">Submit</button>
                         </form>
                     </div>
                     <!-- End box_style_general -->
-                    <div th:if="${listProduct!=null and !listProduct.isEmpty()}">
-                        <h3 class="second_title">Related Products</h3>
-                        <div class="carousel">
-                            <div th:each="pro,proStat: ${listProduct}" th:if="${proStat.index < 10}">
-                                <div class="img_wrapper">
-                                    <div class="img_container">
-                                        <a href="#">
-                                            <img th:src="${pro.getThumbnail()}" width="350" class="img-responsive"
-                                                alt="">
-                                            <div class="short_info">
-                                                <h3 th:text="${pro.getName()}">Product name</h3>
-                                                <em>
-                                                    <span>
-                                                        <span th:text="${pro.area}"></span>
-                                                        <span> - </span>
-                                                        <span th:text="${pro.destination}"></span>
-                                                    </span>
-                                                </em>
-                                                <p th:text="${pro.getDescription()}">Description</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End carousel -->
                 </div>
                 <!-- End col lg-9 -->
             </div>
             <!-- End row -->
+        </div>
+
+        <div class="container margin_60">
+            <div class="col-md-12">
+                <div th:if="${listProduct!=null and !listProduct.isEmpty()}">
+                    <h3 class="second_title">Related Products</h3>
+                    <div class="carousel">
+                        <div th:each="pro,proStat: ${listProduct}" th:if="${proStat.index < 10}">
+                            <div class="img_wrapper">
+                                <div class="img_container">
+                                    <a href="#">
+                                        <img th:src="${pro.getThumbnail()}" width="350" class="img-responsive" alt="">
+                                        <div class="short_info">
+                                            <h3 th:text="${pro.getName()}">Product name</h3>
+                                            <em>
+                                                <span>
+                                                    <span th:text="${pro.area}"></span>
+                                                    <span> - </span>
+                                                    <span th:text="${pro.destination}"></span>
+                                                </span>
+                                            </em>
+                                            <p th:text="${pro.getDescription()}">Description</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End carousel -->
         </div>
         <!-- End container -->
         <script th:src="@{/js/theia-sticky-sidebar.js}"></script>

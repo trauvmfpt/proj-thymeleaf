@@ -30,6 +30,9 @@
             object-fit: cover;
             width: 100%;
         }
+        .img-photographer{
+            max-height: 220px;
+        }
     </style>
 </head>
 
@@ -254,7 +257,7 @@
                             </div>
                             <div class="img_container_grid">
                                 <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
-                                    <img th:src="${photographer.getAvatar()}" class="img-responsive" alt="">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer" alt="">
                                     <div class="short_info_grid">
                                         <h3 th:text="${photographer.getFullName()}"></h3>
                                     </div>
@@ -273,7 +276,7 @@
                             </div>
                             <div class="img_container_grid">
                                 <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
-                                    <img th:src="${photographer.getAvatar()}" class="img-responsive" alt="">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer" alt="">
                                     <div class="short_info_grid">
                                         <h3 th:text="${photographer.getFullName()}"></h3>
                                     </div>

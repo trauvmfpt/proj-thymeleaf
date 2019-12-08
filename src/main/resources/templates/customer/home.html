@@ -233,7 +233,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4" th:each="photographer, photographerStat : ${ratePhotographers}"
-                         th:if="${photographerStat.index <= 3}">
+                         th:if="${photographerStat.index < 3}">
                         <div class="img_wrapper_grid">
                             <div class="ribbon top">
                                 <span>Top rated</span>

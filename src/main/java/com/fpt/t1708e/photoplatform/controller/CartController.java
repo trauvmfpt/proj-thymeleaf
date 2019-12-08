@@ -2,26 +2,22 @@ package com.fpt.t1708e.photoplatform.controller;
 
 import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
-import com.fpt.t1708e.photoplatform.repository.*;
+import com.fpt.t1708e.photoplatform.repository.OrderDetailRepository;
+import com.fpt.t1708e.photoplatform.repository.OrderProductRepository;
+import com.fpt.t1708e.photoplatform.repository.ProductRepository;
 import com.fpt.t1708e.photoplatform.service.*;
-import com.fpt.t1708e.photoplatform.util.DateUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -56,6 +52,8 @@ public class CartController {
 
     @Autowired
     MailService mailService;
+    @Autowired
+    PromotionService promotionService;
 
     private int exists(long id, List<OrderDetail> cart) {
         for (int i = 0; i < cart.size(); i++) {
@@ -166,8 +164,11 @@ public class CartController {
             orderProduct.setStatus(1); // 1. dang cho xac nhan
             List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
             if (cart.size() > 0) {
+                Map<String, List<OrderDetail>> mailItems = new HashMap<>();
                 for (OrderDetail orderDetail : cart
                 ) {
+                    List<OrderDetail> list = new ArrayList<>();
+                    String mailItem = "";
                     orderDetail.setStatus(2);
                     orderDetail.setCreatedAt(LocalDate.now());
                     orderDetail.setUpdatedAt(LocalDate.now());
@@ -176,32 +177,57 @@ public class CartController {
                     orderProduct.setTotalPrice(orderProduct.getTotalPrice() + orderDetail.getCurrentPrice());
                     Product product = orderDetail.getProduct();
                     if (product.getStudioInfo() != null) {
-                        sendConfirmMessage(product.getStudioInfo().getEmail(), product.getName());
+                        mailItem = product.getStudioInfo().getEmail();
                     } else if (product.getPhotographerInfo() != null) {
-                        sendConfirmMessage(product.getPhotographerInfo().getEmail(), product.getName());
+                        mailItem = product.getPhotographerInfo().getEmail();
+                    }
+                    if (mailItems.containsKey(mailItem)){
+                        list = mailItems.get(mailItem);
+                        list.add(orderDetail);
+                        mailItems.replace(mailItem, list);
+                    } else {
+                        list.add(orderDetail);
+                        mailItems.put(mailItem, list);
                     }
                 }
-                mailService.sendConfirmMail(
+                orderProduct.setCustomerInfo(customerInfo);
+                orderProductRepository.save(orderProduct);
+//                Mail to Studio/Photographer
+                for(Map.Entry<String, List<OrderDetail>> mailItem : mailItems.entrySet()) {
+                    String productOwner = mailItem.getKey();
+                    List<OrderDetail> orderDetails = mailItem.getValue();
+                    mailService.sendMail(
+                            productOwner,
+                            "New order from customer: " + customerInfo.getEmail(),
+                            "customer/mail/admin-confirm",
+                            orderProduct,
+                            orderDetails,
+                            LocalDateTime.ofInstant(orderProduct.getCreatedAt().atStartOfDay().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())
+                    );
+                }
+//                Mail to Customer
+                mailService.sendMail(
                         customerInfo.getEmail(),
                         "Thank you for purchasing at TravelGuide!",
+                        "customer/mail/receipt",
                         orderProduct,
                         cart,
                         LocalDateTime.ofInstant(orderProduct.getCreatedAt().atStartOfDay().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())
                 );
+//                Mail to Admins
                 for (AdminInfo adminInfo : adminInfos
                 ) {
-                    mailService.sendConfirmMail(
+                    mailService.sendMail(
                             adminInfo.getEmail(),
                             "New order from customer: " + customerInfo.getEmail(),
+                            "customer/mail/admin-confirm",
                             orderProduct,
                             cart,
                             LocalDateTime.ofInstant(orderProduct.getCreatedAt().atStartOfDay().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())
                     );
                 }
-                orderProduct.setCustomerInfo(customerInfo);
-                orderProductRepository.save(orderProduct);
                 session.removeAttribute("cart");
-                return "redirect:/customer/home";
+                return "redirect:/cart/receipt?orderProductId=" + orderProduct.getId();
             }
         }
         return "error";
@@ -210,7 +236,6 @@ public class CartController {
     @RequestMapping(method = RequestMethod.GET)
     public String cart(HttpSession session, Model model,
                        @RequestParam(value = "orderProductId", required = false) String orderProductId) {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             String userName = auth.getName();
@@ -263,7 +288,7 @@ public class CartController {
     }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
-    public String checkout(HttpSession session, OrderProduct orderProduct,
+    public String checkout(OrderProduct orderProduct,
                            @RequestParam("accountId") long accountId) {
         OrderProduct existOrderProduct = orderProductService.getOrderProductById(orderProduct.getId());
         if (existOrderProduct != null) {
@@ -272,10 +297,20 @@ public class CartController {
             existOrderProduct.setCustomerEmail(orderProduct.getCustomerEmail());
             existOrderProduct.setStatus(3); // 3.paid
             OrderProduct updatedOrderProduct = orderProductService.update(existOrderProduct);
+            Set<OrderDetail> orderDetailsSet = existOrderProduct.getOrderDetailSet();
+            List<OrderDetail> orderDetails = new ArrayList<>();
+            orderDetails.addAll(orderDetailsSet);
             if (updatedOrderProduct != null) {
-                sendConfirmMessage(orderProduct.getCustomerEmail(), "paid");
+                mailService.sendMail(
+                        existOrderProduct.getCustomerEmail(),
+                        "Thank you for purchasing at TravelGuide!",
+                        "customer/mail/receipt",
+                        existOrderProduct,
+                        orderDetails,
+                        LocalDateTime.ofInstant(orderProduct.getCreatedAt().atStartOfDay().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())
+                );
             }
-            return "redirect:/cart/receipt/?orderProductId=" + orderProduct.getId();
+            return "redirect:/cart/receipt?orderProductId=" + orderProduct.getId();
         }
         return "error";
     }
@@ -284,18 +319,18 @@ public class CartController {
     public String cancel(HttpSession session, OrderProduct orderProduct,
                          @RequestParam("accountId") long accountId) {
         orderProductService.delete(orderProduct);
-        return "redirect:/customer/home";
+        return "redirect:/home";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/receipt")
-    public String receipt(Model model, @RequestParam(value = "orderProductId") String orderProductId){
+    public String receipt(HttpSession session, Model model, @RequestParam(value = "orderProductId") String orderProductId){
         OrderProduct orderProduct = null;
         if (orderProductId == null){
-            return "redirect:/customer/home";
+            return "redirect:/home";
         } else {
             orderProduct =  orderProductService.getOrderProductById(Long.parseLong(orderProductId));
             if (orderProduct == null){
-                return "redirect:/customer/home";
+                return "redirect:/home";
             }
         }
         Set<OrderDetail> orderDetailsSet = orderProduct.getOrderDetailSet();
@@ -305,18 +340,28 @@ public class CartController {
         model.addAttribute("orderProduct", orderProduct);
         model.addAttribute("createdAt", orderProduct.getCreatedAt());
         model.addAttribute("orderDetails", orderDetails);
-        return "customer/receipt";
+        return "customer/mail/receipt";
     }
-    public void sendConfirmMessage(String to, String text) {
-        try {
-            MimeMessage mail = emailSender.createMimeMessage();
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mail, true);
-            messageHelper.setTo(to);
-            messageHelper.setSubject("You have a new order to confirm!");
-            messageHelper.setText(text, true);
-            emailSender.send(mail);
-        } catch (MessagingException e) {
-            e.printStackTrace();
+
+    @ResponseBody
+    @RequestMapping(value = "/getPromo", method = RequestMethod.POST)
+    public ResponseEntity<Object> getPromo(@RequestBody String[] product_ids, String promo_code) {
+        List<Product> discountedProducts = new ArrayList<>();
+        for (String productId: product_ids
+             ) {
+            Product product = productRepository.getOne(Long.parseLong(productId));
+            for (Promotion promotion: product.getPromotionSet()){
+                if (promo_code.equals(promotion.getCode())){
+                    product.setPrice(product.getPrice()*promotion.getDiscount());
+                    discountedProducts.add(product);
+                }
+            }
         }
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Action success!")
+                .addData(discountedProducts)
+                .build(),
+                HttpStatus.OK);
     }
 }

@@ -18,8 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 @Controller
 @RequestMapping(value = "/manager/order")
@@ -36,6 +39,9 @@ public class OrderProductController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    MailService mailService;
 
     static Account account = new Account();
 
@@ -158,6 +164,14 @@ public class OrderProductController {
                         }
                         orderProduct.setStatus(2);
                         orderProductService.update(orderProduct);
+                        mailService.sendMail(
+                                orderProduct.getCustomerEmail(),
+                                "Your order No #" + orderProduct.getId() + " has been confirmed!",
+                                "customer/mail/confirm",
+                                orderProduct,
+                                orderDetails,
+                                LocalDateTime.ofInstant(orderProduct.getCreatedAt().atStartOfDay().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())
+                        );
                     }
                 }
             }
@@ -194,6 +208,14 @@ public class OrderProductController {
                         }
                         orderProduct.setStatus(0);
                         orderProductService.update(orderProduct);
+                        mailService.sendMail(
+                                orderProduct.getCustomerEmail(),
+                                "Your order No #" + orderProduct.getId() + " was cancelled!",
+                                "customer/mail/reject",
+                                orderProduct,
+                                orderDetails,
+                                LocalDateTime.ofInstant(orderProduct.getCreatedAt().atStartOfDay().toInstant(ZoneOffset.UTC), TimeZone.getDefault().toZoneId())
+                        );
                     }
                 }
             }

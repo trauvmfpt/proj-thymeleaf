@@ -1,5 +1,7 @@
 var products_checkout = [];
+var product_ids = [];
 $(".cart-item").each(function () {
+    product_ids.push($(this).find(".cart-item-id").val());
     var cartItem = {
         name: $(this).find(".cart-item-name").text(),
         quantity: 1,
@@ -9,7 +11,6 @@ $(".cart-item").each(function () {
     };
     products_checkout.push(cartItem);
 });
-
 
 function currency(x) {
     return Number.parseFloat(x).toFixed(2);
@@ -117,6 +118,46 @@ $(document).ready(function () {
         $('.confirm-content').hide();
         $('.checkout-content').show();
     }
+});
+
+$(document).on('click', '#confirm' ,function(e){
+    confirmSubmit(e);
+});
+
+$(document).on('focusout', '#promoCode' ,function(e){
+    var promo_code = $("#promoCode").val;
+    $.ajax({
+        url: '/cart/getPromo/',
+        method: 'POST',
+        data: {
+            "product_ids": product_ids,
+            "promo_code": promo_code
+        },
+        success: function (resp) {
+            if (Array.isArray(resp.data) || resp.data.length || resp.data.length != 0) {
+                for (i = 0; i < resp.data.length; i++) {
+                    $(".cart-item").each(function () {
+                        if($(this).find(".cart-item-id").val() == resp.data[i].id.toString()){
+                            $(this).find(".cart-item-price").html(
+                                '<span style="color: black; text-decoration: line-through;">' + $(this).find(".cart-item-price").text() + '</span>' +
+                                '<span style="color: red;">' + resp.data[i].price + '</span>'
+                            );
+                            for (var j = 0; j < products_checkout.length; j++) {
+                                if (products_checkout[j].sku == resp.data[i].id.toString()) {
+                                    total -= parseFloat(products_checkout[i].price);
+                                    products_checkout[j].price = currency(resp.data[i].price / 23600);
+                                    total += parseFloat(products_checkout[i].price);
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 });
 
 function confirmSubmit(e) {

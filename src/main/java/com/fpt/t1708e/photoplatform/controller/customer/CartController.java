@@ -1,4 +1,4 @@
-package com.fpt.t1708e.photoplatform.controller;
+package com.fpt.t1708e.photoplatform.controller.customer;
 
 import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
@@ -201,7 +201,7 @@ public class CartController {
                 orderProduct.setCustomerInfo(customerInfo);
                 orderProductRepository.save(orderProduct);
                 session.removeAttribute("cart");
-                return "redirect:/customer/home";
+                return "redirect:/home";
             }
         }
         return "error";
@@ -284,18 +284,18 @@ public class CartController {
     public String cancel(HttpSession session, OrderProduct orderProduct,
                          @RequestParam("accountId") long accountId) {
         orderProductService.delete(orderProduct);
-        return "redirect:/customer/home";
+        return "redirect:/home";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/receipt")
     public String receipt(Model model, @RequestParam(value = "orderProductId") String orderProductId){
         OrderProduct orderProduct = null;
         if (orderProductId == null){
-            return "redirect:/customer/home";
+            return "redirect:/home";
         } else {
             orderProduct =  orderProductService.getOrderProductById(Long.parseLong(orderProductId));
             if (orderProduct == null){
-                return "redirect:/customer/home";
+                return "redirect:/home";
             }
         }
         Set<OrderDetail> orderDetailsSet = orderProduct.getOrderDetailSet();

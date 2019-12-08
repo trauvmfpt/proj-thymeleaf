@@ -66,7 +66,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             seedRankAndLevel();
             seedAccount();
             categorySeed();
-//            albumSeeder();
+            albumSeeder();
             pictureSeeder();
             productSeeder();
             ratingAndCommentSeeder();
@@ -136,6 +136,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 System.out.println("Admin");
                 account.setUsername("admin");
                 userInfo.setAccount(account);
+                userInfo.setEmail("photoplatform0@gmail.com");
                 accountRepository.save(account);
                 adminInfoRepository.save(userInfo);
             }

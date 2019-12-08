@@ -38,24 +38,27 @@
                         <div class="col-md-6 col-xl-4">
                             <div class="card text-center m-b-30">
                                 <div class="mb-2 card-body text-muted">
-                                    <h3 class="text-info">15,852</h3>
-                                    Monthly Statistics
+                                    <h3 class="text-info" th:text="${monthlyRevenue}"></h3>
+                                    Monthly Revenue
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-xl-4">
                             <div class="card text-center m-b-30">
-                                <div class="mb-2 card-body text-muted">
-                                    <h3 class="text-purple">9,514</h3>
-                                    New Orders
-                                </div>
+                                <a href="/manager/order/list">
+                                    <div class="mb-2 card-body text-muted" >
+                                        <h3 class="text-purple" th:if="${processingOrderDetail != null}" th:text="${processingOrderDetail}"></h3>
+                                        <h3 class="text-purple" th:if="${processingOrderDetail == null}">No Waiting Order</h3>
+                                        New Orders
+                                    </div>
+                                </a>
                             </div>
                         </div>
                         <div class="col-md-6 col-xl-4">
                             <div class="card text-center m-b-30">
                                 <div class="mb-2 card-body text-muted">
                                     <h3 class="text-primary">289</h3>
-                                    New Users
+                                    New Comments
                                 </div>
                             </div>
                         </div>
@@ -64,28 +67,7 @@
 
                     <div class="row">
 
-                        <div class="col-xl-4">
-                            <div class="card m-b-30">
-                                <div class="card-body">
-                                    <h4 class="mt-0 header-title">Monthly Earnings</h4>
-
-                                    <div class="row text-center m-t-20">
-                                        <div class="col-6">
-                                            <h5 class="">56241</h5>
-                                            <p class="text-muted font-14">Marketplace</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <h5 class="">23651</h5>
-                                            <p class="text-muted font-14">Total Income</p>
-                                        </div>
-                                    </div>
-
-                                    <div id="morris-donut-example" class="dash-chart"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-8">
+                        <div class="col-xl-12">
                             <div class="row" style="margin-bottom: 30px;">
                                 <div class="col-md-3">
                                     <label>Thời gian của biểu đồ:</label>
@@ -99,8 +81,8 @@
                             </div>
                             <div class="card m-b-30">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#revenue">Doanh thu</a></li>
-                                    <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#revenue">Revenue</a></li>
+                                    <li><a data-toggle="tab" href="#menu1">Revenue by product</a></li>
                                     <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
                                     <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
                                 </ul>
@@ -110,9 +92,8 @@
                                         <div id="linechart_material"></div>
                                     </div>
                                     <div id="menu1" class="tab-pane fade">
-                                        <h3>Menu 1</h3>
-                                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                            aliquip ex ea commodo consequat.</p>
+                                        <h1 style="text-align: center; padding: 50px">Revenue by product</h1>
+                                        <div style="width: 100%; padding: 30px 33%" id="piechart"></div>
                                     </div>
                                     <div id="menu2" class="tab-pane fade">
                                         <h3>Menu 2</h3>
@@ -133,127 +114,37 @@
                 <!-- end row -->
 
                 <div class="row">
-                    <div class="col-xl-8">
+                    <div class="col-xl-12">
                         <div class="card m-b-30">
                             <div class="card-body">
-                                <h4 class="mt-0 m-b-30 header-title">Latest Transactions</h4>
+                                <h4 class="mt-0 m-b-30 header-title">Waiting Orders</h4>
 
                                 <div class="table-responsive">
                                     <table class="table m-t-20 mb-0 table-vertical">
 
                                         <tbody>
-                                        <tr>
+                                        <tr th:if="${listOrders.size() > 0 && listOrders != null}" th:each="order : ${listOrders}">
                                             <td>
                                                 <img th:src="@{/admin/images/users/avatar-2.jpg}" alt="user-image"
                                                      class="thumb-sm rounded-circle mr-2"/>
-                                                Herbert C. Patton
+                                                <p th:text="${order.getCustomerInfo().getFullName()}"></p>
                                             </td>
-                                            <td><i class="mdi mdi-checkbox-blank-circle text-success"></i> Confirm</td>
+                                            <td><i class="mdi mdi-checkbox-blank-circle text-warning"></i> Waiting</td>
                                             <td>
-                                                $14,584
+                                                <p th:text="${order.getTotalPrice()}"></p>
                                                 <p class="m-0 text-muted font-14">Amount</p>
                                             </td>
                                             <td>
-                                                5/12/2016
+                                                <p th:text="${order.getCreatedAt()}"></p>
                                                 <p class="m-0 text-muted font-14">Date</p>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-secondary btn-sm waves-effect">
-                                                    Edit
-                                                </button>
+                                                <a th:href="@{'/manager/order/'+${order.id}}" class="btn btn-success">Detail</a>
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td>
-                                                <img th:src="@{/admin/images/users/avatar-3.jpg}" alt="user-image"
-                                                     class="thumb-sm rounded-circle mr-2"/>
-                                                Mathias N. Klausen
-                                            </td>
-                                            <td><i class="mdi mdi-checkbox-blank-circle text-warning"></i> Waiting
-                                                payment
-                                            </td>
-                                            <td>
-                                                $8,541
-                                                <p class="m-0 text-muted font-14">Amount</p>
-                                            </td>
-                                            <td>
-                                                10/11/2016
-                                                <p class="m-0 text-muted font-14">Date</p>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-secondary btn-sm waves-effect">
-                                                    Edit
-                                                </button>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <img th:src="@{/admin/images/users/avatar-4.jpg}" alt="user-image"
-                                                     class="thumb-sm rounded-circle mr-2"/>
-                                                Nikolaj S. Henriksen
-                                            </td>
-                                            <td><i class="mdi mdi-checkbox-blank-circle text-success"></i> Confirm</td>
-                                            <td>
-                                                $954
-                                                <p class="m-0 text-muted font-14">Amount</p>
-                                            </td>
-                                            <td>
-                                                8/11/2016
-                                                <p class="m-0 text-muted font-14">Date</p>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-secondary btn-sm waves-effect">
-                                                    Edit
-                                                </button>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <img th:src="@{/admin/images/users/avatar-5.jpg}" alt="user-image"
-                                                     class="thumb-sm rounded-circle mr-2"/>
-                                                Lasse C. Overgaard
-                                            </td>
-                                            <td><i class="mdi mdi-checkbox-blank-circle text-danger"></i> Payment
-                                                expired
-                                            </td>
-                                            <td>
-                                                $44,584
-                                                <p class="m-0 text-muted font-14">Amount</p>
-                                            </td>
-                                            <td>
-                                                7/11/2016
-                                                <p class="m-0 text-muted font-14">Date</p>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-secondary btn-sm waves-effect">
-                                                    Edit
-                                                </button>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <img th:src="@{/admin/images/users/avatar-6.jpg}" alt="user-image"
-                                                     class="thumb-sm rounded-circle mr-2"/>
-                                                Kasper S. Jessen
-                                            </td>
-                                            <td><i class="mdi mdi-checkbox-blank-circle text-success"></i> Confirm</td>
-                                            <td>
-                                                $8,844
-                                                <p class="m-0 text-muted font-14">Amount</p>
-                                            </td>
-                                            <td>
-                                                1/11/2016
-                                                <p class="m-0 text-muted font-14">Date</p>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-secondary btn-sm waves-effect">
-                                                    Edit
-                                                </button>
-                                            </td>
+                                            <td th:if="${listOrders == null || listOrders.size() <= 0}" style="text-align: center"><h1>No Waiting Order</h1></td>
                                         </tr>
 
                                         </tbody>
@@ -263,41 +154,41 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-4">
-                        <div class="card m-b-30">
-                            <div class="card-body">
-                                <h4 class="mt-0 m-b-15 header-title">Recent Activity Feed</h4>
+<!--                    <div class="col-xl-4">-->
+<!--                        <div class="card m-b-30">-->
+<!--                            <div class="card-body">-->
+<!--                                <h4 class="mt-0 m-b-15 header-title">Recent Activity Feed</h4>-->
 
-                                <ol class="activity-feed mb-0">
-                                    <li class="feed-item">
-                                        <span class="date">Sep 25</span>
-                                        <span class="activity-text">Responded to need “Volunteer Activities”</span>
-                                    </li>
+<!--                                <ol class="activity-feed mb-0">-->
+<!--                                    <li class="feed-item">-->
+<!--                                        <span class="date">Sep 25</span>-->
+<!--                                        <span class="activity-text">Responded to need “Volunteer Activities”</span>-->
+<!--                                    </li>-->
 
-                                    <li class="feed-item">
-                                        <span class="date">Sep 24</span>
-                                        <span class="activity-text">Added an interest “Volunteer Activities”</span>
-                                    </li>
-                                    <li class="feed-item">
-                                        <span class="date">Sep 23</span>
-                                        <span class="activity-text">Joined the group “Boardsmanship Forum”</span>
-                                    </li>
-                                    <li class="feed-item">
-                                        <span class="date">Sep 21</span>
-                                        <span class="activity-text">Responded to need “In-Kind Opportunity”</span>
-                                    </li>
-                                    <li class="feed-item">
-                                        <span class="date">Sep 18</span>
-                                        <span class="activity-text">Created need “Volunteer Activities”</span>
-                                    </li>
-                                    <li class="feed-item pb-2">
-                                        <span class="date">Sep 17</span>
-                                        <span class="activity-text">Attending the event “Some New Event”. Responded to needed</span>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
+<!--                                    <li class="feed-item">-->
+<!--                                        <span class="date">Sep 24</span>-->
+<!--                                        <span class="activity-text">Added an interest “Volunteer Activities”</span>-->
+<!--                                    </li>-->
+<!--                                    <li class="feed-item">-->
+<!--                                        <span class="date">Sep 23</span>-->
+<!--                                        <span class="activity-text">Joined the group “Boardsmanship Forum”</span>-->
+<!--                                    </li>-->
+<!--                                    <li class="feed-item">-->
+<!--                                        <span class="date">Sep 21</span>-->
+<!--                                        <span class="activity-text">Responded to need “In-Kind Opportunity”</span>-->
+<!--                                    </li>-->
+<!--                                    <li class="feed-item">-->
+<!--                                        <span class="date">Sep 18</span>-->
+<!--                                        <span class="activity-text">Created need “Volunteer Activities”</span>-->
+<!--                                    </li>-->
+<!--                                    <li class="feed-item pb-2">-->
+<!--                                        <span class="date">Sep 17</span>-->
+<!--                                        <span class="activity-text">Attending the event “Some New Event”. Responded to needed</span>-->
+<!--                                    </li>-->
+<!--                                </ol>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
                 </div>

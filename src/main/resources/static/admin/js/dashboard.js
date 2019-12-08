@@ -23,23 +23,67 @@ $(document).ready(function () {
         var data = new google.visualization.DataTable();
         data.addColumn('date', 'Ngày');
         data.addColumn('number', 'Doanh thu');
-        for (var i = 0; i < chart_data.length; i++) {
-            data.addRow([new Date(chart_data[i].day), Number(chart_data[i].revenue)]);
-        }
-        var options = {
-            chart: {
-                title: 'Biểu đồ doanh thu theo thời gian',
-                subtitle: 'tính theo đơn vị (vnd)'
-            },
-            height: 400,
-            hAxis: {
-                format: 'dd/MM/yyyy'
+        if (chart_data.length > 0) {
+            for (var i = 0; i < chart_data.length; i++) {
+                data.addRow([new Date(chart_data[i].day), Number(chart_data[i].revenue)]);
             }
-        };
+            var options = {
+                chart: {
+                    title: 'Biểu đồ doanh thu theo thời gian',
+                    subtitle: 'tính theo đơn vị (vnd)'
+                },
+                height: 400,
+                hAxis: {
+                    format: 'dd/MM/yyyy'
+                }
+            };
 
-        var chart = new google.charts.Line(document.getElementById('linechart_material'));
+            var chart = new google.charts.Line(document.getElementById('linechart_material'));
 
-        chart.draw(data, google.charts.Line.convertOptions(options));
+            chart.draw(data, google.charts.Line.convertOptions(options));
+        } else {
+            $("#linechart_material").html("<h2>No data for this time period</h2>")
+        }
+    }
+
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(function () {
+        $.ajax({
+            url: '/manager/popularProduct',
+            method: 'GET',
+            success: function (resp) {
+                drawPieChart(resp.data);
+            },
+            error: function () {
+                swal('Có lỗi xảy ra', 'Không thể lấy dữ liệu từ api', 'error');
+            }
+
+        });
+    });
+
+    function drawPieChart(chart_data) {
+        if (chart_data.length > 0) {
+            var data = google.visualization.arrayToDataTable([
+                ['Product', 'Revenue'],
+                ['', 0],
+                ['', null],
+            ]);
+            for (var i = 0; i < chart_data.length; i++) {
+                data.addRow([chart_data[i].name, Number(chart_data[i].quantity)]);
+            }
+            var options = {
+                width: 600,
+                height: 500,
+                is3D: true
+            };
+
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        } else {
+            $("#piechart").html("<h2>No data for this time period</h2>")
+        }
     }
 
     $(function () {
@@ -130,29 +174,29 @@ $(document).ready(function () {
                 }
             });
 
-            // $.ajax({
-            //     url: '/admin/chart-1?startDate=' + startDate + '&endDate=' + endDate,
-            //     method: 'GET',
-            //     success: function (resp) {
-            //         if (resp.length == 0) {
-            //             Swal.fire({
-            //                 title: 'No data for this time period',
-            //                 text: 'Try again later',
-            //                 icon: 'error'
-            //             });
-            //             return;
-            //         }
-            //         ;
-            //         drawChart_1(resp);
-            //     },
-            //     error: function () {
-            //         Swal.fire({
-            //             title: 'Error! Cannot get data',
-            //             text: 'Try again later',
-            //             icon: 'error'
-            //         });
-            //     }
-            // });
+            $.ajax({
+                url: '/manager/popularProduct?startDate=' + startDate + '&endDate=' + endDate,
+                method: 'GET',
+                success: function (resp) {
+                    if (resp.length == 0) {
+                        Swal.fire({
+                            title: 'No data for this time period',
+                            text: 'Try again later',
+                            icon: 'error'
+                        });
+                        return;
+                    }
+                    ;
+                    drawPieChart(resp.data);
+                },
+                error: function () {
+                    Swal.fire({
+                        title: 'Error! Cannot get data',
+                        text: 'Try again later',
+                        icon: 'error'
+                    });
+                }
+            });
             //
             // $.ajax({
             //     url: '/admin/chart-2?startDate=' + startDate + '&endDate=' + endDate,

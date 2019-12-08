@@ -231,22 +231,43 @@
                     </p>
                     <span><em></em></span>
                 </div>
-                <div class="col-md-4" th:each="photographer, photographerStat : ${ratePhotographers}"
-                    th:if="${photographerStat.index < 6}">
-                    <div class="img_wrapper_grid">
-                        <div class="ribbon top">
-                            <span>Top rated</span>
+                <div class="row">
+                    <div class="col-md-4" th:each="photographer, photographerStat : ${ratePhotographers}"
+                         th:if="${photographerStat.index <= 3}">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon top">
+                                <span>Top rated</span>
+                            </div>
+                            <div class="img_container_grid">
+                                <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive" alt="">
+                                    <div class="short_info_grid">
+                                        <h3 th:text="${photographer.getFullName()}"></h3>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                        <div class="img_container_grid">
-                            <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
-                                <img th:src="${photographer.getAvatar()}" class="img-responsive" alt="">
-                                <div class="short_info_grid">
-                                    <h3 th:text="${photographer.getFullName()}"></h3>
-                                </div>
-                            </a>
-                        </div>
+                        <!-- End img_wrapper_grid -->
                     </div>
-                    <!-- End img_wrapper_grid -->
+                </div>
+                <div class="row">
+                    <div class="col-md-4" th:each="photographer, photographerStat : ${ratePhotographers}"
+                         th:if="${photographerStat.index > 3 and photographerStat.index < 7}">
+                        <div class="img_wrapper_grid">
+                            <div class="ribbon top">
+                                <span>Top rated</span>
+                            </div>
+                            <div class="img_container_grid">
+                                <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive" alt="">
+                                    <div class="short_info_grid">
+                                        <h3 th:text="${photographer.getFullName()}"></h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End img_wrapper_grid -->
+                    </div>
                 </div>
             </div>
             <!-- End container -->

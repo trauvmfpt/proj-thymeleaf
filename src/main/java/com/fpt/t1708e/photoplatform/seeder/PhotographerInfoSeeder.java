@@ -45,7 +45,7 @@ public class PhotographerInfoSeeder {
         photographerInfo.setDescription("Màu sắc tươi sáng, bắt mắt, tự nhiên và tối giản là những đặc điểm nổi bật trong những thước ảnh nghệ thuật đầy sáng tạo của nữ nhiếp ảnh gia Dy Duyên (1987).\n" +
                 "        Dùng hình ảnh để tâm sự, để nói lên những cảm xúc trực trào là điều Dy Duyên đã và đang theo đuổi.\n" +
                 "        Con đường nào dẫn đến thành công cũng chẳng bao giờ trải đầy hoa hồng, một chút thách thức của cuộc đời giúp Dy Duyên tự hào hơn về công việc của mình và trân quý những ngày tháng đã qua để bước xa hơn nữa.");
-        photographerInfo.setAvatar("https://res.cloudinary.com/phucvu/image/upload/v1575471055/riicha2vt8qenjbg3g5f.jpg");
+        photographerInfo.setAvatar("https://images.unsplash.com/flagged/photo-1551592398-c320012bc1c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
         photographerInfos.add(photographerInfo);
 
         // 4.

@@ -87,8 +87,7 @@
                                          alt="" th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
-                                            <small><strong th:text="${album.getName()}"></strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
+                                            <h2 th:text="${album.getName()}"></h2>
                                         </div>
                                     </div>
                                 </a>
@@ -106,8 +105,7 @@
                                          alt="" th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
-                                            <small><strong th:text="${album.getName()}"></strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
+                                            <h3 th:text="${album.getName()}"></h3>
                                         </div>
                                     </div>
                                 </a>
@@ -127,8 +125,7 @@
                                          alt="" th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
-                                            <small><strong th:text="${album.getName()}"></strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
+                                            <h3 th:text="${album.getName()}"></h3>
                                         </div>
                                     </div>
                                 </a>
@@ -148,8 +145,7 @@
                                          alt="" th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
-                                            <small><strong th:text="${album.getName()}"></strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
+                                            <h3 th:text="${album.getName()}"></h3>
                                         </div>
                                     </div>
                                 </a>
@@ -210,9 +206,7 @@
                                 <img th:src="${studio.getAvatar()}" width="800" height="468" class="img-responsive" alt=""
                                     style="max-height: 150px;">
                                 <div class="short_info_grid">
-                                    <small><strong>Duration: 60 min.</strong></small>
-                                    <h3>Santa Maria Novella</h3>
-                                    <em>Monuments - Attractions</em>
+                                    <h3 th:text="${studio.getFullName()}"></h3>
                                 </div>
                             </a>
                         </div>
@@ -228,9 +222,7 @@
                             <a th:href="@{/studio/{id}(id = ${studio.getId()})}">
                                 <img th:src="${studio.getAvatar()}" width="800" height="468" class="img-responsive" alt="">
                                 <div class="short_info_grid">
-                                    <small><strong>Duration: 60 min.</strong></small>
-                                    <h3>Santa Maria Novella</h3>
-                                    <em>Monuments - Attractions</em>
+                                    <h2 th:text="${studio.getFullName()}"></h2>
                                 </div>
                             </a>
                         </div>
@@ -261,9 +253,7 @@
                             <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
                                 <img th:src="${photographer.getAvatar()}" width="800" height="468" class="img-responsive" alt="">
                                 <div class="short_info_grid">
-                                    <small><strong>From 30$</strong></small>
-                                    <h3>Da Domenico</h3>
-                                    <em>Restaurant</em>
+                                    <h3 th:text="${photographer.getFullName()}"></h3>
                                 </div>
                             </a>
                         </div>
@@ -282,8 +272,8 @@
                 </div>
                 <div class="row features add_bottom_45">
                     <div class="col-sm-4">
-                        <div id="feat_2">
-                            <a href="about.html" class="bt_info">Read more</a>
+                        <div class="box_cat">
+                            <img src="http://kenh14cdn.com/thumb_w/660/2019/11/16/photo-1-1573869775322502066797.jpg" alt="">
                             <h3>Find places</h3>
                             <p>
                                 The most interesting place close to you. Attractions, Museums, Restaurant...

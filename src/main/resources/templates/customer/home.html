@@ -252,7 +252,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4" th:each="photographer, photographerStat : ${ratePhotographers}"
-                         th:if="${photographerStat.index > 3 and photographerStat.index < 7}">
+                         th:if="${photographerStat.index >= 3 and photographerStat.index < 7}">
                         <div class="img_wrapper_grid">
                             <div class="ribbon top">
                                 <span>Top rated</span>
@@ -281,12 +281,11 @@
                 </div>
                 <div class="row features add_bottom_45">
                     <div class="col-sm-4">
-                        <div class="box_cat">
-                            <img src="http://kenh14cdn.com/thumb_w/660/2019/11/16/photo-1-1573869775322502066797.jpg"
-                                alt="">
-                            <h3>Find places</h3>
+                        <div id="feat_1">
+                            <a href="about.html" class="bt_info">Read more</a>
+                            <h3>Get info&amp;tips</h3>
                             <p>
-                                The most interesting place close to you. Attractions, Museums, Restaurant...
+                                The most important tips on your Mobile during a visit....online and offline.
                             </p>
                         </div>
                     </div>

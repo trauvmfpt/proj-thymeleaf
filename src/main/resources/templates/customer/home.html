@@ -102,7 +102,7 @@
                             </div>
                             <div class="img_container_grid_home">
                                 <a th:href="@{/customer/album/{id}(id = ${album.getId()})}">
-                                    <img src="https://9mobi.vn/cf/images/2015/03/nkk/anh-dep-1.jpg" width="800" height="480" class="img-responsive"
+                                    <img th:src="${album.getThumbnail()}" width="800" height="480" class="img-responsive"
                                          alt="" th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
@@ -123,7 +123,7 @@
                             </div>
                             <div class="img_container_grid_home">
                                 <a th:href="@{/customer/album/{id}(id = ${album.getId()})}">
-                                    <img src="https://9mobi.vn/cf/images/2015/03/nkk/anh-dep-1.jpg" width="800" height="480" class="img-responsive"
+                                    <img th:src="${album.getThumbnail()}" width="800" height="480" class="img-responsive"
                                          alt="" th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
@@ -144,7 +144,7 @@
                             </div>
                             <div class="img_container_grid_home">
                                 <a th:href="@{/customer/album/{id}(id = ${album.getId()})}">
-                                    <img src="https://9mobi.vn/cf/images/2015/03/nkk/anh-dep-1.jpg" width="800" height="480" class="img-responsive"
+                                    <img th:src="${album.getThumbnail()}" width="800" height="480" class="img-responsive"
                                          alt="" th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">

@@ -1,6 +1,6 @@
 <header th:fragment="header" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky"
-    style="background: rgb(201,223,244);
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="sticky"
+        style="background: rgb(201,223,244);
                 background: linear-gradient(90deg, rgba(201,223,244,1) 0%, rgba(254,167,197,1) 100%); padding-top: 5px;">
 
     <head>
@@ -19,11 +19,11 @@
                 color: black;
             }
 
-            .main-menu>ul>li>a {
+            .main-menu > ul > li > a {
                 color: black;
             }
 
-            .ui.input>input {
+            .ui.input > input {
                 border: 1px solid transparent;
             }
 
@@ -107,8 +107,9 @@
                         <!--                        <input type="submit" class="btn_search" value="submit">-->
                         <div class="ui search">
                             <div class="ui left icon input" style="margin-left:50px; width: 65% !important;">
-                                <input name="key" style="height: 40px; border-radius: 1px; border: 1px solid rgb(201,223,244);"
-                                    id="searchKey" class="prompt" type="text" placeholder="Search...">
+                                <input name="key"
+                                       style="height: 40px; border-radius: 1px; border: 1px solid rgb(201,223,244);"
+                                       id="searchKey" class="prompt" type="text" placeholder="Search...">
                                 <i class="search icon"></i>
                             </div>
                         </div>
@@ -118,15 +119,20 @@
             </div>
             <nav class="col-md-5 col-sm-4 col-xs-5" style="margin-top: 15px;">
                 <ul id="primary_nav" style="padding-top: 3px;">
-                    <li th:if="${#authentication.getName() == 'anonymousUser'}" id="login"><a href="/account/login" style="color: black;">LOGIN</a>
+                    <li th:if="${#authentication.getName() == 'anonymousUser'}" id="login"><a href="/account/login"
+                                                                                              style="color: black;">LOGIN</a>
                     </li>
                     <li th:if="${#authentication.getName() != 'anonymousUser'}" class="list-inline-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown"
+                           href="#" role="button"
                            aria-haspopup="false" aria-expanded="false">
-                            <span id="currentUser" class="ml-1" th:text="${#authentication.getName()}"> <i class="mdi mdi-chevron-down"></i> </span>
+                            <span id="currentUser" class="ml-1" th:text="${#authentication.getName()}"> <i
+                                    class="mdi mdi-chevron-down"></i> </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                             <a class="dropdown-item" href="/logout"><i class="dripicons-exit text-muted"></i> Logout</a>
+                            <a class="dropdown-item" href="/manager" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == false}"><i class="dripicons-document text-muted"></i>
+                                Manage</a>
                         </div>
                     </li>
                     <li id="buy list-inline-item dropdown notification-list show">
@@ -136,7 +142,8 @@
                             <i class="icon-cart"></i>
                             <span class="badge badge-info badge-pill noti-icon-badge">0</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg" style="border-radius: 0px; box-shadow: none;">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg"
+                             style="border-radius: 0px; box-shadow: none;">
                             <div class="dropdown-item noti-title">
                                 <h5>Cart (<span></span>)</h5>
                             </div>
@@ -209,13 +216,13 @@
                                 response = {
                                     results: {}
                                 }
-                                ;
+                            ;
                             // translate GitHub API response to work with search
                             $.each(res, function (index, item) {
                                 var
                                     language = item.type || 'Unknown',
                                     maxResults = 8
-                                    ;
+                                ;
                                 if (index >= maxResults) {
                                     return false;
                                 }
@@ -238,7 +245,7 @@
                         url: '/api/search?key={query}'
                     }
                 })
-                ;
+            ;
         });
 
 

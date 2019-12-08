@@ -23,7 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/account/login")
-                .defaultSuccessUrl("/", true)
+                .successHandler(customLoginHandler())
+                .failureUrl("/login?error")
                 .permitAll()
                 .and()
                 .logout()
@@ -46,5 +47,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         return new MyUserDetailsService();
+    }
+
+    @Bean
+    public CustomLoginHandler customLoginHandler() {
+        return new CustomLoginHandler();
     }
 }

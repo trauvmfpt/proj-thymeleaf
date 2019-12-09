@@ -82,7 +82,8 @@
                             <div class="card m-b-30">
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#revenue">Revenue</a></li>
-                                    <li><a data-toggle="tab" href="#menu1">Revenue by product</a></li>
+                                    <li th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_5') == false}"><a data-toggle="tab" href="#menu1">Revenue by product</a></li>
+                                    <li th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_5')}"><a data-toggle="tab" href="#menu1">Top merchant by revenue</a></li>
                                     <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
                                     <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
                                 </ul>
@@ -92,7 +93,8 @@
                                         <div id="linechart_material"></div>
                                     </div>
                                     <div id="menu1" class="tab-pane fade">
-                                        <h1 style="text-align: center; padding: 50px">Revenue by product</h1>
+                                        <h1 th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_5')}" style="text-align: center; padding-top: 50px">Top merchant by revenue</h1>
+                                        <h1 th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_5') == false}" style="text-align: center; padding-top: 50px">Revenue by product</h1>
                                         <div style="width: 100%; padding: 30px 33%" id="piechart"></div>
                                     </div>
                                     <div id="menu2" class="tab-pane fade">

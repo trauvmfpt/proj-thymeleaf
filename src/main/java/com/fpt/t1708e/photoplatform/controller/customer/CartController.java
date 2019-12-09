@@ -2,9 +2,7 @@ package com.fpt.t1708e.photoplatform.controller.customer;
 
 import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
-import com.fpt.t1708e.photoplatform.repository.OrderDetailRepository;
-import com.fpt.t1708e.photoplatform.repository.OrderProductRepository;
-import com.fpt.t1708e.photoplatform.repository.ProductRepository;
+import com.fpt.t1708e.photoplatform.repository.*;
 import com.fpt.t1708e.photoplatform.service.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +52,12 @@ public class CartController {
     MailService mailService;
     @Autowired
     PromotionService promotionService;
+
+    @Autowired
+    AdminRevenueRepository adminRevenueRepository;
+
+    @Autowired
+    AdminRevenueDetailRepository adminRevenueDetailRepository;
 
     private int exists(long id, List<OrderDetail> cart) {
         for (int i = 0; i < cart.size(); i++) {
@@ -248,7 +252,7 @@ public class CartController {
                     OrderProduct orderProduct = null;
 //        khi khách hàng confirm thì chưa có orderProduct, nhưng khi khách hàng thanh toán thì đã có
                     if (orderProductId != null) {
-                        orderProduct = orderProductService.getOrderProductByIdAndStatus(Long.parseLong(orderProductId), 1);
+                        orderProduct = orderProductService.getOrderProductByIdAndStatus(Long.parseLong(orderProductId), 2);
                         if (orderProduct != null) {
                             Set<OrderDetail> orderDetails = orderProduct.getOrderDetailSet();
                             for (OrderDetail orderDetail : orderDetails
@@ -295,11 +299,35 @@ public class CartController {
             existOrderProduct.setCustomerPhone(orderProduct.getCustomerPhone());
             existOrderProduct.setCustomerName(orderProduct.getCustomerName());
             existOrderProduct.setCustomerEmail(orderProduct.getCustomerEmail());
+            existOrderProduct.setPaymentType(orderProduct.getPaymentType());
             existOrderProduct.setStatus(3); // 3.paid
             OrderProduct updatedOrderProduct = orderProductService.update(existOrderProduct);
-            Set<OrderDetail> orderDetailsSet = existOrderProduct.getOrderDetailSet();
-            List<OrderDetail> orderDetails = new ArrayList<>();
-            orderDetails.addAll(orderDetailsSet);
+
+            AdminRevenue adminRevenue= new AdminRevenue();
+            adminRevenue.setPaymentType(existOrderProduct.getPaymentType());
+            adminRevenue.setStatus(3); // 3.paid
+            adminRevenue.setCreatedAt(LocalDate.now());
+            adminRevenue.setDeletedAt(LocalDate.now());
+            adminRevenue.setUpdatedAt(LocalDate.now());
+
+            List<OrderDetail> orderDetails = orderDetailRepository.findByOrderProductId(existOrderProduct.getId());
+            if(orderDetails != null){
+                for (OrderDetail orderDetail: orderDetails
+                     ) {
+                    AdminRevenueDetail adminRevenueDetail = new AdminRevenueDetail();
+                    adminRevenueDetail.setAdminRevenue(adminRevenue);
+                    adminRevenueDetail.setStatus(3);
+                    adminRevenueDetail.setCreatedAt(LocalDate.now());
+                    adminRevenueDetail.setUpdatedAt(LocalDate.now());
+                    adminRevenueDetail.setProduct(orderDetail.getProduct());
+                    adminRevenueDetail.setStudioInfo(orderDetail.getProduct().getStudioInfo());
+                    adminRevenueDetail.setPhotographerInfo(orderDetail.getProduct().getPhotographerInfo());
+                    adminRevenueDetail.setCurrentPrice(orderDetail.getCurrentPrice() * 2 / 100);
+                    adminRevenue.setTotalRevenue(adminRevenue.getTotalRevenue() + adminRevenueDetail.getCurrentPrice());
+                    adminRevenueRepository.save(adminRevenue);
+                    adminRevenueDetailRepository.save(adminRevenueDetail);
+                }
+            }
             if (updatedOrderProduct != null) {
                 mailService.sendMail(
                         existOrderProduct.getCustomerEmail(),

@@ -38,6 +38,9 @@ public class OrderProductController {
     OrderDetailRepository orderDetailRepository;
 
     @Autowired
+    OrderProductRepository orderProductRepository;
+
+    @Autowired
     AccountService accountService;
 
     @Autowired
@@ -53,7 +56,7 @@ public class OrderProductController {
         if (account != null) {
             List<OrderProduct> listOrders = new ArrayList<>();
             if (account.getRole() == 5) {
-                listOrders = orderProductService.orders();
+                listOrders = orderProductRepository.getUnpaidOrders();
             } else {
                 List<OrderDetail> orderDetailList = orderDetailRepository.findByAccountId(account.getId());
                 for (OrderDetail orderDetail : orderDetailList

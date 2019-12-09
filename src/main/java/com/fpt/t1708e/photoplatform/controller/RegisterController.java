@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.rmi.RemoteException;
 
@@ -44,7 +45,11 @@ public class RegisterController {
     StudioInfoRepository studioInfoRepository;
 
     @RequestMapping(method = RequestMethod.GET,value = "/account/login")
-    public String loginAccount(){
+    public String loginAccount(HttpServletRequest request, HttpSession session){
+        if(session.getAttribute("previousUrl") != null){
+            session.removeAttribute("previousUrl");
+        }
+        session.setAttribute("previousUrl", request.getHeader("Referer"));
         return "login/login";
     }
 

@@ -194,7 +194,7 @@ public class ProductSeeder {
         product.setArea("Hailecao");
         product.setPrice(8000000);
         product.setPriceDiscount(5000000);
-        product.setThumbnail("");
+        product.setThumbnail("https://i.ytimg.com/vi/sY7QpHMs_pA/hqdefault.jpg");
         productList.add(product);
 
         // 13. - Hailecao
@@ -234,6 +234,73 @@ public class ProductSeeder {
         product.setPrice(1700000);
         product.setPriceDiscount(1500000);
         product.setThumbnail("https://chupanh.vn/wp-content/uploads/2017/11/14317363_1552279478131599_2305766279489871771_n.jpg");
+        productList.add(product);
+
+
+        // 16
+        product = new Product();
+        product.setName("Thuê trang phục kỷ yếu");
+        product.setDescription("Thuê trang phục kỷ yếu rẻ, đẹp");
+        product.setContent("Thuê trang phục  kỷ yếu rẻ, đẹp để cùng bạn bè ghi lại những khoảnh khắc kỷ niệm độc nhất của thời học sinh.");
+        product.setDestination("");
+        product.setArea("Tại nhà");
+        product.setPrice(100000);
+        product.setPriceDiscount(70000);
+        product.setThumbnail("");
+        productList.add(product);
+
+        // 18
+        product = new Product();
+        product.setName("Chụp ảnh kỷ yếu");
+        product.setDescription("Lưu giữ khoảnh khắc kỷ niệm độc nhất của thời học sinh");
+        product.setContent("Đội ngũ nhiếp ảnh gia trẻ - khỏe - nhiệt tình, luôn sẵn sàng “lăn lộn” mọi chiến trường cùng các bạn mà không \n" +
+                "             quản ngại mưa nắng không từ chối mọi cơ hội quẩy cùng các bạn \n" +
+                "             Ekip luôn tìm tòi, sáng tạo những góc chụp mới lạ để cho ra những bức ảnh kỷ yếu độc đáo và tinh tế nhất  \n" +
+                "             Trang thiết bị đầy đủ, hiện đại cho nước ảnh đẹp, xóa phông nổi bật gương mặt, fisheye góc rộng\n" +
+                "             Thoải mái chụp ảnh mà không cần lo lắng về việc bị giới hạn số ảnh chụp\n" +
+                "             Ưu đãi với hàng loạt phụ kiện như: áo cử nhân, bằng tốt nghiệp, áo dài, áo vest, loa thùng, flycam…\n" +
+                "             Mức giá vô cùng hấp dẫn, phù hợp với túi tiền của tất cả các bạn học sinh, sinh viên");
+        product.setDestination("");
+        product.setArea("Tại trường");
+        product.setPrice(5000000);
+        product.setPriceDiscount(3800000);
+        product.setThumbnail("");
+        productList.add(product);
+
+        // 19
+        product = new Product();
+        product.setName("Dịch vụ quay phim");
+        product.setDescription("Quay phim sự kiện");
+        product.setContent("Quay phim sự kiện giá rẻ");
+        product.setDestination("");
+        product.setArea("Tại khu vực");
+        product.setPrice(1200000);
+        product.setPriceDiscount(800000);
+        product.setThumbnail("");
+        productList.add(product);
+
+        // 20
+        product = new Product();
+        product.setName("Ảnh cưới phong cách Trung Quốc");
+        product.setDescription("Chụp ảnh cưới cổ trang Trung Quốc ");
+        product.setContent("Chụp ảnh cưới cổ trang Trung Quốc mới xuất hiện tại Việt Nam cách đây một vài năm nhưng đã khiến giới trẻ bị mê hoặc và trở nên hot hơn bao giờ hết. Chắc hẳn đối với những mọt phim Hoa ngữ, các bạn đều sẽ ấn tượng với những bộ trang phục cô dâu, làm tóc, kiểu make up cầu kỳ, bắt mắt trong từng thước phim. Và giờ đây, không khó để bạn có thể sở hữu một bộ ảnh cưới với phong cách cổ trang Trung Quốc với những dịch vụ chuyên nghiệp của các studio chụp ảnh cưới chuyên nghiệp tại Hà Nội.");
+        product.setDestination("");
+        product.setArea("Tại Studio");
+        product.setPrice(6000000);
+        product.setPriceDiscount(5000000);
+        product.setThumbnail("");
+        productList.add(product);
+
+        // 21
+        product = new Product();
+        product.setName("Ảnh cưới phong cách Hàn Quốc");
+        product.setDescription("Chụp ảnh cưới phong cách Hàn Quốc ");
+        product.setContent("Chụp ảnh cưới theo phong cách Hàn Quốc đang là xu hướng được nhiều cặp đôi lựa chọn hiện nay. Những style chụp lãng mạn cùng những concept độc đáo, lãng mạn sẽ giúp các cặp đôi có được những khoảnh khắc ngọt ngào trong ngày quan trọng này.");
+        product.setDestination("");
+        product.setArea("Tại Studio");
+        product.setPrice(9000000);
+        product.setPriceDiscount(7500000);
+        product.setThumbnail("");
         productList.add(product);
     }
 }

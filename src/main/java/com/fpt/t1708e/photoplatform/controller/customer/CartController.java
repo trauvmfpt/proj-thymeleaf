@@ -1,4 +1,4 @@
-package com.fpt.t1708e.photoplatform.controller;
+package com.fpt.t1708e.photoplatform.controller.customer;
 
 import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;

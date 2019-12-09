@@ -37,7 +37,7 @@ public class StudioInfo {
 	@ManyToOne(cascade = { CascadeType.MERGE})
 	@JoinColumn(name = "levelId")
 	private Level level;
-	@OneToMany(mappedBy = "studioInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "studioInfo", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Set<Album> albumSet;
 	@OneToMany(mappedBy = "studioInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Product> productSet;

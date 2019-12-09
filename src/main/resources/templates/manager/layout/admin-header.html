@@ -11,7 +11,7 @@
                     <!-- Logo container-->
                     <div class="logo">
                         <!-- Text Logo -->
-                        <a th:href="@{/dashboard}" class="logo">
+                        <a th:href="@{/manager}" class="logo">
                             FONIK
                         </a>
                         <!-- Image Logo -->
@@ -111,7 +111,14 @@
                         <ul class="navigation-menu">
 
                             <li class="has-submenu">
-                                <a th:href="@{/dashboard}"><i class="dripicons-device-desktop"></i>Dashboard</a>
+                                <a th:href="@{/manager}"><i class="dripicons-device-desktop"></i>Dashboard</a>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="/manager/order/list"><i class="dripicons-to-do"></i>Order <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="/manager/order/list">List order</a></li>
+                                </ul>
                             </li>
 
                             <li class="has-submenu">

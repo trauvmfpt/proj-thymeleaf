@@ -50,7 +50,8 @@ public class Product {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> commentSet;
 	@JsonIgnore
-	@ManyToMany(mappedBy = "productSet", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+	@ManyToMany(mappedBy = "productSet", cascade = { CascadeType.MERGE,
+			CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	private Set<Promotion> promotionSet;
 	private LocalDate createdAt;
 	private LocalDate updatedAt;

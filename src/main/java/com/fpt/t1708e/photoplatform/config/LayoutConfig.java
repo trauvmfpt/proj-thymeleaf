@@ -3,6 +3,7 @@ package com.fpt.t1708e.photoplatform.config;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 @Configuration

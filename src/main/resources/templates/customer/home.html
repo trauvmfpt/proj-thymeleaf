@@ -3,10 +3,37 @@
     xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Home1</title>
+    <title>Home</title>
     <link href="/css/ion.rangeSlider.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/fix-template.css}">
     <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <style>
+        .text-limit {
+            display: -webkit-box;
+            max-height: 3.2rem;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            -webkit-line-clamp: 2;
+        }
+
+        .hot-place {
+            text-align: center;
+            border: 1px solid gray;
+            padding: 25px 15px 15px 15px;
+            border-radius: 5px;
+        }
+
+        .img-place {
+            max-height: 170px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .img-photographer{
+            max-height: 220px;
+        }
+    </style>
 </head>
 
 <body>
@@ -57,131 +84,81 @@
                     <span><em></em></span>
                 </div>
                 <!-- End main_title -->
-
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="img_wrapper_grid">
+                        <div class="img_wrapper_grid" th:object="${rateAlbum[0]}">
                             <div class="ribbon">
                                 <span>Popular</span>
                             </div>
                             <div class="img_container_grid_home">
-                                <a href="florence-must-see-detail.html">
-                                    <img src="img/grid_home_1.jpg" width="800" height="480" class="img-responsive"
-                                        alt="" style="max-height: 440px;">
+                                <a th:href="@{/album/{id}(id = ${rateAlbum[0].getId()})}">
+                                    <img th:src="${rateAlbum[0].getThumbnail()}" class="img-responsive studio-main"
+                                        alt="">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
-                                            <small><strong>Tên Album.</strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
+                                            <h2 th:text="${rateAlbum[0].getName()}"></h2>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <!-- End img_wrapper_grid -->
                     </div>
                     <div class="col-md-4">
-                        <div class="img_wrapper_grid">
+                        <div class="img_wrapper_grid" th:object="${rateAlbum[1]}">
                             <div class="ribbon">
                                 <span>Popular</span>
                             </div>
                             <div class="img_container_grid_home">
-                                <a href="florence-must-see-detail.html">
-                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
-                                        alt="" style="max-height: 205px;">
+                                <a th:href="@{/album/{id}(id = ${rateAlbum[1].getId()})}">
+                                    <img th:src="${rateAlbum[1].getThumbnail()}" class="img-responsive studio-main"
+                                        alt="">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
-                                            <small><strong>Tên Album.</strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
+                                            <h2 th:text="${rateAlbum[1].getName()}"></h2>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <!-- End img_wrapper_grid -->
-                        <div class="img_wrapper_grid">
+                        <div class="img_wrapper_grid" th:object="${rateAlbum[2]}">
                             <div class="ribbon">
                                 <span>Popular</span>
                             </div>
                             <div class="img_container_grid_home">
-                                <a href="florence-must-see-detail.html">
-                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
-                                        alt="" style="max-height: 205px;">
+                                <a th:href="@{/album/{id}(id = ${rateAlbum[2].getId()})}">
+                                    <img th:src="${rateAlbum[2].getThumbnail()}" class="img-responsive studio-main"
+                                        alt="">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
-                                            <small><strong>Tên Album.</strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
+                                            <h2 th:text="${rateAlbum[2].getName()}"></h2>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <!-- End img_wrapper_grid -->
                     </div>
                 </div>
-                <!-- End row -->
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4" th:each="album,albumStat: ${rateAlbum}"
+                        th:if="${albumStat.index >=3 and albumStat.index < 6}">
                         <div class="img_wrapper_grid">
                             <div class="ribbon">
                                 <span>Popular</span>
                             </div>
                             <div class="img_container_grid_home">
-                                <a href="florence-must-see-detail.html">
-                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
-                                        alt="" style="max-height: 205px;">
+                                <a th:href="@{/album/{id}(id = ${album.getId()})}">
+                                    <img th:src="${album.getThumbnail()}" class="img-responsive" alt=""
+                                        th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">
                                         <div class="content_info_home">
-                                            <small><strong>Tên Album.</strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
+                                            <h3 th:text="${album.getName()}"></h3>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon">
-                                <span>Popular</span>
-                            </div>
-                            <div class="img_container_grid_home">
-                                <a href="florence-must-see-detail.html">
-                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
-                                        alt="" style="max-height: 205px;">
-                                    <div class="short_info_grid_home">
-                                        <div class="content_info_home">
-                                            <small><strong>Tên Album.</strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon">
-                                <span>Popular</span>
-                            </div>
-                            <div class="img_container_grid_home">
-                                <a href="florence-must-see-detail.html">
-                                    <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive"
-                                        alt="" style="max-height: 205px;">
-                                    <div class="short_info_grid_home">
-                                        <div class="content_info_home">
-                                            <small><strong>Tên Album.</strong></small>
-                                            <h3>Tên Studio hoặc photographer</h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
                     </div>
                 </div>
-                <!-- End row -->
             </div>
             <!-- End container -->
         </div>
@@ -198,76 +175,12 @@
             </div>
 
             <div class="box_cat">
-                <div class="col-md-3 col-sm-6">
-                    <a href="florence-must-see-map-listing.html">
-                        <img src="img/grid_home_6.jpg" alt="">
-                        <h3>Must see</h3>
-                        <p>
-                            Pri melius fuisset at, pro legimus corpora no
-                        </p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="florence-must-see-map-listing.html">
-                        <img src="img/grid_home_6.jpg" alt="">
-                        <h3>Must see</h3>
-                        <p>
-                            Pri melius fuisset at, pro legimus corpora no
-                        </p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="florence-must-see-map-listing.html">
-                        <img src="img/grid_home_6.jpg" alt="">
-                        <h3>Must see</h3>
-                        <p>
-                            Pri melius fuisset at, pro legimus corpora no
-                        </p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="florence-must-see-map-listing.html">
-                        <img src="img/grid_home_6.jpg" alt="">
-                        <h3>Must see</h3>
-                        <p>
-                            Pri melius fuisset at, pro legimus corpora no
-                        </p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="florence-must-see-map-listing.html">
-                        <img src="img/grid_home_6.jpg" alt="">
-                        <h3>Must see</h3>
-                        <p>
-                            Pri melius fuisset at, pro legimus corpora no
-                        </p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="florence-must-see-map-listing.html">
-                        <img src="img/grid_home_6.jpg" alt="">
-                        <h3>Must see</h3>
-                        <p>
-                            Pri melius fuisset at, pro legimus corpora no
-                        </p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="florence-must-see-map-listing.html">
-                        <img src="img/grid_home_6.jpg" alt="">
-                        <h3>Must see</h3>
-                        <p>
-                            Pri melius fuisset at, pro legimus corpora no
-                        </p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="florence-must-see-map-listing.html">
-                        <img src="img/grid_home_6.jpg" alt="">
-                        <h3>Must see</h3>
-                        <p>
-                            Pri melius fuisset at, pro legimus corpora no
-                        </p>
+                <div class="col-md-4 col-sm-6" th:each="product,productStat: ${rateProduct}"
+                    th:if="${productStat.index < 6}">
+                    <a th:href="@{/product/{id}(id = ${product.getId()})}">
+                        <img th:src="${product.getThumbnail()}" alt="" style="height: 140px;object-fit: cover;">
+                        <h3 class="text-limit" th:text="${product.getName()}"></h3>
+                        <p class="text-limit" th:text="${product.getContent()}"></p>
                     </a>
                 </div>
             </div>
@@ -288,78 +201,38 @@
 
             <div class="row">
                 <div class="col-md-3">
-                    <div class="img_wrapper_grid">
+                    <div class="img_wrapper_grid" th:each="studio,studioStat: ${rateStudios}"
+                        th:if="${studioStat.index > 0 and studioStat.index < 4}">
                         <div class="ribbon">
                             <span>Popular</span>
                         </div>
                         <div class="img_container_grid">
-                            <a href="florence-must-see-detail.html">
-                                <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive" alt=""
+                            <a th:href="@{/studio/{id}(id = ${studio.getId()})}">
+                                <img th:src="${studio.getAvatar()}" class="img-responsive" alt=""
                                     style="max-height: 150px;">
                                 <div class="short_info_grid">
-                                    <small><strong>Duration: 60 min.</strong></small>
-                                    <h3>Santa Maria Novella</h3>
-                                    <em>Monuments - Attractions</em>
+                                    <h3 th:text="${studio.getFullName()}"></h3>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    <!-- End img_wrapper_grid -->
-                    <div class="img_wrapper_grid">
-                        <div class="ribbon">
-                            <span>Popular</span>
-                        </div>
-                        <div class="img_container_grid">
-                            <a href="florence-must-see-detail.html">
-                                <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive" alt=""
-                                    style="max-height: 150px;">
-                                <div class="short_info_grid">
-                                    <small><strong>Duration: 60 min.</strong></small>
-                                    <h3>Santa Maria Novella</h3>
-                                    <em>Monuments - Attractions</em>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End img_wrapper_grid -->
-                    <div class="img_wrapper_grid">
-                        <div class="ribbon">
-                            <span>Popular</span>
-                        </div>
-                        <div class="img_container_grid">
-                            <a href="florence-must-see-detail.html">
-                                <img src="img/grid_home_3.jpg" width="800" height="468" class="img-responsive" alt=""
-                                    style="max-height: 150px;">
-                                <div class="short_info_grid">
-                                    <small><strong>Duration: 60 min.</strong></small>
-                                    <h3>Santa Maria Novella</h3>
-                                    <em>Monuments - Attractions</em>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- End img_wrapper_grid -->
                 </div>
                 <div class="col-md-9" style="margin: auto;">
-                    <div class="img_wrapper_grid">
+                    <div class="img_wrapper_grid" th:object="${rateStudios[0]}">
                         <div class="ribbon">
                             <span>Popular</span>
                         </div>
                         <div class="img_container_grid">
-                            <a href="florence-must-see-detail.html">
-                                <img src="img/grid_home_1.jpg" width="800" height="480" class="img-responsive" alt=""
-                                    style="max-height: 450px;">
+                            <a th:href="@{/studio/{id}(id = ${rateStudios[0].getId()})}">
+                                <img th:src="${rateStudios[0].getAvatar()}" class="img-responsive" alt=""
+                                    style="max-height: 500px">
                                 <div class="short_info_grid">
-                                    <small><strong>Duration: 90 min.</strong></small>
-                                    <h3>Duomo Cathedral</h3>
-                                    <em>Historic Buildings</em>
+                                    <h2 th:text="${rateStudios[0].getFullName()}"></h2>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    <!-- End img_wrapper_grid -->
                 </div>
-
             </div>
             <!-- End row -->
         </div>
@@ -375,58 +248,18 @@
                     </p>
                     <span><em></em></span>
                 </div>
-                <!-- End main_title -->
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4" th:each="photographer, photographerStat : ${ratePhotographers}"
+                        th:if="${photographerStat.index < 3}">
                         <div class="img_wrapper_grid">
                             <div class="ribbon top">
                                 <span>Top rated</span>
                             </div>
                             <div class="img_container_grid">
-                                <a href="florence-restaurant-detail.html">
-                                    <img src="img/grid_home_4.jpg" width="800" height="468" class="img-responsive"
-                                        alt="">
+                                <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer" alt="">
                                     <div class="short_info_grid">
-                                        <small><strong>From 30$</strong></small>
-                                        <h3>Da Domenico</h3>
-                                        <em>Restaurant</em>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon top">
-                                <span>Top rated</span>
-                            </div>
-                            <div class="img_container_grid">
-                                <a href="florence-bar-detail.html">
-                                    <img src="img/grid_home_5.jpg" width="800" height="468" class="img-responsive"
-                                        alt="">
-                                    <div class="short_info_grid">
-                                        <small><strong>From 20$</strong></small>
-                                        <h3>La Grotta Pub</h3>
-                                        <em>Bar - Pun</em>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon top">
-                                <span>Top rated</span>
-                            </div>
-                            <div class="img_container_grid">
-                                <a href="florence-shop-detail.html">
-                                    <img src="img/grid_home_6.jpg" width="800" height="468" class="img-responsive"
-                                        alt="">
-                                    <div class="short_info_grid">
-                                        <h3>Shopping Mall</h3>
-                                        <em>Shop</em>
+                                        <h3 th:text="${photographer.getFullName()}"></h3>
                                     </div>
                                 </a>
                             </div>
@@ -434,58 +267,18 @@
                         <!-- End img_wrapper_grid -->
                     </div>
                 </div>
-                <!-- End row -->
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4" th:each="photographer, photographerStat : ${ratePhotographers}"
+                        th:if="${photographerStat.index > 3 and photographerStat.index < 7}">
                         <div class="img_wrapper_grid">
                             <div class="ribbon top">
                                 <span>Top rated</span>
                             </div>
                             <div class="img_container_grid">
-                                <a href="florence-restaurant-detail.html">
-                                    <img src="img/grid_home_4.jpg" width="800" height="468" class="img-responsive"
-                                        alt="">
+                                <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer" alt="">
                                     <div class="short_info_grid">
-                                        <small><strong>From 30$</strong></small>
-                                        <h3>Da Domenico</h3>
-                                        <em>Restaurant</em>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon top">
-                                <span>Top rated</span>
-                            </div>
-                            <div class="img_container_grid">
-                                <a href="florence-bar-detail.html">
-                                    <img src="img/grid_home_5.jpg" width="800" height="468" class="img-responsive"
-                                        alt="">
-                                    <div class="short_info_grid">
-                                        <small><strong>From 20$</strong></small>
-                                        <h3>La Grotta Pub</h3>
-                                        <em>Bar - Pun</em>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End img_wrapper_grid -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img_wrapper_grid">
-                            <div class="ribbon top">
-                                <span>Top rated</span>
-                            </div>
-                            <div class="img_container_grid">
-                                <a href="florence-shop-detail.html">
-                                    <img src="img/grid_home_6.jpg" width="800" height="468" class="img-responsive"
-                                        alt="">
-                                    <div class="short_info_grid">
-                                        <h3>Shopping Mall</h3>
-                                        <em>Shop</em>
+                                        <h3 th:text="${photographer.getFullName()}"></h3>
                                     </div>
                                 </a>
                             </div>
@@ -493,76 +286,89 @@
                         <!-- End img_wrapper_grid -->
                     </div>
                 </div>
-                <!-- End row -->
             </div>
             <!-- End container -->
         </div>
 
         <!-- Top các địa điểm hot -->
-
-        <div class="parallax_window_home bright">
-            <div class="container">
-                <div class="main_title">
-                    <h3><strong>Địa điểm </strong>chụp ảnh hot </h3>
+        <div class="container margin_60_30">
+            <div class="main_title">
+                <h3><strong>Địa điểm </strong>chụp ảnh hot </h3>
+            </div>
+            <div class="row features add_bottom_45">
+                <div class="col-sm-4" style="margin: 15px 0;">
+                    <div class="hot-place">
+                        <a th:href="@{/search?key=ha-noi}">
+                            <img class="img-place"
+                                src="https://123thue.vn/blog/wp-content/uploads/2016/06/nhung-dia-diem-chup-anh-dep-o-ha-noi-7-phunutoday_vn.jpg">
+                            <h3>Hà Nội</h3>
+                            <p>
+                                The most important tips on your Mobile during a visit....online and offline.
+                            </p>
+                        </a>
+                    </div>
                 </div>
-                <div class="row features add_bottom_45">
-                    <div class="col-sm-4">
-                        <div id="feat_2">
-                            <a href="about.html" class="bt_info">Read more</a>
-                            <h3>Find places</h3>
-                            <p>
-                                The most interesting place close to you. Attractions, Museums, Restaurant...
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div id="feat_1">
-                            <a href="about.html" class="bt_info">Read more</a>
-                            <h3>Get info&amp;tips</h3>
+                <div class="col-sm-4" style="margin: 15px 0;">
+                    <div class="hot-place">
+                        <a th:href="@{/search?key=da-nang}">
+                            <img class="img-place"
+                                src="https://vntrip.cdn.vccloud.vn/cam-nang/wp-content/uploads/2017/07/14759257420_7e2d488fbc_c.jpg">
+                            <h3>Đà Nẵng</h3>
                             <p>
                                 The most important tips on your Mobile during a visit....online and offline.
                             </p>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-sm-4">
-                        <div id="feat_3">
-                            <a href="about.html" class="bt_info">Read more</a>
-                            <h3>Read and listen</h3>
-                            <p>
-                                The most important info about a place reviewed by Quality Authors.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div id="feat_2">
-                            <a href="about.html" class="bt_info">Read more</a>
-                            <h3>Find places</h3>
-                            <p>
-                                The most interesting place close to you. Attractions, Museums, Restaurant...
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div id="feat_1">
-                            <a href="about.html" class="bt_info">Read more</a>
-                            <h3>Get info&amp;tips</h3>
+                </div>
+                <div class="col-sm-4" style="margin: 15px 0;">
+                    <div class="hot-place">
+                        <a th:href="@{/search?key=pho-co-ha-noi}">
+                            <img class="img-place"
+                                src="https://www.vietfuntravel.com.vn/image/data/Ha-Noi/pho-co-ha-noi/pho-co-ha-noi-nam-o-duong-nao-h1.jpg">
+                            <h3>Phố cổ Hà Nội</h3>
                             <p>
                                 The most important tips on your Mobile during a visit....online and offline.
                             </p>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-sm-4">
-                        <div id="feat_3">
-                            <a href="about.html" class="bt_info">Read more</a>
-                            <h3>Read and listen</h3>
+                </div>
+                <div class="col-sm-4" style="margin: 15px 0;">
+                    <div class="hot-place">
+                        <a th:href="@{/search?key=sai-gon}">
+                            <img class="img-place"
+                                src="https://sohanews.sohacdn.com/thumb_w/660/2018/7/30/photo1532918395475-1532918395476489107193.jpg">
+                            <h3>Sài Gòn</h3>
                             <p>
-                                The most important info about a place reviewed by Quality Authors.
+                                The most important tips on your Mobile during a visit....online and offline.
                             </p>
-                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4" style="margin: 15px 0;">
+                    <div class="hot-place">
+                        <a th:href="@{/search?key=da-lat}">
+                            <img class="img-place"
+                                src="https://vntrip.cdn.vccloud.vn/cam-nang/wp-content/uploads/2017/06/1dl.jpg">
+                            <h3>Đà Lạt</h3>
+                            <p>
+                                The most important tips on your Mobile during a visit....online and offline.
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4" style="margin: 15px 0;">
+                    <div class="hot-place">
+                        <a th:href="@{/search?key=kihh-thanh-hue}">
+                            <img class="img-place"
+                                src="https://mb.dkn.tv/wp-content/uploads/2017/09/phong-thuy-thanh-hue-590x333.jpg">
+                            <h3>Kinh thành Huế</h3>
+                            <p>
+                                The most important tips on your Mobile during a visit....online and offline.
+                            </p>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <script th:src="@{/js/common_scripts_min.js}"></script>
     </th:block>

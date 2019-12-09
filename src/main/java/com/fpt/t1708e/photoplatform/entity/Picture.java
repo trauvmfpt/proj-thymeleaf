@@ -24,6 +24,13 @@ public class Picture {
         this.updatedAt = LocalDate.now();
         this.status = 1;
     }
+    public Picture(String url, Album album){
+        this.url = url;
+        this.album = album;
+        this.createdAt = LocalDate.now();
+        this.updatedAt = LocalDate.now();
+        this.status = 1;
+    }
 
     public long getId() {
         return id;

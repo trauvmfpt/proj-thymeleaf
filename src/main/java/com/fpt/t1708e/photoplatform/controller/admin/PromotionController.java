@@ -24,7 +24,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "/promotion")
+@RequestMapping(value = "manager/promotion")
 public class PromotionController {
 	@Autowired
 	PromotionService promotionService;

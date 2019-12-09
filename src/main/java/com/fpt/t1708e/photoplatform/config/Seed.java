@@ -115,7 +115,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         List<Integer> role = Arrays.asList(1, 2, 3);
         List<Rank> rankList = rankRepository.findAll();
         List<Level> levelList = levelRepository.findAll();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 20; i++) {
             Account account = new Account();
             account.setRole(1);
 
@@ -220,8 +220,11 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     }
 
     public void albumSeeder() {
+        pictureRepository.deleteAll();
+        pictureRepository.resetIncrement();
         albumRepository.deleteAll();
         albumRepository.resetIncrement();
+
         List<Account> studioAccounts = accountRepository.findAllAccountByRole(2).get();
         List<Account> ptgAccounts = accountRepository.findAllAccountByRole(3).get();
         AlbumAndPictureSeeder.addAlbum();
@@ -232,9 +235,14 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 _album.setName(album.getName());
                 _album.setThumbnail(album.getThumbnail());
                 _album.setDescription(album.getDescription());
-                _album.setPictureSet(album.getPictureSet());
+                Set<Picture> pictureSet = new HashSet<>();
+                album.getPictureSet().stream().forEach(picture -> pictureSet.add(picture));
+                pictureSet.stream().forEach(picture -> picture.setAlbum(_album));
+//                _album.setPictureSet(pictureSet);
                 _album.setStudioInfo(account.getStudioInfo());
                 albumRepository.save(_album);
+
+                pictureSet.stream().forEach(picture -> pictureRepository.save(new Picture(picture.getUrl(),picture.getAlbum())));
             }
         }
         for (Account account : ptgAccounts) {
@@ -244,9 +252,14 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 _album.setName(album.getName());
                 _album.setThumbnail(album.getThumbnail());
                 _album.setDescription(album.getDescription());
-                _album.setPictureSet(album.getPictureSet());
+//                _album.setPictureSet(album.getPictureSet());
+                Set<Picture> pictureSet = new HashSet<>();
+                album.getPictureSet().stream().forEach(picture -> pictureSet.add(picture));
+                pictureSet.stream().forEach(picture -> picture.setAlbum(_album));
                 _album.setPhotographerInfo(account.getPhotographerInfo());
                 albumRepository.save(_album);
+                pictureSet.stream().forEach(picture -> pictureRepository.save(new Picture(picture.getUrl(),picture.getAlbum())));
+
             }
         }
     }

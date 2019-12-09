@@ -42,7 +42,7 @@ public class PhotographerInfo {
 	@ManyToOne(cascade = { CascadeType.MERGE})
 	@JoinColumn(name = "StudioInfoId")
 	private StudioInfo studioInfo;
-	@OneToMany(mappedBy = "photographerInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "photographerInfo", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Set<Album> albumSet;
 	@OneToMany(mappedBy = "photographerInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Product> productSet;

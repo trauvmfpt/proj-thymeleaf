@@ -31,4 +31,8 @@ public class PromotionService {
         promotion.setUpdatedAt(LocalDate.now());
         return promotionRepository.save(promotion);
     }
+
+    public List<Promotion> findAll() {
+        return promotionRepository.findAll();
+    }
 }

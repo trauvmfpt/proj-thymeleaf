@@ -144,9 +144,12 @@
                             <span id="currentUser" class="ml-1 limit-name-user" th:text="${#authentication.getName()}"> <i class="mdi mdi-chevron-down"></i> </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                            <a class="dropdown-item" href="/logout"><i class="dripicons-exit text-muted"></i> Logout</a>
+
                             <a class="dropdown-item" href="/manager" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == false}"><i class="dripicons-document text-muted"></i>
                                 Manage</a>
+                            <a class="dropdown-item" href="/history" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == true}"><i class="dripicons-document text-muted"></i>
+                                History Order</a>
+                            <a class="dropdown-item" href="/logout"><i class="dripicons-exit text-muted"></i> Logout</a>
                         </div>
                     </li>
                     <li id="buy list-inline-item dropdown notification-list show">

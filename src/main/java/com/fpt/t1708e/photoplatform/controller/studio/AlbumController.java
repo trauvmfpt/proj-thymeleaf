@@ -1,12 +1,10 @@
 package com.fpt.t1708e.photoplatform.controller.studio;
 
-import com.fpt.t1708e.photoplatform.entity.Album;
-import com.fpt.t1708e.photoplatform.entity.PhotographerInfo;
-import com.fpt.t1708e.photoplatform.entity.Picture;
-import com.fpt.t1708e.photoplatform.entity.StudioInfo;
+import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.repository.AlbumRepository;
 import com.fpt.t1708e.photoplatform.repository.PhotographerInfoRepository;
 import com.fpt.t1708e.photoplatform.repository.StudioInfoRepository;
+import com.fpt.t1708e.photoplatform.service.AccountService;
 import com.fpt.t1708e.photoplatform.util.ImageUltil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +41,9 @@ public class AlbumController {
     @Autowired
     AlbumRepository albumRepository;
 
+    @Autowired
+    AccountService accountService;
+
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public String create(Model model) throws RemoteException {
         List<StudioInfo> studioInfos = studioInfoRepository.findAll();
@@ -54,33 +55,60 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
-    public String store(Model model, @Valid Album album, BindingResult bindingResult, HttpServletRequest req, @RequestParam("imgUrls") String[] imgUrls) throws IOException, ServletException {
+    public String store(Model model, @Valid Album album, BindingResult bindingResult, HttpServletRequest req, @RequestParam(required = false, name = "imgUrls") String[] imgUrls) throws IOException, ServletException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("album", album);
             return "manager/studio/album/create";
         }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        Account account = accountService.findByUserName(userName);
         Set<Picture> imageList = new HashSet<>();
 
-        if (imgUrls != null){
+        if (imgUrls != null) {
             album.setThumbnail(imgUrls[0]);
-            for (String imgUrl: imgUrls) {
+            for (String imgUrl : imgUrls) {
                 Picture picture = new Picture();
                 picture.setUrl(imgUrl);
                 picture.setStatus(1);
                 picture.setAlbum(album);
                 imageList.add(picture);
             }
+            if (account.getPhotographerInfo() != null) {
+                album.setPhotographerInfo(account.getPhotographerInfo());
+            } else {
+                album.setStudioInfo(account.getStudioInfo());
+            }
             album.setPictureSet(imageList);
+            albumRepository.save(album);
+            return "redirect:/manager/album/create";
         }
-        albumRepository.save(album);
-        return "redirect:/manager/album/create";
+        model.addAttribute("album", album);
+        return "manager/studio/album/create";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public String list(Model model) throws RemoteException {
-        List<Album> albums = albumRepository.findAllByStatus(1);
-        model.addAttribute("albums", albums);
-        return "manager/studio/album/list";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        Account account = accountService.findByUserName(userName);
+        //
+        if (account.getRole() == 2) {
+            List<Album> albums = albumRepository.findAllByStudioInfo(account.getStudioInfo());
+            model.addAttribute("albums", albums);
+            return "manager/studio/album/list";
+        }else if (account.getRole() == 3){
+            List<Album> albums = albumRepository.findAllByPhotographerInfo(account.getPhotographerInfo());
+            model.addAttribute("albums", albums);
+            return "manager/studio/album/list";
+        }else if (account.getRole() == 5){
+            List<Album> albums = albumRepository.findAllByStatus(1);
+            model.addAttribute("albums", albums);
+            return "manager/studio/album/list";
+        }
+        return "error/404";
+
+
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
@@ -90,7 +118,7 @@ public class AlbumController {
         model.addAttribute("studios", studioInfos);
         model.addAttribute("photographers", photographerInfos);
         Album album = albumRepository.findById(id).orElse(null);
-        if(album != null){
+        if (album != null) {
             model.addAttribute("album", album);
             return "manager/studio/album/edit";
         }
@@ -110,7 +138,7 @@ public class AlbumController {
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{id}")
     public String update(Model model, @PathVariable long id) throws RemoteException {
         Album album = albumRepository.findById(id).orElse(null);
-        if(album != null){
+        if (album != null) {
             album.setStatus(0);
             albumRepository.save(album);
         }
@@ -120,7 +148,7 @@ public class AlbumController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public String detail(Model model, @PathVariable long id) throws RemoteException {
         Album album = albumRepository.findById(id).orElse(null);
-        if(album != null){
+        if (album != null) {
             model.addAttribute("album", album);
             model.addAttribute("pictures", album.getPictureSet());
             return "manager/studio/album/detail";

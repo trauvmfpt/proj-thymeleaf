@@ -91,7 +91,7 @@
                                 <span>Popular</span>
                             </div>
                             <div class="img_container_grid_home">
-                                <a th:href="@{/customer/album/{id}(id = ${rateAlbum[0].getId()})}">
+                                <a th:href="@{/album/{id}(id = ${rateAlbum[0].getId()})}">
                                     <img th:src="${rateAlbum[0].getThumbnail()}" class="img-responsive studio-main"
                                         alt="">
                                     <div class="short_info_grid_home">
@@ -109,7 +109,7 @@
                                 <span>Popular</span>
                             </div>
                             <div class="img_container_grid_home">
-                                <a th:href="@{/customer/album/{id}(id = ${rateAlbum[1].getId()})}">
+                                <a th:href="@{/album/{id}(id = ${rateAlbum[1].getId()})}">
                                     <img th:src="${rateAlbum[1].getThumbnail()}" class="img-responsive studio-main"
                                         alt="">
                                     <div class="short_info_grid_home">
@@ -125,7 +125,7 @@
                                 <span>Popular</span>
                             </div>
                             <div class="img_container_grid_home">
-                                <a th:href="@{/customer/album/{id}(id = ${rateAlbum[2].getId()})}">
+                                <a th:href="@{/album/{id}(id = ${rateAlbum[2].getId()})}">
                                     <img th:src="${rateAlbum[2].getThumbnail()}" class="img-responsive studio-main"
                                         alt="">
                                     <div class="short_info_grid_home">
@@ -146,7 +146,7 @@
                                 <span>Popular</span>
                             </div>
                             <div class="img_container_grid_home">
-                                <a th:href="@{/customer/album/{id}(id = ${album.getId()})}">
+                                <a th:href="@{/album/{id}(id = ${album.getId()})}">
                                     <img th:src="${album.getThumbnail()}" class="img-responsive" alt=""
                                         th:classappend="${albumStat.index == 0} ? 'studio-main' : 'studio-sub'">
                                     <div class="short_info_grid_home">

@@ -55,23 +55,27 @@
                                     <span style="margin-left: 5px;font-size: 25px; height: 70px;">7.5</span>
                                 </div>
                                 <div class="price_product" style="float: left;">
-                                    <div th:if="${product.price} == ${product.priceDiscount}">
-                                        <span style="font-size: 14px;">From</span>
-                                        <span th:text="${product.price}" style="font-size: 25px; top: 4px;"></span>
-                                        <sup style="font-size: 14px;">VND</sup>
+                                    <div style="padding-top: 7px" th:if="${product.price} == ${product.priceDiscount}">
+                                        <span style="font-size: 14px; color: white;">From</span>
+                                        <span th:with="price=${product.price}"
+                                              th:text="${#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}"
+                                              style="font-size: 25px; color: white;"></span>
+                                        <sup style="font-size: 14px; color: white;">VND</sup>
                                     </div>
                                     <div th:unless="${product.price} == ${product.priceDiscount}">
                                         <div>
-                                            <span style="font-size: 14px;">From</span>
-                                            <span th:text="${product.price}"
+                                            <span style="font-size: 14px; color: white;">From</span>
+                                            <span th:with="price=${product.price}"
+                                                  th:text="${#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}"
                                                 style="text-decoration: line-through; color: gray; font-size: 25px; top: 4px;"></span>
                                             <sup
                                                 style="font-size: 14px; text-decoration: line-through; color: gray;">VND</sup>
                                         </div>
                                         <div>
-                                            <span th:text="${product.priceDiscount}"
-                                                style="font-size: 25px; top: 4px;"></span>
-                                            <sup style="font-size: 14px;">VND</sup>
+                                            <span th:with="priceDiscount=${product.priceDiscount}"
+                                                  th:text="${#numbers.formatDecimal(priceDiscount, 0, 'COMMA', 0, 'POINT')}"
+                                                style="font-size: 25px; top: 4px; color: white;"></span>
+                                            <sup style="font-size: 14px; color: white;">VND</sup>
                                         </div>
                                     </div>
                                 </div>
@@ -160,7 +164,8 @@
 
                         <div class="product-description">
                             <h3 class="lead description" th:text="${product.description}"></h3>
-                            <p class="product-content" style="margin-bottom: 30px" th:text="${product.content}"></p>
+                            <p th:block class="product-content" style="margin-bottom: 30px; white-space: pre-wrap;"
+                               th:text="${product.content}"></p>
                         </div>
 
                         <div class="img-product">
@@ -233,7 +238,7 @@
                         <div th:each="pro,proStat: ${listProduct}" th:if="${proStat.index < 10}">
                             <div class="img_wrapper">
                                 <div class="img_container">
-                                    <a href="#">
+                                    <a th:href="@{/product/{id}(id = ${pro.id})}">
                                         <img th:src="${pro.getThumbnail()}" width="350" class="img-responsive" alt="">
                                         <div class="short_info">
                                             <h3 th:text="${pro.getName()}">Product name</h3>

@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/account/login")
                 .successHandler(customLoginHandler())
-                .failureUrl("/login?error")
+                .failureUrl("/account/login?error")
                 .permitAll()
                 .and()
                 .logout()

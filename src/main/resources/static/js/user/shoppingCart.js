@@ -79,13 +79,15 @@ function addToCart(product_id, btn) {
 $(document).on('click', '.btn-add-cart' ,function(){
     var product_id = $(this).attr('id').replace('add-cart-', '');
     addToCart(product_id, 'btn-add-cart');
-    // loadCart();
+    loadCart();
+    $(this).attr('disabled', 'disabled');
 });
 
 $(document).on('click', '.btn-to-cart' ,function(){
     var product_id = $(this).attr('id').replace('add-cart-', '');
     addToCart(product_id, 'btn-to-cart');
-    // loadCart();
+    loadCart();
+    $(this).attr('disabled', 'disabled');
 });
 
 //cái này khác gì cái trên?

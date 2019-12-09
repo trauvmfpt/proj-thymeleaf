@@ -194,7 +194,7 @@ public class ProductSeeder {
         product.setArea("Hailecao");
         product.setPrice(8000000);
         product.setPriceDiscount(5000000);
-        product.setThumbnail("");
+        product.setThumbnail("https://i.ytimg.com/vi/sY7QpHMs_pA/hqdefault.jpg");
         productList.add(product);
 
         // 13. - Hailecao

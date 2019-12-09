@@ -16,8 +16,9 @@ import java.util.concurrent.TimeUnit;
 public class PromotionCustomerController {
     @Autowired
     PromotionService promotionService;
-    @RequestMapping(method = RequestMethod.GET)
-    public String list(){
+    @RequestMapping(method = RequestMethod.GET,value = "/list")
+    public String list(Model model){
+        model.addAttribute("promotionList",promotionService.findAll());
         return "customer/promotion/list";
     }
     @RequestMapping(method = RequestMethod.GET, value = "/detail")

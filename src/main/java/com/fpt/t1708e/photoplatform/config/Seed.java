@@ -2,9 +2,7 @@ package com.fpt.t1708e.photoplatform.config;
 
 import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.repository.*;
-import com.fpt.t1708e.photoplatform.seeder.PhotographerInfoSeeder;
-import com.fpt.t1708e.photoplatform.seeder.ProductSeeder;
-import com.fpt.t1708e.photoplatform.seeder.StudioInfoSeeder;
+import com.fpt.t1708e.photoplatform.seeder.*;
 import com.fpt.t1708e.photoplatform.service.CustomerInfoService;
 import com.fpt.t1708e.photoplatform.util.ProvinceStringUtil;
 import com.fpt.t1708e.photoplatform.util.VNCharUtil;
@@ -56,7 +54,8 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     OrderDetailRepository orderDetailRepository;
     Random rand = new Random();
-
+    @Autowired
+    PromotionRepository promotionRepository;
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
@@ -67,8 +66,9 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             seedAccount();
             categorySeed();
             albumSeeder();
-            pictureSeeder();
+//            pictureSeeder();
             productSeeder();
+            promotionSeed();
             ratingAndCommentSeeder();
             orderDetail();
             rankRepository.enableForeignKeyCheck();
@@ -211,13 +211,12 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     public void categorySeed() {
         categoryRepository.deleteAll();
         categoryRepository.resetIncrement();
-        for (int i = 0; i < 10; i++) {
-            Category category = new Category();
-            category.setName("Category " + i + 1);
-            category.setDescription("Category Description " + i + 1);
-            category.setThumbnail("https://www.logolynx.com/images/logolynx/5b/5b2d36284eb6b1147247ec3f1fc60a2f.jpeg");
+        CategorySeeder.addCate();
+        for (Category category:CategorySeeder.categoryList
+             ) {
             categoryRepository.save(category);
         }
+
     }
 
     public void albumSeeder() {
@@ -225,23 +224,30 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         albumRepository.resetIncrement();
         List<Account> studioAccounts = accountRepository.findAllAccountByRole(2).get();
         List<Account> ptgAccounts = accountRepository.findAllAccountByRole(3).get();
+        AlbumAndPictureSeeder.addAlbum();
         for (Account account : studioAccounts) {
-            Album album = new Album();
-            album.setName("Album " + account.getId());
-            album.setDescription("Album description " + account.getId());
-            album.setThumbnail(
-                    "https://previews.123rf.com/images/bestvectorstock/bestvectorstock1811/bestvectorstock181101812/111988091-wedding-album-icon-trendy-wedding-album-logo-concept-on-white-background-from-birthday-party-and-wed.jpg");
-            album.setStudioInfo(account.getStudioInfo());
-            albumRepository.save(album);
+            for (Album album: AlbumAndPictureSeeder.albumList
+                 ) {
+                Album _album = new Album();
+                _album.setName(album.getName());
+                _album.setThumbnail(album.getThumbnail());
+                _album.setDescription(album.getDescription());
+                _album.setPictureSet(album.getPictureSet());
+                _album.setStudioInfo(account.getStudioInfo());
+                albumRepository.save(_album);
+            }
         }
         for (Account account : ptgAccounts) {
-            Album album = new Album();
-            album.setName("Album " + account.getId());
-            album.setDescription("Album description " + account.getId());
-            album.setThumbnail(
-                    "https://previews.123rf.com/images/bestvectorstock/bestvectorstock1811/bestvectorstock181101812/111988091-wedding-album-icon-trendy-wedding-album-logo-concept-on-white-background-from-birthday-party-and-wed.jpg");
-            album.setPhotographerInfo(account.getPhotographerInfo());
-            albumRepository.save(album);
+            for (Album album: AlbumAndPictureSeeder.albumList
+            ) {
+                Album _album = new Album();
+                _album.setName(album.getName());
+                _album.setThumbnail(album.getThumbnail());
+                _album.setDescription(album.getDescription());
+                _album.setPictureSet(album.getPictureSet());
+                _album.setPhotographerInfo(account.getPhotographerInfo());
+                albumRepository.save(_album);
+            }
         }
     }
 
@@ -357,7 +363,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         for (Album album : albums) {
             CustomerInfo rdCus = customerInfos.get(rand.nextInt(customerInfos.size()));
             Comment comment = new Comment();
-            comment.setContent("Comment " + album.getId());
+            comment.setContent("Wow, Perfect experience " + album.getId());
             comment.setAlbum(album);
             comment.setCustomerInfo(rdCus);
             commentRepository.save(comment);
@@ -371,7 +377,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         for (Product product : products) {
             CustomerInfo rdCus = customerInfos.get(rand.nextInt(customerInfos.size()));
             Comment comment = new Comment();
-            comment.setContent("Comment " + product.getId());
+            comment.setContent("Wow, Perfect experience " + product.getId());
             comment.setProduct(product);
             comment.setCustomerInfo(rdCus);
             commentRepository.save(comment);
@@ -448,7 +454,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         List<CustomerInfo> customerInfos = customerInfoRepository.findAll();
         for (CustomerInfo customerInfo: customerInfos
              ) {
-            for (int i=0;i < 5;i++){
+            for (int i=0;i < 4;i++){
                 LocalDate localDate = LocalDate.now().minusDays(rand.nextInt(10));
                 OrderProduct orderProductSuccess = new OrderProduct();
                 orderProductSuccess.setCustomerEmail(customerInfo.getEmail());
@@ -465,7 +471,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 for (int m =0; m<productList.size();m++){
                     index.add(m);
                 }
-                for (int j=0;j<3;j++){
+                for (int j=0;j<2;j++){
                     OrderDetail orderDetailSuccess = new OrderDetail();
                     orderDetailSuccess.setOrderProduct(orderProductSuccess);
                     orderDetailSuccess.setStatus(3);
@@ -488,7 +494,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
         for (int k=0;k<12;k++){
             for (CustomerInfo customerInfo: customerInfos
             ) {
-                for (int i=0;i < 5;i++){
+                for (int i=0;i < 4;i++){
                     LocalDate localDate = LocalDate.now().minusMonths(i+1);
                     OrderProduct orderProductSuccess = new OrderProduct();
                     orderProductSuccess.setCustomerEmail(customerInfo.getEmail());
@@ -505,7 +511,7 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                     for (int m =0; m<productList.size();m++){
                         index.add(m);
                     }
-                    for (int j=0;j<3;j++){
+                    for (int j=0;j<2;j++){
                         OrderDetail orderDetailSuccess = new OrderDetail();
                         orderDetailSuccess.setOrderProduct(orderProductSuccess);
                         orderDetailSuccess.setStatus(3);
@@ -526,5 +532,20 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             }
         }
     }
-
+    public void promotionSeed(){
+        promotionRepository.deleteAll();
+        promotionRepository.resetIncrement();
+        PromotionSeeder.addPromotion();
+        Account account = accountRepository.findAccountByUsername("admin");
+        List<Product> productList = productRepository.findAll();
+        for (Promotion promotion:PromotionSeeder.promotionList
+             ) {
+            promotion.setAdminInfo(account.getAdminInfo());
+            for (Product product:productList
+                 ) {
+                promotion.addProduct(product);
+            }
+            promotionRepository.save(promotion);
+        }
+    }
 }

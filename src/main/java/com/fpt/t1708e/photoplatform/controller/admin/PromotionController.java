@@ -1,21 +1,18 @@
 package com.fpt.t1708e.photoplatform.controller.admin;
 
-import com.fpt.t1708e.photoplatform.entity.Account;
-import com.fpt.t1708e.photoplatform.entity.Category;
-import com.fpt.t1708e.photoplatform.entity.Product;
-import com.fpt.t1708e.photoplatform.entity.Promotion;
+import com.fpt.t1708e.photoplatform.entity.*;
+import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
 import com.fpt.t1708e.photoplatform.service.AccountService;
 import com.fpt.t1708e.photoplatform.service.CategoryService;
 import com.fpt.t1708e.photoplatform.service.ProductService;
 import com.fpt.t1708e.photoplatform.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.Instant;

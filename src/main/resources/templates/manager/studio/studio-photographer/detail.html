@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Detail Studio</title>
@@ -76,7 +77,7 @@
                                     th:text="${category.name}"
                                     th:with="cat=${category.name}"
                                     th:attr="data-filter='.'+${#strings.replace(#strings.toLowerCase(cat), ' ', '-')}"
-                                    >Web Design</li>
+                                >Web Design</li>
                             </ul>
                         </div>
                     </div>
@@ -85,10 +86,10 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="isotope_items row">
                                 <a th:each="product : ${info.productSet}" th:href="@{/product/{id}(id = ${product.id})}"
-                                    class="single_item col-md-4 col-sm-6 wow fadeInUp"
-                                    th:with="cat=${product.category.name}"
-                                    th:classappend="${#strings.replace(#strings.toLowerCase(cat), ' ', '-')}"
-                                    data-wow-delay="0.9s">
+                                   class="single_item col-md-4 col-sm-6 wow fadeInUp"
+                                   th:with="cat=${product.category.name}"
+                                   th:classappend="${#strings.replace(#strings.toLowerCase(cat), ' ', '-')}"
+                                   data-wow-delay="0.9s">
                                     <i class="fa fa-play" aria-hidden="true"></i>
                                     <img th:src="${product.thumbnail}" alt="@{/studio-photographer/images/work-1.jpg}">
                                 </a>
@@ -104,24 +105,24 @@
                     <div class="container">
                         <div class="section-title">
                             <h2>OUR PRODUCT</h2>
-<!--                            <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>-->
+                            <!--                            <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>-->
                             <p>The best in the best</p>
                         </div>
                         <!-- Blogs -->
                         <div class="row">
                             <a th:each="product, iterStat : ${info.productSet}" th:if="${iterStat.index} <3"
-                                    th:href="@{/product/{id}(id = ${product.id})}" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-content wow fadeInUp"
+                               th:href="@{/product/{id}(id = ${product.id})}" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-content wow fadeInUp"
                                data-wow-delay="0.4s">
                                 <div class="blog-image">
                                     <img th:src="${product.thumbnail}"
-                                            alt="@{/studio-photographer/images/blog-1.png}">
+                                         alt="@{/studio-photographer/images/blog-1.png}">
                                 </div>
                                 <h1 th:text="${product.name}">By spite about do of do allow blush</h1>
                                 <p th:text="${product.description}">Quick six blind smart out burst. Perfectly on furniture dejection determine my depending an to. Add short water court fat.  </p>
-<!--                                <span th:with="dat=${product.createdAt}"-->
-<!--                                      class="blog-info"-->
-<!--                                      th:text="${info.fullName} + ' - ' +-->
-<!--                                      ${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(dat)}">Larry Stark - 7 September 2016 </span>-->
+                                <!--                                <span th:with="dat=${product.createdAt}"-->
+                                <!--                                      class="blog-info"-->
+                                <!--                                      th:text="${info.fullName} + ' - ' +-->
+                                <!--                                      ${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(dat)}">Larry Stark - 7 September 2016 </span>-->
                                 <span class="blog-info"
                                       th:text="${info.fullName} + ' - ' +
                                       ${product.createdAt}">Larry Stark - 7 September 2016 </span>
@@ -144,7 +145,7 @@
                             <div class="col-md-12">
                                 <div class="section-title">
                                     <h2>COMMENT</h2>
-<!--                                    <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>-->
+                                    <!--                                    <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>-->
                                 </div>
                                 <ul th:if="${info.commentSet == null}">
                                     <li>Currently there're no comments.</li>
@@ -154,9 +155,9 @@
                                         <img th:src="${comment.customerInfo.avatar}" alt="@{/studio-photographer/images/person-1.jpg}">
                                         <div class="comment-info">
                                             <h3 th:text="${comment.customerInfo.fullName}">Mary R. Peterson</h3>
-<!--                                            <a href="#"> Reply </a>-->
-<!--                                            <span th:with="updatedAt=${comment.updatedAt}"-->
-<!--                                                    th:text="${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(updatedAt)}">Sep 26, 2016 at 14:35</span>-->
+                                            <!--                                            <a href="#"> Reply </a>-->
+                                            <!--                                            <span th:with="updatedAt=${comment.updatedAt}"-->
+                                            <!--                                                    th:text="${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(updatedAt)}">Sep 26, 2016 at 14:35</span>-->
                                             <span th:text="${comment.updatedAt}">Sep 26, 2016 at 14:35</span>
                                             <p th:text="${comment.content}">Kept in sent gave feel will oh it we. Has pleasure procured men laughing shutters nay. Old insipidity motionless continuing law shy partiality. </p>
                                         </div>
@@ -202,10 +203,8 @@
                 url: '',
                 data: '',
                 success: function () {
-
                 },
                 error: function () {
-
                 }
             })
         })

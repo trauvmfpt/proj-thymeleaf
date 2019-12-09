@@ -25,8 +25,10 @@ public class CustomerAlbumController {
             model.addAttribute("pictures", album.getPictureSet());
             if (album.getStudioInfo() != null){
                 model.addAttribute("by", album.getStudioInfo());
+                model.addAttribute("type", "studio");
             } else {
                 model.addAttribute("by", album.getPhotographerInfo());
+                model.addAttribute("type", "photographer");
             }
             return "customer/album/detail";
         }

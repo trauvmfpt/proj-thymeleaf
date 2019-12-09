@@ -13,6 +13,7 @@
         <!--                crossorigin="anonymous"></script>-->
         <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
         <script th:src="@{/semantic/semantic.js}"></script>
+        <script th:src="@{/js/user/shoppingCart.js}"></script>
         <style>
             * {
                 box-sizing: border-box;
@@ -193,35 +194,7 @@
     <!-- End container -->
     <script>
         $(document).ready(function () {
-            $.ajax({
-                url: 'http://localhost:8080/cart/get/',
-                method: 'GET',
-                success: function (resp) {
-                    var content = '';
-                    if (!Array.isArray(resp.data) || !resp.data.length || resp.data.length == 0) {
-                        $('.badge.badge-info.badge-pill.noti-icon-badge').text("0");
-                        $('.dropdown-item.noti-title').find('span').text("0");
-                    } else {
-                        $('.badge.badge-info.badge-pill.noti-icon-badge').text(resp.data.length);
-                        $('.dropdown-item.noti-title').find('span').text(resp.data.length);
-                        for (i = 0; i < resp.data.length; i++) {
-                            content += '<a href="/product/' + resp.data[i].product.id + '" class="dropdown-item notify-item">';
-                            content += '<div class="notify-icon" style="width: 40%;">';
-                            content += '<img src="' + resp.data[i].product.thumbnail + '" alt="" style="width: 75px;">';
-                            content += '<b style="color: black;">' + resp.data[i].product.name + '</b>';
-                            content += '</div>';
-                            content += '<p class="notify-details" style="color: black;">';
-                            content += '<small class="text-muted">' + resp.data[i].currentPrice + '</small>';
-                            content += '</p>';
-                            content += '</a>';
-                        }
-                    }
-                    $('#cart-items-wrapper').html(content);
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+            loadCart();
         });
         document.addEventListener("DOMContentLoaded", function (event) {
             $('.ui.search')

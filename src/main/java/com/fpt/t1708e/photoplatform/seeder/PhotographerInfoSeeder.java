@@ -15,7 +15,7 @@ public class PhotographerInfoSeeder {
 
 //        1.
         photographerInfo.setFullName("Dạ Miêu");
-        photographerInfo.setEmail("damieuphotography@gmail.com");
+        photographerInfo.setEmail("trauvmd00621@fpt.edu.vn");
         photographerInfo.setPhone("");
         photographerInfo.setAddress("https://www.instagram.com/da.mieu/");
         photographerInfo.setDescription("Dạ Miêu (tên thật là Nguyễn Diệu Linh – 1995) tập tành nhiếp ảnh và làm quen với Photoshop khi chỉ mới là học sinh cấp 2.\n" +
@@ -28,7 +28,7 @@ public class PhotographerInfoSeeder {
         // 2.
         photographerInfo = new PhotographerInfo();
         photographerInfo.setFullName("Trần Hoài An");
-        photographerInfo.setEmail("tranhoaian.kinhotrong@gmail.com");
+        photographerInfo.setEmail("trauvmd00621@fpt.edu.vn");
         photographerInfo.setPhone("+84 0347724245");
         photographerInfo.setAddress("https://www.instagram.com/kinhotrong/");
         photographerInfo.setDescription("Xúc cảm là bản âm hưởng vu vương và là linh hồn của những bức ảnh của nữ nhiếp ảnh gia tài năng Trần Hoài An (1992).\n" +
@@ -40,7 +40,7 @@ public class PhotographerInfoSeeder {
         // 3.
         photographerInfo = new PhotographerInfo();
         photographerInfo.setFullName("Dy Duyên");
-        photographerInfo.setEmail("dyduyen@gmail.com");
+        photographerInfo.setEmail("trauvmd00621@fpt.edu.vn");
         photographerInfo.setPhone("");
         photographerInfo.setAddress("https://www.instagram.com/dyduyen/");
         photographerInfo.setDescription("Màu sắc tươi sáng, bắt mắt, tự nhiên và tối giản là những đặc điểm nổi bật trong những thước ảnh nghệ thuật đầy sáng tạo của nữ nhiếp ảnh gia Dy Duyên (1987).\n" +
@@ -52,7 +52,7 @@ public class PhotographerInfoSeeder {
         // 4.
         photographerInfo = new PhotographerInfo();
         photographerInfo.setFullName("Trịnh Mai Phương");
-        photographerInfo.setEmail("planniestudio@gmail.com");
+        photographerInfo.setEmail("trauvmd00621@fpt.edu.vn");
         photographerInfo.setPhone("088 998 3288");
         photographerInfo.setAddress("https://www.instagram.com/mphgtrnh/");
         photographerInfo.setDescription("Nhiều lần cộng tác với các báo và tạp chí uy tín, nữ nhiếp ảnh gia Trịnh Mai Phương (1991) là cái tên khá nổi trong hội cuồng nhiếp ảnh Việt Nam.\n" +

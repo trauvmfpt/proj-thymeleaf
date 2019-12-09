@@ -127,6 +127,10 @@
                                     </div>
 
                                     <div class="checkout_option checkout-content">
+                                        <div class="col-xs-6 col-sm-6">
+                                            <label>Enter your promo code</label>
+                                            <input id="promoCode" name="promoCode" type="text" class="field-text">
+                                        </div>
                                         <ul>
                                             <li>
                                                 <input type="radio" value="1" class="radio payment-methor"
@@ -151,13 +155,13 @@
                                     </div>
 
                                     <div class="checkout_btn">
-                                        <button type="submit" id="confirm" onclick="confirmSubmit(event)"
+                                        <button type="submit" id="confirm"
                                                 class="button confirm-content">
                                             Confirm
                                         </button>
                                         <button type="submit" id="back" class="button checkout-content"
-                                                onclick="window.location.href='http://localhost:8080/product/list'">
-                                            Back to product list
+                                                onclick="window.location.href='http://pose.media/'">
+                                            Back to home
                                         </button>
                                         <button type="submit" id="cancel" onclick="cancelSubmit(event)"
                                                 class="button checkout-content">
@@ -175,17 +179,18 @@
 
                         <div th:if="${orderProduct == null and orderDetails == null}">
                             <h1 th:text="${message}"></h1>
-                            <button class="button" onclick="window.location.href='http://localhost:8080/product/list'">
-                                Back to product list
+                            <button class="button" onclick="window.location.href='http://pose.media/'">
+                                Back to home
                             </button>
                         </div>
 
-                        <div th:if="${orderDetails.size() == 0}">
-                            <h1 th:text="${message}"></h1>
-                            <button class="button" onclick="window.location.href='http://localhost:8080/product/list'">
-                                Back to product list
-                            </button>
-                        </div>
+<!--                        <div th:if="${orderDetails.size() == 0}">-->
+<!--                            <h1 th:text="${message}"></h1>-->
+<!--                            <button class="button" onclick="window.location.href='http://pose.media/'">-->
+<!--                                Back to home-->
+<!--                            </button>-->
+<!--                        </div>-->
+
                     </div>
                 </div>
             </div>

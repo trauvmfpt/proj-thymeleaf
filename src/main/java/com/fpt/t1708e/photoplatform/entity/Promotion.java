@@ -17,6 +17,7 @@ public class Promotion {
 	private AdminInfo adminInfo;
 	private String name;
 	private String description;
+	private String code;
 	private float discount;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "promotion_product", joinColumns = @JoinColumn(name = "promotion_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
@@ -31,6 +32,14 @@ public class Promotion {
 		this.createdAt = LocalDate.now();
 		this.updatedAt = LocalDate.now();
 		this.status = 1;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public long getExpiredAt() {

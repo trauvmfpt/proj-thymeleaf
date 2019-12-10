@@ -68,7 +68,7 @@ public class RegisterController {
         }
         Account existedAccount = accountRepository.findAccountByUsername(account.getUsername());
         if(existedAccount != null){
-            return "error";
+            return "error/404";
         }
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account createdAccount = accountRepository.save(account);
@@ -83,7 +83,7 @@ public class RegisterController {
             }
             return "redirect:/account/login";
         }
-        return "error";
+        return "error/404";
     }
     // tao account
 
@@ -100,7 +100,7 @@ public class RegisterController {
         if(username != null && password != null){
             Account existedAccount = accountRepository.findAccountByUsername(username);
             if(existedAccount != null){
-                return "error";
+                return "error/other";
             }
             Account account = new Account();
             account.setUsername(username);
@@ -113,7 +113,7 @@ public class RegisterController {
                 return "redirect:/account/login";
             }
         }
-        return "error";
+        return "error/other";
     }
 
     // tao customerInfo
@@ -138,13 +138,13 @@ public class RegisterController {
         if(account != null){
             PhotographerInfo existedInfo = photographerInfoRepository.findByAccount_Id(account.getId());
             if(existedInfo != null){
-                return "error";
+                return "error/other";
             }
             photographerInfo.setAccount(account);
             photographerInfoRepository.save(photographerInfo);
             return "redirect:/account/login";
         }
-        return "error";
+        return "error/other";
     }
     //tao photographerInfo
 
@@ -168,13 +168,13 @@ public class RegisterController {
         if(account != null){
             StudioInfo existedInfo = studioInfoRepository.findByAccount_Id(account.getId());
             if(existedInfo != null){
-                return "error";
+                return "error/other";
             }
             studioInfo.setAccount(account);
             studioInfoRepository.save(studioInfo);
             return "redirect:/account/login";
         }
-        return "error";
+        return "error/other";
     }
     //tao studioInfo
 }

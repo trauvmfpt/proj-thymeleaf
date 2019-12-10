@@ -78,7 +78,7 @@ public class DashboardController {
             model.addAttribute("monthlyRevenue", monthlyRevenue);
             return "manager/dashboard";
         }
-        return "error";
+        return "error/other";
     }
 
     @ResponseBody

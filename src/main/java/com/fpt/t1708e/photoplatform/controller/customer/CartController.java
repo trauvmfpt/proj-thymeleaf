@@ -163,7 +163,7 @@ public class CartController {
             CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(accountId);
             List<AdminInfo> adminInfos = adminInfoService.adminInfos();
             if (customerInfo == null) {
-                return "error";
+                return "error/other";
             }
             orderProduct.setStatus(1); // 1. dang cho xac nhan
             List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
@@ -234,7 +234,7 @@ public class CartController {
                 return "redirect:/cart/receipt?orderProductId=" + orderProduct.getId();
             }
         }
-        return "error";
+        return "error/other";
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -288,7 +288,7 @@ public class CartController {
                 }
             }
         }
-        return "error";
+        return "error/other";
     }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
@@ -340,7 +340,7 @@ public class CartController {
             }
             return "redirect:/cart/receipt?orderProductId=" + orderProduct.getId();
         }
-        return "error";
+        return "error/other";
     }
 
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)

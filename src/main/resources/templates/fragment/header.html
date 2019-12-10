@@ -13,7 +13,6 @@
         <!--                crossorigin="anonymous"></script>-->
         <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
         <script th:src="@{/semantic/semantic.js}"></script>
-        <script th:src="@{/js/user/shoppingCart.js}"></script>
         <style>
             * {
                 box-sizing: border-box;
@@ -193,9 +192,6 @@
     </div>
     <!-- End container -->
     <script>
-        $(document).ready(function () {
-            loadCart();
-        });
         document.addEventListener("DOMContentLoaded", function (event) {
             $('.ui.search')
                 .search({
@@ -239,6 +235,10 @@
             ;
         });
 
-
+        $(document).ready(function () {
+            loadCart();
+        });
     </script>
+    <script th:src="@{/js/user/shoppingCart.js}"></script>
+
 </header>

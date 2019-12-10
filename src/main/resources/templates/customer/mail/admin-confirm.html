@@ -132,7 +132,7 @@
                             from customer <span th:text="${orderProduct.getCustomerEmail()}"></span>.
                             Please confirm this order ASAP.</p>
                         <br>
-                        <p><a th:href="${'http://localhost:8080/manager/order/' + orderProduct.id}">Click here</a>
+                        <p><a th:href="${'/manager/order/' + orderProduct.id}">Click here</a>
                             to confirm or reject this order.</p>
                         <br>
                         <h4>Order No #<span th:text="${orderProduct.id}"></span> -

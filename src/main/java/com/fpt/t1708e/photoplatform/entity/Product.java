@@ -56,7 +56,7 @@ public class Product {
 	private LocalDate createdAt;
 	private LocalDate updatedAt;
 	private LocalDate deletedAt;
-	private int status;
+	private int status; // 1: active 0: deactive  2: is Promoting
 
 	public Product() {
 		this.createdAt = LocalDate.now();

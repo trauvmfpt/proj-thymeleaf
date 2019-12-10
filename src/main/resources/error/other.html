@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<!--[if IE 9]><html class="ie ie9"> <![endif]-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/custom.css}">
 </head>
 
 <body>
@@ -14,9 +15,9 @@
         <div class="planet planet1"></div>
         <div class="planet planet2"></div>
         <div class="planet planet3"></div>
-        <h1 class="error-title">404</h1>
-        <h3 class="error-message">Sorry, page not found</h3><br>
-        <a class="btn btn-back-home" th:href="@{/}">
+        <h1 class="error-title">500xxx</h1>
+        <h3 class="error-message">Lỗi khác ...</h3><br>
+        <a class="btn btn-back-home" th:href="@{/static}">
             Back to Home
         </a>
     </div>

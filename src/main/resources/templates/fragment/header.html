@@ -137,11 +137,11 @@
                 <ul id="primary_nav" style="padding-top: 2px;">
                     <li th:if="${#authentication.getName() == 'anonymousUser'}" id="login"><a href="/account/login" style="color: black;">LOGIN</a>
                     </li>
-                    <li th:if="${#authentication.getName() != 'anonymousUser'}" class="list-inline-item dropdown">
+                    <li th:if="${#authentication.getName() != 'anonymousUser'}" class="list-inline-item dropdown text-uppercase">
                         <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown"
                            href="#" role="button"
-                           aria-haspopup="false" aria-expanded="false">
-                            <span id="currentUser" class="ml-1 limit-name-user" th:text="${#authentication.getName()}"> <i class="mdi mdi-chevron-down"></i> </span>
+                           aria-haspopup="false" aria-expanded="false" style="line-height: 1.42857143">
+                            <span id="currentUser" class="ml-1 limit-name-user" th:text="${'Welcome ' + #authentication.getName()}"> <i class="mdi mdi-chevron-down"></i> </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 
@@ -191,6 +191,7 @@
         <!-- End row -->
     </div>
     <!-- End container -->
+    <script th:src="@{/js/common_scripts_min.js}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
             $('.ui.search')
@@ -234,11 +235,5 @@
                 })
             ;
         });
-
-        $(document).ready(function () {
-            loadCart();
-        });
     </script>
-    <script th:src="@{/js/user/shoppingCart.js}"></script>
-
 </header>

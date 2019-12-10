@@ -27,6 +27,9 @@ public class CustomLoginHandler implements AuthenticationSuccessHandler {
                                         Authentication authentication) throws IOException {
         HttpSession session = httpSessionFactory.getObject();
         String test = session.getAttribute("previousUrl").toString();
+        if(test.contains("register")){
+            sendRedirect(httpServletRequest, httpServletResponse, "/");
+        }
         sendRedirect(httpServletRequest, httpServletResponse, session.getAttribute("previousUrl").toString());
         }
 

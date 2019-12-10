@@ -211,7 +211,7 @@ function getComment(x) {
                     html += '</div>'
                     html += '<div class="comment-time">'
                     html += '<p class="btn-reply"><i class="fa fa-reply" data-toggle="tooltip" data-placement="bottom" title="Reply!"></i>Trả lời</p>'
-                    html += '<p>' + formatTime(new Date(prepareDate(result.data[i].createdAt))) + '</p>'
+                    html += '<p>' + formatTime(result.data[i].createdAt) + '</p>'
                     html += '</div></li></article>'
 
                     // for (var j = 0; j < result.d[i].CommentReplies.length; j++) {

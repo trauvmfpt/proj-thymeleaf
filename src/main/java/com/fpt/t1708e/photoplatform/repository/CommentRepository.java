@@ -10,8 +10,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
-    @Query("SELECT c FROM Comment c where c.album.id = :id or c.product.id = :id or c.studioInfo.id = :id or c.photographerInfo.id = :id")
-    List<Comment> findByPostId(long id);
+    @Query("SELECT c FROM Comment c where c.album.id = :id or c.product.id = :id or c.studioInfo.id = :id or c.photographerInfo.id = :id order by c.createdAt desc")
+    List<Comment> findByPostIdOrderByCreatedAtAsc(long id);
     @Transactional
     @Modifying
     @Query(nativeQuery = true, value = "alter table comment AUTO_INCREMENT = 1")

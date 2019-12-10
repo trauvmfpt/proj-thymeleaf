@@ -48,10 +48,7 @@ public class CommentController {
         Account account = accountService.findByUserName(userName);
         if (account != null) {
             if(account.getRole() == 1){
-                CustomerInfo customerInfo = customerInfoRepository.findById(commentDTO.getAccountId()).orElse(null);
-                if(customerInfo != null){
-                    comment.setCustomerInfo(customerInfo);
-                }
+                comment.setCustomerInfo(account.getCustomerInfo());
             }
             else{
                 return new ResponseEntity<>(new RESTResponse.Error()
@@ -105,7 +102,7 @@ public class CommentController {
     @RequestMapping(value = "/getAllByPostId/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getAllByPostId(@PathVariable long id){
         List<CommentDTO> commentDTOS = new ArrayList<>();
-        for (Comment comment: commentRepository.findByPostId(id)
+        for (Comment comment: commentRepository.findByPostIdOrderByCreatedAtAsc(id)
         ) {
             CommentDTO commentDTO = new CommentDTO(comment);
             commentDTOS.add(commentDTO);

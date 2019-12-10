@@ -57,7 +57,6 @@ $(document).ready(function () {
             error: function () {
                 swal('Có lỗi xảy ra', 'Không thể lấy dữ liệu từ api', 'error');
             }
-
         });
     });
 
@@ -71,10 +70,12 @@ $(document).ready(function () {
             for (var i = 0; i < chart_data.length; i++) {
                 data.addRow([chart_data[i].name, Number(chart_data[i].quantity)]);
             }
+
             var options = {
-                width: 600,
+                chartArea: {width: 700, height: 500},
+                width: 700,
                 height: 500,
-                is3D: true
+                pieHole: 0.4
             };
 
 
@@ -143,7 +144,9 @@ $(document).ready(function () {
         $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
             //do something, like clearing an input
             $('#reportrange').val('');
+
         });
+
         $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
             // console.log();
             // console.log(picker.endDate.format('YYYY-MM-DD'));

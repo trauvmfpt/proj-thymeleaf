@@ -18,4 +18,7 @@ public interface OrderProductRepository extends JpaRepository<OrderProduct,Long>
 
     OrderProduct findByIdAndStatus(long id, int status);
 
+    @Query("select op from OrderProduct op where op.status = 1 or op.status = 2")
+    List<OrderProduct> getUnpaidOrders();
+
 }

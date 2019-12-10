@@ -53,7 +53,15 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
     OrderProductRepository orderProductRepository;
     @Autowired
     OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    AdminRevenueRepository adminRevenueRepository;
+
+    @Autowired
+    AdminRevenueDetailRepository adminRevenueDetailRepository;
+
     Random rand = new Random();
+
     @Autowired
     PromotionRepository promotionRepository;
     @Override
@@ -479,6 +487,14 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 orderProductSuccess.setPaymentType(1);
                 orderProductSuccess.setCreatedAt(localDate);
                 orderProductSuccess.setUpdatedAt(localDate);
+
+                AdminRevenue adminRevenue= new AdminRevenue();
+                adminRevenue.setPaymentType(1);
+                adminRevenue.setStatus(3);
+                adminRevenue.setCreatedAt(localDate);
+                adminRevenue.setDeletedAt(localDate);
+                adminRevenue.setUpdatedAt(localDate);
+
                 List<Product> productList = productRepository.findAll();
                 List<Integer> index = new ArrayList<>();
                 for (int m =0; m<productList.size();m++){
@@ -486,19 +502,31 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                 }
                 for (int j=0;j<2;j++){
                     OrderDetail orderDetailSuccess = new OrderDetail();
+                    AdminRevenueDetail adminRevenueDetail = new AdminRevenueDetail();
                     orderDetailSuccess.setOrderProduct(orderProductSuccess);
+                    adminRevenueDetail.setAdminRevenue(adminRevenue);
                     orderDetailSuccess.setStatus(3);
+                    adminRevenueDetail.setStatus(3);
                     orderDetailSuccess.setCreatedAt(localDate);
                     orderDetailSuccess.setUpdatedAt(localDate);
+                    adminRevenueDetail.setCreatedAt(localDate);
+                    adminRevenueDetail.setUpdatedAt(localDate);
                     //
                     int indexNumb = rand.nextInt(index.size());
                     Product _product = productList.get(index.get(indexNumb));
                     index.removeIf(s -> s.equals(index.get(indexNumb)));
                     orderDetailSuccess.setProduct(_product);
+                    adminRevenueDetail.setProduct(_product);
+                    adminRevenueDetail.setStudioInfo(_product.getStudioInfo());
+                    adminRevenueDetail.setPhotographerInfo(_product.getPhotographerInfo());
                     orderDetailSuccess.setCurrentPrice(_product.getPriceDiscount());
+                    adminRevenueDetail.setCurrentPrice(orderDetailSuccess.getCurrentPrice() * 2 / 100);
                     orderProductSuccess.setTotalPrice(orderProductSuccess.getTotalPrice() + orderDetailSuccess.getCurrentPrice());
+                    adminRevenue.setTotalRevenue(adminRevenue.getTotalRevenue() + adminRevenueDetail.getCurrentPrice());
                     orderProductRepository.save(orderProductSuccess);
                     orderDetailRepository.save(orderDetailSuccess);
+                    adminRevenueRepository.save(adminRevenue);
+                    adminRevenueDetailRepository.save(adminRevenueDetail);
                 }
 
             }
@@ -519,6 +547,14 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                     orderProductSuccess.setPaymentType(1);
                     orderProductSuccess.setCreatedAt(localDate);
                     orderProductSuccess.setUpdatedAt(localDate);
+
+                    AdminRevenue adminRevenue= new AdminRevenue();
+                    adminRevenue.setPaymentType(1);
+                    adminRevenue.setStatus(3);
+                    adminRevenue.setCreatedAt(localDate);
+                    adminRevenue.setDeletedAt(localDate);
+                    adminRevenue.setUpdatedAt(localDate);
+
                     List<Product> productList = productRepository.findAll();
                     List<Integer> index = new ArrayList<>();
                     for (int m =0; m<productList.size();m++){
@@ -526,19 +562,35 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
                     }
                     for (int j=0;j<2;j++){
                         OrderDetail orderDetailSuccess = new OrderDetail();
+                        AdminRevenueDetail adminRevenueDetail = new AdminRevenueDetail();
                         orderDetailSuccess.setOrderProduct(orderProductSuccess);
                         orderDetailSuccess.setStatus(3);
                         orderDetailSuccess.setCreatedAt(localDate);
                         orderDetailSuccess.setUpdatedAt(localDate);
+
+                        adminRevenueDetail.setAdminRevenue(adminRevenue);
+                        adminRevenueDetail.setAdminRevenue(adminRevenue);
+                        adminRevenueDetail.setCreatedAt(localDate);
+                        adminRevenueDetail.setUpdatedAt(localDate);
+                        adminRevenueDetail.setStatus(3);
+
+
                         //
                         int indexNumb = rand.nextInt(index.size());
                         Product _product = productList.get(index.get(indexNumb));
                         index.removeIf(s -> s.equals(index.get(indexNumb)));
                         orderDetailSuccess.setProduct(_product);
+                        adminRevenueDetail.setProduct(_product);
+                        adminRevenueDetail.setStudioInfo(_product.getStudioInfo());
+                        adminRevenueDetail.setPhotographerInfo(_product.getPhotographerInfo());
                         orderDetailSuccess.setCurrentPrice(_product.getPriceDiscount());
+                        adminRevenueDetail.setCurrentPrice(orderDetailSuccess.getCurrentPrice() * 2 / 100);
                         orderProductSuccess.setTotalPrice(orderProductSuccess.getTotalPrice() + orderDetailSuccess.getCurrentPrice());
+                        adminRevenue.setTotalRevenue(adminRevenue.getTotalRevenue() + adminRevenueDetail.getCurrentPrice());
                         orderProductRepository.save(orderProductSuccess);
                         orderDetailRepository.save(orderDetailSuccess);
+                        adminRevenueRepository.save(adminRevenue);
+                        adminRevenueDetailRepository.save(adminRevenueDetail);
                     }
 
                 }

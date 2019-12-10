@@ -1,5 +1,8 @@
 package com.fpt.t1708e.photoplatform.config;
 
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -10,16 +13,21 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class CustomLoginHandler implements AuthenticationSuccessHandler {
 
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException {
-            sendRedirect(httpServletRequest, httpServletResponse, "/");
+        HttpSession session = httpSessionFactory.getObject();
+        String test = session.getAttribute("previousUrl").toString();
+        sendRedirect(httpServletRequest, httpServletResponse, session.getAttribute("previousUrl").toString());
         }
 
 

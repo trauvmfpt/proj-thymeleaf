@@ -75,6 +75,9 @@ public class CommentDTO {
     public CommentDTO(Comment comment) {
         this.userName = comment.getCustomerInfo().getFullName();
         this.accountId = comment.getCustomerInfo().getId();
+        this.createdAt = comment.getCreatedAt();
+        this.content = comment.getContent();
+        this.id = comment.getId();
         if(comment.getAlbum() != null){
             this.albumId = comment.getAlbum().getId();
         }

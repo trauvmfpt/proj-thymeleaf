@@ -4,9 +4,12 @@ import com.fpt.t1708e.photoplatform.dto.CommentDTO;
 import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.entity.rest.RESTResponse;
 import com.fpt.t1708e.photoplatform.repository.*;
+import com.fpt.t1708e.photoplatform.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,16 +36,32 @@ public class CommentController {
     @Autowired
     StudioInfoRepository studioInfoRepository;
 
+    @Autowired
+    AccountService accountService;
+
 
     @PostMapping(value = "/save")
     public ResponseEntity<Object> save(@RequestBody CommentDTO commentDTO){
         Comment comment = new Comment();
-        if(commentDTO.getAccountId() != 0){
-            CustomerInfo customerInfo = customerInfoRepository.findById(commentDTO.getAccountId()).orElse(null);
-            if(customerInfo != null){
-                comment.setCustomerInfo(customerInfo);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        Account account = accountService.findByUserName(userName);
+        if (account != null) {
+            if(account.getRole() == 1){
+                CustomerInfo customerInfo = customerInfoRepository.findById(commentDTO.getAccountId()).orElse(null);
+                if(customerInfo != null){
+                    comment.setCustomerInfo(customerInfo);
+                }
+            }
+            else{
+                return new ResponseEntity<>(new RESTResponse.Error()
+                        .setStatus(HttpStatus.UNAUTHORIZED.value())
+                        .setMessage("UNAUTHORIZED")
+                        .build(),
+                        HttpStatus.UNAUTHORIZED);
             }
         }
+
         if(commentDTO.getAlbumId() != 0){
             Album album = albumRepository.findById(commentDTO.getAlbumId()).orElse(null);
             if(album != null){
@@ -76,13 +95,14 @@ public class CommentController {
                     HttpStatus.CREATED);
         }
         return new ResponseEntity<>(new RESTResponse.Error()
-                .setStatus(HttpStatus.CREATED.value())
-                .setMessage("Action Success")
+                .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .setMessage("Error")
                 .build(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @GetMapping(value = "/getAllByPostId/{id}")
+    @ResponseBody
+    @RequestMapping(value = "/getAllByPostId/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getAllByPostId(@PathVariable long id){
         List<CommentDTO> commentDTOS = new ArrayList<>();
         for (Comment comment: commentRepository.findByPostId(id)

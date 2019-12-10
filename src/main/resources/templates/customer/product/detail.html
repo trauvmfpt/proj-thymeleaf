@@ -5,6 +5,7 @@
 <head>
     <title>Product Detail</title>
     <link rel="stylesheet" th:href="@{/sweetalert2/dist/sweetalert2.css}">
+    <link th:href="@{/css/user/comment.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" th:href="@{/studio-photographer/css/style-detail.css}" />
 
     <style>
@@ -178,49 +179,52 @@
 
                     <div class="box_style_general add_bottom_30">
                         <h2>Comments</h2>
-                        <ul class="post-comment" style="list-style: none;">
-                            <li>
-                                <img th:src="@{/studio-photographer/images/person-1.jpg}" alt="">
-                                <div class="comment-info" style="margin-top: 0px;">
-                                    <h3 style="margin-top: 5px;">Mary R. Peterson</h3>
-                                    <span>Sep 26, 2016 at 14:35</span>
-                                    <p>Kept in sent gave feel will oh it we. Has pleasure procured men laughing
-                                        shutters
-                                        nay. Old insipidity motionless continuing law shy partiality. </p>
-                                </div>
-                            </li>
-                            <li class="reply">
-                                <img th:src="@{/studio-photographer/images/person-2.jpg}" alt="">
-                                <div class="comment-info" style="margin-top: 0px;">
-                                    <h3 style="margin-top: 5px;">Mary R. Peterson</h3>
-                                    <span>Sep 26, 2016 at 14:35</span>
-                                    <p>Unpleasant astonished an diminution up partiality. Noisy an their of meant.
-                                        Death
-                                        means up civil do an offer wound of. Called square an in afraid direct. </p>
-                                </div>
-                            </li>
-                            <li>
-                                <img th:src="@{/studio-photographer/images/person-3.jpg}" alt="">
-                                <div class="comment-info" style="margin-top: 0px;">
-                                    <h3 style="margin-top: 5px;">Geoffrey B. Ashley</h3>
-                                    <span>Sep 26, 2016 at 14:35</span>
-                                    <p>Agreed joy vanity regret met may ladies oppose who. Mile fail as left as hard
-                                        eyes. Meet made call in mean four year it to. </p>
-                                </div>
-                            </li>
+<!--                        <ul class="post-comment" style="list-style: none;">-->
+<!--                            <li>-->
+<!--                                <img th:src="@{/studio-photographer/images/person-1.jpg}" alt="">-->
+<!--                                <div class="comment-info" style="margin-top: 0px;">-->
+<!--                                    <h3 style="margin-top: 5px;">Mary R. Peterson</h3>-->
+<!--                                    <span>Sep 26, 2016 at 14:35</span>-->
+<!--                                    <p>Kept in sent gave feel will oh it we. Has pleasure procured men laughing-->
+<!--                                        shutters-->
+<!--                                        nay. Old insipidity motionless continuing law shy partiality. </p>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li class="reply">-->
+<!--                                <img th:src="@{/studio-photographer/images/person-2.jpg}" alt="">-->
+<!--                                <div class="comment-info" style="margin-top: 0px;">-->
+<!--                                    <h3 style="margin-top: 5px;">Mary R. Peterson</h3>-->
+<!--                                    <span>Sep 26, 2016 at 14:35</span>-->
+<!--                                    <p>Unpleasant astonished an diminution up partiality. Noisy an their of meant.-->
+<!--                                        Death-->
+<!--                                        means up civil do an offer wound of. Called square an in afraid direct. </p>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <img th:src="@{/studio-photographer/images/person-3.jpg}" alt="">-->
+<!--                                <div class="comment-info" style="margin-top: 0px;">-->
+<!--                                    <h3 style="margin-top: 5px;">Geoffrey B. Ashley</h3>-->
+<!--                                    <span>Sep 26, 2016 at 14:35</span>-->
+<!--                                    <p>Agreed joy vanity regret met may ladies oppose who. Mile fail as left as hard-->
+<!--                                        eyes. Meet made call in mean four year it to. </p>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+                        <ul class="comment-section">
+
                         </ul>
                         <h3 class="add_bottom_15" id="contactus">Write Your Comment</h3>
-                        <form method="post" action="assets/contact_detail.php" id="contactform_detail">
+                        <form>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea rows="5" class="form-control styled" style="height:100px;"
+                                        <textarea rows="5" id="comment_body" class="form-control styled" style="height:100px;"
                                             placeholder="Your comment"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" value="Submit" class="button add_bottom_30"
-                                id="submit-contact">Submit</button>
+                                id="btn_submit_comment">Submit</button>
                         </form>
                     </div>
                     <!-- End box_style_general -->
@@ -265,11 +269,17 @@
         <script th:src="@{/js/theia-sticky-sidebar.min.js}"></script>
         <script th:src="@{/js/owl.carousel.js}"></script>
         <script th:src="@{/js/owl.carousel.min.js}"></script>
-        <!--        <script th:src="@{/js/jquery-2.2.4.min.js}"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
         <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
         <script th:src="@{/js/user/shoppingCart.js}"></script>
+        <script th:inline="javascript">
+            var newsId =  [[${product.getId()}]]
+            var currentRole = [[${#authentication.getAuthorities().iterator().next().getAuthority()}]];
+            var currentUser = [[${#authentication.getName()}]]
+            var postType = "product";
+        </script>
+        <script th:src="@{/js/user/comment.js}"></script>
         <script>
             'use strict';
             jQuery('#sidebar').theiaStickySidebar({

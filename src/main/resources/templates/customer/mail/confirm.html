@@ -132,7 +132,7 @@
                             has been processed.
                             We hope you will have a great photoshoot!</p>
                         <br>
-                        <p><a th:href="${'http://localhost:8080/cart?orderProductId=' + orderProduct.id}">Click here</a>
+                        <p><a th:href="${'/cart?orderProductId=' + orderProduct.id}">Click here</a>
                             to proceed to checkout.</p>
                         <br>
                         <h4>Order No #<span th:text="${orderProduct.id}"></span> -

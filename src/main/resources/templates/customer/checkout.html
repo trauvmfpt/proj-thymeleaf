@@ -160,7 +160,7 @@
                                             Confirm
                                         </button>
                                         <button type="submit" id="back" class="button checkout-content"
-                                                onclick="window.location.href='http://pose.media/'">
+                                                onclick="window.location.href='/'">
                                             Back to home
                                         </button>
                                         <button type="submit" id="cancel" onclick="cancelSubmit(event)"
@@ -179,7 +179,7 @@
 
                         <div th:if="${orderProduct == null and orderDetails == null}">
                             <h1 th:text="${message}"></h1>
-                            <button class="button" onclick="window.location.href='http://pose.media/'">
+                            <button class="button" onclick="window.location.href='/'">
                                 Back to home
                             </button>
                         </div>

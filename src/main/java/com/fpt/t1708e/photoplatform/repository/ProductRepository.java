@@ -27,4 +27,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> getProductByStudioInfoId(@Param("studio") long id);
     @Query("SELECT c FROM Product c where c.name LIKE %:key% or c.description LIKE %:key% or c.content LIKE %:key% ")
     List<Product> getAllByKey(String key);
+    @Query(nativeQuery = true,value = "select * FROM product where status = :id order by average_rate desc limit 5")
+    List<Product> getTop5ByStatus(@Param("id") int i);
 }

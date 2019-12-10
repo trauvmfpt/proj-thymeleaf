@@ -28,6 +28,7 @@ public class ProductSeeder {
         product.setPrice(25000000);
         product.setPriceDiscount(22000000);
         product.setThumbnail("https://vcdn-ngoisao.vnecdn.net/2019/10/16/DN-OCT-2-9412-1571194639.jpg");
+        product.setStatus(2);
         productList.add(product);
 
         // 2. - Tuarts
@@ -103,6 +104,7 @@ public class ProductSeeder {
         product.setPrice(3000000);
         product.setPriceDiscount(2500000);
         product.setThumbnail("http://emmykids.com/wp-content/uploads/2018/12/39047163_515010718955240_281535986721095680_o.jpg");
+        product.setStatus(2);
         productList.add(product);
 
         // 7. - vivan
@@ -152,6 +154,7 @@ public class ProductSeeder {
         product.setPrice(2500000);
         product.setPriceDiscount(2000000);
         product.setThumbnail("http://nguyenvinhdigital.com/profiles/nguyenvinhdigitalcom/uploads/attach/post/images/chu%CC%A3p-a%CC%89nh-su%CC%9B%CC%A3-kie%CC%A3%CC%82n-4-1024x683.jpg");
+        product.setStatus(2);
         productList.add(product);
 
         // 10. - vivan
@@ -246,7 +249,7 @@ public class ProductSeeder {
         product.setArea("Tại nhà");
         product.setPrice(100000);
         product.setPriceDiscount(70000);
-        product.setThumbnail("");
+        product.setThumbnail("https://chupanh.vn/wp-content/uploads/2017/12/y-tuong-chup-anh-ky-yeu-nhom-nhieu-cam-xuc-cho-ban-ky0031.jpg");
         productList.add(product);
 
         // 18
@@ -264,7 +267,8 @@ public class ProductSeeder {
         product.setArea("Tại trường");
         product.setPrice(5000000);
         product.setPriceDiscount(3800000);
-        product.setThumbnail("");
+        product.setThumbnail("https://vietnam-blogger.com/wp-content/uploads/2019/01/4th_std9k.jpg");
+        product.setStatus(2);
         productList.add(product);
 
         // 19
@@ -276,7 +280,7 @@ public class ProductSeeder {
         product.setArea("Tại khu vực");
         product.setPrice(1200000);
         product.setPriceDiscount(800000);
-        product.setThumbnail("");
+        product.setThumbnail("https://flypro.vn/photos/lam-phim/catalog/cong-ty-quay-phim.jpg");
         productList.add(product);
 
         // 20
@@ -288,7 +292,7 @@ public class ProductSeeder {
         product.setArea("Tại Studio");
         product.setPrice(6000000);
         product.setPriceDiscount(5000000);
-        product.setThumbnail("");
+        product.setThumbnail("https://cdn.wehelp.vn/image/2019/10/19/800x534xchup,P20anh,P20cuoi,P20kieu,P20trung,P20quoc.jpg.pagespeed.ic.YJLCeJ4CH0.jpg");
         productList.add(product);
 
         // 21
@@ -300,7 +304,8 @@ public class ProductSeeder {
         product.setArea("Tại Studio");
         product.setPrice(9000000);
         product.setPriceDiscount(7500000);
-        product.setThumbnail("");
+        product.setThumbnail("https://www.marry.vn/wp-content/uploads/users/410590/2016/01/08/1-4-7163-1398680063.jpg");
+        product.setStatus(2);
         productList.add(product);
     }
 }

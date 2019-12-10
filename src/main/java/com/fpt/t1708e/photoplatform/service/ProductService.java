@@ -61,13 +61,17 @@ public class ProductService {
     public List<Product> getList() {
         return productRepository.findAll();
     }
+    public List<Product> getTop5PromotionProduct() {
+        return productRepository.getTop5ByStatus(2);
+    }
+
     public List<Product> getProductByDiscountEachCategory(){
         List<Category> categoryList = categoryRepository.findAll();
         List<Product> productList = new ArrayList<>();
         for (Category category : categoryList
         ){
            Product product = productRepository.getTop1DiscountByCategory(category.getId());
-           if (product != null){
+           if (product != null && product.getStatus() != 2){
                productList.add(product);
            }
         }

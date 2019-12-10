@@ -6,7 +6,6 @@
     <title>Home</title>
     <link href="/css/ion.rangeSlider.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/fix-template.css}">
-    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
     <style>
         .text-limit {
             display: -webkit-box;
@@ -30,7 +29,8 @@
             object-fit: cover;
             width: 100%;
         }
-        .img-photographer{
+
+        .img-photographer {
             max-height: 220px;
         }
     </style>
@@ -257,7 +257,8 @@
                             </div>
                             <div class="img_container_grid">
                                 <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
-                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer" alt="">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer"
+                                        alt="">
                                     <div class="short_info_grid">
                                         <h3 th:text="${photographer.getFullName()}"></h3>
                                     </div>
@@ -276,7 +277,8 @@
                             </div>
                             <div class="img_container_grid">
                                 <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
-                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer" alt="">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer"
+                                        alt="">
                                     <div class="short_info_grid">
                                         <h3 th:text="${photographer.getFullName()}"></h3>
                                     </div>
@@ -370,7 +372,6 @@
                 </div>
             </div>
         </div>
-        <script th:src="@{/js/common_scripts_min.js}"></script>
     </th:block>
 
 </body>

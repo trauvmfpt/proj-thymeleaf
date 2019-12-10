@@ -15,7 +15,8 @@ public class PromotionSeeder {
         Promotion promotion = new Promotion();
         promotion.setName("Discount X'Mas 10% all Product");
         promotion.setDescription("Jingle bells. Jingle bells. Jingle all the way. Oh, what fun. It is to ride. In a one-horse open sleigh. Repeat Chorus Dashing through the");
-        promotion.setDiscount(20);
+        promotion.setDiscount(10);
+        promotion.setCode("XMAS10");
         promotion.setExpiredAt(TimeUnit.DAYS.toMillis(5));
         promotionList.add(promotion);
     }

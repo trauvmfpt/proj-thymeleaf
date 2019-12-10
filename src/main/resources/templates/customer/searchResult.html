@@ -38,7 +38,7 @@
         </div>
 
         <div th:if="${photographerInfoList.size() > 0}" class="container margin_30_30">
-            <h2 class="second_title" style="margin-top: 1em">Studio</h2>
+            <h2 class="second_title" style="margin-top: 1em">Photographer</h2>
             <div class="box_cat">
                 <div class="col-md-4 col-sm-6" th:each="photographerInfo : ${photographerInfoList}">
                     <a th:href="${'/photographer/' + photographerInfo.id}">
@@ -51,7 +51,7 @@
         </div>
 
         <div th:if="${productList.size() > 0}" class="container margin_30_30">
-            <h2 class="second_title" style="margin-top: 1em">Album</h2>
+            <h2 class="second_title" style="margin-top: 1em">Product</h2>
             <div class="box_cat">
                 <div class="col-md-4 col-sm-6" th:each="product : ${productList}">
                     <a th:href="${'/product/' + product.id}">

@@ -307,5 +307,211 @@ public class ProductSeeder {
         product.setThumbnail("https://www.marry.vn/wp-content/uploads/users/410590/2016/01/08/1-4-7163-1398680063.jpg");
         product.setStatus(2);
         productList.add(product);
+
+        // // 22
+        // product = new Product();
+        // product.setName("Dịch vụ cưới hỏi trọn gói");
+        // product.setDescription("Lễ ăn hỏi 9 tráp đặc biệt");
+        // product.setContent("
+        // Lễ ăn hỏi 9 tráp đặc biệt của chúng tôi gồm có các tráp sau:
+        //         Tráp cau
+        //         Tráp rượu thuốc ( 3 vang chile + 3 vina )
+        //         Tráp Rồng
+        //         Tráp Phượng
+        //         Tráp xôi đỗ + lợn sữa(12kg)
+        //         Tráp bánh cốm Nguyên Ninh 100h
+        //         Tráp bánh phu thê Nguyên Ninh 100h
+        //         Tráp sen Hàng Điếu 100h (11 hạt)
+        //         Tráp chè Thái Nguyên 100h
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(8600000);
+        // product.setPriceDiscount(7500000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/06/9-TRAP-RP1-Copy.jpg");
+        // productList.add(product);
+
+        // // 23
+        // product = new Product();
+        // product.setName("Dịch vụ cho thuê bàn ghế");
+        // product.setDescription("Cho thuê bàn ghế vào dịp cưới, hội nghị");
+        // product.setContent("
+        //         Bàn ghế đám cưới sử dụng ghế nhựa bọc váy và thắt nơ, Mốt thời thượng cho những nhà chật hẹp trong thành phố.
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(500000);
+        // product.setPriceDiscount(350000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/03/nha-bat-ban-ghe-trang-hong-e1573832760570.jpg");
+        // productList.add(product);
+
+        // // 24
+        // product = new Product();
+        // product.setName("Dịch vụ cho thuê phông bạt ngày cưới");
+        // product.setDescription("Cho thuê bàn ghế vào dịp cưới, hội nghị");
+        // product.setContent("
+        //         Bàn ghế đám cưới sử dụng ghế nhựa bọc váy và thắt nơ, Mốt thời thượng cho những nhà chật hẹp trong thành phố.
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(1200000);
+        // product.setPriceDiscount(1000000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/03/cho-thuê-bàn-ghế-4-e1573111250106.jpg");
+        // productList.add(product);
+
+        // // 25
+        // product = new Product();
+        // product.setName("Dịch vụ cho thuê phông bạt ngày cưới");
+        // product.setDescription("Nhà bạt cưới hỏi cao cấp");
+        // product.setContent("
+        //         Nhà bạt cưới hỏi cao cấp trang trí pha lê, hàng rào trắng, nhà bạt buộc nơ đẹp và bàn ghế cưới theo tông màu hiện đại  để tổ chức lễ cưới tại gia, lễ ăn hỏi, trang trí đám cưới tại nhà.        ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(1200000);
+        // product.setPriceDiscount(1000000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/03/cho-thuê-bàn-ghế-4-e1573111250106.jpg");
+        // productList.add(product);
+
+        // // 26
+        // product = new Product();
+        // product.setName("Dịch vụ thiên thần đám cưới");
+        // product.setDescription("Thiên thần đám cưới đẹp, gồm các bé xinh xắn độ tuổi từ 6-10 tuổi.");
+        // product.setContent("
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(700000);
+        // product.setPriceDiscount(500000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/04/020111-lequyen5.jpg");
+        // productList.add(product);
+
+        // // 27
+        // product = new Product();
+        // product.setName("Cho thuê cổng hoa cưới");
+        // product.setDescription("Cổng hoa đám cưới");
+        // product.setContent("
+        //         Cổng hoa đám cưới đẹp sử dụng toàn bộ bằng hoa lụa cao cấp.
+
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(1200000);
+        // product.setPriceDiscount(1000000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/04/020111-lequyen5.jpg");
+        // productList.add(product);
+
+        // // 28
+        // product = new Product();
+        // product.setName("Dịch vụ bê tráp");
+        // product.setDescription("Dịch vụ bê tráp đám cưới");
+        // product.setContent("
+        //         Thuê người bê tráp, dịch vụ cho thuê người bê tráp giá rẻ, chuyên nghiệp. Đội hình đồng đều, đúng giờ. Có mặt trước 1 tiếng đồng hồ.
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(1500000);
+        // product.setPriceDiscount(1200000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/04/020111-lequyen5.jpg");
+        // productList.add(product);
+
+        // // 29
+        // product = new Product();
+        // product.setName("Thuê xe hoa đám cưới");
+        // product.setDescription("Xe hoa đám cưới");
+        // product.setContent("
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(100000);
+        // product.setPriceDiscount(800000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/05/20-2000.jpg");
+        // productList.add(product);
+
+        // // 30
+        // product = new Product();
+        // product.setName("Hoa xe cưới");
+        // product.setDescription("Xe hoa đám cưới");
+        // product.setContent("
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(2400000);
+        // product.setPriceDiscount(2000000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/05/19-1.900.jpg");
+        // productList.add(product);
+
+        // // 31
+        // product = new Product();
+        // product.setName("Hoa cô dâu");
+        // product.setDescription("Hoa cô dâu");
+        // product.setContent("
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(900000);
+        // product.setPriceDiscount(900000);
+        // product.setThumbnail("http://cuoihoihoangvu.com.vn/wp-content/uploads/2014/05/21.jpg");
+        // productList.add(product);
+
+        // // 32
+        // product = new Product();
+        // product.setName("Phụ kiện cưới hỏi");
+        // product.setDescription("Phụ kiện cưới hỏi");
+        // product.setContent("
+        //         Phụ kiện cưới hỏi bao gồm:
+        //         Ấm chén
+        //         Thảm đỏ 
+        //         Pháo giấy
+        //         Quạt công nghiệp 
+        //         Bóng bay
+        // ");
+        // product.setDestination("");
+        // product.setArea("Tại gia");
+        // product.setPrice(1200000);
+        // product.setPriceDiscount(900000);
+        // product.setThumbnail("https://i2.wp.com/fptnamdinh.com.vn/wp-content/uploads/2018/10/41784498_337533986993352_9178188963720986624_n.jpg?resize=640%2C640&ssl=1");
+        // productList.add(product);
+
+        // // 33
+        // product = new Product();
+        // product.setName("Dịch vụ chụp ảnh áo dài");
+        // product.setDescription("Chụp ảnh áo dài");
+        // product.setContent("
+        //         Những bức hình phong cảnh, tĩnh vật hay chân dung thường được sử dụng làm chất liệu trong loại hình chụp ảnh nghệ thuật. Tuy nhiên, không phải ai cũng có thể chụp được bức hình nghệ thuật ấn tượng và thực sự “chất” bởi điều đó đòi hỏi không chỉ là kỹ thuật chụp mà còn là khả năng nắm bắt cái hồn của nhân vật trong bức ảnh.
+        //         Áo dài là trang phục truyền thống của dân tộc Việt Nam bởi thế các chị em rất ưa thích áo dài.Với kinh nghiêm lâu năm trong lĩnh vực chụp ảnh về áo dài tại Hà Nội luôn cung cấp cho các chị em những bức Ảnh nghệ thuật về chụp áo dài.
+        // ");
+        // product.setDestination("");
+        // product.setArea("Studio");
+        // product.setPrice(690000);
+        // product.setPriceDiscount(690000);
+        // product.setThumbnail("http://roses.vn/product_images/uploaded_images/12_rx4bd.jpg");
+        // productList.add(product);
+
+        // // 34
+        // product = new Product();
+        // product.setName("Dịch vụ chụp ảnh dã ngoại");
+        // product.setDescription("Chụp ảnh dã ngoại");
+        // product.setContent("
+        //         Bạn đang muốn chụp ảnh dã ngoại để lưu lại những khoảnh khắc đáng nhớ trong cuộc đời như một kỷ niệm đẹp, nhưng bạn lại không biết địa chỉ nào ở Hà Nội Chụp ảnh dã ngoại giá rẻ mà chất lượng tốt. Bạn hãy yên tâm, sau đây chúng tôi sẽ Giới thiệu với bạn ảnh viện chuyên cung cấp dịch vụ chụp ảnh dã ngoại không chỉ chất lượng tốt, giá rẻ mà thái độ phục vụ cũng rất tuyệt vời nữa.
+        // ");
+        // product.setDestination("");
+        // product.setArea("Studio");
+        // product.setPrice(1500000);
+        // product.setPriceDiscount(1400000);
+        // product.setThumbnail("http://roses.vn/product_images/d/431/img_2478__02997_zoom__14057_std.jpg");
+        // productList.add(product);
+
+        // // 35
+        // product = new Product();
+        // product.setName("Dịch vụ chụp ảnh nghệ thuật");
+        // product.setDescription("Chụp ảnh nghệ thuật");
+        // product.setContent("
+        // ");
+        // product.setDestination("");
+        // product.setArea("Studio");
+        // product.setPrice(7800000);
+        // product.setPriceDiscount(7800000);
+        // product.setThumbnail("http://roses.vn/product_images/uploaded_images/1111__99373_zoom_1wtxi.jpg");
+        // productList.add(product);
     }
 }

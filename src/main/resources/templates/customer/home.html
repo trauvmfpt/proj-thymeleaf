@@ -30,8 +30,16 @@
             object-fit: cover;
             width: 100%;
         }
-        .img-photographer{
+
+        .img-photographer {
             max-height: 220px;
+        }
+
+        .intro-pose {
+            background: rgb(201, 223, 244);
+            padding: 15px 40px;
+            box-shadow: 0 3px 6px 0 rgba(45, 65, 45);
+            height: 100%;
         }
     </style>
 </head>
@@ -39,34 +47,26 @@
 <body>
     <th:block layout:fragment="content">
         <div th:replace="fragment/slider :: slider"></div>
-
         <!-- Chúng tôi làm được gì cho các bạn -->
         <div class="container margin_60_30">
-            <div class="row">
-                <div class="col-md-6 text">
-                    <div class="text1">
-                        <h3>Lorem Ipsum</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sem sem, venenatis eget
-                            lacus
-                            id,
-                            lobortis placerat orci. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-                            Suspendisse
-                            ornare commodo ipsum, id tempor quam venenatis vitae. Proin nibh nunc, rutrum non dignissim
-                            gravida,
-                            porttitor eget diam.</p>
+            <div class="row" style="margin:20px 0;">
+                <div class="col-md-6">
+                    <div class="intro-pose">
+                        <h2>Sứ mệnh của Posé</h2>
+                        <p style="font-size: 18px;"> Thay vì mệt mỏi tìm kiếm và chọn lựa Studio phù hợp với phong cách
+                            bản thân, POSÉ tập hợp tất cả những
+                            Studio phù hợp với phong cách của bạn.
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-6 text">
-                    <div class="text1">
-                        <h3>Lorem Ipsum</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sem sem, venenatis eget
-                            lacus
-                            id,
-                            lobortis placerat orci. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-                            Suspendisse
-                            ornare commodo ipsum, id tempor quam venenatis vitae. Proin nibh nunc, rutrum non dignissim
-                            gravida,
-                            porttitor eget diam.</p>
+                <div class="col-md-6">
+                    <div class="intro-pose">
+                        <h2>Những Concept chụp ảnh mới lạ luôn là điều tạo nên POSÉ</h2>
+                        <p style="font-size: 18px;"> POSÉ luôn đem đến những Concept mới lạ độc đáo, đội ngũ Creative
+                            làm việc hết
+                            mình tạo những Concept duy nhất mà bạn
+                            có được.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -257,7 +257,8 @@
                             </div>
                             <div class="img_container_grid">
                                 <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
-                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer" alt="">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer"
+                                        alt="">
                                     <div class="short_info_grid">
                                         <h3 th:text="${photographer.getFullName()}"></h3>
                                     </div>
@@ -276,7 +277,8 @@
                             </div>
                             <div class="img_container_grid">
                                 <a th:href="@{/photographer/{id}(id = ${photographer.getId()})}">
-                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer" alt="">
+                                    <img th:src="${photographer.getAvatar()}" class="img-responsive img-photographer"
+                                        alt="">
                                     <div class="short_info_grid">
                                         <h3 th:text="${photographer.getFullName()}"></h3>
                                     </div>

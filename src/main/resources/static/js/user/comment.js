@@ -98,16 +98,23 @@ function postComment() {
             getComment(x);
             $("#comment_body").val('');
         },
-        error: function () {
-            var el = document.createElement('div')
-            el.innerHTML = "Please click <a href='/account/login'>here</a> to login"
-            Swal.fire({
-                title: 'You must login to comment',
-                html: el,
-                icon: 'error'
-            });
-            return false;
-        }
+        error: function (xhr, status, error) {
+            if (xhr.responseJSON.status == 401) {
+                var el = document.createElement('div')
+                el.innerHTML = "Please click <a href='/account/login'>here</a> to login"
+                Swal.fire({
+                    title: 'You must login as a customer to comment',
+                    html: el,
+                    icon: 'error'
+                });
+            } else if (xhr.responseJSON.status == 500) {
+                Swal.fire({
+                    title: 'Error! Something has happened!',
+                    content: 'Please try again latter!',
+                    icon: 'error'
+                });
+            }
+        },
     });
 }
 
@@ -142,9 +149,8 @@ $(document).on("click", ".btn-tool", function () {
 $(document).on("click", ".btn-delete-comment", function () {
     if (confirm("Xóa bình luận này?")) {
         $.ajax({
-            url: '/News/default.aspx/DeleteComment',
-            data: JSON.stringify({ commentId: $(this).data("id") }),
-            type: 'POST',
+            url: '/comment/delete/' + $(this).data("id"),
+            type: 'GET',
             contentType: 'application/json',
             dataType: 'json',
             success: function (result) {
@@ -182,7 +188,6 @@ function getComment(x) {
             contentType: 'application/json',
             dataType: 'json',
             success: function (result) {
-                console.log(result);
                 var html = "";
                 for (var i = 0; i < result.data.length; i++) {
                     if(result.data[i].studioId != 0){
@@ -204,13 +209,11 @@ function getComment(x) {
                         html += '<i class="fa fa-ellipsis-h btn-tool"></i>';
                         html += '<div class="arrow-up hidden"></div>';
                         html += '<div class="toolbox hidden">';
-                        html += '<div class="delete-comment btn-delete-comment btn-delete-comment" data-id = "' + result.data[i].id + '"> Xóa bình luận </div>';
-                        html += '<div class="edit-comment"> Sửa bình luận </div >';
+                        html += '<div class="delete-comment btn-delete-comment btn-delete-comment" data-id = "' + result.data[i].id + '"> Delete </div>';
                         html += '</div>';
                     }
                     html += '</div>'
                     html += '<div class="comment-time">'
-                    html += '<p class="btn-reply"><i class="fa fa-reply" data-toggle="tooltip" data-placement="bottom" title="Reply!"></i>Trả lời</p>'
                     html += '<p>' + formatTime(result.data[i].createdAt) + '</p>'
                     html += '</div></li></article>'
 
@@ -239,7 +242,7 @@ function getComment(x) {
                     // html += '<textarea rows="1" class="form-control reply-box hidden" placeholder="Add a reply"></textarea></article>'
                 }
                 if (result.data.length > 3) {
-                    html += '<h4 style="text-align: center" id = "loadMore">Hiển thị thêm bình luận</h4>'
+                    html += '<h3 style="text-align: center" id = "loadMore">Load more</h3>'
                 }
                 $(".comment-section").html("");
                 $(".comment-section").html(html);

@@ -28,6 +28,8 @@ public class Album {
 	private Set<Comment> commentSet;
 	@OneToMany(mappedBy = "album", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private Set<Picture> pictureSet;
+	private double averageRate;
+	private long numberOfRate;
 	private LocalDate createdAt;
 	private LocalDate updatedAt;
 	private LocalDate deletedAt;
@@ -37,6 +39,22 @@ public class Album {
 		this.createdAt = LocalDate.now();
 		this.updatedAt = LocalDate.now();
 		this.status = 1;
+	}
+
+	public double getAverageRate() {
+		return averageRate;
+	}
+
+	public void setAverageRate(double averageRate) {
+		this.averageRate = averageRate;
+	}
+
+	public long getNumberOfRate() {
+		return numberOfRate;
+	}
+
+	public void setNumberOfRate(long numberOfRate) {
+		this.numberOfRate = numberOfRate;
 	}
 
 	public long getId() {

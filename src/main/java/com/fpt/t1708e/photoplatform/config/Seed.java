@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Convert;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.*;
@@ -362,6 +363,9 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             rating.setStudioInfo(studioInfo);
             rating.setCustomerInfo(rdCus);
             ratingRepository.save(rating);
+            int max = (int) rating.getValue();
+            int min = 1;
+            studioInfo.setNumberOfRate(rand.nextInt(max - min + 1) + min);
             studioInfo.setAverageRate(rating.getValue());
             studioInfoRepository.save(studioInfo);
         }
@@ -378,6 +382,9 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             rating.setCustomerInfo(rdCus);
             ratingRepository.save(rating);
             photographerInfo.setAverageRate(rating.getValue());
+            int max = (int) rating.getValue();
+            int min = 1;
+            photographerInfo.setNumberOfRate(rand.nextInt(rand.nextInt(max - min + 1) + min));
             photographerInfoRepository.save(photographerInfo);
         }
         List<Album> albums = albumRepository.findAll();
@@ -393,6 +400,11 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             rating.setAlbum(album);
             rating.setCustomerInfo(rdCus);
             ratingRepository.save(rating);
+            album.setAverageRate(rating.getValue());
+            int max = (int) rating.getValue();
+            int min = 1;
+            album.setNumberOfRate(rand.nextInt(rand.nextInt(max - min + 1) + min));
+            albumRepository.save(album);
         }
         List<Product> products = productRepository.findAll();
         for (Product product : products) {
@@ -408,6 +420,9 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             rating.setCustomerInfo(rdCus);
             ratingRepository.save(rating);
             product.setAverageRate(rating.getValue());
+            int max = (int) rating.getValue();
+            int min = 1;
+            product.setNumberOfRate(rand.nextInt(rand.nextInt(max - min + 1) + min));
             productRepository.save(product);
         }
     }

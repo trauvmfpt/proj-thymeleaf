@@ -73,7 +73,7 @@ public class CommentDTO {
     }
 
     public CommentDTO(Comment comment) {
-        this.userName = comment.getCustomerInfo().getFullName();
+        this.userName = comment.getCustomerInfo().getAccount().getUsername();
         this.accountId = comment.getCustomerInfo().getId();
         this.createdAt = comment.getCreatedAt();
         this.content = comment.getContent();

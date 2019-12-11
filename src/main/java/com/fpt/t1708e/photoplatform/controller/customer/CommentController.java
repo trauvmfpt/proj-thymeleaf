@@ -48,54 +48,55 @@ public class CommentController {
         Account account = accountService.findByUserName(userName);
         if (account != null) {
             if(account.getRole() == 1){
-                comment.setCustomerInfo(account.getCustomerInfo());
+                try{
+                    comment.setCustomerInfo(account.getCustomerInfo());
+                    if(commentDTO.getAlbumId() != 0){
+                        Album album = albumRepository.findById(commentDTO.getAlbumId()).orElse(null);
+                        if(album != null){
+                            comment.setAlbum(album);
+                        }
+                    }
+                    if(commentDTO.getProductId() != 0){
+                        Product product = productRepository.findById(commentDTO.getProductId()).orElse(null);
+                        if(product != null){
+                            comment.setProduct(product);
+                        }
+                    }
+                    if(commentDTO.getPhotographerId() != 0){
+                        PhotographerInfo photographerInfo = photographerInfoRepository.findById(commentDTO.getPhotographerId()).orElse(null);
+                        if(photographerInfo != null){
+                            comment.setPhotographerInfo(photographerInfo);
+                        }
+                    }
+                    if(commentDTO.getStudioId() != 0){
+                        StudioInfo studioInfo = studioInfoRepository.findById(commentDTO.getStudioId()).orElse(null);
+                        if(studioInfo != null){
+                            comment.setStudioInfo(studioInfo);
+                        }
+                    }
+                    comment.setContent(commentDTO.getContent());
+                    if(commentRepository.save(comment) != null){
+                        return new ResponseEntity<>(new RESTResponse.Success()
+                                .setStatus(HttpStatus.CREATED.value())
+                                .setMessage("Action Success")
+                                .build(),
+                                HttpStatus.CREATED);
+                    }
+                }
+                catch (Exception ex){
+                    return new ResponseEntity<>(new RESTResponse.Success()
+                            .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                            .setMessage("Error")
+                            .build(),
+                            HttpStatus.INTERNAL_SERVER_ERROR);
+                }
             }
-            else{
-                return new ResponseEntity<>(new RESTResponse.Error()
-                        .setStatus(HttpStatus.UNAUTHORIZED.value())
-                        .setMessage("UNAUTHORIZED")
-                        .build(),
-                        HttpStatus.UNAUTHORIZED);
-            }
-        }
-
-        if(commentDTO.getAlbumId() != 0){
-            Album album = albumRepository.findById(commentDTO.getAlbumId()).orElse(null);
-            if(album != null){
-                comment.setAlbum(album);
-            }
-        }
-        if(commentDTO.getProductId() != 0){
-            Product product = productRepository.findById(commentDTO.getProductId()).orElse(null);
-            if(product != null){
-                comment.setProduct(product);
-            }
-        }
-        if(commentDTO.getPhotographerId() != 0){
-            PhotographerInfo photographerInfo = photographerInfoRepository.findById(commentDTO.getPhotographerId()).orElse(null);
-            if(photographerInfo != null){
-                comment.setPhotographerInfo(photographerInfo);
-            }
-        }
-        if(commentDTO.getStudioId() != 0){
-            StudioInfo studioInfo = studioInfoRepository.findById(commentDTO.getStudioId()).orElse(null);
-            if(studioInfo != null){
-                comment.setStudioInfo(studioInfo);
-            }
-        }
-        comment.setContent(commentDTO.getContent());
-        if(commentRepository.save(comment) != null){
-            return new ResponseEntity<>(new RESTResponse.Success()
-                    .setStatus(HttpStatus.CREATED.value())
-                    .setMessage("Action Success")
-                    .build(),
-                    HttpStatus.CREATED);
         }
         return new ResponseEntity<>(new RESTResponse.Error()
-                .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .setMessage("Error")
+                .setStatus(HttpStatus.UNAUTHORIZED.value())
+                .setMessage("UNAUTHORIZED")
                 .build(),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+                HttpStatus.UNAUTHORIZED);
     }
 
     @ResponseBody
@@ -111,6 +112,20 @@ public class CommentController {
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Action success!")
                 .addData(commentDTOS)
+                .build(),
+                HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> delete(@PathVariable long id){
+        Comment comment = commentRepository.findById(id).orElse(null);
+        if(comment != null){
+            commentRepository.delete(comment);
+        }
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Action success!")
                 .build(),
                 HttpStatus.OK);
     }

@@ -50,4 +50,14 @@ public class StudioController {
 		return "manager/studio/studio-photographer/detail";
 	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	public String list(Model model) {
+		List<StudioInfo> studioInfo = studioInfoService.getAll();
+		if (studioInfo == null) {
+			return "/404";
+		}
+		model.addAttribute("infos", studioInfo);
+		return "manager/studio/studio-photographer/list";
+	}
+
 }

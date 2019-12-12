@@ -3,6 +3,7 @@ package com.fpt.t1708e.photoplatform.controller.studio;
 import com.fpt.t1708e.photoplatform.entity.*;
 import com.fpt.t1708e.photoplatform.repository.AlbumRepository;
 import com.fpt.t1708e.photoplatform.repository.PhotographerInfoRepository;
+import com.fpt.t1708e.photoplatform.repository.PictureRepository;
 import com.fpt.t1708e.photoplatform.repository.StudioInfoRepository;
 import com.fpt.t1708e.photoplatform.service.AccountService;
 import com.fpt.t1708e.photoplatform.util.ImageUltil;
@@ -29,7 +30,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "manager/album")
+@RequestMapping(value = "owner/album")
 public class AlbumController {
 
     @Autowired
@@ -40,6 +41,9 @@ public class AlbumController {
 
     @Autowired
     AlbumRepository albumRepository;
+
+    @Autowired
+    PictureRepository pictureRepository;
 
     @Autowired
     AccountService accountService;
@@ -63,7 +67,8 @@ public class AlbumController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = auth.getName();
         Account account = accountService.findByUserName(userName);
-        Set<Picture> imageList = new HashSet<>();
+
+        List<Picture> pictureList = new ArrayList<>();
 
         if (imgUrls != null) {
             album.setThumbnail(imgUrls[0]);
@@ -72,16 +77,19 @@ public class AlbumController {
                 picture.setUrl(imgUrl);
                 picture.setStatus(1);
                 picture.setAlbum(album);
-                imageList.add(picture);
+                pictureList.add(picture);
             }
             if (account.getPhotographerInfo() != null) {
                 album.setPhotographerInfo(account.getPhotographerInfo());
             } else {
                 album.setStudioInfo(account.getStudioInfo());
             }
-            album.setPictureSet(imageList);
             albumRepository.save(album);
-            return "redirect:/manager/album/create";
+            for (Picture p: pictureList
+                 ) {
+                pictureRepository.save(p);
+            }
+            return "redirect:/owner/album/create";
         }
         model.addAttribute("album", album);
         return "manager/studio/album/create";
@@ -132,7 +140,7 @@ public class AlbumController {
             return "manager/studio/album/edit";
         }
         albumRepository.save(album);
-        return "redirect:manager/album/list";
+        return "redirect:owner/album/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{id}")
@@ -142,7 +150,7 @@ public class AlbumController {
             album.setStatus(0);
             albumRepository.save(album);
         }
-        return "redirect:manager/album/list";
+        return "redirect:owner/album/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
@@ -153,6 +161,6 @@ public class AlbumController {
             model.addAttribute("pictures", album.getPictureSet());
             return "manager/studio/album/detail";
         }
-        return "redirect:manager/album/list";
+        return "redirect:owner/album/list";
     }
 }

@@ -23,6 +23,25 @@
     <link th:href="@{/admin/css/icons.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" />
     <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <style>
+        .notify-icon{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .notify-icon img{
+            max-width: 40%;
+        }
+
+        .notify-icon div{
+            width: 60%;
+            margin-left: 10px;
+        }
+
+        .dropdown-menu{
+            min-width: 230px !important;
+        }
+    </style>
 </head>
 <body>
     <div class="super_container">
@@ -34,7 +53,9 @@
         <div th:replace="fragment/footer :: footer"></div>
     </div>
     <script th:src="@{/assets/validate.js}"></script>
-<!--    <script th:src="@{/js/functions.js}"></script>-->
+    <script th:src="@{/js/user/shoppingCart.js}"></script>
+
+    <!--    <script th:src="@{/js/functions.js}"></script>-->
 
 <!--    <script th:src="@{/js/infobox.js}"></script>-->
 

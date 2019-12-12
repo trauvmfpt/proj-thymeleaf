@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List Studio</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+
+    <!-- SPECIFIC CSS -->
+    <link th:href="@{/css/ion.rangeSlider.min.css}" rel="stylesheet">
+
+    <div id="position">
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a>
+                </li>
+                <li><a href="#">Category</a>
+                </li>
+                <li>List studio</li>
+            </ul>
+        </div>
+    </div>
+    <!-- End position -->
+
+    <div class="container-fluid" style="padding: 60px 0">
+        <div class="row">
+            <!--End aside -->
+
+            <div class="col-md-12" >
+                <div class="strip_list wow fadeIn animated" data-wow-delay="0.1s"
+                     th:each="info : ${infos}">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="img_wrapper">th
+                                <!-- End tools i-->
+                                <div class="img_container">
+                                    <a th:href="@{/studio/{id}(id = ${info.getId()})}">
+                                        <img th:src="${info.avatar}" width="800" height="533" class="img-responsive">
+                                        <div class="short_info">
+                                            <h3 th:text="${info.getFullName()}"></h3>
+                                            <em th:text="${info.address}+' - '+${info.phone}"></em>
+                                            <div class="score_wp">Rating
+                                                <div th:attr="id='score_'+${info.getId()}" class="score" th:data-value="${info.getAverageRate() / info.getNumberOfRate()}"></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--End img_wrapper-->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="desc">
+                                <h4 th:text="${info.fullName}"></h4>
+                                <p th:text="${info.description}" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"></p>
+                                <p><a th:href="@{/studio/{id}(id = ${info.id})}" class="button small">Read more</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End row -->
+                </div>
+                <!--End strip -->
+            </div>
+            <!-- End col lg 9 -->
+        </div>
+        <!-- End Row-->
+    </div>
+    <!-- End container -->
+    <!-- End bg_white -->
+
+    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{/assets/validate.js}"></script>
+<!--    <script th:src="@{/js/functions.js}"></script>-->
+
+    <!-- SPECIFIC SCRIPTS -->
+    <script th:src="@{/js/raphael-2.1.4.min.js}"></script>
+    <script th:src="@{/js/justgage.min.js}"></script>
+    <script th:src="@{/js/score.js}"></script>
+    <script th:src="@{/js/ion.rangeSlider.js}"></script>
+    <script th:src="@{/js/ion.rangeSlider.min.js}"></script>
+    <script th:src="@{/js/switchery.min.js}"></script>
+
+    <script th:src="@{/js/theia-sticky-sidebar.js}"></script>
+    <script th:src="@{/js/theia-sticky-sidebar.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+
+    <script>
+        'use strict';
+        jQuery('#sidebar').theiaStickySidebar({
+            additionalMarginTop: 80
+        });
+
+        $('.carousel').owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: false,
+            smartSpeed: 300,
+            responsiveClass: true,
+            responsive: {
+                320: {
+                    items: 2,
+                    margin: 10,
+                },
+                1000: {
+                    items: 6,
+                    margin: 10,
+                    nav: false
+                }
+            }
+        });
+
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function (html) {
+            var switchery = new Switchery(html, {
+                size: 'small'
+            });
+        });
+    </script>
+
+</section>
+</body>
+</html>

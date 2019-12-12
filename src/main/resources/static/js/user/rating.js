@@ -103,9 +103,10 @@ function getRating(){
         contentType: 'application/json',
         dataType: 'json',
         success: function (result) {
-            $(".rating-number").text(result.data);
+            console.log(result);
+            $(".rating-number").text(result.rating);
             var stars = $('#stars li').parent().children('li.star');
-            var onStar = Math.floor(result.data);
+            var onStar = Math.floor(result.rating);
             for (var i = 0; i < stars.length; i++) {
                 $(stars[i]).removeClass('selected');
             }
@@ -113,11 +114,46 @@ function getRating(){
             for (var i = 0; i < onStar; i++) {
                 $(stars[i]).addClass('selected');
             }
+
+            if(result.userRating != null){
+                $("#unvote").removeClass("hidden");
+                var ratingValue = result.userRating;
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                responseMessage(msg);
+            }
+            else{
+                $("#unvote").addClass("hidden");
+                $('.success-box').addClass("hidden");
+            }
+        },
+        error: function () {
+            Swal.fire({
+                title: 'Error! Something has happened!',
+                content: 'Please try again latter!',
+                icon: 'error'
+            });
+        }
+    });
+}
+
+$("#unvote").click(function () {
+    $.ajax({
+        url: '/api/rating/unvote?postId=' + newsId + "&postType=" + postType,
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (result) {
+            getRating();
         },
         error: function () {
         }
     });
-}
+});
 $(document).ready(function () {
     getRating();
 });

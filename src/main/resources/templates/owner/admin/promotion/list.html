@@ -18,7 +18,7 @@
 <body>
 <div class="super_container">
     <!--admin-header.html  that's here  -->
-    <div th:replace="manager/layout/admin-header :: admin-header"></div>
+    <div th:replace="owner/layout/admin-header :: admin-header"></div>
 
     <section layout:fragment="admin-content">
         <div class="wrapper">
@@ -70,7 +70,7 @@
         </div>
     </section>
     <!--admin-footer.html  that's here  -->
-    <div th:replace="manager/layout/admin-footer :: admin-footer"></div>
+    <div th:replace="owner/layout/admin-footer :: admin-footer"></div>
 </div>
 <script th:src="@{/admin/js/jquery.min.js}"></script>
 <script th:src="@{/admin/js/bootstrap.bundle.min.js}"></script>

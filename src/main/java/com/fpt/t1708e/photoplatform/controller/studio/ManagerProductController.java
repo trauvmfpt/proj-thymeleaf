@@ -67,7 +67,7 @@ public class ManagerProductController {
 			model.addAttribute("product", new Product());
 			model.addAttribute("categories", categoryService.categories());
 			model.addAttribute("albums", albums);
-			return "manager/studio/product/create";
+			return "owner/studio/product/create";
 		}
 		return "error";
 	}
@@ -77,7 +77,7 @@ public class ManagerProductController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("product", product);
-			return "manager/studio/product/create";
+			return "owner/studio/product/create";
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -115,7 +115,7 @@ public class ManagerProductController {
 			model.addAttribute("product", product);
 			model.addAttribute("categories", categoryService.categories());
 
-			return "manager/studio/product/edit";
+			return "owner/studio/product/edit";
 		}
 		return "error";
 	}
@@ -166,7 +166,7 @@ public class ManagerProductController {
 				products = productRepository.findAll();
 			}
 			model.addAttribute("products", products);
-			return "manager/studio/product/list";
+			return "owner/studio/product/list";
 		}
 		return "error";
 	}
@@ -178,7 +178,7 @@ public class ManagerProductController {
 			return "/404";
 		}
 		model.addAttribute("product", product);
-		return "manager/studio/product/detail";
+		return "owner/studio/product/detail";
 	}
 
 }

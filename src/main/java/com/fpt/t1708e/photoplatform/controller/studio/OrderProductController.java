@@ -69,7 +69,7 @@ public class OrderProductController {
                 return "error/404";
             }
             model.addAttribute("orders", listOrders);
-            return "manager/order/list";
+            return "owner/order/list";
         }
         return "error/other";
     }
@@ -91,7 +91,7 @@ public class OrderProductController {
             }
             model.addAttribute("orderDetailList", orderDetailList);
             model.addAttribute("orderProduct", orderProductService.getById(orderId));
-            return "manager/studio/confirmation/confirm";
+            return "owner/studio/confirmation/confirm";
         }
         return "error/other";
     }

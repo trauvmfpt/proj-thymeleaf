@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{manager/layout/admin-layout}"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{owner/layout/admin-layout}"
     xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Edit Album</title>
+    <title>Create Album</title>
 </head>
 
 <body>
@@ -14,38 +14,28 @@
                 <div class="row">
                     <div class="col-10 center-block" style="margin: auto;">
                         <div class="card m-b-20">
-                            <div class="card-body">
-                                <h4 class="mt-0 header-title">Edit product</h4>
+                            <div class="card-body col-6 col-lg-offset-3">
 
-                                <form th:object="${album}" enctype="multipart/form-data" action="/album/create"
+                                <h4 class="mt-0 header-title">Create album</h4>
+
+                                <form th:object="${album}" action="/owner/album/create"
                                     method="post">
-                                    <input type="hidden" th:field="${album.id}" class="form-control">
-                                    <div class="form-group col-6">
+                                    <div class="form-group">
                                         <label>Name</label>
                                         <input type="text" th:field="${album.name}" class="form-control" required
                                             placeholder="Album name" />
                                         <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                                     </div>
 
-                                    <div class="form-group col-6">
+                                    <div class="form-group">
                                         <label>Description</label>
                                         <textarea type="text" th:field="${album.description}" class="form-control" rows="5" required
                                                 placeholder="Album Description" ></textarea>
                                         <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                                     </div>
 
-                                    <div class="form-group col-12">
-                                        <label>List Images</label>
-                                        <div>
-                                            <div class="col-3" th:each="picture : ${album.getPictureSet()}" style="float: left;">
-                                                <img src="https://icdn.dantri.com.vn/thumb_w/640/2019/06/25/db-6-ddc-967-fab-42-bc-8-bf-99-ff-93-a-0-b-6-dae-1561437586300.jpeg" alt="" style="width: 200px;">
-                                                <p style="cursor: pointer; color: red;" onclick="deleteImage()">Delete</p>
-                                            </div>
-                                            <div style="clear: both;"></div>
-                                        </div>
-                                    </div>
-
                                     <div class="form-group">
+                                        <label>Images</label>
                                         <div class="uploaded_images"></div>
                                         <div id="input_images"></div>
                                         <button type="button" id="upload_widget" class="cloudinary-button">Upload files</button>
@@ -66,11 +56,6 @@
             </div> <!-- end container -->
         </div>
         <!-- end wrapper -->
-        <script>
-            function deleteImage() {
-                alert("Đã xóa!");
-            }
-        </script>
 
         <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
         <script type="text/javascript">
@@ -94,7 +79,6 @@
                 myWidget.open();
             }, false);
         </script>
-
     </section>
 </body>
 </html>

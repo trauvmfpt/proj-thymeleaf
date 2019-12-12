@@ -47,7 +47,7 @@ public class StudioController {
 		}
 		model.addAttribute("info", studioInfo);
 		model.addAttribute("categories", categories);
-		return "manager/studio/studio-photographer/detail";
+		return "owner/studio/studio-photographer/detail";
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -57,7 +57,7 @@ public class StudioController {
 			return "/404";
 		}
 		model.addAttribute("infos", studioInfo);
-		return "manager/studio/studio-photographer/list";
+		return "owner/studio/studio-photographer/list";
 	}
 
 }

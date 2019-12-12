@@ -82,7 +82,7 @@ public class HomeController {
 
     @RequestMapping(value = "/detail")
     public String detail() {
-        return "manager/studio/studio-photographer/detail";
+        return "owner/studio/studio-photographer/detail";
     }
 
     @RequestMapping(value = "/checkout")

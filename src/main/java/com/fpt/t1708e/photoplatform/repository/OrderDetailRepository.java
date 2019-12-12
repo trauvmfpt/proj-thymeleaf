@@ -46,12 +46,15 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Long> {
             "(ph.account.id = :id or s.account.id = :id) " +
             "and op.status = 3 and o.status = 3" +
             "and month(o.createdAt) = :month")
-    double getMonthlyRevenue(long id, int month);
+    Double getMonthlyRevenue(long id, int month);
 
     @Query("SELECT o FROM OrderDetail o left join o.orderProduct op left join o.product p left join p.studioInfo s left join p.photographerInfo ph where" +
             "(ph.account.id = :id or s.account.id = :id) " +
             "and op.status = 1 and o.status = 2")
     List<OrderDetail> getProcessingOrderDetail(long id);
+
+    @Query("SELECT o FROM OrderDetail o left join o.orderProduct op where op.status = 1 and o.status = 2")
+    List<OrderDetail> getProcessingOrderDetailAdmin();
 
 
     @Query("SELECT o FROM OrderDetail o join o.product p left join p.studioInfo s left join p.photographerInfo ph where (s.account.id = :accountId or ph.account.id = :accountId) and o.orderProduct.id =:orderId")

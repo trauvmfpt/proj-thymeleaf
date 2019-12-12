@@ -69,7 +69,7 @@ public class AlbumAndPictureSeeder {
 
         //
         picture = new Picture();
-        picture.setUrl("https://alenvina.com/rfilemanager/source/tintuc/da-nang-hoi-an-2018/da-nang-hoi-an-2018-IS0A0535.jpg");
+        picture.setUrl("https://alenvina.com/rfileowner/source/tintuc/da-nang-hoi-an-2018/da-nang-hoi-an-2018-IS0A0535.jpg");
 
         pictureSet.add(picture);
 

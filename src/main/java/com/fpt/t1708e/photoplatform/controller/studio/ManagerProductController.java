@@ -3,6 +3,7 @@ package com.fpt.t1708e.photoplatform.controller.studio;
 import com.fpt.t1708e.photoplatform.entity.Account;
 import com.fpt.t1708e.photoplatform.entity.Album;
 import com.fpt.t1708e.photoplatform.entity.Product;
+import com.fpt.t1708e.photoplatform.repository.ProductRepository;
 import com.fpt.t1708e.photoplatform.repository.StudioInfoRepository;
 import com.fpt.t1708e.photoplatform.service.AccountService;
 import com.fpt.t1708e.photoplatform.service.AlbumService;
@@ -14,6 +15,8 @@ import com.fpt.t1708e.photoplatform.service.StudioInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +33,7 @@ import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "manager/product")
+@RequestMapping(value = "owner/product")
 public class ManagerProductController {
 
 	@Autowired
@@ -46,26 +49,27 @@ public class ManagerProductController {
 	@Autowired
 	PhotographerInfoService photographerInfoService;
 
-	static Account account = new Account();
+	@Autowired
+	ProductRepository productRepository;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/create")
 	public String create(Model model) {
-		Random rnd = new Random();
-		List<Account> listAcc1 = accountService.findAllAccountByRole(2);
-		List<Account> listAcc2 = accountService.findAllAccountByRole(3);
-		listAcc1.addAll(listAcc2);
-		account = listAcc1.get(rnd.nextInt(listAcc1.size()));
-
-		List<Album> albums = new ArrayList<Album>();
-		if (account.getRole() == 2) {
-			albums = albumService.albumsByStudio(account.getStudioInfo());
-		} else if (account.getRole() == 3) {
-			albums = albumService.albumsByPhotographer(account.getPhotographerInfo());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName();
+		Account account = accountService.findByUserName(userName);
+		if(account != null){
+			List<Album> albums = new ArrayList<Album>();
+			if (account.getRole() == 2) {
+				albums = albumService.albumsByStudio(account.getStudioInfo());
+			} else if (account.getRole() == 3) {
+				albums = albumService.albumsByPhotographer(account.getPhotographerInfo());
+			}
+			model.addAttribute("product", new Product());
+			model.addAttribute("categories", categoryService.categories());
+			model.addAttribute("albums", albums);
+			return "manager/studio/product/create";
 		}
-		model.addAttribute("product", new Product());
-		model.addAttribute("categories", categoryService.categories());
-		model.addAttribute("albums", albums);
-		return "manager/studio/product/create";
+		return "error";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -76,44 +80,51 @@ public class ManagerProductController {
 			return "manager/studio/product/create";
 		}
 
-		product.setCategory(categoryService.getCategoryById(product.getCategory().getId()));
-		product.setAlbum(albumService.albumById(product.getAlbum().getId()));
-		if (account.getRole() == 2) {
-			product.setStudioInfo(account.getStudioInfo());
-		} else if (account.getRole() == 3) {
-			product.setPhotographerInfo(account.getPhotographerInfo());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName();
+		Account account = accountService.findByUserName(userName);
+		if(account != null){
+			product.setCategory(categoryService.getCategoryById(product.getCategory().getId()));
+			product.setAlbum(albumService.albumById(product.getAlbum().getId()));
+			if (account.getRole() == 2) {
+				product.setStudioInfo(account.getStudioInfo());
+			} else if (account.getRole() == 3) {
+				product.setPhotographerInfo(account.getPhotographerInfo());
+			}
+			productService.create(product);
+			return "redirect:/list";
 		}
-
-		productService.create(product);
-        return "redirect:manager/product/list";
-//		return "ok";
+		return "error";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName();
+		Account account = accountService.findByUserName(userName);
+		if(account != null){
+			Product product = productService.getById(id);
+			if (product == null) {
+				return "error/404";
+			}
+			if (product.getStudioInfo() != null) {
+				model.addAttribute("albums", albumService.albumsByStudio(account.getStudioInfo()));
+			}else {
+				model.addAttribute("albums", albumService.albumsByPhotographer(account.getPhotographerInfo()));
+			}
+			model.addAttribute("product", product);
+			model.addAttribute("categories", categoryService.categories());
 
-		Product product = productService.getById(id);
-		if (product == null) {
-//            return "error/404";
-			return "not ok";
+			return "manager/studio/product/edit";
 		}
-		if (product.getStudioInfo() != null) {			
-			model.addAttribute("albums", albumService.albumsByStudio(account.getStudioInfo()));
-		}else {
-			model.addAttribute("albums", albumService.albumsByPhotographer(account.getPhotographerInfo()));
-		}
-		model.addAttribute("product", product);
-		model.addAttribute("categories", categoryService.categories());
-		
-		return "manager/studio/product/edit";
+		return "error";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "edit/{id}")
 	public String update(@PathVariable int id, Model model, Product updateProduct) {
 		Product product = productService.getById(id);
 		if (product == null) {
-//            return "error/404";
-			return "not ok";
+            return "error/404";
 		}
 		product.setName(updateProduct.getName());
 		product.setDescription(updateProduct.getDescription());
@@ -133,16 +144,31 @@ public class ManagerProductController {
 			product.setCategory(categoryService.getCategoryById(updateProduct.getCategory().getId()));
 		}
 		productService.update(product);
-        return "redirect:manager/product/list";
+        return "redirect:owner/product/list";
 //		return "ok";
 	}
 //    For admin/studio/photographer
 
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
 	public String adminList(Model model){
-		List<Product> products = productService.products();
-        model.addAttribute("products", products);
-		return "manager/studio/product/list";
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName();
+		Account account = accountService.findByUserName(userName);
+		if(account != null){
+			List<Product> products = new ArrayList<>();
+			if(account.getRole() == 2){
+				products = productRepository.getProductByStudioInfoId(account.getStudioInfo().getId());
+			}
+			if(account.getRole() == 3){
+				products = productRepository.getProductByPhotographerInfoId(account.getPhotographerInfo().getId());
+			}
+			if(account.getRole() == 5){
+				products = productRepository.findAll();
+			}
+			model.addAttribute("products", products);
+			return "manager/studio/product/list";
+		}
+		return "error";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")

@@ -105,7 +105,7 @@ $(document).on('click', '.btn-cancel-all-order' ,function(){
 
 function confirmOrderDetail(orderDetailIds) {
     $.ajax({
-        url: '/manager/order/confirmOrderDetail',
+        url: '/owner/order/confirmOrderDetail',
         method: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -128,7 +128,7 @@ function confirmOrderDetail(orderDetailIds) {
 
 function confirmOrder(orderIds) {
     $.ajax({
-        url: '/manager/order/confirmOrder',
+        url: '/owner/order/confirmOrder',
         method: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -151,7 +151,7 @@ function confirmOrder(orderIds) {
 
 function cancelOrderDetail(orderDetailIds) {
     $.ajax({
-        url: '/manager/order/cancelOrderDetail',
+        url: '/owner/order/cancelOrderDetail',
         method: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -174,7 +174,7 @@ function cancelOrderDetail(orderDetailIds) {
 
 function cancelOrder(orderIds) {
     $.ajax({
-        url: '/manager/order/cancelOrder',
+        url: '/owner/order/cancelOrder',
         method: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",

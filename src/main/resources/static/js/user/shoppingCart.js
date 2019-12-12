@@ -1,3 +1,4 @@
+loadCart();
 function loadCart() {
     $.ajax({
         url: '/cart/get/',
@@ -12,12 +13,13 @@ function loadCart() {
                 $('.dropdown-item.noti-title').find('span').text(resp.data.length);
                 for (i = 0; i < resp.data.length; i++) {
                     content += '<a href="/product/' + resp.data[i].product.id + '" class="dropdown-item notify-item">';
-                    content += '<div class="notify-icon" style="width: 40%;">';
-                    content += '<img src="' + resp.data[i].product.thumbnail + '" alt="" style="width: 75px;">';
-                    content += '<b style="color: black;" style="max-width: 40%;">' + resp.data[i].product.name + '</b>';
+                    content += '<div class="notify-icon">';
+                    content += '<img src="' + resp.data[i].product.thumbnail + '">';
+                    content += '<div>';
+                    content += '<p style="color: black;" style="max-width: 40%;">' + resp.data[i].product.name + '</p>';
+                    content += '<p class="text-muted">' + resp.data[i].currentPrice + '</p>';
                     content += '</div>';
-                    content += '<p class="notify-details" style="color: black;">';
-                    content += '<small class="text-muted">' + resp.data[i].currentPrice + '</small>';
+                    content += '</div>';
                     content += '</p>';
                     content += '</a>';
                 }
@@ -35,6 +37,7 @@ function addToCart(product_id, btn) {
         url: '/cart/buy/' + product_id,
         method: 'GET',
         success: function (resp) {
+            loadCart();
             if (btn == 'btn-add-cart') {
                 event.preventDefault();
                 Swal.fire({
@@ -67,7 +70,14 @@ function addToCart(product_id, btn) {
             } else if (xhr.responseJSON.status == 500) {
                 Swal.fire({
                     title: 'Error! Something has happened!',
-                    content: 'Please try again latter!',
+                    text: 'Please try again latter!',
+                    icon: 'error'
+                });
+            }
+            else if (xhr.responseJSON.status == 409) {
+                Swal.fire({
+                    title: 'Error! You have already add this product to your cart!',
+                    text: 'Please buy another product!',
                     icon: 'error'
                 });
             }

@@ -7,7 +7,7 @@ header{
 }
 
 /* Primary menu */
-ul#primary_nav {margin:0; padding:0; list-style:none; float:right; margin-top: -4px !important;}
+ul#primary_nav {margin:0; padding:0; list-style:none; float:left; margin-top: -4px !important;}
 ul#primary_nav li {display:inline-block; padding-left:15px;}
 ul#primary_nav li a {color:#fff; opacity:1;}
 ul#primary_nav li a.dropdown-item {color:black; opacity:1;}
@@ -84,7 +84,7 @@ ul#primary_nav li#buy a{
 }
 
 
-.main-menu {position: relative;z-index:9;width:auto; float:right;margin: 3px 0 0 0;padding: 0;}
+.main-menu {position: relative;z-index:9;width:auto; float:left;margin: 3px 0px 3px 20px;padding: 0;}
 .main-menu a {-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s;}
 .main-menu ul,
 .main-menu ul li,

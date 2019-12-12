@@ -26,7 +26,7 @@ public class Album {
 	private Set<Rating> ratingSet;
 	@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> commentSet;
-	@OneToMany(mappedBy = "album", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "album", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	private Set<Picture> pictureSet;
 	private double averageRate;
 	private long numberOfRate;

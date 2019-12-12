@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DisErrorController{
     @RequestMapping(method = RequestMethod.GET, value = "/error/admin/404")
     public String error1(){
-        return "manager/admin/error/404";
+        return "owner/admin/error/404";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/error/admin/500")
     public String error2() {
-        return "manager/admin/error/500";
+        return "owner/admin/error/500";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/error/admin/other")
     public String error3(){
-        return "manager/admin/error/other";
+        return "owner/admin/error/other";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/error/404")

@@ -101,7 +101,9 @@
                                                        th:text="${orderDetail.product.name}"></a>
                                                     <p>
                                                         <span th:text="${orderDetail.product.photographerInfo != null ? orderDetail.product.photographerInfo.fullName : orderDetail.product.studioInfo.fullName}"></span>
-                                                        <b class="cart-item-price" th:text="${orderDetail.currentPrice}">(price)</b>
+                                                        <b class="cart-item-price"
+                                                           th:with="price=${orderDetail.currentPrice}"
+                                                           th:text="${#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}">(price)</b>
                                                     </p>
                                                 </div>
                                                 <a class="remove" th:data-product-id="${orderDetail.product.getId()}" th:data-order-id="${orderDetail.orderProduct.getId()}" th:if="${orderDetail.getStatus() != 3}"><i class="fa fa-close"></i></a>
@@ -122,7 +124,9 @@
                                     </div>
 
                                     <div class="checkout_cartinfo">
-                                        <p><span>Order Total:</span> <span class="color-red order-total" th:text="${totalPrice}">(total price)</span>
+                                        <p><span>Order Total:</span> <span class="color-red order-total"
+                                                                           th:with="totalPrice=${totalPrice}"
+                                                                           th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}">(total price)</span>
                                         </p>
                                     </div>
 

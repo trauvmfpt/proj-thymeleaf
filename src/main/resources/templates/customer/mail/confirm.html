@@ -189,12 +189,16 @@
         <tr class="item" th:each="orderDetail : ${orderDetails}">
             <td th:text="${orderDetail.product.name}">
             </td>
-            <td class="price" th:text="${orderDetail.currentPrice}">
+            <td class="price"
+                th:with="price=${orderDetail.currentPrice}"
+                th:text="${#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}">
             </td>
         </tr>
         <tr class="total">
             <td>Total Value of Order</td>
-            <td class="receipt_total_price" th:text="${orderProduct.totalPrice}">
+            <td class="receipt_total_price"
+                th:with="totalPrice=${orderDetail.totalPrice}"
+                th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}">
             </td>
         </tr>
     </table>

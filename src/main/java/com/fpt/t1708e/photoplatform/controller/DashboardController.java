@@ -85,7 +85,7 @@ public class DashboardController {
                 monthlyRevenue = (double) 0;
             }
             model.addAttribute("monthlyRevenue", monthlyRevenue);
-            return "manager/dashboard";
+            return "owner/dashboard";
         }
         return "error/other";
     }

@@ -55,14 +55,14 @@ public class AlbumController {
         model.addAttribute("studios", studioInfos);
         model.addAttribute("photographers", photographerInfos);
         model.addAttribute("album", new Album());
-        return "manager/studio/album/create";
+        return "owner/studio/album/create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
     public String store(Model model, @Valid Album album, BindingResult bindingResult, HttpServletRequest req, @RequestParam(required = false, name = "imgUrls") String[] imgUrls) throws IOException, ServletException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("album", album);
-            return "manager/studio/album/create";
+            return "owner/studio/album/create";
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = auth.getName();
@@ -92,7 +92,7 @@ public class AlbumController {
             return "redirect:/owner/album/create";
         }
         model.addAttribute("album", album);
-        return "manager/studio/album/create";
+        return "owner/studio/album/create";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
@@ -104,15 +104,15 @@ public class AlbumController {
         if (account.getRole() == 2) {
             List<Album> albums = albumRepository.findAllByStudioInfo(account.getStudioInfo());
             model.addAttribute("albums", albums);
-            return "manager/studio/album/list";
+            return "owner/studio/album/list";
         }else if (account.getRole() == 3){
             List<Album> albums = albumRepository.findAllByPhotographerInfo(account.getPhotographerInfo());
             model.addAttribute("albums", albums);
-            return "manager/studio/album/list";
+            return "owner/studio/album/list";
         }else if (account.getRole() == 5){
             List<Album> albums = albumRepository.findAllByStatus(1);
             model.addAttribute("albums", albums);
-            return "manager/studio/album/list";
+            return "owner/studio/album/list";
         }
         return "error/404";
 
@@ -128,16 +128,16 @@ public class AlbumController {
         Album album = albumRepository.findById(id).orElse(null);
         if (album != null) {
             model.addAttribute("album", album);
-            return "manager/studio/album/edit";
+            return "owner/studio/album/edit";
         }
-        return "manager/studio/album/list";
+        return "owner/studio/album/list";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public String update(Model model, @Valid Album album, BindingResult bindingResult) throws RemoteException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("album", album);
-            return "manager/studio/album/edit";
+            return "owner/studio/album/edit";
         }
         albumRepository.save(album);
         return "redirect:owner/album/list";
@@ -159,7 +159,7 @@ public class AlbumController {
         if (album != null) {
             model.addAttribute("album", album);
             model.addAttribute("pictures", album.getPictureSet());
-            return "manager/studio/album/detail";
+            return "owner/studio/album/detail";
         }
         return "redirect:owner/album/list";
     }

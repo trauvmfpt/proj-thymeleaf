@@ -33,6 +33,14 @@
             padding-right: 40px;
             text-align: right;
         }
+
+        .img-product-album {
+            min-height: 170px;
+            max-height: 170px;
+            width: 100%;
+            object-fit: cover;
+            margin: 10px 0;
+        }
     </style>
 </head>
 
@@ -59,8 +67,7 @@
                                 <div class="price_product" style="float: left;">
                                     <div style="padding-top: 7px" th:if="${product.price} == ${product.priceDiscount}">
                                         <span style="font-size: 14px; color: white;">From</span>
-                                        <span th:with="price=${product.price}"
-                                              th:text="${#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}"
+                                        <span th:with="price=${product.price}" th:text="${#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}"
                                               style="font-size: 25px; color: white;"></span>
                                         <sup style="font-size: 14px; color: white;">VND</sup>
                                     </div>
@@ -171,8 +178,8 @@
                         </div>
 
                         <div class="img-product">
-                            <div class="col-md-3" th:each="img,imgStat: ${product.getAlbum().getPictureSet()}">
-                                <img th:src="${img.getUrl()}" width="800" height="480" class="img-responsive" alt="">
+                            <div class="col-md-6" th:each="img,imgStat: ${product.getAlbum().getPictureSet()}">
+                                <img th:src="${img.getUrl()}" width="800" height="480" class="img-product-album" alt="">
                             </div>
                         </div>
                         <div style="clear: both;"></div>
@@ -275,9 +282,9 @@
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
         <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
         <script th:inline="javascript">
-            var newsId =  [[${product.getId()}]]
-            var currentRole = [[${#authentication.getAuthorities().iterator().next().getAuthority()}]];
-            var currentUser = [[${#authentication.getName()}]]
+            var newsId = [[${ product.getId() }]]
+            var currentRole = [[${ #authentication.getAuthorities().iterator().next().getAuthority() }]];
+            var currentUser = [[${ #authentication.getName() }]]
             var postType = "product";
         </script>
         <script>

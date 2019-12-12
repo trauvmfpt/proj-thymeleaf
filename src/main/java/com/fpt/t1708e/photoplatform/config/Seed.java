@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Convert;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.*;
@@ -357,12 +358,16 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             comment.setStudioInfo(studioInfo);
             comment.setCustomerInfo(rdCus);
             commentRepository.save(comment);
-            Rating rating = new Rating();
-            rating.setValue(rand.nextInt(9) + 1);
-            rating.setStudioInfo(studioInfo);
-            rating.setCustomerInfo(rdCus);
-            ratingRepository.save(rating);
-            studioInfo.setAverageRate(rating.getValue());
+            for(int i =0; i < 10; i++)
+            {
+                Rating rating = new Rating();
+                rating.setValue(rand.nextInt(5) + 1);
+                rating.setStudioInfo(studioInfo);
+                rating.setCustomerInfo(rdCus);
+                ratingRepository.save(rating);
+                studioInfo.setNumberOfRate(studioInfo.getNumberOfRate() + 1);
+                studioInfo.setAverageRate(studioInfo.getAverageRate() + rating.getValue());
+            }
             studioInfoRepository.save(studioInfo);
         }
         for (PhotographerInfo photographerInfo : photographerInfos) {
@@ -372,12 +377,16 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             comment.setPhotographerInfo(photographerInfo);
             comment.setCustomerInfo(rdCus);
             commentRepository.save(comment);
-            Rating rating = new Rating();
-            rating.setValue(rand.nextInt(9) + 1);
-            rating.setPhotographerInfo(photographerInfo);
-            rating.setCustomerInfo(rdCus);
-            ratingRepository.save(rating);
-            photographerInfo.setAverageRate(rating.getValue());
+            for(int i =0; i < 10; i++)
+            {
+                Rating rating = new Rating();
+                rating.setValue(rand.nextInt(5) + 1);
+                rating.setPhotographerInfo(photographerInfo);
+                rating.setCustomerInfo(rdCus);
+                ratingRepository.save(rating);
+                photographerInfo.setNumberOfRate(photographerInfo.getNumberOfRate() + 1);
+                photographerInfo.setAverageRate(photographerInfo.getAverageRate() + rating.getValue());
+            }
             photographerInfoRepository.save(photographerInfo);
         }
         List<Album> albums = albumRepository.findAll();
@@ -388,11 +397,17 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             comment.setAlbum(album);
             comment.setCustomerInfo(rdCus);
             commentRepository.save(comment);
-            Rating rating = new Rating();
-            rating.setValue(rand.nextInt(9) + 1);
-            rating.setAlbum(album);
-            rating.setCustomerInfo(rdCus);
-            ratingRepository.save(rating);
+            for(int i =0; i < 10; i++)
+            {
+                Rating rating = new Rating();
+                rating.setValue(rand.nextInt(5) + 1);
+                rating.setAlbum(album);
+                rating.setCustomerInfo(rdCus);
+                ratingRepository.save(rating);
+                album.setNumberOfRate(album.getNumberOfRate() + 1);
+                album.setAverageRate(album.getAverageRate() + rating.getValue());
+            }
+            albumRepository.save(album);
         }
         List<Product> products = productRepository.findAll();
         for (Product product : products) {
@@ -402,12 +417,16 @@ public class Seed implements ApplicationListener<ApplicationReadyEvent> {
             comment.setProduct(product);
             comment.setCustomerInfo(rdCus);
             commentRepository.save(comment);
-            Rating rating = new Rating();
-            rating.setValue(rand.nextInt(9) + 1);
-            rating.setProduct(product);
-            rating.setCustomerInfo(rdCus);
-            ratingRepository.save(rating);
-            product.setAverageRate(rating.getValue());
+            for(int i =0; i < 10; i++)
+            {
+                Rating rating = new Rating();
+                rating.setValue(rand.nextInt(5) + 1);
+                rating.setProduct(product);
+                rating.setCustomerInfo(rdCus);
+                ratingRepository.save(rating);
+                product.setNumberOfRate(product.getNumberOfRate() + 1);
+                product.setAverageRate(product.getAverageRate() + rating.getValue());
+            }
             productRepository.save(product);
         }
     }

@@ -32,6 +32,7 @@ public class PhotographerInfo {
 	private LocalDate birthday;
 	private int gender;
 	private double averageRate;
+	private long numberOfRate;
 	@Column(columnDefinition = "text")
 	private String description;
 	private String avatar;
@@ -59,6 +60,14 @@ public class PhotographerInfo {
 		this.createdAt = LocalDate.now();
 		this.updatedAt = LocalDate.now();
 		this.status = 1;
+	}
+
+	public long getNumberOfRate() {
+		return numberOfRate;
+	}
+
+	public void setNumberOfRate(long numberOfRate) {
+		this.numberOfRate = numberOfRate;
 	}
 
 	public double getAverageRate() {

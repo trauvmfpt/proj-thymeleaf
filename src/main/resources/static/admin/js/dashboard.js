@@ -2,7 +2,7 @@ $(document).ready(function () {
     google.charts.load('current', {'packages': ['line']});
     google.charts.setOnLoadCallback(function () {
         $.ajax({
-            url: '/manager/revenue',
+            url: '/owner/revenue',
             method: 'GET',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -49,7 +49,7 @@ $(document).ready(function () {
     google.charts.load('current', {'packages': ['corechart']});
     google.charts.setOnLoadCallback(function () {
         $.ajax({
-            url: '/manager/popularProduct',
+            url: '/owner/popularProduct',
             method: 'GET',
             success: function (resp) {
                 drawPieChart(resp.data);
@@ -153,7 +153,7 @@ $(document).ready(function () {
             var startDate = picker.startDate.format('YYYY-MM-DD');
             var endDate = picker.endDate.format('YYYY-MM-DD');
             $.ajax({
-                url: '/manager/revenue?startDate=' + startDate + '&endDate=' + endDate,
+                url: '/owner/revenue?startDate=' + startDate + '&endDate=' + endDate,
                 method: 'GET',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -178,7 +178,7 @@ $(document).ready(function () {
             });
 
             $.ajax({
-                url: '/manager/popularProduct?startDate=' + startDate + '&endDate=' + endDate,
+                url: '/owner/popularProduct?startDate=' + startDate + '&endDate=' + endDate,
                 method: 'GET',
                 success: function (resp) {
                     if (resp.length == 0) {

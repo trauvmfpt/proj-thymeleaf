@@ -19,6 +19,7 @@
     <link href="/css/ion.rangeSlider.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/fix-template.css}">
     <link th:href="@{/css/user/comment.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/user/rating.css}" rel="stylesheet" type="text/css" />
     <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
     <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
     <style>
@@ -156,6 +157,38 @@
                     <div class="row">
                         <div class="blog-single col-md-8 col-md-offset-2">
 
+                            <div class="col-md-12">
+                                <div style="text-align: center">
+                                    <h2>RATING</h2>
+                                </div>
+                                <h1 class="rating-number" style="text-align: center">4.7</h1>
+                                <div class='rating-stars text-center'>
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                               <h5 style="text-align: center; color: lightskyblue" id="unvote" class="hidden">Unvote</h5>
+                                <div class='success-box hidden'>
+                                    <div class='clearfix'></div>
+                                    <img alt='tick image' width='32' src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K'/>
+                                    <div class='text-message'></div>
+                                    <div class='clearfix'></div>
+                                </div>
+                            </div>
                             <!-- Post Comments -->
                             <div class="col-md-12">
                                 <div class="section-title">
@@ -165,19 +198,6 @@
                                 <ul th:if="${info.commentSet == null || info.commentSet.size() == 0}">
                                     <li>Currently there're no comments.</li>
                                 </ul>
-<!--                                <ul class="post-comment" th:if="${info.commentSet != null && info.commentSet.size() > 0}">-->
-<!--                                    <li th:each="comment, iterStat : ${info.commentSet}" th:if="${iterStat.index} <5">-->
-<!--                                        <img th:src="${comment.customerInfo.avatar}" alt="@{/studio-photographer/images/person-1.jpg}">-->
-<!--                                        <div class="comment-info">-->
-<!--                                            <h3 th:text="${comment.customerInfo.fullName}">Mary R. Peterson</h3>-->
-<!--                                            &lt;!&ndash;                                            <a href="#"> Reply </a>&ndash;&gt;-->
-<!--                                            &lt;!&ndash;                                            <span th:with="updatedAt=${comment.updatedAt}"&ndash;&gt;-->
-<!--                                            &lt;!&ndash;                                                    th:text="${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(updatedAt)}">Sep 26, 2016 at 14:35</span>&ndash;&gt;-->
-<!--                                            <span th:text="${comment.updatedAt}">Sep 26, 2016 at 14:35</span>-->
-<!--                                            <p th:text="${comment.content}">Kept in sent gave feel will oh it we. Has pleasure procured men laughing shutters nay. Old insipidity motionless continuing law shy partiality. </p>-->
-<!--                                        </div>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
                                 <ul class="comment-section">
 
                                 </ul>
@@ -204,6 +224,7 @@
                     var postType = "studio";
                 </script>
                 <script th:src="@{/js/user/comment.js}"></script>
+                <script th:src="@{/js/user/rating.js}"></script>
             </section>
         </section>
     </div>

@@ -84,7 +84,7 @@
                                         <td th:text="${order.getCreatedAt()}"></td>
                                         <td th:text="${order.getStatus()}"></td>
                                         <td>
-                                            <a th:href="@{'/manager/order/'+${order.id}}" class="btn btn-success">Detail</a>
+                                            <a th:href="@{'/owner/order/'+${order.id}}" class="btn btn-success">Detail</a>
                                             <span th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_5')}">
                                                 <a th:if="${order.getStatus() != 3 && order.getStatus() != 2}" href="#" class="btn btn-success waves-effect waves-light btn-confirm-order">Confirm</a>
                                                 <a th:if="${order.getStatus() == 3 || order.getStatus() == 2}" href="#" class="btn btn-success waves-effect waves-light btn-confirm-order"><i class="dripicons-checkmark"></i></a>

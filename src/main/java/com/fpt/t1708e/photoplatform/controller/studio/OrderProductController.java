@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 @Controller
-@RequestMapping(value = "/manager/order")
+@RequestMapping(value = "/owner/order")
 public class OrderProductController {
 
     @Autowired

@@ -89,8 +89,10 @@
                                                             <td th:if="${product.photographerInfo == null && product.studioInfo == null}">None</td>
                                                             <td th:text="${product.name}"></td>
 
-                                                            <td th:text="${product.price}"></td>
-                                                            <td th:text="${product.priceDiscount}"></td>
+                                                            <td th:with="price=${product.price}"
+                                                                    th:text="${#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}"></td>
+                                                            <td th:with="c=${product.priceDiscount}"
+                                                                th:text="${#numbers.formatDecimal(priceDiscount, 0, 'COMMA', 0, 'POINT')}"></td>
                                                             <td th:text="${product.area}"></td>
                                                             <td th:text="${product.destination}"></td>
                                                             <td>

@@ -7,85 +7,14 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class RatingDTO {
-    private long id;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
-    private LocalDate deletedAt;
-    private int status;
     private float value;
     private long albumId;
     private long productId;
     private long studioId;
     private long accountId;
     private long photographerId;
-    private String userName;
 
     public RatingDTO() {
-    }
-
-    public RatingDTO(Rating rating) {
-        this.userName = rating.getCustomerInfo().getFullName();
-        this.accountId = rating.getCustomerInfo().getId();
-        if(rating.getAlbum() != null){
-            this.albumId = rating.getAlbum().getId();
-        }
-        if(rating.getProduct() != null){
-            this.productId = rating.getProduct().getId();
-        }
-        if(rating.getPhotographerInfo() != null){
-            this.photographerId = rating.getPhotographerInfo().getId();
-        }
-        if(rating.getStudioInfo() != null){
-            this.studioId = rating.getStudioInfo().getId();
-        }
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDate getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDate updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public LocalDate getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(LocalDate deletedAt) {
-        this.deletedAt = deletedAt;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public float getValue() {

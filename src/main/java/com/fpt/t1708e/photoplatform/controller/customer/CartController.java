@@ -71,38 +71,50 @@ public class CartController {
     @ResponseBody
     @RequestMapping(value = "/buy/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> buy(@PathVariable("id") long id, HttpSession session) {
-        Product product = productRepository.findById(id).orElse(null);
-        if (product == null) {
-            return new ResponseEntity<>(new RESTResponse.Error()
-                    .setStatus(HttpStatus.BAD_REQUEST.value())
-                    .setMessage("Error")
-                    .build(),
-                    HttpStatus.BAD_REQUEST);
-        }
-        List<OrderDetail> cart = new ArrayList<OrderDetail>();
-        if (session.getAttribute("cart") == null) {
-            cart.add(new OrderDetail(product, product.getPrice()));
-            session.setAttribute("cart", cart);
-        } else {
-            cart = (List<OrderDetail>) session.getAttribute("cart");
-            int index = this.exists(id, cart);
-            if (index == -1) {
-                cart.add(new OrderDetail(product, product.getPrice()));
-            } else {
-                return new ResponseEntity<>(new RESTResponse.Error()
-                        .setStatus(HttpStatus.CONFLICT.value())
-                        .setMessage("Error")
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        Account account = accountService.findByUserName(userName);
+        if (account != null) {
+            if (account.getRole() == 1) {
+                Product product = productRepository.findById(id).orElse(null);
+                if (product == null) {
+                    return new ResponseEntity<>(new RESTResponse.Error()
+                            .setStatus(HttpStatus.BAD_REQUEST.value())
+                            .setMessage("Error")
+                            .build(),
+                            HttpStatus.BAD_REQUEST);
+                }
+                List<OrderDetail> cart = new ArrayList<OrderDetail>();
+                if (session.getAttribute("cart") == null) {
+                    cart.add(new OrderDetail(product, product.getPrice()));
+                    session.setAttribute("cart", cart);
+                } else {
+                    cart = (List<OrderDetail>) session.getAttribute("cart");
+                    int index = this.exists(id, cart);
+                    if (index == -1) {
+                        cart.add(new OrderDetail(product, product.getPrice()));
+                    } else {
+                        return new ResponseEntity<>(new RESTResponse.Error()
+                                .setStatus(HttpStatus.CONFLICT.value())
+                                .setMessage("Error")
+                                .build(),
+                                HttpStatus.CONFLICT);
+                    }
+                    session.setAttribute("cart", cart);
+                }
+                return new ResponseEntity<>(new RESTResponse.Success()
+                        .setStatus(HttpStatus.OK.value())
+                        .setMessage("Action success!")
+                        .addData(cart)
                         .build(),
-                        HttpStatus.CONFLICT);
+                        HttpStatus.OK);
             }
-            session.setAttribute("cart", cart);
         }
-        return new ResponseEntity<>(new RESTResponse.Success()
-                .setStatus(HttpStatus.OK.value())
-                .setMessage("Action success!")
-                .addData(cart)
+        return new ResponseEntity<>(new RESTResponse.Error()
+                .setStatus(HttpStatus.UNAUTHORIZED.value())
+                .setMessage("UNAUTHORIZED")
                 .build(),
-                HttpStatus.OK);
+                HttpStatus.UNAUTHORIZED);
     }
 
     @ResponseBody
@@ -163,7 +175,7 @@ public class CartController {
             CustomerInfo customerInfo = customerInfoService.getCustomerInfoByAccount(accountId);
             List<AdminInfo> adminInfos = adminInfoService.adminInfos();
             if (customerInfo == null) {
-                return "error";
+                return "error/other";
             }
             orderProduct.setStatus(1); // 1. dang cho xac nhan
             List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
@@ -185,7 +197,7 @@ public class CartController {
                     } else if (product.getPhotographerInfo() != null) {
                         mailItem = product.getPhotographerInfo().getEmail();
                     }
-                    if (mailItems.containsKey(mailItem)){
+                    if (mailItems.containsKey(mailItem)) {
                         list = mailItems.get(mailItem);
                         list.add(orderDetail);
                         mailItems.replace(mailItem, list);
@@ -197,7 +209,7 @@ public class CartController {
                 orderProduct.setCustomerInfo(customerInfo);
                 orderProductRepository.save(orderProduct);
 //                Mail to Studio/Photographer
-                for(Map.Entry<String, List<OrderDetail>> mailItem : mailItems.entrySet()) {
+                for (Map.Entry<String, List<OrderDetail>> mailItem : mailItems.entrySet()) {
                     String productOwner = mailItem.getKey();
                     List<OrderDetail> orderDetails = mailItem.getValue();
                     mailService.sendMail(
@@ -234,7 +246,7 @@ public class CartController {
                 return "redirect:/cart/receipt?orderProductId=" + orderProduct.getId();
             }
         }
-        return "error";
+        return "error/other";
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -288,7 +300,7 @@ public class CartController {
                 }
             }
         }
-        return "error";
+        return "error/other";
     }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
@@ -303,7 +315,7 @@ public class CartController {
             existOrderProduct.setStatus(3); // 3.paid
             OrderProduct updatedOrderProduct = orderProductService.update(existOrderProduct);
 
-            AdminRevenue adminRevenue= new AdminRevenue();
+            AdminRevenue adminRevenue = new AdminRevenue();
             adminRevenue.setPaymentType(existOrderProduct.getPaymentType());
             adminRevenue.setStatus(3); // 3.paid
             adminRevenue.setCreatedAt(LocalDate.now());
@@ -311,9 +323,9 @@ public class CartController {
             adminRevenue.setUpdatedAt(LocalDate.now());
 
             List<OrderDetail> orderDetails = orderDetailRepository.findByOrderProductId(existOrderProduct.getId());
-            if(orderDetails != null){
-                for (OrderDetail orderDetail: orderDetails
-                     ) {
+            if (orderDetails != null) {
+                for (OrderDetail orderDetail : orderDetails
+                ) {
                     AdminRevenueDetail adminRevenueDetail = new AdminRevenueDetail();
                     adminRevenueDetail.setAdminRevenue(adminRevenue);
                     adminRevenueDetail.setStatus(3);
@@ -340,7 +352,7 @@ public class CartController {
             }
             return "redirect:/cart/receipt?orderProductId=" + orderProduct.getId();
         }
-        return "error";
+        return "error/other";
     }
 
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)
@@ -351,13 +363,13 @@ public class CartController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/receipt")
-    public String receipt(HttpSession session, Model model, @RequestParam(value = "orderProductId") String orderProductId){
+    public String receipt(HttpSession session, Model model, @RequestParam(value = "orderProductId") String orderProductId) {
         OrderProduct orderProduct = null;
-        if (orderProductId == null){
+        if (orderProductId == null) {
             return "redirect:/home";
         } else {
-            orderProduct =  orderProductService.getOrderProductById(Long.parseLong(orderProductId));
-            if (orderProduct == null){
+            orderProduct = orderProductService.getOrderProductById(Long.parseLong(orderProductId));
+            if (orderProduct == null) {
                 return "redirect:/home";
             }
         }
@@ -375,12 +387,12 @@ public class CartController {
     @RequestMapping(value = "/getPromo", method = RequestMethod.POST)
     public ResponseEntity<Object> getPromo(@RequestBody String[] product_ids, String promo_code) {
         List<Product> discountedProducts = new ArrayList<>();
-        for (String productId: product_ids
-             ) {
+        for (String productId : product_ids
+        ) {
             Product product = productRepository.getOne(Long.parseLong(productId));
-            for (Promotion promotion: product.getPromotionSet()){
-                if (promo_code.equals(promotion.getCode())){
-                    product.setPrice(product.getPrice()*promotion.getDiscount());
+            for (Promotion promotion : product.getPromotionSet()) {
+                if (promo_code.equals(promotion.getCode())) {
+                    product.setPrice(product.getPrice() * promotion.getDiscount());
                     discountedProducts.add(product);
                 }
             }

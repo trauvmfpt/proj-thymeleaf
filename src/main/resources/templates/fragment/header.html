@@ -134,18 +134,28 @@
                 <div style="clear:both;"></div>
             </div>
             <nav class="col-md-6" style="margin-top: 15px;">
+                <div class="main-menu">
+                    <div id="header_menu">
+                        <img th:src="@{/img/logo_2.png}" alt="img" data-retina="true" width="170" height="30">
+                    </div>
+                    <a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
+                    <ul class="text-uppercase">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/promotion/list">Promotion</a></li>
+                    </ul>
+                </div>
                 <ul id="primary_nav" style="padding-top: 2px;">
                     <li th:if="${#authentication.getName() == 'anonymousUser'}" id="login"><a href="/account/login" style="color: black;">LOGIN</a>
                     </li>
-                    <li th:if="${#authentication.getName() != 'anonymousUser'}" class="list-inline-item dropdown">
+                    <li th:if="${#authentication.getName() != 'anonymousUser'}" class="list-inline-item dropdown text-uppercase">
                         <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown"
                            href="#" role="button"
-                           aria-haspopup="false" aria-expanded="false">
-                            <span id="currentUser" class="ml-1 limit-name-user" th:text="${#authentication.getName()}"> <i class="mdi mdi-chevron-down"></i> </span>
+                           aria-haspopup="false" aria-expanded="false" style="line-height: 1.42857143">
+                            <span id="currentUser" class="ml-1" th:text="${'Welcome ' + #authentication.getName()}"> <i class="mdi mdi-chevron-down"></i> </span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown">
 
-                            <a class="dropdown-item" href="/manager" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == false}"><i class="dripicons-document text-muted"></i>
+                            <a class="dropdown-item" href="/owner" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == false}"><i class="dripicons-document text-muted"></i>
                                 Manage</a>
                             <a class="dropdown-item" href="/history" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == true}"><i class="dripicons-document text-muted"></i>
                                 History Order</a>
@@ -172,16 +182,6 @@
                         </div>
                     </li>
                 </ul>
-                <div class="main-menu">
-                    <div id="header_menu">
-                        <img th:src="@{/img/logo_2.png}" alt="img" data-retina="true" width="170" height="30">
-                    </div>
-                    <a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
-                    <ul class="text-uppercase">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/promotion/list">Promotion</a></li>
-                    </ul>
-                </div>
                 <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);">
                     <span>Menu mobile</span>
                 </a>
@@ -191,6 +191,7 @@
         <!-- End row -->
     </div>
     <!-- End container -->
+    <script th:src="@{/js/common_scripts_min.js}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
             $('.ui.search')
@@ -234,11 +235,5 @@
                 })
             ;
         });
-
-        $(document).ready(function () {
-            loadCart();
-        });
     </script>
-    <script th:src="@{/js/user/shoppingCart.js}"></script>
-
 </header>

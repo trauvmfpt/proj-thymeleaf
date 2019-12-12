@@ -20,6 +20,9 @@
 <body>
     <th:block layout:fragment="content">
         <div style="margin-top: 100px"></div>
+        <div style="text-align: center">
+            <h3>Kết quả tìm kiếm</h3>
+        </div>
         <div style="text-align: center"
             th:if="${albumList.size() == 0 && studioInfoList.size() == 0 && photographerInfoList.size() == 0 && productList.size() == 0}">
             <p><b style="font-size: larger">Nothing to show with your keyword</b></p>

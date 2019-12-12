@@ -1,28 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragment/layout}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Detail Studio</title>
-    <link type="text/css" th:href="@{/less/style.css}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,300"
-          th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}" rel="stylesheet" type="text/css">
-    <link href="../../../../static/css/bootstrap.min.css"
-          th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../../../../static/css/style.css"
-          th:href="@{/css/style.css}" >
-    <link href="../../../../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../../../static/css/icon_fonts/css/all_icons.min.css"
-          th:href="@{/css/icon_fonts/css/all_icons.min.css}" >
-    <link href="../../../../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet">
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Detail Studio</title>-->
+<!--    <link type="text/css" th:href="@{/less/style.css}" rel="stylesheet">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,300"-->
+<!--          th:href="@{'https://fonts.googleapis.com/css?family=Roboto:400,500,700,300'}" rel="stylesheet" type="text/css">-->
+<!--    <link href="../../../../static/css/bootstrap.min.css"-->
+<!--          th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">-->
+<!--    <link rel="stylesheet" type="text/css" href="../../../../static/css/style.css"-->
+<!--          th:href="@{/css/style.css}" >-->
+<!--    <link href="../../../../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet">-->
+<!--    <link rel="stylesheet" type="text/css" href="../../../../static/css/icon_fonts/css/all_icons.min.css"-->
+<!--          th:href="@{/css/icon_fonts/css/all_icons.min.css}" >-->
+<!--    <link href="../../../../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet">-->
+    <title th:text="${info.getFullName()}"></title>
+    <link href="/css/ion.rangeSlider.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fix-template.css}">
+    <link th:href="@{/css/user/comment.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/user/rating.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
+    <style>
+        .text-limit {
+            display: -webkit-box;
+            max-height: 3.2rem;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            -webkit-line-clamp: 2;
+        }
+
+        .nav-user{
+            margin-top: 2px;
+        }
+    </style>
 </head>
 <body>
 <div class="super_container">
     <!--admin-header.html  that's here  -->
-    <div th:replace="fragment/header :: header"></div>
+<!--    <div th:replace="fragment/header :: header"></div>-->
 
     <div layout:fragment="content" >
-        <section layout:fragment="content">
+        <section>
 
             <!-- Stylesheets -->
             <link rel="stylesheet" th:href="@{/studio-photographer/css/bootstrap.css}"/>
@@ -30,10 +52,6 @@
             <link rel="stylesheet" th:href="@{/studio-photographer/css/style-detail.css}"/>
             <link rel="stylesheet" th:href="@{/studio-photographer/css/animate.css}"/>
             <link rel="stylesheet" th:href="@{/studio-photographer/css/magnific-popup.css}"/>
-
-            <!-- Google Web fonts -->
-            <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
             <!-- Font icons -->
             <!--    <link rel="stylesheet" th:href="@{/studio-photographer/icon-fonts/font-awesome-4.5.0/css/font-awesome.min.css}"/>-->
@@ -67,10 +85,10 @@
                     <div class="section-title">
                         <h2>CATEGORY</h2>
                         <div class="portfolio_filter">
-                            <ul th:if="${categories==null}">
-                                <li class="select-cat" data-filter="*">All</li>
+                            <ul th:if="${categories==null || categories.size() == 0}">
+                                <li class="select-cat" data-filter="*"><h2>Our studio hasn't had any categories yet. Please stay tuned!</h2></li>
                             </ul>
-                            <ul th:if="${categories}!=null">
+                            <ul th:if="${categories != null && categories.size() > 0}">
                                 <li class="select-cat" data-filter="*">All</li>
                                 <li th:each="category, iterStat : ${categories}" th:if="${iterStat.index} <=5"
                                     th:text="${category.name}"
@@ -104,11 +122,11 @@
                     <div class="container">
                         <div class="section-title">
                             <h2>OUR PRODUCT</h2>
-                            <!--                            <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>-->
                             <p>The best in the best</p>
+                            <h2 th:if="${info.productSet == null || info.productSet.size() == 0}">Our studio hasn't had any products yet. Please stay tuned!</h2>
                         </div>
                         <!-- Blogs -->
-                        <div class="row">
+                        <div class="row" th:if="${info.productSet != null && info.productSet.size() > 0}">
                             <a th:each="product, iterStat : ${info.productSet}" th:if="${iterStat.index} <3"
                                th:href="@{/product/{id}(id = ${product.id})}" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-content wow fadeInUp"
                                data-wow-delay="0.4s">
@@ -126,10 +144,9 @@
                                       th:text="${info.fullName} + ' - ' +
                                       ${product.createdAt}">Larry Stark - 7 September 2016 </span>
                             </a>
+                            <a th:if="${info.account.role==2}" th:href="@{/product/list(studio=${info.account.studioInfo.id})}" class="site-button"> READ MORE</a>
+                            <a th:if="${info.account.role==3}" th:href="@{/product/list(photographer=${info.account.photographerInfo.id})}" class="site-button"> READ MORE</a>
                         </div>
-                        <a th:if="${info.account.role==2}" th:href="@{/product/list(studio=${info.account.studioInfo.id})}" class="site-button"> READ MORE</a>
-                        <a th:if="${info.account.role==3}" th:href="@{/product/list(photographer=${info.account.photographerInfo.id})}" class="site-button"> READ MORE</a>
-
                     </div>
                 </div>
             </section>
@@ -140,27 +157,49 @@
                     <div class="row">
                         <div class="blog-single col-md-8 col-md-offset-2">
 
+                            <div class="col-md-12">
+                                <div style="text-align: center">
+                                    <h2>RATING</h2>
+                                </div>
+                                <h1 class="rating-number" style="text-align: center">4.7</h1>
+                                <div class='rating-stars text-center'>
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                               <h5 style="text-align: center; color: lightskyblue" id="unvote" class="hidden">Unvote</h5>
+                                <div class='success-box hidden'>
+                                    <div class='clearfix'></div>
+                                    <img alt='tick image' width='32' src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K'/>
+                                    <div class='text-message'></div>
+                                    <div class='clearfix'></div>
+                                </div>
+                            </div>
                             <!-- Post Comments -->
                             <div class="col-md-12">
                                 <div class="section-title">
                                     <h2>COMMENT</h2>
                                     <!--                                    <p>Out believe has request not how comfort evident. Up delight cousins we feeling <br/> minutes. Genius has looked end piqued spring. </p>-->
                                 </div>
-                                <ul th:if="${info.commentSet == null}">
+                                <ul th:if="${info.commentSet == null || info.commentSet.size() == 0}">
                                     <li>Currently there're no comments.</li>
                                 </ul>
-                                <ul class="post-comment" th:if="${info.commentSet != null}">
-                                    <li th:each="comment, iterStat : ${info.commentSet}" th:if="${iterStat.index} <5">
-                                        <img th:src="${comment.customerInfo.avatar}" alt="@{/studio-photographer/images/person-1.jpg}">
-                                        <div class="comment-info">
-                                            <h3 th:text="${comment.customerInfo.fullName}">Mary R. Peterson</h3>
-                                            <!--                                            <a href="#"> Reply </a>-->
-                                            <!--                                            <span th:with="updatedAt=${comment.updatedAt}"-->
-                                            <!--                                                    th:text="${T(com.fpt.t1708e.photoplatform.util.DateUtil).getDate(updatedAt)}">Sep 26, 2016 at 14:35</span>-->
-                                            <span th:text="${comment.updatedAt}">Sep 26, 2016 at 14:35</span>
-                                            <p th:text="${comment.content}">Kept in sent gave feel will oh it we. Has pleasure procured men laughing shutters nay. Old insipidity motionless continuing law shy partiality. </p>
-                                        </div>
-                                    </li>
+                                <ul class="comment-section">
+
                                 </ul>
                             </div>
                             <!-- Write Message -->
@@ -169,16 +208,23 @@
                                 <div class="row">
                                     <!--Comment-->
                                     <div class="col-md-12">
-                                        <textarea name="con_message" placeholder="Comment" rows="8"></textarea>
+                                        <textarea name="con_message" id="comment_body" placeholder="Comment" rows="8"></textarea>
                                     </div>
                                 </div>
-                                <input style="padding: 18px !important;" id="con_submit" class="site-button" type="submit" value="SEND A MESSAGE">
+                                <button id="btn_submit_comment" type="button">Post comment</button>
                             </form>
 
                         </div>
                     </div>
                 </div>
-
+                <script th:inline="javascript">
+                    var newsId =  [[${info.getId()}]]
+                    var currentRole = [[${#authentication.getAuthorities().iterator().next().getAuthority()}]];
+                    var currentUser = [[${#authentication.getName()}]]
+                    var postType = "studio";
+                </script>
+                <script th:src="@{/js/user/comment.js}"></script>
+                <script th:src="@{/js/user/rating.js}"></script>
             </section>
         </section>
     </div>
@@ -208,7 +254,6 @@
             })
         })
     </script>
-
 </div>
 
 </body>

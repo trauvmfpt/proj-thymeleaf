@@ -32,7 +32,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/manager")
+@RequestMapping(value = "/owner")
 public class DashboardController {
     @Autowired
     OrderProductService orderProductService;
@@ -58,13 +58,19 @@ public class DashboardController {
         String userName = auth.getName();
         Account account = accountService.findByUserName(userName);
         if (account != null) {
-            double monthlyRevenue = 0;
+            Double monthlyRevenue;
             if (account.getRole() != 5) {
                 monthlyRevenue = orderDetailRepository.getMonthlyRevenue(account.getId(), Calendar.getInstance().get(Calendar.MONTH));
             } else {
                 monthlyRevenue = adminRevenueDetailRepository.getMonthlyRevenue(Calendar.getInstance().get(Calendar.MONTH));
             }
-            List<OrderDetail> processingOrders = orderDetailRepository.getProcessingOrderDetail(account.getId());
+            List<OrderDetail> processingOrders = new ArrayList<>();
+            if(account.getRole() != 5){
+                processingOrders = orderDetailRepository.getProcessingOrderDetail(account.getId());
+            }
+            else{
+                processingOrders = orderDetailRepository.getProcessingOrderDetailAdmin();
+            }
             if (processingOrders != null && processingOrders.size() > 0) {
                 List<OrderProduct> listOrders = new ArrayList<>();
                 for (OrderDetail orderDetail : processingOrders
@@ -75,10 +81,13 @@ public class DashboardController {
                 model.addAttribute("listOrders", listOrders);
                 model.addAttribute("processingOrderDetail", processingOrders.size());
             }
+            if(monthlyRevenue == null){
+                monthlyRevenue = (double) 0;
+            }
             model.addAttribute("monthlyRevenue", monthlyRevenue);
             return "manager/dashboard";
         }
-        return "error";
+        return "error/other";
     }
 
     @ResponseBody

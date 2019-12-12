@@ -33,6 +33,7 @@ public class StudioInfo {
 	private String description;
 	private String avatar;
 	private double averageRate;
+	private long numberOfRate;
 	private Date levelExpiredAt;
 	@ManyToOne(cascade = { CascadeType.MERGE})
 	@JoinColumn(name = "levelId")
@@ -56,6 +57,14 @@ public class StudioInfo {
 		this.createdAt = LocalDate.now();
 		this.updatedAt = LocalDate.now();
 		this.status = 1;
+	}
+
+	public long getNumberOfRate() {
+		return numberOfRate;
+	}
+
+	public void setNumberOfRate(long numberOfRate) {
+		this.numberOfRate = numberOfRate;
 	}
 
 	public double getAverageRate() {

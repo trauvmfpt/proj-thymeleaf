@@ -61,13 +61,16 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         List<Product> productList = productService.getProductByDiscountEachCategory();
-        for (Product product : productList
+        List<Product> productListPromote = productService.getTop5PromotionProduct();
+        productListPromote.addAll(productList);
+//        productList.sort((o1, o2) -> o1.getStatus());
+        for (Product product : productListPromote
         ) {
             if (product != null) {
                 product.setPriceDiscount((int) Math.round(product.getPriceDiscount() / product.getPrice() * 100));
             }
         }
-        model.addAttribute("discountProducts", productList);
+        model.addAttribute("discountProducts", productListPromote);
         model.addAttribute("rateProduct", productService.getProductByTopRate());
 //		model.addAttribute("rateProduct",productService.getProductBestSeller());
         model.addAttribute("rateStudios", studioInfoService.getStudioByTopRate());

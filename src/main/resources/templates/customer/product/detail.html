@@ -3,8 +3,10 @@
     xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Product Detail</title>
+    <title th:text="${product.getName()}"></title>
     <link rel="stylesheet" th:href="@{/sweetalert2/dist/sweetalert2.css}">
+    <link th:href="@{/css/user/comment.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/user/rating.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" th:href="@{/studio-photographer/css/style-detail.css}" />
 
     <style>
@@ -31,6 +33,14 @@
             padding-right: 40px;
             text-align: right;
         }
+
+        .img-product-album {
+            min-height: 170px;
+            max-height: 170px;
+            width: 100%;
+            object-fit: cover;
+            margin: 10px 0;
+        }
     </style>
 </head>
 
@@ -46,8 +56,8 @@
                                 <span>
                                     <i class="icon_pin"></i>
                                     <span th:text="${product.area}"></span>
-                                    <span> - </span>
-                                    <span th:text="${product.destination}"></span>
+                                    <span th:if="${product.destination != null && product.destination.length() > 0}"> - </span>
+                                    <span th:if="${product.destination != null && product.destination.length() > 0}" th:text="${product.destination}"></span>
                                 </span>
                             </div>
                             <div class="col-md-4">
@@ -166,58 +176,62 @@
                         </div>
 
                         <div class="img-product">
-                            <div class="col-md-3" th:each="img,imgStat: ${product.getAlbum().getPictureSet()}">
-                                <img th:src="${img.getUrl()}" width="800" height="480" class="img-responsive" alt="">
+                            <div class="col-md-6" th:each="img,imgStat: ${product.getAlbum().getPictureSet()}">
+                                <img th:src="${img.getUrl()}" width="800" height="480" class="img-product-album" alt="">
                             </div>
                         </div>
                         <div style="clear: both;"></div>
                     </div>
 
                     <div class="box_style_general add_bottom_30">
+                        <div style="text-align: center">
+                            <h2>RATING</h2>
+                        </div>
+                        <h1 class="rating-number" style="text-align: center">4.7</h1>
+                        <div class='rating-stars text-center'>
+                            <ul id='stars'>
+                                <li class='star' title='Poor' data-value='1'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Fair' data-value='2'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Good' data-value='3'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Excellent' data-value='4'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='WOW!!!' data-value='5'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 style="text-align: center; color: lightskyblue" id="unvote" class="hidden">Unvote</h5>
+                        <div class='success-box hidden'>
+                            <div class='clearfix'></div>
+                            <img alt='tick image' width='32' src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K'/>
+                            <div class='text-message'></div>
+                            <div class='clearfix'></div>
+                        </div>
+                    </div>
+
+                    <div class="box_style_general add_bottom_30">
                         <h2>Comments</h2>
-                        <ul class="post-comment" style="list-style: none;">
-                            <li>
-                                <img th:src="@{/studio-photographer/images/person-1.jpg}" alt="">
-                                <div class="comment-info" style="margin-top: 0px;">
-                                    <h3 style="margin-top: 5px;">Mary R. Peterson</h3>
-                                    <span>Sep 26, 2016 at 14:35</span>
-                                    <p>Kept in sent gave feel will oh it we. Has pleasure procured men laughing
-                                        shutters
-                                        nay. Old insipidity motionless continuing law shy partiality. </p>
-                                </div>
-                            </li>
-                            <li class="reply">
-                                <img th:src="@{/studio-photographer/images/person-2.jpg}" alt="">
-                                <div class="comment-info" style="margin-top: 0px;">
-                                    <h3 style="margin-top: 5px;">Mary R. Peterson</h3>
-                                    <span>Sep 26, 2016 at 14:35</span>
-                                    <p>Unpleasant astonished an diminution up partiality. Noisy an their of meant.
-                                        Death
-                                        means up civil do an offer wound of. Called square an in afraid direct. </p>
-                                </div>
-                            </li>
-                            <li>
-                                <img th:src="@{/studio-photographer/images/person-3.jpg}" alt="">
-                                <div class="comment-info" style="margin-top: 0px;">
-                                    <h3 style="margin-top: 5px;">Geoffrey B. Ashley</h3>
-                                    <span>Sep 26, 2016 at 14:35</span>
-                                    <p>Agreed joy vanity regret met may ladies oppose who. Mile fail as left as hard
-                                        eyes. Meet made call in mean four year it to. </p>
-                                </div>
-                            </li>
+                        <ul class="comment-section">
                         </ul>
                         <h3 class="add_bottom_15" id="contactus">Write Your Comment</h3>
-                        <form method="post" action="assets/contact_detail.php" id="contactform_detail">
+                        <form>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea rows="5" class="form-control styled" style="height:100px;"
+                                        <textarea rows="5" id="comment_body" class="form-control styled" style="height:100px;"
                                             placeholder="Your comment"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" value="Submit" class="button add_bottom_30"
-                                id="submit-contact">Submit</button>
+                                id="btn_submit_comment">Submit</button>
                         </form>
                     </div>
                     <!-- End box_style_general -->
@@ -262,11 +276,21 @@
         <script th:src="@{/js/theia-sticky-sidebar.min.js}"></script>
         <script th:src="@{/js/owl.carousel.js}"></script>
         <script th:src="@{/js/owl.carousel.min.js}"></script>
-        <!--        <script th:src="@{/js/jquery-2.2.4.min.js}"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
         <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
-        <script th:src="@{/js/user/shoppingCart.js}"></script>
+        <script th:inline="javascript">
+            var newsId = [[${ product.getId() }]]
+            var currentRole = [[${ #authentication.getAuthorities().iterator().next().getAuthority() }]];
+            var currentUser = [[${ #authentication.getName() }]]
+            var postType = "product";
+        </script>
+        <script>
+            var imageUrl = "[[${product.getThumbnail()}]]";
+            $('#sub_content_in').css('background', 'url(' + imageUrl + ')');
+        </script>
+        <script th:src="@{/js/user/comment.js}"></script>
+        <script th:src="@{/js/user/rating.js}"></script>
         <script>
             'use strict';
             jQuery('#sidebar').theiaStickySidebar({

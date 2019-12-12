@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 @Controller
-@RequestMapping(value = "/manager/order")
+@RequestMapping(value = "/owner/order")
 public class OrderProductController {
 
     @Autowired
@@ -66,12 +66,12 @@ public class OrderProductController {
                 }
             }
             if (listOrders == null) {
-                return "/404";
+                return "error/404";
             }
             model.addAttribute("orders", listOrders);
             return "manager/order/list";
         }
-        return "error";
+        return "error/other";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{orderId}")
@@ -93,7 +93,7 @@ public class OrderProductController {
             model.addAttribute("orderProduct", orderProductService.getById(orderId));
             return "manager/studio/confirmation/confirm";
         }
-        return "error";
+        return "error/other";
     }
 
     @ResponseBody

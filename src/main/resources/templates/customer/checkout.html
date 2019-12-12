@@ -19,7 +19,7 @@
 <th:block layout:fragment="content">
     <div id="position" style="margin-top: 60px;">
         <div class="container">
-            <ul>
+            <ul style="margin-top: 10px">
                 <li><a href="#">Home</a>
                 </li>
                 <li><a href="#">Check out</a>
@@ -160,7 +160,7 @@
                                             Confirm
                                         </button>
                                         <button type="submit" id="back" class="button checkout-content"
-                                                onclick="window.location.href='http://pose.media/'">
+                                                onclick="window.location.href='/'">
                                             Back to home
                                         </button>
                                         <button type="submit" id="cancel" onclick="cancelSubmit(event)"
@@ -179,7 +179,7 @@
 
                         <div th:if="${orderProduct == null and orderDetails == null}">
                             <h1 th:text="${message}"></h1>
-                            <button class="button" onclick="window.location.href='http://pose.media/'">
+                            <button class="button" onclick="window.location.href='/'">
                                 Back to home
                             </button>
                         </div>
@@ -197,7 +197,6 @@
         </section>
     </div>
     <!-- END / BLOG -->
-    <script th:src="@{/js/common_scripts_min.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.11/js/bootstrap-select.js"></script>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 

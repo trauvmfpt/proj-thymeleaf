@@ -28,14 +28,14 @@ public class Comment {
 	private PhotographerInfo photographerInfo;
 	@Column(columnDefinition = "text")
 	private String content;
-	private LocalDate createdAt;
-	private LocalDate updatedAt;
-	private LocalDate deletedAt;
+	private long createdAt;
+	private long updatedAt;
+	private long deletedAt;
 	private int status;
 
 	public Comment() {
-		this.createdAt = LocalDate.now();
-		this.updatedAt = LocalDate.now();
+		this.createdAt = Calendar.getInstance().getTimeInMillis();
+		this.updatedAt = Calendar.getInstance().getTimeInMillis();
 		this.status = 1;
 	}
 
@@ -103,27 +103,27 @@ public class Comment {
 		this.content = content;
 	}
 
-	public LocalDate getCreatedAt() {
+	public long getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDate createdAt) {
+	public void setCreatedAt(long createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public LocalDate getUpdatedAt() {
+	public long getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(LocalDate updatedAt) {
+	public void setUpdatedAt(long updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-	public LocalDate getDeletedAt() {
+	public long getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(LocalDate deletedAt) {
+	public void setDeletedAt(long deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 

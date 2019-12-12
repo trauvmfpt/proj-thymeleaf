@@ -10,9 +10,9 @@ public class CommentDTO {
     private long id;
     private float value;
     private String content;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
-    private LocalDate deletedAt;
+    private long createdAt;
+    private long updatedAt;
+    private long deletedAt;
     private long albumId;
     private long productId;
     private long studioId;
@@ -73,8 +73,11 @@ public class CommentDTO {
     }
 
     public CommentDTO(Comment comment) {
-        this.userName = comment.getCustomerInfo().getFullName();
+        this.userName = comment.getCustomerInfo().getAccount().getUsername();
         this.accountId = comment.getCustomerInfo().getId();
+        this.createdAt = comment.getCreatedAt();
+        this.content = comment.getContent();
+        this.id = comment.getId();
         if(comment.getAlbum() != null){
             this.albumId = comment.getAlbum().getId();
         }
@@ -114,27 +117,27 @@ public class CommentDTO {
         this.content = content;
     }
 
-    public LocalDate getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDate getUpdatedAt() {
+    public long getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDate updatedAt) {
+    public void setUpdatedAt(long updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDate getDeletedAt() {
+    public long getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(LocalDate deletedAt) {
+    public void setDeletedAt(long deletedAt) {
         this.deletedAt = deletedAt;
     }
 

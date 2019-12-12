@@ -1,4 +1,14 @@
 $(document).ready(function () {
+    $("#modal_terms").change(function () {
+        if($(this).is(':checked')){
+            $("#terms").prop('checked', true);
+            $("#exampleModal").modal("hide");
+        }
+        else{
+            $("#terms").prop('checked', false);
+        }
+    });
+
     $("#accountRegisterForm").validate({
         rules: {
             username: {
@@ -16,6 +26,9 @@ $(document).ready(function () {
             cfmPassword: {
                 equalTo: "#txtNewPassword",
                 minlength: 7
+            },
+            terms: {
+                required: true
             }
         },
         messages: {
@@ -33,6 +46,9 @@ $(document).ready(function () {
             },
             cfmPassword: {
                 equalTo: "Password does not match"
+            },
+            terms: {
+                required: "You must agree to our terms and agreements first"
             }
         }
     });

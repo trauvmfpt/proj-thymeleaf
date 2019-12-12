@@ -143,8 +143,8 @@
                                 <div class="box_info">
                                     <div class="photographer">
                                         <h3>Photographer</h3>
-                                        <img th:src="${product.getPhotographerInfo().getAvatar()}" width="80px"
-                                            height="80px" style="object-fit: cover;" />
+                                        <img th:src="${product.getPhotographerInfo().getAvatar()}" 
+                                             style="object-fit: cover; width: 80px; height: 80px;" />
                                         <strong>
                                             <a
                                                 th:href="@{/photographer/{id}(id = ${product.getPhotographerInfo().getId()})}">
@@ -159,13 +159,11 @@
                             <div class=" col-md-6">
                                 <div class="box_info">
                                     <h3>Category</h3>
-                                    <img th:src="${product.getCategory().getThumbnail()}" width="80px" height="80px"
-                                        style="object-fit: cover;" />
+                                    <img th:src="${product.getCategory().getThumbnail()}"
+                                        style="object-fit: cover; width: 80px; height: 80px;" />
                                     <strong>
-                                        <a th:href="@{/category/{id}(id = ${product.getCategory().getId()})}">
-                                            <span th:text="${product.getCategory().getName()}"
-                                                style="margin-left: 10px;"></span>
-                                        </a>
+                                        <span th:text="${product.getCategory().getName()}"
+                                            style="margin-left: 10px;"></span>
                                     </strong>
                                 </div>
                             </div>

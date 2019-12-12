@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragment/layout}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragment/layout}"
+    xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Detail Album</title>
 
     <link href='http://fonts.googleapis.com/css?family=Hind:400,300,500,600%7cMontserrat:400,700' rel='stylesheet'
-          type='text/css'>
+        type='text/css'>
     <link rel="stylesheet" type="text/css" th:href="@{/lotus/css/lib/magnific-popup.css}">
 
     <!-- MAIN STYLE -->
@@ -16,62 +16,108 @@
     <link th:href="@{/css/user/rating.css}" rel="stylesheet" type="text/css" />
     <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
     <script th:src="@{/sweetalert2/dist/sweetalert2.all.js}"></script>
+    <style>
+        .img-main,
+        .img-album-detail {
+            height: auto;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .img-album-detail {
+            max-height: 220px;
+            min-height: 220px;
+        }
+
+        .img-main:hover,
+        .img-album-detail:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
+
 <body>
-<div layout:fragment="content">
-    <div id="page-wrap">
-        <!-- SUB BANNER -->
-        <section class="section-sub-banner bg-9" th:style="'background:url(' + @{${album.thumbnail}} + ');'">
-            <div class="awe-overlay"></div>
-            <div class="sub-banner">
-                <div class="container">
-                    <div class="text text-center">
-                        <h2 th:text="${album.name}"></h2>
-                        <p th:text="${album.description}"></p>
+    <div layout:fragment="content">
+        <div id="page-wrap">
+            <!-- SUB BANNER -->
+            <section class="section-sub-banner bg-9"
+                style="background:url('https://res.cloudinary.com/phucvu/image/upload/v1576128319/lheaszqtg8pfjkvfvww4.jpg');">
+                <div class="awe-overlay"></div>
+                <div class="sub-banner">
+                    <div class="container">
+                        <div class="text text-center">
+                            <h2 th:text="${album.name}"></h2>
+                            <p th:text="${album.description}"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END / SUB BANNER -->
+
+            <div class="container margin_60_45">
+                <h1>
+                    <div th:if="${album.getPhotographerInfo() != null}">
+                        <a th:href="@{/photographer/{id}(id = ${album.getPhotographerInfo().getId()})}">
+                            <span style="font-weight: lighter; font-size: small; font-style: italic;">By </span>
+                            <span th:text="${album.getPhotographerInfo().getFullName()}"
+                                style="font-weight: bolder; text-transform: uppercase; margin-left: 5px;"></span>
+                        </a>
+                    </div>
+                    <div th:if="${album.getStudioInfo() != null}">
+                        <a th:href="@{/photographer/{id}(id = ${album.getStudioInfo().getId()})}">
+                            <span style="font-weight: lighter; font-size: small; font-style: italic;">By </span>
+                            <span th:text="${album.getStudioInfo().getFullName()}"
+                                style="font-weight: bolder; text-transform: uppercase;margin-left: 5px;"></span>
+                        </a>
+                    </div>
+                </h1>
+                <div class="row">
+                    <div class="col-md-8" style="margin: auto;">
+                        <div class="img_wrapper_grid" th:object="${pictures[0]}">
+                            <a th:href="${pictures[0].getUrl()}">
+                                <img th:src="${pictures[0].getUrl()}" class="img-main" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="margin: auto;">
+                        <div class="img_wrapper_grid" th:object="${pictures[1]}">
+                            <a th:href="${pictures[1].getUrl()}">
+                                <img th:src="${pictures[1].getUrl()}" class="img-album-detail" alt="">
+                            </a>
+                        </div>
+                        <div class="img_wrapper_grid" th:object="${pictures[2]}">
+                            <a th:href="${pictures[2].getUrl()}">
+                                <img th:src="${pictures[2].getUrl()}" class="img-album-detail" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="margin: auto;" th:each="picture,pictureStat: ${pictures}"
+                        th:if="${pictureStat.index >=3 and pictureStat.index < 7}">
+                        <div class="img_wrapper_grid">
+                            <a th:href="${picture.getUrl()}">
+                                <img th:src="${picture.getUrl()}" class="img-album-detail" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4" style="margin: auto;" th:each="picture,pictureStat: ${pictures}"
+                        th:if="${pictureStat.index >=7}">
+                        <div class="img_wrapper_grid">
+                            <a th:href="${picture.getUrl()}">
+                                <img th:src="${picture.getUrl()}" class="img-album-detail" alt="">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- END / SUB BANNER -->
+        </div>
 
         <!-- GALLERY -->
         <section class="section_page-gallery">
             <div class="container">
-                <div class="gallery gallery-3">
-                    <h1 class="">
-                        <a th:href="@{${type} == 'studio' ? '/photographer/' + by.fullName: '/studio/' + by.fullName}">
-                            <span style="font-weight: lighter; font-size: small; font-style: italic;">By </span>
-                            &nbsp;
-                            <span th:text="${by.fullName}"
-                                  style="font-weight: bolder; text-transform: uppercase;"></span>
-                        </a>
-                    </h1>
-
-                    <!-- GALLERY CONTENT -->
-                    <div class="gallery-content">
-                        <div class="row">
-                            <div class="gallery-isotope col-4" id="img-wrapper">
-
-                                <!-- ITEM SIZE -->
-                                <div class="item-size"></div>
-                                <!-- END / ITEM SIZE -->
-
-                                <div class="item-isotope" th:each="picture,pictureStat: ${pictures}"
-                                     th:classappend="${pictureStat.index == 0 or pictureStat.index == 7} ? larger">
-                                    <div class="gallery_item">
-                                        <a th:href="${picture.getUrl()}" class="mfp-image">
-                                            <img th:src="${picture.getUrl()}" alt="">
-                                        </a>
-                                        <!--                                            <h6 class="text" th:text="${album.name}"></h6>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- GALLERY CONTENT -->
-
-                </div>
                 <div class="col-md-12 m-t-30">
                     <div style="text-align: center">
                         <h2>RATING</h2>
@@ -100,7 +146,7 @@
                     <div class='success-box hidden'>
                         <div class='clearfix'></div>
                         <img alt='tick image' width='32'
-                             src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K'/>
+                            src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K' />
                         <div class='text-message'></div>
                         <div class='clearfix'></div>
                     </div>
@@ -134,28 +180,29 @@
         <!-- END / GALLERY -->
     </div>
     <script th:inline="javascript">
-        var newsId =  [[${album.getId()}]]
-        var currentRole = [[${#authentication.getAuthorities().iterator().next().getAuthority()}]];
-        var currentUser = [[${#authentication.getName()}]]
+        var newsId = [[${ album.getId() }]]
+        var currentRole = [[${ #authentication.getAuthorities().iterator().next().getAuthority() }]];
+        var currentUser = [[${ #authentication.getName() }]]
         var postType = "album";
     </script>
     <script th:src="@{/js/user/comment.js}"></script>
     <script th:src="@{/js/user/rating.js}"></script>
-</div>
-<script th:src="@{/js/functions.js}"></script>
+    </div>
+    <script th:src="@{/js/functions.js}"></script>
 
-<script type="text/javascript" th:src="@{/lotus/js/lib/jquery-ui.min.js}"></script>
-<script type="text/javascript" th:src="@{/lotus/js/lib/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/lotus/js/lib/isotope.pkgd.min.js}"></script>
-<script type="text/javascript" th:src="@{/lotus/js/lib/jquery.parallax-1.1.3.js}"></script>
-<script type="text/javascript" th:src="@{/lotus/js/lib/jquery.magnific-popup.min.js}"></script>
-<script type="text/javascript" th:src="@{/lotus/js/scripts.js}"></script>
-<script>
-    $('.item-isotope').each(function () {
-        var cw = $(this).find('img').width();
-        $(this).find('img').css({'height': cw + 'px'});
-    });
-</script>
+    <script type="text/javascript" th:src="@{/lotus/js/lib/jquery-ui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/lotus/js/lib/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/lotus/js/lib/isotope.pkgd.min.js}"></script>
+    <script type="text/javascript" th:src="@{/lotus/js/lib/jquery.parallax-1.1.3.js}"></script>
+    <script type="text/javascript" th:src="@{/lotus/js/lib/jquery.magnific-popup.min.js}"></script>
+    <script type="text/javascript" th:src="@{/lotus/js/scripts.js}"></script>
+    <script>
+        $('.item-isotope').each(function () {
+            var cw = $(this).find('img').width();
+            $(this).find('img').css({ 'height': cw + 'px' });
+        });
+    </script>
 
 </body>
+
 </html>

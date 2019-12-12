@@ -114,9 +114,6 @@ public class AlbumAndPictureSeeder {
         album.setName("Ảnh cưới Trung Quốc");
         album.setDescription("");
         pictureSet = new HashSet<>();
-        picture = new Picture();
-        picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/09/41.jpg");
-        pictureSet.add(picture);
         
         picture = new Picture();
         picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/09/35.jpg");
@@ -154,6 +151,10 @@ public class AlbumAndPictureSeeder {
         picture.setUrl("https://salomonstudio.com/wp-content/uploads/2018/12/39.jpg");
         pictureSet.add(picture);
 
+        picture = new Picture();
+        picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/09/41.jpg");
+        pictureSet.add(picture);
+
         album.setThumbnail(picture.getUrl());
         album.setPictureSet(pictureSet);
         albumList.add(album);
@@ -163,10 +164,7 @@ public class AlbumAndPictureSeeder {
         album.setName("Ảnh cưới Hàn Quốc");
         album.setDescription("");
         pictureSet = new HashSet<>();
-        picture = new Picture();
-        picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/09/23.jpg");
-        pictureSet.add(picture);
-        
+
         picture = new Picture();
         picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/09/12.jpg");
         pictureSet.add(picture);
@@ -202,6 +200,11 @@ public class AlbumAndPictureSeeder {
         picture = new Picture();
         picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/09/6.jpg");
         pictureSet.add(picture);
+
+        picture = new Picture();
+        picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/09/23.jpg");
+        pictureSet.add(picture);
+        
 
         album.setThumbnail(picture.getUrl());
         album.setPictureSet(pictureSet);
@@ -266,10 +269,6 @@ public class AlbumAndPictureSeeder {
         pictureSet.add(picture);
 
         picture = new Picture();
-        picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/05/C2A7080.png");
-        pictureSet.add(picture);
-
-        picture = new Picture();
         picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/05/C2A7026.jpg");
         pictureSet.add(picture);
 
@@ -299,6 +298,10 @@ public class AlbumAndPictureSeeder {
 
         picture = new Picture();
         picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/05/1U8A8508.jpg");
+        pictureSet.add(picture);
+
+        picture = new Picture();
+        picture.setUrl("https://salomonstudio.com/wp-content/uploads/2019/05/C2A7080.png");
         pictureSet.add(picture);
 
         album.setThumbnail(picture.getUrl());

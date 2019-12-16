@@ -21,13 +21,13 @@ public class RankController {
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public String list(Model model){
         model.addAttribute("ranks", rankService.getList());
-        return "manager/admin/rank/list";
+        return "owner/admin/rank/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/create")
     public String create(Model model) {
         model.addAttribute("rank", new Rank());
-        return "manager/admin/rank/create";
+        return "owner/admin/rank/create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -35,7 +35,7 @@ public class RankController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("rank", rank);
-            return "manager/admin/rank/create";
+            return "owner/admin/rank/create";
         }
 
         rankService.create(rank);
@@ -50,7 +50,7 @@ public class RankController {
             return "error/404";
         }
         model.addAttribute("rank", rank);
-        return "manager/admin/rank/edit";
+        return "owner/admin/rank/edit";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
@@ -73,7 +73,7 @@ public class RankController {
             return "/404";
         }
         model.addAttribute("rank", rank);
-        return "manager/admin/rank/detail";
+        return "owner/admin/rank/detail";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}")
@@ -84,6 +84,6 @@ public class RankController {
         }
         rank.setStatus(0);
         rankService.update(rank);
-        return "manager/admin/rank/list";
+        return "owner/admin/rank/list";
     }
 }

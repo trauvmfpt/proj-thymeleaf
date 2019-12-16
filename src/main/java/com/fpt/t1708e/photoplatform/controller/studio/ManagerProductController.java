@@ -30,7 +30,7 @@ import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "manager/product")
+@RequestMapping(value = "owner/product")
 public class ManagerProductController {
 
 	@Autowired
@@ -65,7 +65,7 @@ public class ManagerProductController {
 		model.addAttribute("product", new Product());
 		model.addAttribute("categories", categoryService.categories());
 		model.addAttribute("albums", albums);
-		return "manager/studio/product/create";
+		return "owner/studio/product/create";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -73,7 +73,7 @@ public class ManagerProductController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("product", product);
-			return "manager/studio/product/create";
+			return "owner/studio/product/create";
 		}
 
 		product.setCategory(categoryService.getCategoryById(product.getCategory().getId()));
@@ -85,7 +85,7 @@ public class ManagerProductController {
 		}
 
 		productService.create(product);
-        return "redirect:manager/product/list";
+        return "redirect:owner/product/list";
 //		return "ok";
 	}
 
@@ -105,7 +105,7 @@ public class ManagerProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("categories", categoryService.categories());
 		
-		return "manager/studio/product/edit";
+		return "owner/studio/product/edit";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "edit/{id}")
@@ -133,7 +133,7 @@ public class ManagerProductController {
 			product.setCategory(categoryService.getCategoryById(updateProduct.getCategory().getId()));
 		}
 		productService.update(product);
-        return "redirect:manager/product/list";
+        return "redirect:owner/product/list";
 //		return "ok";
 	}
 //    For admin/studio/photographer
@@ -142,7 +142,7 @@ public class ManagerProductController {
 	public String adminList(Model model){
 		List<Product> products = productService.products();
         model.addAttribute("products", products);
-		return "manager/studio/product/list";
+		return "owner/studio/product/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
@@ -152,7 +152,7 @@ public class ManagerProductController {
 			return "/404";
 		}
 		model.addAttribute("product", product);
-		return "manager/studio/product/detail";
+		return "owner/studio/product/detail";
 	}
 
 }

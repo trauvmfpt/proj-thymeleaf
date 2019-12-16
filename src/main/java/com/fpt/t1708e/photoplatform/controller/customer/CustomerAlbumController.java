@@ -32,7 +32,7 @@ public class CustomerAlbumController {
             }
             return "customer/album/detail";
         }
-        return "manager/admin/error/404";
+        return "owner/admin/error/404";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")

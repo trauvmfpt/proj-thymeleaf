@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{manager/layout/admin-layout}"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{owner/layout/admin-layout}"
     xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -18,7 +18,7 @@
 
                                 <h4 class="mt-0 header-title">Create product</h4>
 
-                                <form th:object="${album}" action="/manager/album/create"
+                                <form th:object="${album}" action="/owner/album/create"
                                     method="post">
                                     <div class="form-group">
                                         <label>Name</label>

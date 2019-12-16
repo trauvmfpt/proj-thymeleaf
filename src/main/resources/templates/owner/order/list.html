@@ -39,7 +39,7 @@
 <body>
 <div class="super_container">
     <!--admin-header.html  that's here  -->
-    <div th:replace="manager/layout/admin-header :: admin-header"></div>
+    <div th:replace="owner/layout/admin-header :: admin-header"></div>
 
     <div layout:fragment="admin-content">
         <section layout:fragment="admin-content">
@@ -84,7 +84,7 @@
                                         <td th:text="${order.getCreatedAt()}"></td>
                                         <td th:text="${order.getStatus()}"></td>
                                         <td>
-                                            <a th:href="@{'/manager/order/'+${order.id}}" class="btn btn-success">Detail</a>
+                                            <a th:href="@{'/owner/order/'+${order.id}}" class="btn btn-success">Detail</a>
                                             <span th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_5')}">
                                                 <a th:if="${order.getStatus() != 3 && order.getStatus() != 2}" href="#" class="btn btn-success waves-effect waves-light btn-confirm-order">Confirm</a>
                                                 <a th:if="${order.getStatus() == 3 || order.getStatus() == 2}" href="#" class="btn btn-success waves-effect waves-light btn-confirm-order"><i class="dripicons-checkmark"></i></a>
@@ -112,7 +112,7 @@
             <!-- end wrapper -->
         </section>
     </div>
-    <div th:replace="manager/layout/admin-footer :: admin-footer"></div>
+    <div th:replace="owner/layout/admin-footer :: admin-footer"></div>
 </div>
 
 <script th:src="@{/admin/js/jquery.min.js}"></script>

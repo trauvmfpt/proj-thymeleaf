@@ -11,7 +11,7 @@
                     <!-- Logo container-->
                     <div class="logo">
                         <!-- Text Logo -->
-                        <a th:href="@{/manager}" class="logo">
+                        <a th:href="@{/owner}" class="logo">
                             FONIK
                         </a>
                         <!-- Image Logo -->
@@ -111,13 +111,13 @@
                         <ul class="navigation-menu">
 
                             <li class="has-submenu">
-                                <a th:href="@{/manager}"><i class="dripicons-device-desktop"></i>Dashboard</a>
+                                <a th:href="@{/owner}"><i class="dripicons-device-desktop"></i>Dashboard</a>
                             </li>
 
                             <li class="has-submenu">
-                                <a href="/manager/order/list"><i class="dripicons-to-do"></i>Order <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                                <a href="/owner/order/list"><i class="dripicons-to-do"></i>Order <i class="mdi mdi-chevron-down mdi-drop"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="/manager/order/list">List order</a></li>
+                                    <li><a href="/owner/order/list">List order</a></li>
                                 </ul>
                             </li>
 
@@ -138,21 +138,24 @@
                             <li class="has-submenu">
                                 <a href="#"><i class="dripicons-photo-group"></i>Album <i class="mdi mdi-chevron-down mdi-drop"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#">List album</a></li>
+                                    <li><a href="/owner/album/list">List album</a></li>
+                                    <li><a href="/owner/album/create">Add album</a></li>
                                 </ul>
                             </li>
 
                             <li class="has-submenu">
                                 <a href="#"><i class="dripicons-suitcase"></i>Product <i class="mdi mdi-chevron-down mdi-drop"></i></a>
                                 <ul class="submenu">
-                                    <li><a th:href="@{/product/admin/list}">List product</a></li>
+                                    <li><a th:href="@{/owner/product/list}">List product</a></li>
+                                    <li><a th:href="@{/owner/product/create}">Add product</a></li>
                                 </ul>
                             </li>
 
                             <li class="has-submenu">
                                 <a href="#"><i class="dripicons-ticket"></i>Promotion <i class="mdi mdi-chevron-down mdi-drop"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#">List promotion</a></li>
+                                    <li><a th:href="@{/owner/promotion/list}">List promotion</a></li>
+                                    <li><a th:href="@{/owner/promotion/add}">List promotion</a></li>
                                 </ul>
                             </li>
 

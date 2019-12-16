@@ -32,7 +32,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/manager")
+@RequestMapping(value = "/owner")
 public class DashboardController {
     @Autowired
     OrderProductService orderProductService;
@@ -76,7 +76,7 @@ public class DashboardController {
                 model.addAttribute("processingOrderDetail", processingOrders.size());
             }
             model.addAttribute("monthlyRevenue", monthlyRevenue);
-            return "manager/dashboard";
+            return "owner/dashboard";
         }
         return "error/other";
     }

@@ -47,7 +47,7 @@ public class StudioController {
 		}
 		model.addAttribute("info", studioInfo);
 		model.addAttribute("categories", categories);
-		return "manager/studio/studio-photographer/detail";
+		return "owner/studio/studio-photographer/detail";
 	}
 
 }

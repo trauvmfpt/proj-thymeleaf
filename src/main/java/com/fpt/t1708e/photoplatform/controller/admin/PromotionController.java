@@ -21,7 +21,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "manager/promotion")
+@RequestMapping(value = "owner/promotion")
 public class PromotionController {
 	@Autowired
 	PromotionService promotionService;
@@ -37,7 +37,7 @@ public class PromotionController {
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
 	public String list(Model model){
 		model.addAttribute("promotions", promotionService.promotions());
-		return "manager/admin/promotion/list";
+		return "owner/admin/promotion/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/create")
@@ -48,7 +48,7 @@ public class PromotionController {
 		model.addAttribute("promotion", new Promotion());
 		model.addAttribute("categories", categoryService.categories());
 		model.addAttribute("localDateTime", LocalDateTime.now());
-		return "manager/admin/promotion/create";
+		return "owner/admin/promotion/create";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -57,7 +57,7 @@ public class PromotionController {
 						@RequestParam("expiredAtString") String expiredAtString) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("promotion", promotion);
-			return "manager/admin/promotion/create";
+			return "owner/admin/promotion/create";
 		}
 		LocalDateTime date = LocalDateTime.parse(expiredAtString);
 		long expiredAt = date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -94,7 +94,7 @@ public class PromotionController {
 		model.addAttribute("selectedCategory", selectedCategory.getId());
 		model.addAttribute("currentExpiredAt", LocalDateTime.ofInstant(Instant.ofEpochMilli(promotion.getExpiredAt()),
 				TimeZone.getDefault().toZoneId()));
-		return "manager/admin/promotion/edit";
+		return "owner/admin/promotion/edit";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
@@ -141,7 +141,7 @@ public class PromotionController {
 		}
 		model.addAttribute("promotion", promotion);
 		model.addAttribute("products", promotion.getProductSet());
-		return "manager/admin/promotion/detail";
+		return "owner/admin/promotion/detail";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/delete/{id}")
@@ -152,6 +152,6 @@ public class PromotionController {
 		}
 		promotion.setStatus(0);
 		promotionService.update(promotion);
-		return "manager/admin/promotion/list";
+		return "owner/admin/promotion/list";
 	}
 }

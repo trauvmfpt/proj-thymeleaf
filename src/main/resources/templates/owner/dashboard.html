@@ -27,7 +27,7 @@
 
 <div class="super_container">
     <!--admin-header.html  that's here  -->
-    <div th:replace="manager/layout/admin-header :: admin-header"></div>
+    <div th:replace="owner/layout/admin-header :: admin-header"></div>
 
     <div layout:fragment="admin-content">
         <section>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-md-6 col-xl-4">
                             <div class="card text-center m-b-30">
-                                <a href="/manager/order/list">
+                                <a href="/owner/order/list">
                                     <div class="mb-2 card-body text-muted" >
                                         <h3 class="text-purple" th:if="${processingOrderDetail != null}" th:text="${processingOrderDetail}"></h3>
                                         <h3 class="text-purple" th:if="${processingOrderDetail == null}">No Waiting Order</h3>
@@ -141,7 +141,7 @@
                                                 <p class="m-0 text-muted font-14">Date</p>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/manager/order/'+${order.id}}" class="btn btn-success">Detail</a>
+                                                <a th:href="@{'/owner/order/'+${order.id}}" class="btn btn-success">Detail</a>
                                             </td>
                                         </tr>
 
@@ -200,7 +200,7 @@
     </div>
     <!-- end wrapper -->
     </section>
-    <div th:replace="manager/layout/admin-footer :: admin-footer"></div>
+    <div th:replace="owner/layout/admin-footer :: admin-footer"></div>
 
 
 </div>

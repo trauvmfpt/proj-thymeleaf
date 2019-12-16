@@ -122,7 +122,8 @@
                                     </div>
 
                                     <div class="checkout_cartinfo">
-                                        <p><span>Order Total:</span> <span class="color-red order-total" th:text="${totalPrice}">(total price)</span>
+                                        <p><span>Order Total:</span>
+                                            <span class="color-red order-total" th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}">(total price)</span>
                                         </p>
                                     </div>
 

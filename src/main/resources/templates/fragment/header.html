@@ -145,7 +145,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 
-                            <a class="dropdown-item" href="/manager" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == false}"><i class="dripicons-document text-muted"></i>
+                            <a class="dropdown-item" href="/owner" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == false}"><i class="dripicons-document text-muted"></i>
                                 Manage</a>
                             <a class="dropdown-item" href="/history" th:if="${#authentication.getAuthorities().iterator().next().getAuthority().equals('ROLE_1') == true}"><i class="dripicons-document text-muted"></i>
                                 History Order</a>

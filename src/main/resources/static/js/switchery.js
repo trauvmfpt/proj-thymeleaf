@@ -1475,7 +1475,7 @@ Events.prototype.bind = function(event, method){
 
 /**
  * Unbind a single binding, all bindings for `event`,
- * or all bindings within the manager.
+ * or all bindings within the owner.
  *
  * Examples:
  *
